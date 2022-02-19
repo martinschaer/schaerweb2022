@@ -1,0 +1,17 @@
+{
+  "name": "schaerweb",
+  "version": "1.0.0",
+  "description": "Martin Schaer website",
+  "author": "Martin Schaer",
+  "license": "ISC",
+  "source": "src/index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "start": "parcel --open",
+    "build": "rm -rf dist && parcel build"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.3.2",
+    "parcel": "^2.3.2"
+  }
+}
