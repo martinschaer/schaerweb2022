@@ -1,0 +1,19 @@
+$color-prefix: --color-;
+$colors: (
+  dark: #001219,
+  petrol: #005f73,
+  teal: #0a9396,
+  light-green: #94d2bd,
+  light: #e9d8a6,
+  yellow: #ee9b00,
+  carrot: #ca6702,
+  orange: #bb3e03,
+  red: #ae2012,
+  vivid-auburn: #9b2226,
+);
+
+:root {
+  @each $name, $color in $colors {
+    #{$color-prefix}#{"" + $name}: $color;
+  }
+}

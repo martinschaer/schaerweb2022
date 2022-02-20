@@ -19,6 +19,26 @@ $layout-titlebar-border-size: 1px;
   left: 0;
   z-index: 1000;
   border-bottom: $layout-titlebar-border-size solid var(--fg);
+
+  & > * {
+    margin: $spacer;
+  }
+
+  nav a {
+    margin: 0 $spacer * 0.5;
+    text-decoration: none;
+    color: var(--accent);
+  }
+
+  .brand {
+    font-weight: bolder;
+  }
+
+  nav a,
+  .brand a {
+    text-decoration: none;
+    color: var(--accent);
+  }
 }
 
 .layout__main {

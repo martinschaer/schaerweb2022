@@ -1,9 +1,11 @@
 @import 'variables';
+@import 'colors';
 @import 'layout';
 
 :root {
-  --fg: #333;
-  --bg: #fff;
+  --fg: var(--color-teal);
+  --bg: var(--color-petrol);
+  --accent: var(--color-yellow);
 }
 
 html,
