@@ -1,0 +1,12 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "json",
+    "css",
+    "scss",
+    "html"
+  ],
+  "eslint.autoFixOnSave": true,
+  "stylelintplus.enable": true
+}

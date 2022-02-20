@@ -5,6 +5,7 @@ $layout-titlebar-border-size: 1px;
   display: flex;
   flex-direction: column;
   min-height: 100%;
+
   --layout-titlebar-height: #{$layout-titlebar-height};
 }
 

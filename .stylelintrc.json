@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-standard-scss",
+    "stylelint-config-prettier"
+  ],
+  "rules": {
+    "selector-class-pattern": [
+      "^([a-z][a-z0-9]*)(-[a-z0-9]+)*(__[a-z0-9]+)?(-[a-z0-9]+)*(--[a-z0-9]+)?(-[a-z0-9]+)*$",
+      {
+        "message": "Expected class selector to comply with the BEM naming convention"
+      }
+    ]
+  }
+}

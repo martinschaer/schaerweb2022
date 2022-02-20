@@ -1,3 +1,4 @@
-import "./styles/main.scss";
+import './styles/main.scss'
 
-console.log("Hello World");
+// eslint-disable-next-line no-console
+console.log('Hello World')
