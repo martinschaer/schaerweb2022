@@ -24,6 +24,10 @@ $layout-titlebar-border-size: 1px;
     margin: $spacer;
   }
 
+  nav {
+    margin-left: auto;
+  }
+
   nav a {
     margin: 0 $spacer * 0.5;
     text-decoration: none;
