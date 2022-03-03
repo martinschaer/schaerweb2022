@@ -1,19 +1,35 @@
 @import 'variables';
 @import 'colors';
 @import 'layout';
+@import 'container';
 
 :root {
-  --fg: var(--color-teal);
-  --bg: var(--color-petrol);
+  --fg: var(--color-light);
+  --bg: var(--color-dark);
   --accent: var(--color-yellow);
+  --paper: var(--color-darker);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --fg: var(--color-dark);
+    --bg: var(--color-light);
+    --accent: var(--color-yellow);
+    --paper: var(--color-lighter);
+  }
 }
 
 html,
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Fira Code', Menlo, 'Courier New', Courier, monospace;
   height: 100%;
   margin: 0;
   padding: 0;
   color: var(--fg);
   background-color: var(--bg);
+}
+
+.paper {
+  background-color: var(--paper);
+  color: var(--fg);
 }
