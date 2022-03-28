@@ -15,12 +15,20 @@
     "format:check": "prettier --check \"src/**/*\"",
     "format": "prettier --write \"src/**/*\""
   },
+  "dependencies": {
+    "@types/p5": "^1.4.1",
+    "matter-js": "^0.18.0",
+    "p5": "^1.4.1",
+    "poly-decomp": "^0.3.0"
+  },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.3.2",
+    "@types/matter-js": "^0.17.7",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "eslint": "^8.9.0",
     "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-import": "^2.25.4",
     "parcel": "^2.3.2",
