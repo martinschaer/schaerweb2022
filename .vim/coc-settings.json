@@ -8,5 +8,6 @@
     "html"
   ],
   "eslint.autoFixOnSave": true,
-  "stylelintplus.enable": true
+  "stylelintplus.enable": true,
+  "javascript.suggestionActions.enabled": false
 }
