@@ -166,6 +166,58 @@ export default class Game {
     )
   }
 
+  onChangeCircuit() {
+    this.circuit = this.circuits[this.$circuit.value]
+    this.loadData()
+    this.car.reset(
+      this.circuit.car.x * this.spacer,
+      this.circuit.car.y * this.spacer,
+      this.circuit.car.a
+    )
+    this.createElements()
+    this.$circuit.blur()
+  }
+
+  onCollisionStart(event: Matter.IEventCollision<Matter.Engine>) {
+    event.pairs.forEach((pair) => {
+      if (
+        (pair.bodyA.label === 'car' && pair.bodyB.label.includes('check')) ||
+        (pair.bodyA.label.includes('check') && pair.bodyB.label === 'car')
+      ) {
+        const check =
+          pair.bodyA.label === 'car' ? pair.bodyB.label : pair.bodyA.label
+        const checkVal = parseInt(check.split(' ')[1], 10)
+        // eslint-disable-next-line no-bitwise
+        this.checks |= 1 << (checkVal - 1)
+      }
+      if (
+        (pair.bodyA.label === 'car' && pair.bodyB.label === 'finish') ||
+        (pair.bodyA.label === 'finish' && pair.bodyB.label === 'car')
+      ) {
+        const now = this.engine.timing.timestamp
+        if (this.checks === 2 ** this.checkpoints.length - 1) {
+          if (this.lapStart !== null) {
+            this.lastLap = now - this.lapStart
+            if (this.bestLap === null) {
+              this.bestLap = this.lastLap
+              this.ghost = [...this.tempGhost]
+              this.p5Instance.storeItem(`lrg-${this.circuit.key}`, this.ghost)
+            } else if (this.lastLap < this.bestLap) {
+              this.bestLap = this.lastLap
+              this.ghost = [...this.tempGhost]
+              this.p5Instance.storeItem(`lrg-${this.circuit.key}`, this.ghost)
+              this.p5Instance.storeItem(`lr-${this.circuit.key}`, this.bestLap)
+              this.audio.play()
+            }
+          }
+        }
+        this.lapStart = now
+        this.checks = 0
+        this.tempGhost = []
+      }
+    })
+  }
+
   /* static getInstance() {
     if (!game) game = new Game()
     return game
@@ -180,8 +232,6 @@ export default class Game {
       )
       this.canvas.parent(this.$el)
     }
-    // eslint-disable-next-line no-console
-    console.log(this.canvas)
 
     this.loadData()
 
@@ -198,17 +248,7 @@ export default class Game {
       opt.selected = key === this.circuit.key
       this.$circuit.appendChild(opt)
     })
-    this.$circuit.addEventListener('change', () => {
-      this.circuit = this.circuits[this.$circuit.value]
-      this.loadData()
-      this.car.reset(
-        this.circuit.car.x * this.spacer,
-        this.circuit.car.y * this.spacer,
-        this.circuit.car.a
-      )
-      this.createElements()
-      this.$circuit.blur()
-    })
+    this.$circuit.addEventListener('change', () => this.onChangeCircuit())
 
     this.audio = this.p5Instance.createAudio(newRecordAudioURL)
 
@@ -232,67 +272,28 @@ export default class Game {
     this.createElements()
 
     // events
-    Matter.Events.on(this.engine, 'collisionStart', (event) => {
-      event.pairs.forEach((pair) => {
-        if (
-          (pair.bodyA.label === 'car' && pair.bodyB.label.includes('check')) ||
-          (pair.bodyA.label.includes('check') && pair.bodyB.label === 'car')
-        ) {
-          const check =
-            pair.bodyA.label === 'car' ? pair.bodyB.label : pair.bodyA.label
-          const checkVal = parseInt(check.split(' ')[1], 10)
-          // eslint-disable-next-line no-bitwise
-          this.checks |= 1 << (checkVal - 1)
-        }
-        if (
-          (pair.bodyA.label === 'car' && pair.bodyB.label === 'finish') ||
-          (pair.bodyA.label === 'finish' && pair.bodyB.label === 'car')
-        ) {
-          const now = this.engine.timing.timestamp
-          if (this.checks === 2 ** this.checkpoints.length - 1) {
-            if (this.lapStart !== null) {
-              this.lastLap = now - this.lapStart
-              if (this.bestLap === null) {
-                this.bestLap = this.lastLap
-                this.ghost = [...this.tempGhost]
-                this.p5Instance.storeItem(`lrg-${this.circuit.key}`, this.ghost)
-              } else if (this.lastLap < this.bestLap) {
-                this.bestLap = this.lastLap
-                this.ghost = [...this.tempGhost]
-                this.p5Instance.storeItem(`lrg-${this.circuit.key}`, this.ghost)
-                this.p5Instance.storeItem(
-                  `lr-${this.circuit.key}`,
-                  this.bestLap
-                )
-                this.audio.play()
-              }
-            }
-          }
-          this.lapStart = now
-          this.checks = 0
-          this.tempGhost = []
-        }
-      })
-    })
+    Matter.Events.on(this.engine, 'collisionStart', (event) =>
+      this.onCollisionStart(event)
+    )
 
     // create renderer
     // TODO: render matter en otro canvas
     /*
-  if (!this.is3D) {
-    this.render = Matter.Render.create({
-      canvas: cnv.elt,
-      engine: this.engine,
-      options: {
-        width: this.winW,
-        height: this.winH,
-        showVelocity: true,
-        showPositions: true,
-        showBounds: true
-      }
-    })
-    Matter.Render.run(this.render)
-  }
-  */
+    if (!this.is3D) {
+      this.render = Matter.Render.create({
+        canvas: cnv.elt,
+        engine: this.engine,
+        options: {
+          width: this.winW,
+          height: this.winH,
+          showVelocity: true,
+          showPositions: true,
+          showBounds: true
+        }
+      })
+      Matter.Render.run(this.render)
+    }
+    */
   }
 
   draw() {
@@ -352,28 +353,16 @@ export default class Game {
       )
 
       /*
-      this.camera.centerX =
-        this.car.body.position.x - this.circuit.stand.x * this.spacer
-      this.camera.centerY =
-        this.car.body.position.y - this.circuit.stand.y * this.spacer
-      this.camera.centerZ = 0
-      this.camera.setPosition(0, 0, this.spacer * 4)
-      this.camera.upX = 0
-      this.camera.upY = 0
-      this.camera.upZ = -1
+      this.camera.camera(
+        this.car.body.position.x,
+        this.car.body.position.y,
+        20,
+        this.car.body.position.x + Math.cos(this.car.body.angle + PI / 2) * 10,
+        this.car.body.position.y + Math.sin(this.car.body.angle + PI / 2) * 10,
+        20,
+        0, 0, -1
+      )
       */
-
-      /*
-    this.camera.camera(
-      this.car.body.position.x,
-      this.car.body.position.y,
-      20,
-      this.car.body.position.x + Math.cos(this.car.body.angle + PI / 2) * 10,
-      this.car.body.position.y + Math.sin(this.car.body.angle + PI / 2) * 10,
-      20,
-      0, 0, -1
-    )
-    */
     }
 
     this.bounds.forEach((bound) => {
@@ -445,11 +434,6 @@ export default class Game {
   }
 
   run() {
-    // window.setup = this.setup
-    // window.draw = this.draw
-    // window.preload = this.preload
-    // window.windowResized = this.windowResized
-
     // eslint-disable-next-line new-cap
     this.p5Instance = new p5(this.makeSketch())
   }
