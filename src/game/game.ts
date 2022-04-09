@@ -5,7 +5,6 @@ import carModelURL from 'url:../../assets/car.obj'
 import newRecordAudioURL from 'url:../../assets/newrecord.m4a'
 
 import seoul from './circuits/seoul.json'
-import { ICircuit, IGhost, IBound } from './game.d'
 import Checkpoint from './Checkpoint'
 import Car from './Car'
 import Corner from './Corner'
@@ -220,7 +219,7 @@ export default class Game {
 
     // create an engine
     this.engine = Matter.Engine.create()
-    this.engine.world.gravity.scale = 0
+    this.engine.gravity.scale = 0
 
     // create car
     this.car = new Car(this, {

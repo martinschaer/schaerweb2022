@@ -1,22 +1,27 @@
-export interface IPosition {
+declare module 'url:*' {
+  const value: string
+  export default value
+}
+
+interface IPosition {
   x: number
   y: number
   a?: number
 }
 
-export interface IObstacle extends IPosition {
+interface IObstacle extends IPosition {
   x: number
   y: number
   d: number
   c?: string
 }
 
-export interface ICorner extends IPosition {
+interface ICorner extends IPosition {
   r: number
   c?: string
 }
 
-export interface IWall {
+interface IWall {
   x1: number
   y1: number
   x2: number
@@ -24,18 +29,18 @@ export interface IWall {
   c?: string
 }
 
-export interface ICheckpoint extends IPosition {
+interface ICheckpoint extends IPosition {
   w: number
   c?: string
   label: string
 }
 
-export interface IBound {
+interface IBound {
   show: () => void
   remove: () => void
 }
 
-export interface ICircuit {
+interface ICircuit {
   key: string
   name: string
   car: IPosition
@@ -47,6 +52,6 @@ export interface ICircuit {
   finish: ICheckpoint
 }
 
-export interface IGhost extends IPosition {
+interface IGhost extends IPosition {
   t: number
 }
