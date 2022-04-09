@@ -1,6 +1,5 @@
 import Matter from 'matter-js'
 import p5 from 'p5'
-import { IObstacle } from './game.d'
 
 type Game = {
   engine: { world: any }
@@ -12,6 +11,7 @@ type Game = {
 const THICKNESS = 20
 const SPACER = 100
 const HEIGHT = 10
+const CYLINDER_DETAIL_X = 16 // originally it was 20
 
 export default class Obstacle {
   game: Game
@@ -50,7 +50,7 @@ export default class Obstacle {
     this.game.p5Instance.noStroke()
     if (this.game.is3D) {
       this.game.p5Instance.rotateX(p5.prototype.PI / 2)
-      this.game.p5Instance.cylinder(this.d / 2, HEIGHT, 20)
+      this.game.p5Instance.cylinder(this.d / 2, HEIGHT, CYLINDER_DETAIL_X)
     } else {
       this.game.p5Instance.circle(0, 0, this.d)
     }

@@ -1,6 +1,5 @@
 import Matter from 'matter-js'
 import p5 from 'p5'
-import { ICorner } from './game.d'
 
 type Game = {
   engine: { world: any }
@@ -15,7 +14,7 @@ const SPACER = 100
 const createCircleVertices = (
   r: number,
   deg = 90,
-  faces = 10,
+  faces = 5, // originally it was 10
   thickness = THICKNESS
 ) => {
   const hT = thickness / 2

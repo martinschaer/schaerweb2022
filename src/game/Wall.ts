@@ -1,6 +1,5 @@
 import Matter from 'matter-js'
 import p5 from 'p5'
-import { IBound, IWall } from './game.d'
 
 type Game = {
   engine: { world: any }

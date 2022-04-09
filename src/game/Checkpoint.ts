@@ -1,6 +1,5 @@
 import Matter from 'matter-js'
 import p5 from 'p5'
-import { ICheckpoint } from './game.d'
 
 const SPACER = 100
 const THICKNESS = 10
