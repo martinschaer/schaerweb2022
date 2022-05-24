@@ -1,14 +1,14 @@
 {
   "name": "schaerweb",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Martin Schaer website",
   "author": "Martin Schaer",
   "license": "ISC",
   "source": "src/index.html",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "start": "parcel --open",
-    "build": "rm -rf dist && parcel build",
+    "start": "parcel public/**/*.html --open",
+    "build": "rm -rf dist && parcel build public/**/*.html",
     "lint:style": "stylelint \"src/**/*.?(s)css\"",
     "lint:es": "eslint \"src/**/*.{j,t}s\"",
     "lint": "npm run lint:es & npm run lint:style",
