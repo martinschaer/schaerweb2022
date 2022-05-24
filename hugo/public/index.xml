@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Martin Schaer Web</title>
+    <link>https://www.schaerweb.com/</link>
+    <description>Recent content on Martin Schaer Web</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 May 2022 19:20:18 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Drones</title>
+      <link>https://www.schaerweb.com/notes/drones/</link>
+      <pubDate>Mon, 23 May 2022 19:20:18 -0600</pubDate>
+      
+      <guid>https://www.schaerweb.com/notes/drones/</guid>
+      <description>Drones Hello World</description>
+    </item>
+    
+  </channel>
+</rss>
