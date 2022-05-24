@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <title>Martin Schaer Web</title>
+  {{ if .IsHome }}
+  <script type="module" src="/src/game.js"></script>
+  {{ else }}
   <script type="module" src="/src/main.js"></script>
+  {{ end }}
 </head>
+
 <body>
   <div class="layout__titlebar">
     <div class="brand">
