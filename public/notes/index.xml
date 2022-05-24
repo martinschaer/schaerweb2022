@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Notes on Martin Schaer Web</title>
+    <link>https://www.schaerweb.com/notes/</link>
+    <description>Recent content in Notes on Martin Schaer Web</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 May 2022 19:20:18 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/notes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Drones</title>
+      <link>https://www.schaerweb.com/notes/drones/</link>
+      <pubDate>Mon, 23 May 2022 19:20:18 -0600</pubDate>
+      
+      <guid>https://www.schaerweb.com/notes/drones/</guid>
+      <description>Drones toy drone (for practicing)  emacs tinyhawk 3  $174: https://www.amazon.com/Tinyhawk-Racing-Outdoor-Indoor-Durable/dp/B09LPQJ7Z8/ref=sr_1_1_sspa?crid=DAI6VBHFMEYQ&amp;amp;keywords=tinyhawk&amp;amp;qid=1652998902&amp;amp;sprefix=tinyhawk,aps,158&amp;amp;sr=8-1-spons&amp;amp;psc=1    controllers  FrSky Taranis Q X7  battery   RadioMaster TX16S $200 (sim port, hall gimbal, OpenTX)  visor  fat shark attitude V5 kit (2 antennas, DVR, Fan) $300+ far shark v6  Amazon    frame  5&amp;quot; frame  Amazon    flight controller motors propellers camera  runcam phoenix 2 (FOV 155)  amazon: https://smile.</description>
+    </item>
+    
+  </channel>
+</rss>
