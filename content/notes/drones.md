@@ -4,13 +4,10 @@ date: 2022-05-23T19:20:18-06:00
 draft: false
 ---
 
-Drones
-======
-
 ## toy drone (for practicing)
 
 - emacs tinyhawk 3
-  - $174: https://www.amazon.com/Tinyhawk-Racing-Outdoor-Indoor-Durable/dp/B09LPQJ7Z8/ref=sr_1_1_sspa?crid=DAI6VBHFMEYQ&keywords=tinyhawk&qid=1652998902&sprefix=tinyhawk,aps,158&sr=8-1-spons&psc=1
+  - $174: [Amazon](https://www.amazon.com/Tinyhawk-Racing-Outdoor-Indoor-Durable/dp/B09LPQJ7Z8/ref=sr_1_1_sspa?crid=DAI6VBHFMEYQ&keywords=tinyhawk&qid=1652998902&sprefix=tinyhawk,aps,158&sr=8-1-spons&psc=1)
 
 ## controllers
 
@@ -38,7 +35,7 @@ Drones
 ## camera
 
 - runcam phoenix 2 (FOV 155)
-  - amazon: https://smile.amazon.com/RunCam-Phoenix-Camera-1000TVL-Freestyle/dp/B084FSDY5D/ref=pd_bxgy_img_sccl_1/144-7630374-5185317?pd_rd_w=yOKjZ&pf_rd_p=6b3eefea-7b16-43e9-bc45-2e332cbf99da&pf_rd_r=8P3D3NETRPHW74WH5B17&pd_rd_r=619067fe-c0be-4fc1-8a01-e9f2dd442294&pd_rd_wg=tyetA&pd_rd_i=B084FSDY5D&th=1
+  - [Amazon](https://smile.amazon.com/RunCam-Phoenix-Camera-1000TVL-Freestyle/dp/B084FSDY5D/ref=pd_bxgy_img_sccl_1/144-7630374-5185317?pd_rd_w=yOKjZ&pf_rd_p=6b3eefea-7b16-43e9-bc45-2e332cbf99da&pf_rd_r=8P3D3NETRPHW74WH5B17&pd_rd_r=619067fe-c0be-4fc1-8a01-e9f2dd442294&pd_rd_wg=tyetA&pd_rd_i=B084FSDY5D&th=1)
 
 ## sim
 
