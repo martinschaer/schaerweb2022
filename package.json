@@ -18,6 +18,7 @@
   "dependencies": {
     "@types/p5": "^1.4.1",
     "matter-js": "^0.18.0",
+    "normalize.css": "^8.0.1",
     "p5": "^1.4.1",
     "poly-decomp": "^0.3.0"
   },

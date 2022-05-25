@@ -1,12 +1,11 @@
-$layout-titlebar-height: $spacer * 3;
-$layout-titlebar-border-size: 1px;
+:root {
+  --layout-titlebar-height: #{$spacer * 2.5};
+}
 
 .layout {
   display: flex;
   flex-direction: column;
   min-height: 100%;
-
-  --layout-titlebar-height: #{$layout-titlebar-height};
 }
 
 .layout__titlebar {
@@ -18,7 +17,10 @@ $layout-titlebar-border-size: 1px;
   top: 0;
   left: 0;
   z-index: 1000;
-  border-bottom: $layout-titlebar-border-size solid var(--fg);
+  font-size: 0.8rem;
+  background-color: var(--color-bg);
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--color-border);
 
   & > * {
     margin: $spacer;
@@ -31,7 +33,7 @@ $layout-titlebar-border-size: 1px;
   nav a {
     margin: 0 $spacer * 0.5;
     text-decoration: none;
-    color: var(--accent);
+    color: var(--color-accent);
   }
 
   .brand {
@@ -41,15 +43,13 @@ $layout-titlebar-border-size: 1px;
   nav a,
   .brand a {
     text-decoration: none;
-    color: var(--accent);
+    color: var(--color-accent);
   }
 }
 
 .layout__main {
   flex-grow: 1;
-  padding-top: calc(
-    var(--layout-titlebar-height) + $layout-titlebar-border-size
-  );
+  padding-top: var(--layout-titlebar-height);
 }
 
 .layout__footer {
