@@ -1,10 +1,11 @@
 import decomp from 'poly-decomp'
-import './styles/main.scss'
 import './components/game.component.ts'
+import './main'
 
 window.decomp = decomp
 
 // eslint-disable-next-line no-console
-console.log('Hello World')
+console.log('Hello game.js')
 
-document.querySelector('.layout__main').innerHTML = '<schaerweb-game />'
+document.querySelector('.layout__main').innerHTML =
+  '<schaerweb-game></schaerweb-game>'

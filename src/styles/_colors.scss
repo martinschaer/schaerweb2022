@@ -1,18 +1,24 @@
 /* stylelint-disable custom-property-pattern */
+@use 'sass:color';
 
 $color-prefix: --color-;
 $colors: (
   dark: hsl(214deg 10% 12%),
   darker: hsl(214deg 10% 6%),
-  light: hsl(34deg 50% 90%),
-  lighter: hsl(34deg 50% 95%),
+  light: hsl(0deg 0% 87%),
+  lighter: hsl(0deg 0% 100%),
   yellow: hsl(34deg 100% 50%),
-  green: #00ff7f,
+  green: #00ff80,
 );
 
 :root {
   @each $name, $color in $colors {
     #{$color-prefix}#{"" + $name}: $color;
+    #{$color-prefix}#{"" + $name}-alpha-50: #{color.adjust($color, $alpha: -0.5)};
+    #{$color-prefix}#{"" + $name}-alpha-90: #{color.adjust($color, $alpha: -0.1)};
+    #{$color-prefix}#{"" + $name}-alpha-95: #{color.adjust($color, $alpha: -0.05)};
+    #{$color-prefix}#{"" + $name}-darker-10: #{color.adjust($color, $lightness: -10%)};
+    #{$color-prefix}#{"" + $name}-darker-50: #{color.adjust($color, $lightness: -20%)};
     .bg-#{'' + $name} {
       background-color: var(#{$color-prefix}#{'' + $name});
     }

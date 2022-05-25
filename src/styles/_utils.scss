@@ -1,0 +1,32 @@
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  'auto': auto,
+);
+
+@each $prop-key, $prop in ('m': 'margin', 'p': 'padding') {
+  @each $pos-key,
+    $pos in ('': '', 't': '-top', 'r': '-right', 'b': '-bottom', 'l': '-left')
+  {
+    @each $key, $space in $spacers {
+      .#{$prop-key}#{$pos-key}-#{$key} {
+        #{$prop}#{$pos}: $space !important;
+      }
+    }
+  }
+  @each $key, $space in $spacers {
+    .#{$prop-key}x-#{$key} {
+      #{$prop}-left: $space !important;
+      #{$prop}-right: $space !important;
+    }
+    .#{$prop-key}y-#{$key} {
+      #{$prop}-top: $space !important;
+      #{$prop}-bottom: $space !important;
+    }
+  }
+}
+

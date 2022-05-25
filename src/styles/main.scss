@@ -1,35 +1,70 @@
-@import 'variables';
+$spacer: 1rem;
+
 @import 'colors';
 @import 'layout';
-@import 'container';
+@import 'utils';
 
 :root {
-  --fg: var(--color-light);
-  --bg: var(--color-dark);
-  --accent: var(--color-green);
-  --paper: var(--color-darker);
+  --color-fg: var(--color-light);
+  --color-bg: var(--color-dark);
+  --color-border: var(--color-light-alpha-50);
+  --color-accent: var(--color-green);
+  --color-accent-highlight: var(--color-green-darker-10);
+  --color-accent-alpha-50: var(--color-green-alpha-50);
+  --color-paper: var(--color-darker-alpha-90);
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --fg: var(--color-dark);
-    --bg: var(--color-light);
-    --accent: var(--color-green);
-    --paper: var(--color-lighter);
+    --color-fg: var(--color-dark);
+    --color-bg: var(--color-light);
+    --color-border: var(--color-lighter);
+    --color-accent: var(--color-green-darker-50);
+    --color-accent-highlight: var(--color-green-darker-10);
+    --color-accent-alpha-50: var(--color-green-alpha-50);
+    --color-paper: var(--color-lighter-alpha-95);
   }
 }
 
 html,
 body {
+  background-attachment: fixed;
+  background-image: url("../../assets/porsche911rgt3.png");
+  background-position: center center;
+  background-size: cover;
+  color: var(--color-fg);
   font-family: 'Fira Code', Menlo, 'Courier New', Courier, monospace;
   height: 100%;
   margin: 0;
   padding: 0;
-  color: var(--fg);
-  background-color: var(--bg);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+
+  &:visited {
+    color: var(--color-accent);
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--color-accent-highlight);
+  }
+}
+
+.container {
+  margin: 0 auto;
+  padding: $spacer;
+  max-width: 60rem;
+  width: 100%;
 }
 
 .paper {
-  background-color: var(--paper);
-  color: var(--fg);
+  background-color: var(--color-paper);
+  backdrop-filter: blur(8px);
+  color: var(--color-fg);
+  border-radius: $spacer * 0.5;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 0 1rem var(--color-darker-alpha-50);
 }

@@ -13,7 +13,7 @@ const style = `
   position: absolute;
   top: 3rem;
   right: 0;
-  background-color: rgba(var(--main-color), 0.75);
+  background-color: var(--color-accent-alpha-50);
   padding: 1rem;
   min-width: 10rem;
 }
