@@ -5,9 +5,9 @@
   <meta charset="utf-8" />
   <title>Martin Schaer Web</title>
   {{ if .IsHome }}
-  <script type="module" src="/src/game.js"></script>
+  <script type="module" src="/src/game.js" defer></script>
   {{ else }}
-  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/main.js" defer></script>
   {{ end }}
 </head>
 

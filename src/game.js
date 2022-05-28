@@ -7,5 +7,5 @@ window.decomp = decomp
 // eslint-disable-next-line no-console
 console.log('Hello game.js')
 
-document.querySelector('.layout__main').innerHTML =
-  '<schaerweb-game></schaerweb-game>'
+document.querySelector('#app').appendChild(document.createElement('schaerweb-game'))
+
