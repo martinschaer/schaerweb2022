@@ -1,17 +1,11 @@
 :root {
-  --layout-titlebar-height: #{$spacer * 2.5};
+  --titlebar-height: #{$spacer * 2.5};
 }
 
-.layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-}
-
-.layout__titlebar {
+.titlebar {
   align-items: center;
   display: flex;
-  height: var(--layout-titlebar-height);
+  height: var(--titlebar-height);
   width: 100%;
   position: fixed;
   top: 0;
@@ -45,15 +39,4 @@
     text-decoration: none;
     color: var(--color-accent);
   }
-}
-
-.layout__main {
-  flex-grow: 1;
-  padding-top: var(--layout-titlebar-height);
-}
-
-.layout__footer {
-  align-items: center;
-  display: flex;
-  padding: $spacer;
 }

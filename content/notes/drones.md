@@ -20,6 +20,7 @@ draft: false
 - fat shark attitude V5 kit (2 antennas, DVR, Fan) $300+
 - far shark v6
   - [Amazon](https://smile.amazon.com/Fat-Shark-Attitude-Modular-Compatible/dp/B08NFLH4PW/ref=sr_1_1?crid=28BBGVJQ8WCCO&keywords=fatshark+attitude+v5&qid=1653000591&sprefix=fatshark+attitude+v5%2Caps%2C137&sr=8-1)
+- [Cheap vs. Expensive FPV Goggles - What's the Difference??](https://www.youtube.com/watch?v=oOEbygcWk-w)
 
 ## frame
 
