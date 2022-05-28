@@ -1,10 +1,15 @@
 {{ define "main" }}
-<article>
-  <header>
-  <h1>{{- .Title -}}</h1>
-  </header>
-  <section>
-    {{- .Content -}}
-  </section>
-</article>
+<div class="paper" style="margin-top: var(--titlebar-height);">
+  <article class="article">
+    <div class="article__cover"><img src="/assets/porsche911rgt3.png" /></div>
+    <div class="article__content">
+      <header>
+        <h1>{{- .Title -}}</h1>
+      </header>
+      <section>
+        {{- .Content -}}
+      </section>
+    </div>
+  </article>
+</div>
 {{ end }}
