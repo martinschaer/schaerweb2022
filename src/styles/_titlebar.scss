@@ -1,5 +1,5 @@
 :root {
-  --titlebar-height: #{$spacer * 2.5};
+  --titlebar-height: calc(var(--spacer) * 2.5);
 }
 
 .titlebar {
@@ -17,7 +17,7 @@
   border-bottom: 1px solid var(--color-border);
 
   & > * {
-    margin: $spacer;
+    margin: var(--spacer);
   }
 
   nav {
@@ -25,7 +25,7 @@
   }
 
   nav a {
-    margin: 0 $spacer * 0.5;
+    margin: 0 calc(var(--spacer) * 0.5);
     text-decoration: none;
     color: var(--color-accent);
   }

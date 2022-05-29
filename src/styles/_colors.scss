@@ -5,7 +5,7 @@ $color-prefix: --color-;
 $colors: (
   dark: hsl(214deg 10% 12%),
   darker: hsl(214deg 10% 6%),
-  light: hsl(0deg 0% 87%),
+  light: hsl(0deg 0% 93%),
   lighter: hsl(0deg 0% 100%),
   yellow: hsl(34deg 100% 50%),
   green: #00ff80,
@@ -14,13 +14,39 @@ $colors: (
 :root {
   @each $name, $color in $colors {
     #{$color-prefix}#{"" + $name}: $color;
+    #{$color-prefix}#{"" + $name}-alpha-10: #{color.adjust($color, $alpha: -0.9)};
+    #{$color-prefix}#{"" + $name}-alpha-20: #{color.adjust($color, $alpha: -0.8)};
     #{$color-prefix}#{"" + $name}-alpha-50: #{color.adjust($color, $alpha: -0.5)};
     #{$color-prefix}#{"" + $name}-alpha-90: #{color.adjust($color, $alpha: -0.1)};
     #{$color-prefix}#{"" + $name}-alpha-95: #{color.adjust($color, $alpha: -0.05)};
     #{$color-prefix}#{"" + $name}-darker-10: #{color.adjust($color, $lightness: -10%)};
     #{$color-prefix}#{"" + $name}-darker-50: #{color.adjust($color, $lightness: -20%)};
+    #{$color-prefix}#{"" + $name}-lighter-10: #{color.adjust($color, $lightness: 10%)};
     .bg-#{'' + $name} {
       background-color: var(#{$color-prefix}#{'' + $name});
     }
   }
 }
+
+:root {
+  --color-fg: var(--color-light);
+  --color-bg: var(--color-darker);
+  --color-border: var(--color-light-alpha-20);
+  --color-accent: var(--color-green);
+  --color-accent-highlight: var(--color-green-darker-10);
+  --color-accent-alpha-50: var(--color-green-alpha-50);
+  --color-paper: var(--color-dark);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-fg: var(--color-dark);
+    --color-bg: var(--color-light);
+    --color-border: var(--color-dark-alpha-10);
+    --color-accent: var(--color-green-darker-10);
+    --color-accent-highlight: var(--color-green);
+    --color-accent-alpha-50: var(--color-green-alpha-50);
+    --color-paper: var(--color-lighter);
+  }
+}
+
