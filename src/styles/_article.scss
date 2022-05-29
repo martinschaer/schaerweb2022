@@ -11,7 +11,14 @@
 }
 
 .article__cover {
+  align-self: start;
   max-width: calc(100vw - (var(--article-spacer) * 2));
+  border: 1px solid var(--color-border);
+  box-shadow:
+    calc(var(--article-spacer) * 0.5)
+    calc(var(--article-spacer) * 0.5)
+    calc(var(--article-spacer) * 0.5)
+    var(--color-shadow);
 
   img {
     display: block;

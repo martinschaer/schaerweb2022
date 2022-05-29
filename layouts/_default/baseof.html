@@ -18,14 +18,19 @@
       <a href="/">Martin Schaer Web</a>
     </div>
     <nav>
+      {{ $currentPage := . }}
+      {{ range .Site.Menus.main }}
+      <a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+      {{ end }}
       <a href="https://twitch.tv/martinschaer">Twitch</a>
       <a href="https://www.youtube.com/user/martinco06">YouTube</a>
     </nav>
   </div>
   <div id="app">
     {{- block "main" . }}{{- end }}
-    <footer>Martin Schaer 2022</footer>
+    <footer class="px-3 py-2">Martin Schaer 2022</footer>
   </div>
+  {{ template "_internal/google_analytics.html" . }}
 </body>
 
 </html>

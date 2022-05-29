@@ -2,3 +2,5 @@ baseURL = 'https://www.schaerweb.com/'
 googleAnalytics = 'UA-15165899-1'
 languageCode = 'en-us'
 title = 'Martin Schaer Web'
+enableGitInfo = true
+sectionPagesMenu = "main"

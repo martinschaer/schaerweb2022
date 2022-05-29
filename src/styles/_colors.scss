@@ -36,6 +36,8 @@ $colors: (
   --color-accent-highlight: var(--color-green-darker-10);
   --color-accent-alpha-50: var(--color-green-alpha-50);
   --color-paper: var(--color-dark);
+  --color-shadow: var(--color-darker-alpha-50);
+  --color-muted: var(--color-light-alpha-20);
 }
 
 @media (prefers-color-scheme: light) {
@@ -47,6 +49,8 @@ $colors: (
     --color-accent-highlight: var(--color-green);
     --color-accent-alpha-50: var(--color-green-alpha-50);
     --color-paper: var(--color-lighter);
+    --color-shadow: var(--color-darker-alpha-20);
+    --color-muted: var(--color-dark-alpha-20);
   }
 }
 
