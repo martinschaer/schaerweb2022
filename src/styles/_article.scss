@@ -1,7 +1,5 @@
 .paper {
-  backdrop-filter: blur(8px);
   background-color: var(--color-paper);
-  color: var(--color-fg);
 }
 
 .article {
@@ -23,13 +21,19 @@
 
 .article__content {
   box-sizing: border-box;
-  max-width: min(600px, calc(100vw - (var(--article-spacer) * 2)));
+  width: 600px;
+  max-width: calc(100vw - (var(--article-spacer) * 2));
 }
 
 @media screen and (min-width: 600px) {
   .article {
     --article-spacer: 2rem;
   }
+  // if there is no cover, content is centered
+  .article__content:first-child {
+    justify-self: center;
+  }
+
 }
 
 @media screen and (min-width: 1200px) {

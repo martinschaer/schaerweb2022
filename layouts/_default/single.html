@@ -1,13 +1,17 @@
 {{ define "main" }}
 <div class="paper" style="margin-top: var(--titlebar-height);">
   <article class="article">
-    <div class="article__cover"><img src="/assets/porsche911rgt3.png" /></div>
+    {{ if .Params.cover }}
+    <div class="article__cover">
+      <img src="{{ .Params.cover }}" alt="{{ .Title }}" />
+    </div>
+    {{ end }}
     <div class="article__content">
       <header>
-        <h1>{{- .Title -}}</h1>
+        <h1>{{ .Title }}</h1>
       </header>
       <section>
-        {{- .Content -}}
+        {{ .Content }}
       </section>
     </div>
   </article>

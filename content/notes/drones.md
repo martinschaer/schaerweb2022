@@ -2,6 +2,7 @@
 title: "Drones"
 date: 2022-05-23T19:20:18-06:00
 draft: false
+cover: /assets/porsche911rgt3.png
 ---
 
 ## toy drone (for practicing)
