@@ -8,7 +8,7 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "start": "parcel public/**/*.html --open",
-    "build": "rm -rf dist && parcel build public/**/*.html",
+    "build": "rm -rf dist && parcel build public/*.html public/**/*.html public/*.xml public/**/*.xml",
     "lint:style": "stylelint \"src/**/*.?(s)css\"",
     "lint:es": "eslint \"src/**/*.{j,t}s\"",
     "lint": "npm run lint:es & npm run lint:style",
@@ -23,7 +23,9 @@
     "poly-decomp": "^0.3.0"
   },
   "devDependencies": {
+    "@parcel/packager-xml": "^2.3.2",
     "@parcel/transformer-sass": "^2.3.2",
+    "@parcel/transformer-xml": "^2.3.2",
     "@types/matter-js": "^0.17.7",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
