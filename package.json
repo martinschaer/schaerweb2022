@@ -7,8 +7,8 @@
   "source": "src/index.html",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "start": "parcel public/**/*.html --open",
-    "build": "rm -rf dist && parcel build public/*.html public/**/*.html public/*.xml public/**/*.xml",
+    "start": "parcel 'public/**/*.html' --open",
+    "build": "rm -rf dist && parcel build 'public/**/*.(html|xml)'",
     "lint:style": "stylelint \"src/**/*.?(s)css\"",
     "lint:es": "eslint \"src/**/*.{j,t}s\"",
     "lint": "npm run lint:es & npm run lint:style",
