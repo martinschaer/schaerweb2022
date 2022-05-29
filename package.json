@@ -10,8 +10,8 @@
     "start": "parcel 'public/**/*.html' --open",
     "build": "rm -rf dist && parcel build 'public/**/*.(html|xml)'",
     "lint:style": "stylelint \"src/**/*.?(s)css\"",
-    "lint:es": "eslint \"src/**/*.{j,t}s\"",
-    "lint": "npm run lint:es & npm run lint:style",
+    "lint:script": "eslint \"src/**/*.{j,t}s\"",
+    "lint": "npm run lint:script & npm run lint:style",
     "format:check": "prettier --check \"src/**/*\"",
     "format": "prettier --write \"src/**/*\""
   },
