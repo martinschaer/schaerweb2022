@@ -9,8 +9,7 @@
   <script type="module" src="/src/game.js" defer></script>
   {{ else }}
   <script type="module" src="/src/main.ts" defer></script>
-  {{ end }}
-  {{ if .Params.script }}
+  {{ end }}{{ if .Params.script }}
   <script type="module" src="/src/{{ .Params.script }}" dever></script>
   {{ end }}
 </head>

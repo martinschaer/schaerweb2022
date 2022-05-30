@@ -5,7 +5,7 @@
       <header>
         <h1>{{ humanize .Section }}</h1>
       </header>
-      <div>{{ .Content }}</div>
+      {{- if .Content -}}<div>{{ .Content }}</div>{{ end }}
       <ul class="article-list">
         {{ range .Pages }}
         <li class="article-list__item">
