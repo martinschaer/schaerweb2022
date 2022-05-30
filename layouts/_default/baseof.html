@@ -10,6 +10,9 @@
   {{ else }}
   <script type="module" src="/src/main.ts" defer></script>
   {{ end }}
+  {{ if .Params.script }}
+  <script type="module" src="/src/{{ .Params.script }}" dever></script>
+  {{ end }}
 </head>
 
 <body>
