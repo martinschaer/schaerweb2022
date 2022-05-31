@@ -6,6 +6,7 @@
 
 :root {
   --spacer: 1rem;
+  --shadow: 0 0 calc(var(--spacer) * 1) calc(var(--spacer) * 1) var(--color-shadow);
 }
 
 html,

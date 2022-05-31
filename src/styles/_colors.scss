@@ -26,9 +26,7 @@ $colors: (
       background-color: var(#{$color-prefix}#{'' + $name});
     }
   }
-}
 
-:root {
   --color-fg: var(--color-light);
   --color-bg: var(--color-darker);
   --color-border: var(--color-light-alpha-20);
@@ -49,7 +47,7 @@ $colors: (
     --color-accent-highlight: var(--color-green);
     --color-accent-alpha-50: var(--color-green-alpha-50);
     --color-paper: var(--color-lighter);
-    --color-shadow: var(--color-darker-alpha-20);
+    --color-shadow: var(--color-darker-alpha-10);
     --color-muted: var(--color-dark-alpha-20);
   }
 }
