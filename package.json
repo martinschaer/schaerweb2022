@@ -7,6 +7,7 @@
   "source": "src/index.html",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
+    "imagemin": "./bin/imagemin.mjs",
     "start": "parcel 'public/**/*.html' --open",
     "build": "rm -rf dist && parcel build 'public/**/*.(html|xml)'",
     "lint:style": "stylelint \"src/**/*.?(s)css\"",
@@ -34,6 +35,9 @@
     "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-import": "^2.25.4",
+    "imagemin": "^8.0.1",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^9.0.2",
     "parcel": "^2.3.2",
     "prettier": "2.5.1",
     "stylelint": "^14.5.1",
