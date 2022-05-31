@@ -38,7 +38,7 @@ type Round = {
   DriverStandings: DriverStanding[]
 }
 
-const endpoint = 'http://ergast.com/api/f1'
+const endpoint = 'https://ergast.com/api/f1'
 
 const driverPosInRound = (driverCode: string, round: Round) => {
   for (let i = 0; i < round.DriverStandings.length; i += 1) {
