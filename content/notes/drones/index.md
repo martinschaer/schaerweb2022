@@ -10,37 +10,106 @@ summary: Research for getting started with FPV drones
 
 Not bundles, to reduce costs by using same controller with other drones.
 
-- EMAX TinyHawk 3
+### EMAX TinyHawk 3
 
+{{< figure src="tinyhawk.jpg" title="EMAX TinyHawk 3" alt="EMAX TinyHawk 3" >}}
+
+- SPI / FrSky D8 Compatible
+- Stores:
   - $174: [Amazon](https://www.amazon.com/Tinyhawk-Racing-Outdoor-Indoor-Durable/dp/B09LPQJ7Z8/ref=sr_1_1_sspa?crid=DAI6VBHFMEYQ&keywords=tinyhawk&qid=1652998902&sprefix=tinyhawk,aps,158&sr=8-1-spons&psc=1)
   - $168.99 [getfpv](https://www.getfpv.com/emax-tinyhawk-iii-fpv-racing-drone-bnf.html)
 
+---
+
+### EMAX Nanohawk X
+
+{{< figure src="nanohawk.jpg" title="EMAX NanoHawk X" alt="EMAX NanoHawk X" >}}
+
+- RunCam Nano 3
+- 3"
+- $139.99: [getfpv](https://www.getfpv.com/ready-to-fly-quadcopters/micro-ready-to-fly/emax-nanohawk-x-3-bnf-fpv-racing-drone.html)
+- $139.99: [emax-usa.com](https://emax-usa.com/collections/nanohawk/products/nanohawk-x-ultralight-3-inch-1s-outdoor-fpv-drone-frsky-bnf#)
+
 ## Controllers
 
-- FrSky Taranis X9 Lite
-  - Protocol: ACCESS
-  - 2.4G / 24CH
-  - $94.99 [getfpv](https://www.getfpv.com/frsky-taranis-x9-lite-2-4g-24ch-radio-transmitter.html)
+### FrSky Taranis X9 Lite ACCESS
 
-- FrSky Taranis Q X7S
-  - Protocol: ACCESS
-  - 2.4G / 24CH
-  - $187.99 [getfpv](https://www.getfpv.com/frsky-taranis-q-x7s-access-2-4ghz-24ch-radio-transmitter.html)
+- Protocol: ACCESS (not compatible with EMAX TinyHawk 3)
+- 2.4G / 24CH
+- $94.99 [getfpv](https://www.getfpv.com/frsky-taranis-x9-lite-2-4g-24ch-radio-transmitter.html)
 
-- RadioMaster
-  - Protocol: OpenTX
-  - $289.99 [getfpv](https://www.getfpv.com/radiomaster-tx16s-max-edition-multi-protocol-rf-2-4ghz-16ch-radio-transmitter-hall-gimbal.html)
+---
 
+###  FrSky Taranis Q X7S ACCESS
 {{< figure src="frsky-x7s.jpg" title="FrSky Taranis Q X7S ACCESS" alt="FrSky Taranis Q X7S ACCESS" caption="Photo by [Jason Pofahl](https://unsplash.com/@jasonpofahlphotography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/drone-fpv?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)" >}}
+
+- Protocol: ACCESS (not compatible with EMAX TinyHawk 3)
+- 2.4G / 24CH
+- $187.99 [getfpv](https://www.getfpv.com/frsky-taranis-q-x7s-access-2-4ghz-24ch-radio-transmitter.html)
+
+---
+
+### RadioMaster TX12
+
+{{< figure src="radiomaster-tx12.jpg" title="RadioMaster TX12" alt="RadioMaster TX12" >}}
+
+- Protocol: OpenTX
+- $109.99 [getfpv](https://www.getfpv.com/radios/radio-controllers/radiomaster-tx12-multi-protocol-opentx-2-4ghz-rc-transmitter.html)
+
+---
+
+### RadioMaster TX16S MKII
+
+{{< figure src="radiomaster-tx16s-mkii.jpg" title="RadioMaster TX16S MKII" alt="RadioMaster TX16S MKII" >}}
+
+- Protocol: OpenTX
+- $199.99 [getfpv](https://www.getfpv.com/radios/radio-controllers/radiomaster-tx16s-mkii-2-4ghz-16ch-radio-transmitter-multi-protocol-w-hall-gimbals-v4-0.html)
+
+---
+
+### RadioMaster TX16S
 
 {{< figure src="radiomaster-tx16s.jpg" title="RadioMaster TX16S" alt="RadioMaster TX16S" >}}
 
+- Protocol: OpenTX
+- $289.99 [getfpv](https://www.getfpv.com/radiomaster-tx16s-max-edition-multi-protocol-rf-2-4ghz-16ch-radio-transmitter-hall-gimbal.html)
+
 ## Visor
 
-- fat shark attitude V5 kit (2 antennas, DVR, Fan) $300+
-- far shark v6
+### Skyzone Cobra X V2
+
+{{< figure src="skyzone-cobra-x.jpg" title="Skyzone SKY04L V2 Lite" alt="Skyzone SKY04L V2 Lite" >}}
+
+- DVR: H264, 30fps, MOV 6Mbps, SD up to 128Gb
+- Receiver: 5.8Ghz 48CH SteadyView Receiver
+- Resolution: 1280X720
+- AspectRatio: 4:3/16:9
+- FOV (Diagonal): 50°
+- Screen: LCD
+- $209.99 [getfpv](https://www.getfpv.com/fpv/video-goggles/skyzone-cobra-x-v2-5-8ghz-fpv-goggles-w-steadyview-receiver.html)
+
+---
+
+### Skyzone SKY04L V2 Lite
+
+{{< figure src="skyzone-sky04l.jpg" title="Skyzone SKY04L V2 Lite" alt="Skyzone SKY04L V2 Lite" >}}
+
+- Receiver: 5.8Ghz 48CH Steadyview Receiver
+- Screen: LCOS
+- Resolution: 1280X960
+- Aspect Ratio: 4:3/16:9
+- FOV (Diagonal): 39°
+- DVR: H264, 60fps, SD Card support up to128Gb
+- $362.99 [getfpv](https://www.getfpv.com/skyzone-sky04l-v2-lite-lcos-5-8ghz-48ch-fpv-goggles-w-steadyview-receiver.html)
+
+---
+
+### fat shark attitude V5
+
+### fat shark v6
   - [Amazon](https://smile.amazon.com/Fat-Shark-Attitude-Modular-Compatible/dp/B08NFLH4PW/ref=sr_1_1?crid=28BBGVJQ8WCCO&keywords=fatshark+attitude+v5&qid=1653000591&sprefix=fatshark+attitude+v5%2Caps%2C137&sr=8-1)
-- [Cheap vs. Expensive FPV Goggles - What's the Difference??](https://www.youtube.com/watch?v=oOEbygcWk-w)
+
+[Cheap vs. Expensive FPV Goggles - What's the Difference??](https://www.youtube.com/watch?v=oOEbygcWk-w)
 
 ## Frame
 
@@ -61,6 +130,8 @@ For controller, goggles, and drone.
 
 - runcam phoenix 2 (FOV 155)
   - [Amazon](https://smile.amazon.com/RunCam-Phoenix-Camera-1000TVL-Freestyle/dp/B084FSDY5D/ref=pd_bxgy_img_sccl_1/144-7630374-5185317?pd_rd_w=yOKjZ&pf_rd_p=6b3eefea-7b16-43e9-bc45-2e332cbf99da&pf_rd_r=8P3D3NETRPHW74WH5B17&pd_rd_r=619067fe-c0be-4fc1-8a01-e9f2dd442294&pd_rd_wg=tyetA&pd_rd_i=B084FSDY5D&th=1)
+- RunCamp Nano 4
+  - $19.99 [shop.runcam.com](https://shop.runcam.com/runcam-nano-4-ntsc-only/)
 
 ## Sim
 

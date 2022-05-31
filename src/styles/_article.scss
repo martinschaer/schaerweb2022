@@ -62,6 +62,10 @@
     margin-top: calc(var(--spacer) * 4);
     background-color: var(--color-bg);
   }
+
+  h3 {
+    margin-top: calc(var(--spacer) * 2);
+  }
 }
 
 @media screen and (min-width: 800px) {
