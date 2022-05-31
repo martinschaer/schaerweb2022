@@ -5,7 +5,3 @@ draft: false
 cover:
 script: f1.ts
 ---
-
-<div id="f1">
-  Loading…
-</div>

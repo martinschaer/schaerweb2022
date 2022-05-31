@@ -160,7 +160,10 @@ const generate = async () => {
   </svg>
   `
 
-    document.getElementById('f1').innerHTML = html
+    const mountEl = document.createElement('div')
+    document.querySelector('#app .paper').appendChild(mountEl)
+    mountEl.style = 'padding: calc(var(--spacer) * 2);'
+    mountEl.innerHTML = html
   })
 }
 
