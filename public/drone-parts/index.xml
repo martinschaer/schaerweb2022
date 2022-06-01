@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Martin Schaer Web</title>
-    <link>https://www.schaerweb.com/</link>
-    <description>Recent content on Martin Schaer Web</description>
+    <title>Drone-parts on Martin Schaer Web</title>
+    <link>https://www.schaerweb.com/drone-parts/</link>
+    <description>Recent content in Drone-parts on Martin Schaer Web</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 May 2022 22:13:01 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 31 May 2022 22:13:01 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/drone-parts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Skyzone SKY04L V2</title>
       <link>https://www.schaerweb.com/drone-parts/skyzone-sky04l-v2/</link>
@@ -68,15 +68,6 @@
       
       <guid>https://www.schaerweb.com/drone-parts/tinyhawk/</guid>
       <description> SPI / FrSky D8 Compatible Stores:  $174: Amazon $168.99 getfpv    </description>
-    </item>
-    
-    <item>
-      <title>How to get started with FPV drones</title>
-      <link>https://www.schaerweb.com/notes/drones/</link>
-      <pubDate>Mon, 23 May 2022 19:20:18 -0600</pubDate>
-      
-      <guid>https://www.schaerweb.com/notes/drones/</guid>
-      <description>Research for getting started with FPV drones</description>
     </item>
     
   </channel>
