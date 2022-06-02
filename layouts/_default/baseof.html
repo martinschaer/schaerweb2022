@@ -6,12 +6,24 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   {{ if .IsHome }}
-  <script type="module" src="/src/game.js" defer></script>
-  {{ else }}
-  <script type="module" src="/src/main.ts" defer></script>
+  {{ $gamejs := resources.Get "game.js" | js.Build }}
+  <script type="module" src="{{ $gamejs.RelPermalink }}" defer></script>
   {{ end }}{{ if .Params.script }}
-  <script type="module" src="/src/{{ .Params.script }}" dever></script>
+  {{ $extrajs := resources.Get .Params.script | js.Build }}
+  <script type="module" src="{{ $extrajs.RelPermalink }}" defer></script>
   {{ end }}
+  {{ $js := resources.Get "main.ts" | js.Build }}
+  <script type="module" src="{{ $js.RelPermalink }}" defer></script>
+
+  <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+
+  <link rel="stylesheet" href="/normalize.css">
+  {{- $options := (dict "includePaths" (slice "node_modules")) -}}
+  {{- $sass := resources.Get "/styles/main.scss" -}}
+  {{- $style := $sass | resources.ToCSS $options -}}
+  {{- with $style -}}
+  <link rel="stylesheet" href="{{ .RelPermalink }}">
+  {{- end -}}
 </head>
 
 <body>

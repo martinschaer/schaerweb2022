@@ -1,27 +1,24 @@
-/* stylelint-disable custom-property-pattern */
-@use 'sass:color';
-
 $color-prefix: --color-;
 $colors: (
-  dark: hsl(214deg 10% 12%),
-  darker: hsl(214deg 10% 6%),
-  light: hsl(0deg 0% 93%),
-  lighter: hsl(0deg 0% 100%),
-  yellow: hsl(34deg 100% 50%),
+  dark: hsl(214deg, 10%, 12%),
+  darker: hsl(214deg, 10%, 6%),
+  light: hsl(0deg, 0%, 93%),
+  lighter: hsl(0deg, 0%, 100%),
+  yellow: hsl(34deg, 100%, 50%),
   green: #00ff80,
 );
 
 :root {
   @each $name, $color in $colors {
     #{$color-prefix}#{"" + $name}: $color;
-    #{$color-prefix}#{"" + $name}-alpha-10: #{color.adjust($color, $alpha: -0.9)};
-    #{$color-prefix}#{"" + $name}-alpha-20: #{color.adjust($color, $alpha: -0.8)};
-    #{$color-prefix}#{"" + $name}-alpha-50: #{color.adjust($color, $alpha: -0.5)};
-    #{$color-prefix}#{"" + $name}-alpha-90: #{color.adjust($color, $alpha: -0.1)};
-    #{$color-prefix}#{"" + $name}-alpha-95: #{color.adjust($color, $alpha: -0.05)};
-    #{$color-prefix}#{"" + $name}-darker-10: #{color.adjust($color, $lightness: -10%)};
-    #{$color-prefix}#{"" + $name}-darker-50: #{color.adjust($color, $lightness: -20%)};
-    #{$color-prefix}#{"" + $name}-lighter-10: #{color.adjust($color, $lightness: 10%)};
+    #{$color-prefix}#{"" + $name}-alpha-10: #{adjust-color($color, $alpha: -0.9)};
+    #{$color-prefix}#{"" + $name}-alpha-20: #{adjust-color($color, $alpha: -0.8)};
+    #{$color-prefix}#{"" + $name}-alpha-50: #{adjust-color($color, $alpha: -0.5)};
+    #{$color-prefix}#{"" + $name}-alpha-90: #{adjust-color($color, $alpha: -0.1)};
+    #{$color-prefix}#{"" + $name}-alpha-95: #{adjust-color($color, $alpha: -0.05)};
+    #{$color-prefix}#{"" + $name}-darker-10: #{adjust-color($color, $lightness: -10%)};
+    #{$color-prefix}#{"" + $name}-darker-50: #{adjust-color($color, $lightness: -20%)};
+    #{$color-prefix}#{"" + $name}-lighter-10: #{adjust-color($color, $lightness: 10%)};
     .bg-#{'' + $name} {
       background-color: var(#{$color-prefix}#{'' + $name});
     }

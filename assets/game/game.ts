@@ -1,8 +1,8 @@
 import Matter from 'matter-js'
 import p5 from 'p5'
 
-import carModelURL from 'url:../../assets/car.obj'
-import newRecordAudioURL from 'url:../../assets/newrecord.m4a'
+// import carModelURL from 'url:../../assets/car.obj'
+// import newRecordAudioURL from 'url:../../assets/newrecord.m4a'
 
 import seoul from './circuits/seoul.json'
 import Checkpoint from './Checkpoint'
@@ -10,6 +10,9 @@ import Car from './Car'
 import Corner from './Corner'
 import Obstacle from './Obstacle'
 import Wall from './Wall'
+
+const carModelURL = '/car.obj'
+const newRecordAudioURL = '/newrecord.m4a'
 
 const formatLapTime = (ms: number) => (Math.round(ms) / 1000).toString()
 

@@ -8,8 +8,8 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "imagemin": "./bin/imagemin.mjs",
-    "start": "parcel 'public/**/*.html' --open",
-    "build": "rm -rf dist && parcel build 'public/**/*.(html|xml)'",
+    "start": "hugo server -D",
+    "build": "hugo",
     "lint:style": "stylelint \"src/**/*.?(s)css\"",
     "lint:script": "eslint \"src/**/*.{j,t}s\"",
     "lint": "npm run lint:script & npm run lint:style",
@@ -24,9 +24,6 @@
     "poly-decomp": "^0.3.0"
   },
   "devDependencies": {
-    "@parcel/packager-xml": "^2.3.2",
-    "@parcel/transformer-sass": "^2.3.2",
-    "@parcel/transformer-xml": "^2.3.2",
     "@types/matter-js": "^0.17.7",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
@@ -38,7 +35,6 @@
     "imagemin": "^8.0.1",
     "imagemin-mozjpeg": "^10.0.0",
     "imagemin-pngquant": "^9.0.2",
-    "parcel": "^2.3.2",
     "prettier": "2.5.1",
     "stylelint": "^14.5.1",
     "stylelint-config-prettier": "^9.0.3",
