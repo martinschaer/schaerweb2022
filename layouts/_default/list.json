@@ -1,0 +1,16 @@
+{{- $list := slice -}}
+{{- range .Pages -}}
+  {{- $cover := "" -}}
+  {{- if .Params.cover -}}
+    {{- $cover = (print .RelPermalink .Params.cover) -}}
+  {{- end -}}
+  {{- $list = $list | append (dict
+    "Title" .Title
+    "Permalink" .Permalink
+    "Summary" .Summary
+    "Cover" $cover
+    "Params" .Params
+    "Lastmod" .Lastmod
+  ) -}}
+{{- end -}}
+{{- $list | jsonify -}}
