@@ -3,7 +3,7 @@
   <h3>{{ .Params.Title }}</h3>
   <figure>
     {{ if .Params.cover }}
-      <img src="{{ .Params.cover }}" alt="{{ .Params.Title }}">
+      <img src="{{ print .RelPermalink .Params.cover }}" alt="{{ .Params.Title }}">
     {{ end }}
     <figcaption>
       <h4>{{ .Params.Title }}</h4>
