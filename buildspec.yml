@@ -3,4 +3,4 @@ version: 0.2
 phases:
   post_build:
     commands:
-      - aws s3 sync --delete dist/ s3://schaerweb
+      - aws s3 sync --delete public/ s3://schaerweb
