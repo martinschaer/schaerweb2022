@@ -3,6 +3,7 @@ title: "EMAX TinyHawk 3"
 date: 2022-05-31T18:25:18-06:00
 draft: false
 cover: tinyhawk.jpg
+price: 168.99
 ---
 
 - SPI / FrSky D8 Compatible

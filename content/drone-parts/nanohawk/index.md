@@ -2,6 +2,7 @@
 title: "Nanohawk"
 date: 2022-05-31T21:54:31-06:00
 cover: nanohawk.jpg
+price: 139.99
 ---
 
 - RunCam Nano 3

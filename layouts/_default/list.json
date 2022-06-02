@@ -9,7 +9,7 @@
     "Permalink" .Permalink
     "Summary" .Summary
     "Cover" $cover
-    "Params" .Params
+    "Price" .Params.price
     "Lastmod" .Lastmod
   ) -}}
 {{- end -}}

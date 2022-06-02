@@ -2,6 +2,7 @@
 title: "Skyzone SKY04L V2"
 date: 2022-05-31T22:13:01-06:00
 cover: skyzone-sky04l.jpg
+price: 362.99
 ---
 
 - Receiver: 5.8Ghz 48CH Steadyview Receiver
