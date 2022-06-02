@@ -4,17 +4,16 @@
   "description": "Martin Schaer website",
   "author": "Martin Schaer",
   "license": "ISC",
-  "source": "src/index.html",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "imagemin": "./bin/imagemin.mjs",
     "start": "hugo server -D --disableFastRender",
     "build": "hugo",
-    "lint:style": "stylelint \"src/**/*.?(s)css\"",
-    "lint:script": "eslint \"src/**/*.{j,t}s\"",
+    "lint:style": "stylelint \"assets/**/*.?(s)css\"",
+    "lint:script": "eslint \"assets/**/*.{j,t}s\"",
     "lint": "npm run lint:script & npm run lint:style",
-    "format:check": "prettier --check \"src/**/*\"",
-    "format": "prettier --write \"src/**/*\""
+    "format:check": "prettier --check \"assets/**/*\"",
+    "format": "prettier --write \"assets/**/*\""
   },
   "dependencies": {
     "@types/p5": "^1.4.1",
