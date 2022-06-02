@@ -3,6 +3,7 @@ title: "How to get started with FPV drones"
 date: 2022-05-23T19:20:18-06:00
 draft: false
 cover: drone.jpg
+script: drones.ts
 summary: Research for getting started with FPV drones
 ---
 
