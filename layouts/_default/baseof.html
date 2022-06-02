@@ -5,6 +5,7 @@
   <title>Martin Schaer Web</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <meta name="theme-color" content="#00ff80">
   {{ if .IsHome }}
   {{ $gamejs := resources.Get "game.js" | js.Build }}
   <script type="module" src="{{ $gamejs.RelPermalink }}" defer></script>
@@ -15,7 +16,7 @@
   {{ $js := resources.Get "main.ts" | js.Build }}
   <script type="module" src="{{ $js.RelPermalink }}" defer></script>
 
-  <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+  <link rel="icon" href="/favicon.svg">
 
   <link rel="stylesheet" href="/normalize.css">
   {{- $options := (dict "includePaths" (slice "node_modules")) -}}
