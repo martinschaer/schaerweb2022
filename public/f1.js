@@ -60,7 +60,7 @@
   `;
       const mountEl = document.createElement("div");
       document.querySelector("#app .paper").appendChild(mountEl);
-      mountEl.setAttribute("style", "padding: calc(var(--spacer) * 2);");
+      mountEl.setAttribute("style", "padding: var(--spacer-2);");
       mountEl.innerHTML = html;
     });
   };
