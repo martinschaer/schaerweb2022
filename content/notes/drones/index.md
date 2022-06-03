@@ -7,6 +7,8 @@ script: drones.ts
 summary: Research for getting started with FPV drones
 ---
 
+<schaerweb-drones></schaerweb-drones>
+
 ## Practice Drones
 
 Not bundles, to reduce costs by using same controller with other drones.
