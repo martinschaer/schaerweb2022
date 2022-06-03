@@ -1,33 +1,15 @@
 ---
-title: "How to get started with FPV drones"
+title: "Getting started with FPV drones"
 date: 2022-05-23T19:20:18-06:00
 draft: false
 cover: drone.jpg
 script: drones.ts
-summary: Research for getting started with FPV drones
+summary: Choose all the parts you nee for a FPV drone
 ---
 
-<schaerweb-drones></schaerweb-drones>
+{{< drone-parts >}}
 
-## Practice Drones
-
-Not bundles, to reduce costs by using same controller with other drones.
-
-{{< drone-part tinyhawk >}}
-{{< drone-part nanohawk >}}
-
-## Controllers
-
-{{< drone-part frsky-taranis-x9 >}}
-{{< drone-part frsky-taranis-q-x7s >}}
-{{< drone-part radiomaster-tx12 >}}
-{{< drone-part radiomaster-tx16s-mkii >}}
-{{< drone-part radiomaster-tx16s >}}
-
-## Visor
-
-{{< drone-part skyzone-cobra-x-v2 >}}
-{{< drone-part skyzone-sky04l-v2 >}}
+## More
 
 ### fat shark attitude V5
 
