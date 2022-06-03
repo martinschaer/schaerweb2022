@@ -3,8 +3,39 @@ googleAnalytics = 'UA-15165899-1'
 languageCode = 'en-us'
 title = 'Martin Schaer Web'
 enableGitInfo = true
-sectionPagesMenu = "main"
+sectionPagesMenu = "all"
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+[menu]
+[[menu.main]]
+  identifier = 'notes'
+  name = 'Notes'
+  title = 'Notes'
+  url = '/notes/'
+  weight = 1
+[[menu.main]]
+  identifier = 'youtube'
+  name = 'YouTube'
+  title = 'YouTube'
+  url = 'https://www.youtube.com/user/martinco06'
+  weight = 2
+  [menu.main.params]
+    target = "_blank"
+[[menu.main]]
+  identifier = 'twitch'
+  name = 'Twitch'
+  title = 'Twitch'
+  url = 'https://twitch.tv/martinschaer'
+  weight = 3
+  [menu.main.params]
+    target = "_blank"
+[[menu.main]]
+  identifier = 'linkedin'
+  name = 'LinkedIn'
+  title = 'LinkedIn'
+  url = 'https://www.linkedin.com/in/martinschaer/'
+  weight = 4
+  [menu.main.params]
+    target = "_blank"
