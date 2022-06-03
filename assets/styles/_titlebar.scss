@@ -25,7 +25,7 @@
   }
 
   nav a {
-    margin: 0 calc(var(--spacer) * 0.5);
+    margin: 0 var(--spacer-50);
     text-decoration: none;
     color: var(--color-accent);
   }

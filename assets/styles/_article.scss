@@ -35,7 +35,7 @@
   box-sizing: border-box;
 
   figure {
-    margin: calc(var(--spacer) * 2) 0;
+    margin: var(--spacer-2) 0;
     padding: var(--spacer);
     box-shadow: var(--shadow);
 
@@ -64,7 +64,7 @@
   }
 
   h3 {
-    margin-top: calc(var(--spacer) * 2);
+    margin-top: var(--spacer-2);
   }
 }
 

@@ -7,6 +7,8 @@
 
 :root {
   --spacer: 1rem;
+  --spacer-2: 2rem;
+  --spacer-50: 0.5rem;
   --shadow: 0 0 calc(var(--spacer) * 1) calc(var(--spacer) * 1) var(--color-shadow);
 }
 
@@ -36,4 +38,8 @@ a {
 
 .text-muted {
   color: var(--color-muted);
+}
+
+.hide {
+  display: none;
 }
