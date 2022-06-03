@@ -1,14 +1,4 @@
 {{ $param := index .Params 0 }}
 {{ with .Site.GetPage (printf "/drone-parts/%s" $param) }}
-  <h3>{{ .Params.Title }}</h3>
-  <figure>
-    {{ if .Params.cover }}
-      <img src="{{ print .RelPermalink .Params.cover }}" alt="{{ .Params.Title }}">
-    {{ end }}
-    <figcaption>
-      <h4>{{ .Params.Title }}</h4>
-    </figcaption>
-  </figure>
-  {{ .Content }}
-  <hr>
+  {{ partial "drone-part" . }}
 {{ end }}

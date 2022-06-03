@@ -1,17 +1,10 @@
 {{ $param := index .Params 0 }}
+<div class="grid">
 {{ with .Site.GetPage "section" "drone-parts" }}
   {{ range .Pages }}
-  <div class="drone-item" data-key="{{ .RelPermalink }}">
-    <h3>{{ .Params.Title }}</h3>
-    <figure>
-      {{ if .Params.cover }}
-        <img src="{{ print .RelPermalink .Params.cover }}" alt="{{ .Params.Title }}">
-      {{ end }}
-      <figcaption>
-        <h4>{{ .Params.Title }}</h4>
-      </figcaption>
-    </figure>
-    {{ .Content }}
+  <div class="card drone-item" data-key="{{ .RelPermalink }}">
+    {{ partial "drone-part" . }}
   </div>
   {{ end }}
 {{ end }}
+</div>
