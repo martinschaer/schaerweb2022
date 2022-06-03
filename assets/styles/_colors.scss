@@ -1,16 +1,17 @@
 $color-prefix: --color-;
 $colors: (
-  dark: hsl(214deg, 10%, 12%),
-  darker: hsl(214deg, 10%, 6%),
-  light: hsl(0deg, 0%, 93%),
-  lighter: hsl(0deg, 0%, 100%),
-  yellow: hsl(34deg, 100%, 50%),
+  dark: hsl(150deg, 10%, 12%),
+  darker: hsl(150deg, 10%, 6%),
+  light: hsl(150deg, 10%, 98%),
+  lighter: hsl(150deg, 10%, 100%),
+  yellow: hsl(30deg, 100%, 50%),
   green: #00ff80,
 );
 
 :root {
   @each $name, $color in $colors {
     #{$color-prefix}#{"" + $name}: $color;
+    #{$color-prefix}#{"" + $name}-alpha-05: #{adjust-color($color, $alpha: -0.95)};
     #{$color-prefix}#{"" + $name}-alpha-10: #{adjust-color($color, $alpha: -0.9)};
     #{$color-prefix}#{"" + $name}-alpha-20: #{adjust-color($color, $alpha: -0.8)};
     #{$color-prefix}#{"" + $name}-alpha-50: #{adjust-color($color, $alpha: -0.5)};
@@ -44,7 +45,7 @@ $colors: (
     --color-accent-highlight: var(--color-green);
     --color-accent-alpha-50: var(--color-green-alpha-50);
     --color-paper: var(--color-lighter);
-    --color-shadow: var(--color-darker-alpha-10);
+    --color-shadow: var(--color-darker-alpha-05);
     --color-muted: var(--color-dark-alpha-20);
   }
 }
