@@ -21,13 +21,13 @@ export default class Game {
 
   $circuit: HTMLSelectElement
 
-  $lastLap: HTMLElement
+  $lastLap: HTMLElement | null
 
-  $bestLap: HTMLElement
+  $bestLap: HTMLElement | null
 
-  $currLap: HTMLElement
+  $currLap: HTMLElement | null
 
-  p5Instance: p5
+  p5Instance?: p5
 
   canvas: p5.Renderer
 
@@ -57,7 +57,7 @@ export default class Game {
 
   lastLap: number
 
-  bestLap: number
+  bestLap: number | null
 
   lapStart: number
 
@@ -107,15 +107,37 @@ export default class Game {
     this.spacer = 100
     this.color = '#00ff7f'
     this.models = { car: null }
+    this.ghost = []
+    this.bestLap = null
+
+    this.$circuit = this.$el.querySelector('#circuit') as HTMLSelectElement
+    this.$lastLap = this.$el.querySelector('#last-lap')
+    this.$bestLap = this.$el.querySelector('#best-lap')
+    this.$currLap = this.$el.querySelector('#curr-lap')
+
+    // create an engine
+    this.engine = Matter.Engine.create()
+    this.engine.gravity.scale = 0
+
+    // create car
+    this.car = new Car(this, {
+      x: this.circuit.car.x * this.spacer,
+      y: this.circuit.car.y * this.spacer,
+      a: this.circuit.car.a,
+      c: this.color,
+    })
+
   }
 
   preload() {
-    this.models.car = this.p5Instance.loadModel(
-      carModelURL,
-      undefined,
-      undefined,
-      '.obj'
-    )
+    if (this.p5Instance) {
+      this.models.car = this.p5Instance.loadModel(
+        carModelURL,
+        undefined,
+        undefined,
+        '.obj'
+      )
+    }
   }
 
   getGhostInTimestamp(t: number) {
@@ -137,10 +159,12 @@ export default class Game {
   }
 
   loadData() {
-    this.bestLap = this.p5Instance.getItem(`lr-${this.circuit.key}`) as number
-    this.ghost =
-      (this.p5Instance.getItem(`lrg-${this.circuit.key}`) as Array<IGhost>) ||
-      []
+    if (this.p5Instance) {
+      this.bestLap = this.p5Instance.getItem(`lr-${this.circuit.key}`) as number
+      this.ghost =
+        (this.p5Instance.getItem(`lrg-${this.circuit.key}`) as Array<IGhost>) ||
+        []
+    }
   }
 
   createElements() {
@@ -204,12 +228,12 @@ export default class Game {
             if (this.bestLap === null) {
               this.bestLap = this.lastLap
               this.ghost = [...this.tempGhost]
-              this.p5Instance.storeItem(`lrg-${this.circuit.key}`, this.ghost)
+              this.p5Instance?.storeItem(`lrg-${this.circuit.key}`, this.ghost)
             } else if (this.lastLap < this.bestLap) {
               this.bestLap = this.lastLap
               this.ghost = [...this.tempGhost]
-              this.p5Instance.storeItem(`lrg-${this.circuit.key}`, this.ghost)
-              this.p5Instance.storeItem(`lr-${this.circuit.key}`, this.bestLap)
+              this.p5Instance?.storeItem(`lrg-${this.circuit.key}`, this.ghost)
+              this.p5Instance?.storeItem(`lr-${this.circuit.key}`, this.bestLap)
               this.audio.play()
             }
           }
@@ -227,7 +251,7 @@ export default class Game {
   } */
 
   setup() {
-    if (!this.canvas) {
+    if (this.p5Instance && !this.canvas) {
       this.canvas = this.p5Instance.createCanvas(
         this.winW,
         this.winH,
@@ -237,11 +261,6 @@ export default class Game {
     }
 
     this.loadData()
-
-    this.$circuit = this.$el.querySelector('#circuit') as HTMLSelectElement
-    this.$lastLap = this.$el.querySelector('#last-lap')
-    this.$bestLap = this.$el.querySelector('#best-lap')
-    this.$currLap = this.$el.querySelector('#curr-lap')
 
     // circuit selector
     Object.keys(this.circuits).forEach((key) => {
@@ -255,22 +274,10 @@ export default class Game {
 
     this.audio = this.p5Instance.createAudio(newRecordAudioURL)
 
-    if (this.is3D) {
+    if (this.is3D && this.p5Instance) {
       this.p5Instance.perspective(0.6)
       this.camera = this.p5Instance.createCamera()
     }
-
-    // create an engine
-    this.engine = Matter.Engine.create()
-    this.engine.gravity.scale = 0
-
-    // create car
-    this.car = new Car(this, {
-      x: this.circuit.car.x * this.spacer,
-      y: this.circuit.car.y * this.spacer,
-      a: this.circuit.car.a,
-      c: this.color,
-    })
 
     this.createElements()
 
@@ -372,7 +379,7 @@ export default class Game {
       bound.show()
     })
     this.car.show()
-    this.finish.show()
+    if (this.finish) this.finish.show()
     this.checkpoints.forEach((checkpoint) => {
       checkpoint.show()
     })
@@ -395,11 +402,12 @@ export default class Game {
     })
 
     // HUD
-    this.$lastLap.innerText = formatLapTime(this.lastLap)
-    this.$bestLap.innerText = formatLapTime(this.bestLap)
-    this.$currLap.innerText = formatLapTime(
-      this.engine.timing.timestamp - this.lapStart
-    )
+    if (this.$lastLap) this.$lastLap.innerText = formatLapTime(this.lastLap)
+    if (this.$bestLap) this.$bestLap.innerText = formatLapTime(this.bestLap)
+    if (this.$currLap)
+      this.$currLap.innerText = formatLapTime(
+        this.engine.timing.timestamp - this.lapStart
+      )
   }
 
   windowResized() {

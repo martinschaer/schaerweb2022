@@ -1,12 +1,7 @@
-declare module 'url:*' {
-  const value: string
-  export default value
-}
-
 interface IPosition {
   x: number
   y: number
-  a?: number
+  a: number
 }
 
 interface IObstacle extends IPosition {

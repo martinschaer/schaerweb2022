@@ -1,6 +1,6 @@
 import decomp from 'poly-decomp'
 import './components/game.component.ts'
-import './main'
+// import './main.ts'
 
 window.decomp = decomp
 

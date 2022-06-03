@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
+    "lib": ["es2016", "DOM"],
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "target": "ESNext"
+    "target": "ES6",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "strict": true,
   },
   "include": ["assets/**/*.ts"],
   "exclude": ["node_modules"]

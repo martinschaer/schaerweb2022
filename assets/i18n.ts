@@ -1,4 +1,7 @@
-const dict = {
+type LanguageCode = string
+type I18nDictionary = Record<LanguageCode, Record<string, string>>
+
+const dict : I18nDictionary = {
   en: {
     '{0} seconds ago': '{0} seconds ago',
     '{0} minutes ago': '{0} minutes ago',
