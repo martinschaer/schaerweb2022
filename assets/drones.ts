@@ -4,6 +4,7 @@ console.log('Hello drones.ts')
 type Item = {
   Title: string
   Permalink: string
+  Key: string
   Summary: string
   Cover: string
   Price: string
@@ -11,27 +12,72 @@ type Item = {
   Categories: string[]
 }
 
+let data: Item[] = []
+
 const loadData = async () => {
   const res = await fetch('/drone-parts/index.json')
   if (res.ok) {
-    const data = await res.json()
+    data = await res.json()
     return data
   }
   throw Error()
 }
 
+const style = `
+.drones-app {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  padding: var(--spacer-50);
+  z-index: 100;
+}
+
+button.category {
+  padding: var(--spacer-50);
+  margin: var(--spacer-50);
+}
+`
+
 const template = document.createElement('template')
 // template.innerHTML = `<div></div>`
 
 const render = ({ categories }: { categories: string[] }) => `
-  <div>
-  ${categories
-    .map((x: string) => `<div>${x}</div>`)
-    .join('')}
+  <style>${style}</style>
+  <div class="drones-app">
+    ${categories
+      .map(
+        (x: string) => `<button class="category" data-key="${x}">${x}</button>`
+      )
+      .join('')}
   </div>
 `
 
-class DateComponent extends HTMLElement {
+const filterItems = (keys: string[]) => {
+  const container = document.querySelector('.article__content')
+  container
+    .querySelectorAll('.drone-item')
+    .forEach((x) => x.classList.add('hide'))
+  keys.forEach((x) => {
+    container
+      .querySelector(`.drone-item[data-key="${x}"]`)
+      .classList.remove('hide')
+  })
+}
+
+const onClickCategory = (e: MouseEvent) => {
+  const category = (e.target as HTMLButtonElement).getAttribute('data-key')
+  const itemKeys = new Set<string>()
+  data.forEach((item: Item) => {
+    if (item.Categories.includes(category)) itemKeys.add(item.Key)
+  })
+  filterItems(itemKeys)
+}
+
+class DronesComponent extends HTMLElement {
   constructor() {
     super()
     const tC = template.content
@@ -40,16 +86,25 @@ class DateComponent extends HTMLElement {
 
   connectedCallback() {
     loadData().then((data) => {
-      const categories: string[] = []
+      const categories = new Set<string>()
       data.forEach((item: Item) => {
         item.Categories.forEach((category: string) => {
-          if (!categories.includes(category)) categories.push(category)
+          categories.add(category)
         })
       })
-      if (this.shadowRoot) this.shadowRoot.innerHTML = render({ categories })
+      if (this.shadowRoot) {
+        this.shadowRoot.innerHTML = render({ categories: [...categories] })
+        filterItems([])
+        this.shadowRoot.querySelectorAll('button.category').forEach((btn) => {
+          btn.addEventListener('click', onClickCategory)
+        })
+      }
     })
   }
 
   // disconnectedCallback() {}
 }
-customElements.define('schaerweb-drones', DateComponent)
+customElements.define('schaerweb-drones', DronesComponent)
+
+const mountEl = document.createElement('schaerweb-drones')
+document.querySelector('#app .paper')?.appendChild(mountEl)
