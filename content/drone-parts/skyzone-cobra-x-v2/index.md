@@ -3,6 +3,8 @@ title: "Skyzone Cobra X V2"
 date: 2022-05-31T22:10:38-06:00
 cover: skyzone-cobra-x.jpg
 price: 209.99
+categories:
+- Goggles
 ---
 
 - DVR: H264, 30fps, MOV 6Mbps, SD up to 128Gb

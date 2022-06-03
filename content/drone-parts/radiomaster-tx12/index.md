@@ -3,6 +3,8 @@ title: "Radiomaster Tx12"
 date: 2022-05-31T22:03:49-06:00
 cover: radiomaster-tx12.jpg
 price: 109.99
+categories:
+- Radio Controller
 ---
 
 - Protocol: OpenTX

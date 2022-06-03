@@ -11,6 +11,7 @@
     "Cover" $cover
     "Price" .Params.price
     "Lastmod" .Lastmod
+    "Categories" .Params.categories
   ) -}}
 {{- end -}}
 {{- $list | jsonify -}}

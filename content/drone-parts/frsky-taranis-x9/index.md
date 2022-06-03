@@ -3,6 +3,8 @@ title: "Frsky Taranis X9"
 date: 2022-05-31T21:58:14-06:00
 cover:
 price: 94.99
+categories:
+- Radio Controller
 ---
 
 - Protocol: ACCESS (not compatible with EMAX TinyHawk 3)
