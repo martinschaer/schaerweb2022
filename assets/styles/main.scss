@@ -56,7 +56,7 @@ a {
 .grid {
   display: grid;
   grid-gap: var(--spacer);
-  grid-template: 1fr 1fr / repeat(auto-fit, minmax(400px, 1fr));
+  grid-template: 1fr / repeat(auto-fit, minmax(400px, 1fr));
 }
 
 .card {
