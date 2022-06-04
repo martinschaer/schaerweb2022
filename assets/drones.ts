@@ -50,6 +50,7 @@ const style = `
   box-sizing: border-box;
   color: var(--color-dark);
   cursor: pointer;
+  flex-shrink: 0;
   height: 1.5rem;
   line-height: 1.5rem;
   overflow: hidden;
@@ -76,6 +77,11 @@ const style = `
   background-color: var(--color-accent);
   color: var(--color-dark);
   text-align: right;
+}
+
+.categories {
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .category {
