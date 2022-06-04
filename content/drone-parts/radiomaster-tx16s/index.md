@@ -1,7 +1,6 @@
 ---
 title: "Radiomaster TX16S"
 date: 2022-05-31T22:08:06-06:00
-draft: true
 cover: radiomaster-tx16s.jpg
 price: 289.99
 categories:
