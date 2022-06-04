@@ -22191,11 +22191,11 @@
   // <stdin>
   var import_poly_decomp = __toESM(require_src());
 
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/game/game.ts
+  // ns-hugo:/Users/m.corrales.schaer/Proyectos/schaerweb2022/assets/game/game.ts
   var import_matter_js6 = __toESM(require_matter());
   var import_p56 = __toESM(require_p5_min());
 
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/game/circuits/seoul.json
+  // ns-hugo:/Users/m.corrales.schaer/Proyectos/schaerweb2022/assets/game/circuits/seoul.json
   var key = "seoul";
   var name = "Seoul Underground Circuit";
   var car = { x: 20, y: 9 };
@@ -22274,7 +22274,7 @@
     finish
   };
 
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/game/Checkpoint.ts
+  // ns-hugo:/Users/m.corrales.schaer/Proyectos/schaerweb2022/assets/game/Checkpoint.ts
   var import_matter_js = __toESM(require_matter());
   var import_p5 = __toESM(require_p5_min());
   var SPACER = 100;
@@ -22326,7 +22326,7 @@
     };
   };
 
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/game/Car.ts
+  // ns-hugo:/Users/m.corrales.schaer/Proyectos/schaerweb2022/assets/game/Car.ts
   var import_matter_js2 = __toESM(require_matter());
   var import_p52 = __toESM(require_p5_min());
   var Car = class {
@@ -22381,7 +22381,7 @@
     };
   };
 
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/game/Corner.ts
+  // ns-hugo:/Users/m.corrales.schaer/Proyectos/schaerweb2022/assets/game/Corner.ts
   var import_matter_js3 = __toESM(require_matter());
   var import_p53 = __toESM(require_p5_min());
   var THICKNESS2 = 20;
@@ -22467,7 +22467,7 @@
     };
   };
 
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/game/Obstacle.ts
+  // ns-hugo:/Users/m.corrales.schaer/Proyectos/schaerweb2022/assets/game/Obstacle.ts
   var import_matter_js4 = __toESM(require_matter());
   var import_p54 = __toESM(require_p5_min());
   var THICKNESS3 = 20;
@@ -22511,7 +22511,7 @@
     };
   };
 
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/game/Wall.ts
+  // ns-hugo:/Users/m.corrales.schaer/Proyectos/schaerweb2022/assets/game/Wall.ts
   var import_matter_js5 = __toESM(require_matter());
   var import_p55 = __toESM(require_p5_min());
   var THICKNESS4 = 20;
@@ -22559,7 +22559,7 @@
     };
   };
 
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/game/game.ts
+  // ns-hugo:/Users/m.corrales.schaer/Proyectos/schaerweb2022/assets/game/game.ts
   var carModelURL = "/car.obj";
   var newRecordAudioURL = "/newrecord.m4a";
   var formatLapTime = (ms) => (Math.round(ms) / 1e3).toString();
@@ -22825,7 +22825,7 @@
     }
   };
 
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/components/game.component.ts
+  // ns-hugo:/Users/m.corrales.schaer/Proyectos/schaerweb2022/assets/components/game.component.ts
   var style = `
 :host {
   position: fixed;
