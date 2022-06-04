@@ -3,6 +3,7 @@ title: "iFlight Mach R5"
 date: 2022-06-03T18:34:34-06:00
 cover: iflight-mach-r5.jpg
 price: 55.99
+weight: 5
 categories:
 - Frame Kit
 ---

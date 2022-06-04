@@ -1,7 +1,7 @@
 {{ $param := index .Params 0 }}
 <div class="grid">
 {{ with .Site.GetPage "section" "drone-parts" }}
-  {{ range .Pages }}
+  {{ range sort .Pages "Weight" }}
   <div class="card drone-item" data-key="{{ .RelPermalink }}">
     {{ partial "drone-part" . }}
   </div>

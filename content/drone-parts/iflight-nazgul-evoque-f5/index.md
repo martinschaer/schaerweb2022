@@ -3,6 +3,7 @@ title: "iFlight Nazgul Evoque F5"
 date: 2022-06-03T18:24:24-06:00
 cover: iflight-nazgul-evoque-f5.jpg
 price: 73.99
+weight: 5
 categories:
 - Frame Kit
 ---

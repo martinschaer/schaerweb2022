@@ -3,6 +3,7 @@ title: "Frsky Taranis Q X7s"
 date: 2022-05-31T21:59:53-06:00
 cover: frsky-x7s.jpg
 price: 187.99
+weight: 1
 categories:
 - Radio Controller
 ---

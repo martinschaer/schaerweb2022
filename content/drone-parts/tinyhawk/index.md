@@ -3,6 +3,7 @@ title: "EMAX TinyHawk 3"
 date: 2022-05-31T18:25:18-06:00
 cover: tinyhawk.jpg
 price: 168.99
+weight: 3
 categories:
 - Toy Drone
 ---

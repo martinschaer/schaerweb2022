@@ -13,9 +13,6 @@ layout: wide
 
 ## More to add to the list
 
-- [iFlight Nazgul5 V2 Analog 5" FPV Freestyle Drone - BNF](https://www.getfpv.com/iflight-nazgul5-v2-5-fpv-freestyle-rtf-bnf.html)
-- [iFlight Mach R5 5" Analog BNF Racing Quadcopter w/ RaceCam R1 Camera - 6S](https://www.getfpv.com/drone-brands/iflight/iflight-mach-r5-5-analog-bnf-racing-quadcopter-w-racecam-r1-camera-6s.html)
-- [iFlight Nazgul5 HD 5" 4S FPV Freestyle BNF w/Caddx Nebula Nano V2 - TBS Crossfire](https://www.getfpv.com/drone-brands/iflight/iflight-nazgul5-hd-5-4s-fpv-freestyle-rtf-w-caddx-nebula-nano-v2-tbs-crossfire.html)
 - https://www.banggood.com/IFlight-Nazgul5-227mm-4S-5-Inch-FPV-Racing-Drone-BNF-or-PNP-SucceX-E-F4-Caddx-Ratel-or-RaceCam-R1-Cam-45A-BLheli_S-ESC-2207-2750KV-Motor-p-1529741.html?imageAb=2&p=BW040038823798201912&akmClientCountry=CR&cur_warehouse=CN
 - fat shark attitude V5
 - fat shark v6
