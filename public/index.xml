@@ -6,44 +6,7 @@
     <description>Recent content on Martin Schaer Web</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Jun 2022 18:34:34 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>iFlight Mach R5</title>
-      <link>https://www.schaerweb.com/drone-parts/iflight-mach-r5/</link>
-      <pubDate>Fri, 03 Jun 2022 18:34:34 -0600</pubDate>
-      
-      <guid>https://www.schaerweb.com/drone-parts/iflight-mach-r5/</guid>
-      <description>getfpv
-Specifications  Middle Plate thickness: 2.5mm CNC 7075 aluminum alloy FPV Cam: 14mm /19mm Micro / 20mm FC: 30.5x30.5/25.5x25.5mm/20x20mm Main body dimension: 152*152mm Bottom plate thickness: 3mm Top plate thickness: 2.5mm Arm thickness: 6mm Wheelbase: 215mm TPU Camera plate  Recommended (Not Included)  iFlight Beast F7 V1.2 45A AIO 25.5x25.5mm Flight Controller Naked GoPro Hero8 Case DJI HD FPV Goggles V2  Includes  2x 20x250mm Microfiber PU Leather Battery Strap (Color May Vary) 1x Set Antenna Covers 1x Set 3DPrinted Parts 4x Wire Protectors 2x Camera Plates 1x Hardware Kit 1x Bottom Plate 1x Middle Plate 4x Standoffs 1x Top Plate 4x Arms Note: Frame Kit Only.</description>
-    </item>
-    
-    <item>
-      <title>iFlight Nazgul Evoque F5</title>
-      <link>https://www.schaerweb.com/drone-parts/iflight-nazgul-evoque-f5/</link>
-      <pubDate>Fri, 03 Jun 2022 18:24:24 -0600</pubDate>
-      
-      <guid>https://www.schaerweb.com/drone-parts/iflight-nazgul-evoque-f5/</guid>
-      <description> 3mm Carbon Frame Thickness with 6mm Arms F5D DeadCat Configuration Secured XT60 Battery Plug $73.99 getfpv  Specifications  Upper(middle) plate thickness: 3mm FPV cam spacing: 19mm/20mm Total Dimensions: 136x190mm Bottom to top distance: 28mm Bottom plate thickness: 3mm Top plate thickness: 3mm Stack options: 20x20mm Arm Thickness: 6mm Wheelbase: 223mm Weight: 187.9  Recomended (Not Included)  Propellers: Nazgul F5 Tri-blades CW CCW Propellers Flight Controller: BLITZ Mini F7 Flight Controller Motors: XING2 2207 Motor ESC: BLITZ Mini 55A ESC  Includes  1x iFlight Nazgul Evoque HD/Analog Frame Kit - F5D DeadCat 1x 20x200mm Battery Strap (Color May Vary) 1x 20x250mm Battery Strap (Color May Vary) 2x Anti-Slip Battery Pads 1x TPU Parts Set  </description>
-    </item>
-    
-    <item>
-      <title>Skyzone SKY04L V2</title>
-      <link>https://www.schaerweb.com/drone-parts/skyzone-sky04l-v2/</link>
-      <pubDate>Tue, 31 May 2022 22:13:01 -0600</pubDate>
-      
-      <guid>https://www.schaerweb.com/drone-parts/skyzone-sky04l-v2/</guid>
-      <description> Receiver: 5.8Ghz 48CH Steadyview Receiver Screen: LCOS Resolution: 1280X960 Aspect Ratio: 4:3/16:9 FOV (Diagonal): 39° DVR: H264, 60fps, SD Card support up to128Gb $362.99 getfpv  </description>
-    </item>
-    
-    <item>
-      <title>Skyzone Cobra X V2</title>
-      <link>https://www.schaerweb.com/drone-parts/skyzone-cobra-x-v2/</link>
-      <pubDate>Tue, 31 May 2022 22:10:38 -0600</pubDate>
-      
-      <guid>https://www.schaerweb.com/drone-parts/skyzone-cobra-x-v2/</guid>
-      <description> DVR: H264, 30fps, MOV 6Mbps, SD up to 128Gb Receiver: 5.8Ghz 48CH SteadyView Receiver Resolution: 1280X720 AspectRatio: 4:3/16:9 FOV (Diagonal): 50° Screen: LCD $209.99 getfpv  </description>
-    </item>
-    
+    <lastBuildDate>Fri, 03 Jun 2022 23:41:36 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Radiomaster TX16S</title>
       <link>https://www.schaerweb.com/drone-parts/radiomaster-tx16s/</link>
@@ -90,6 +53,24 @@ Specifications  Middle Plate thickness: 2.5mm CNC 7075 aluminum alloy FPV Cam: 1
     </item>
     
     <item>
+      <title>Skyzone SKY04L V2</title>
+      <link>https://www.schaerweb.com/drone-parts/skyzone-sky04l-v2/</link>
+      <pubDate>Tue, 31 May 2022 22:13:01 -0600</pubDate>
+      
+      <guid>https://www.schaerweb.com/drone-parts/skyzone-sky04l-v2/</guid>
+      <description> Receiver: 5.8Ghz 48CH Steadyview Receiver Screen: LCOS Resolution: 1280X960 Aspect Ratio: 4:3/16:9 FOV (Diagonal): 39° DVR: H264, 60fps, SD Card support up to128Gb $362.99 getfpv  </description>
+    </item>
+    
+    <item>
+      <title>Skyzone Cobra X V2</title>
+      <link>https://www.schaerweb.com/drone-parts/skyzone-cobra-x-v2/</link>
+      <pubDate>Tue, 31 May 2022 22:10:38 -0600</pubDate>
+      
+      <guid>https://www.schaerweb.com/drone-parts/skyzone-cobra-x-v2/</guid>
+      <description> DVR: H264, 30fps, MOV 6Mbps, SD up to 128Gb Receiver: 5.8Ghz 48CH SteadyView Receiver Resolution: 1280X720 AspectRatio: 4:3/16:9 FOV (Diagonal): 50° Screen: LCD $209.99 getfpv  </description>
+    </item>
+    
+    <item>
       <title>Nanohawk</title>
       <link>https://www.schaerweb.com/drone-parts/nanohawk/</link>
       <pubDate>Tue, 31 May 2022 21:54:31 -0600</pubDate>
@@ -105,6 +86,54 @@ Specifications  Middle Plate thickness: 2.5mm CNC 7075 aluminum alloy FPV Cam: 1
       
       <guid>https://www.schaerweb.com/drone-parts/tinyhawk/</guid>
       <description> SPI / FrSky D8 Compatible Stores:  $174: Amazon $168.99 getfpv    </description>
+    </item>
+    
+    <item>
+      <title>iFlight Mach R5 BNF</title>
+      <link>https://www.schaerweb.com/drone-parts/iflight-mach-r5-bnf/</link>
+      <pubDate>Fri, 03 Jun 2022 23:20:23 -0600</pubDate>
+      
+      <guid>https://www.schaerweb.com/drone-parts/iflight-mach-r5-bnf/</guid>
+      <description>getfpv
+Specifications  Camera: RaceCam R1 Mini 1200TVL 2.1mm 19x19 Motors: XING2 2506 1850KV FRAME: Mach R5 ESC: SucceX Mini 55A 2-6S ESC VTX: SucceX Mini Force 5.8GHz 600mW VTX Adjustable  Recommended ( Not Included)  Naked GoPro Hero8 Case DJI HD FPV Goggles V2  Includes  1x iFlight Mach R5 Analog BNF Racing Quadcopter w/ RaceCam R1 Camera - 6S 1x 20x250mm Microfiber PU Leather Battery Strap (Color May Vary) 2x Nazgul R5 3-Blade (Set of - Color May Vary) 1x Sigma RHCP Ipex/ UFL 5.</description>
+    </item>
+    
+    <item>
+      <title>iFlight Nazgul5 V2</title>
+      <link>https://www.schaerweb.com/drone-parts/iflight-nazgul5-v2/</link>
+      <pubDate>Fri, 03 Jun 2022 23:08:44 -0600</pubDate>
+      
+      <guid>https://www.schaerweb.com/drone-parts/iflight-nazgul5-v2/</guid>
+      <description>getfpv
+Features  5mm arm design for more durability XING-E 2207 motors and NAZGUL 5140 props Fits both 30.5x and 20x stacks  Specifications  FC: SucceX-E F7 45A flight stack ESC: SucceX-E 45A 2-6S BLHeli_S 4-in-1 ESC VTX: SucceX Force 5.8g 800mW VTX Adjustable XING-E 2207 FPV Motor（6S 1800KV / 4S 2750KV) Wheelbase: 240mm*240mm Body size: 170*170mm Propeller size: 5 inch /5.1 inch FC pattern: 30.530.5/2020 mm FPV cam spacing: 19mm Weight: 393.</description>
+    </item>
+    
+    <item>
+      <title>iFlight Mach R5</title>
+      <link>https://www.schaerweb.com/drone-parts/iflight-mach-r5/</link>
+      <pubDate>Fri, 03 Jun 2022 18:34:34 -0600</pubDate>
+      
+      <guid>https://www.schaerweb.com/drone-parts/iflight-mach-r5/</guid>
+      <description>getfpv
+Specifications  Middle Plate thickness: 2.5mm CNC 7075 aluminum alloy FPV Cam: 14mm /19mm Micro / 20mm FC: 30.5x30.5/25.5x25.5mm/20x20mm Main body dimension: 152*152mm Bottom plate thickness: 3mm Top plate thickness: 2.5mm Arm thickness: 6mm Wheelbase: 215mm TPU Camera plate  Recommended (Not Included)  iFlight Beast F7 V1.2 45A AIO 25.5x25.5mm Flight Controller Naked GoPro Hero8 Case DJI HD FPV Goggles V2  Includes  2x 20x250mm Microfiber PU Leather Battery Strap (Color May Vary) 1x Set Antenna Covers 1x Set 3DPrinted Parts 4x Wire Protectors 2x Camera Plates 1x Hardware Kit 1x Bottom Plate 1x Middle Plate 4x Standoffs 1x Top Plate 4x Arms Note: Frame Kit Only.</description>
+    </item>
+    
+    <item>
+      <title>iFlight Nazgul Evoque F5</title>
+      <link>https://www.schaerweb.com/drone-parts/iflight-nazgul-evoque-f5/</link>
+      <pubDate>Fri, 03 Jun 2022 18:24:24 -0600</pubDate>
+      
+      <guid>https://www.schaerweb.com/drone-parts/iflight-nazgul-evoque-f5/</guid>
+      <description> 3mm Carbon Frame Thickness with 6mm Arms F5D DeadCat Configuration Secured XT60 Battery Plug $73.99 getfpv  Specifications  Upper(middle) plate thickness: 3mm FPV cam spacing: 19mm/20mm Total Dimensions: 136x190mm Bottom to top distance: 28mm Bottom plate thickness: 3mm Top plate thickness: 3mm Stack options: 20x20mm Arm Thickness: 6mm Wheelbase: 223mm Weight: 187.9  Recomended (Not Included)  Propellers: Nazgul F5 Tri-blades CW CCW Propellers Flight Controller: BLITZ Mini F7 Flight Controller Motors: XING2 2207 Motor ESC: BLITZ Mini 55A ESC  Includes  1x iFlight Nazgul Evoque HD/Analog Frame Kit - F5D DeadCat 1x 20x200mm Battery Strap (Color May Vary) 1x 20x250mm Battery Strap (Color May Vary) 2x Anti-Slip Battery Pads 1x TPU Parts Set  </description>
+    </item>
+    
+    <item>
+      <title>Tattu Funfly 1550mah 4s 100c</title>
+      <link>https://www.schaerweb.com/drone-parts/tattu-funfly-1550mah-4s-100c/</link>
+      <pubDate>Fri, 03 Jun 2022 23:41:36 -0600</pubDate>
+      
+      <guid>https://www.schaerweb.com/drone-parts/tattu-funfly-1550mah-4s-100c/</guid>
+      <description>getfpv</description>
     </item>
     
     <item>
