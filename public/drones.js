@@ -19,13 +19,21 @@
   display: flex;
   flex-direction: column;
   height: calc(100vh - var(--titlebar-height));
-  left: 0;
-  position: sticky;
+  right: 0;
+  position: fixed;
   top: var(--titlebar-height);
   transition-duration: 200ms;
   transition-property: width;
   width: 300px;
   z-index: 100;
+}
+
+@media screen and (min-width: 800px) {
+  .drones-app {
+    position: sticky;
+    left: 0;
+    right: auto;
+  }
 }
 
 .drones-app.closed {

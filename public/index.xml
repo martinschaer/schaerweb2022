@@ -6,7 +6,7 @@
     <description>Recent content on Martin Schaer Web</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Jun 2022 23:41:36 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Jun 2022 10:09:18 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Radiomaster TX16S</title>
       <link>https://www.schaerweb.com/drone-parts/radiomaster-tx16s/</link>
@@ -50,6 +50,15 @@
       
       <guid>https://www.schaerweb.com/drone-parts/frsky-taranis-x9/</guid>
       <description> Protocol: ACCESS (not compatible with EMAX TinyHawk 3) 2.4G / 24CH $94.99 getfpv  </description>
+    </item>
+    
+    <item>
+      <title>Betafpv Vr02</title>
+      <link>https://www.schaerweb.com/drone-parts/betafpv-vr02/</link>
+      <pubDate>Mon, 06 Jun 2022 09:52:24 -0600</pubDate>
+      
+      <guid>https://www.schaerweb.com/drone-parts/betafpv-vr02/</guid>
+      <description> $49.99 getfpv Includes battery Weight: 300g Screen resolution: 800*480 px Screen size: 4.3 inch View Angle: 55° Built-in 5.8G 14DBI high-quality antennas  </description>
     </item>
     
     <item>
@@ -128,12 +137,23 @@ Specifications  Middle Plate thickness: 2.5mm CNC 7075 aluminum alloy FPV Cam: 1
     </item>
     
     <item>
-      <title>Tattu Funfly 1550mah 4s 100c</title>
+      <title>Ev Peak C1</title>
+      <link>https://www.schaerweb.com/drone-parts/ev-peak-c1/</link>
+      <pubDate>Mon, 06 Jun 2022 10:09:18 -0600</pubDate>
+      
+      <guid>https://www.schaerweb.com/drone-parts/ev-peak-c1/</guid>
+      <description>getfpv
+Specifications  DC Input Voltage 11-18V Charge power max.50W Discharger power max.5W Charge current range 0.1-6.0A Discharge current range 0.1-2.0A Balance current max.400m NiCd/NiMH battery cell count 1-15 cells LiPo/LiLo/LiFe battery cell count 1-6 series Pb battery voltage 2V - 24V Weight 200g Dimensions 8113025mm  Includes  1x DC Input Cable 1x XT60 Charging Cable 1x Balancing Adapter Board XH  Note: Power supply not included</description>
+    </item>
+    
+    <item>
+      <title>Tattu Funfly 1550mah 4s Lipo</title>
       <link>https://www.schaerweb.com/drone-parts/tattu-funfly-1550mah-4s-100c/</link>
       <pubDate>Fri, 03 Jun 2022 23:41:36 -0600</pubDate>
       
       <guid>https://www.schaerweb.com/drone-parts/tattu-funfly-1550mah-4s-100c/</guid>
-      <description>getfpv</description>
+      <description>getfpv
+ Minimum Capacity: 1550mAh Configuration: 4S1P / 14.8V / 4 Cells Discharge Rate: 100C Max Burst Discharge Rate: 200C Net Weight(±20g): 178g/unit Dimensions: 72mm Length x 35mm Width x 36mm Height Charge Plug: JST-XHR Discharge Plug: XT-60  </description>
     </item>
     
     <item>
