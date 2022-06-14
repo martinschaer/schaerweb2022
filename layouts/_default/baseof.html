@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <meta name="theme-color" content="#00ff80">
   {{ if .IsHome }}
-  {{ $gamejs := resources.Get "game.js" | js.Build }}
+  {{ $gamejs := resources.Get "game.ts" | js.Build }}
   <script type="module" src="{{ $gamejs.RelPermalink }}" defer></script>
   {{ end }}{{ if .Params.script }}
   {{ $extrajs := resources.Get .Params.script | js.Build }}
@@ -42,7 +42,6 @@
   <div id="app">
     {{- block "main" . }}{{- end }}
   </div>
-  <footer class="px-3 py-2">Martin Schaer 2022</footer>
   {{ template "_internal/google_analytics.html" . }}
 </body>
 
