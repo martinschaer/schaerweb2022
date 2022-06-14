@@ -22876,8 +22876,10 @@
 
   // <stdin>
   window.decomp = import_poly_decomp.default;
-  console.log("Hello game.js");
-  document.querySelector("#app").appendChild(document.createElement("schaerweb-game"));
+  console.log("Hello game.ts");
+  var app = document.querySelector("#app");
+  if (app)
+    app.appendChild(document.createElement("schaerweb-game"));
 })();
 /*!
  * matter-js 0.18.0 by @liabru

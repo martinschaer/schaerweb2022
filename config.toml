@@ -18,11 +18,17 @@ sectionPagesMenu = "all"
   url = '/notes/'
   weight = 1
 [[menu.main]]
+  identifier = 'f1'
+  name = 'F1 VR Room'
+  title = 'F1 VR Room'
+  url = '/f1'
+  weight = 2
+[[menu.main]]
   identifier = 'youtube'
   name = 'YouTube'
   title = 'YouTube'
   url = 'https://www.youtube.com/user/martinco06'
-  weight = 2
+  weight = 3
   [menu.main.params]
     target = "_blank"
 [[menu.main]]
@@ -30,7 +36,7 @@ sectionPagesMenu = "all"
   name = 'Twitch'
   title = 'Twitch'
   url = 'https://twitch.tv/martinschaer'
-  weight = 3
+  weight = 4
   [menu.main.params]
     target = "_blank"
 [[menu.main]]
@@ -38,6 +44,6 @@ sectionPagesMenu = "all"
   name = 'LinkedIn'
   title = 'LinkedIn'
   url = 'https://www.linkedin.com/in/martinschaer/'
-  weight = 4
+  weight = 5
   [menu.main.params]
     target = "_blank"
