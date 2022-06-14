@@ -1,3 +1,5 @@
+import 'aframe'
+
 export {}
 
 type APIParams = {
@@ -40,13 +42,37 @@ type Round = {
 
 const endpoint = 'https://ergast.com/api/f1'
 
+const COLORS_BY_DRIVER_CODE: Record<string, string> = {
+  VER: 'blue',
+  PER: 'blue',
+  LEC: 'red',
+  RUS: 'turquoise',
+  SAI: 'red',
+  HAM: 'turquoise',
+  NOR: 'orange',
+  BOT: 'darkred',
+  OCO: 'dodgerblue',
+  GAS: 'white',
+  ALO: 'dodgerblue',
+  MAG: 'gray',
+  RIC: 'orange',
+  VET: 'darkgreen',
+  TSU: 'white',
+  ALB: 'skyblue',
+  STR: 'darkgreen',
+  ZHO: 'darkred',
+  MSC: 'gray',
+  HUL: 'darkgreen',
+  LAT: 'skyblue',
+}
+
 const driverPosInRound = (driverCode: string, round: Round) => {
   for (let i = 0; i < round.DriverStandings.length; i += 1) {
     if (round.DriverStandings[i].Driver.code === driverCode) {
       return +round.DriverStandings[i].position
     }
   }
-  return 100
+  return round.DriverStandings.length + 1
 }
 
 const load = async (api: string, { year, round }: APIParams) => {
@@ -64,14 +90,14 @@ const loadDriverStandings = async (params: APIParams) => {
   return apiResult.MRData.StandingsTable.StandingsLists
 }
 
-const loadAllDriverStandings = async (params: APIParams) => {
+const loadAllDriverStandings = async (params: APIParams): Promise<Round[]> => {
   const temp = await loadDriverStandings(params)
   if (temp.length) {
     return [
       temp[0],
       ...(await loadAllDriverStandings({
         year: params.year,
-        round: params.round + 1,
+        round: params.round !== undefined ? params.round + 1 : 0,
       })),
     ]
   }
@@ -83,86 +109,77 @@ const loadAllDrivers = async (params: APIParams) => {
   return apiResult.MRData.DriverTable.Drivers as Driver[]
 }
 
-/*
-const renderRound = (round: Round) => `
-  <div class="mx-3">
-    <p>Round: ${round.round}</p>
-    ${round.DriverStandings.map(
-      (x) => `<p>${x.Driver.code} - ${x.points} - ${x.position}</p>`
-    ).join('')}
-  </div>
-`
-*/
+const WALL_H = 3
+const CHART_H = 2
+const CHART_W = 4
+const DISTANCE_TO_WALL = 2
+const driverPosToY = (pos: number): number => WALL_H - CHART_H * pos
 
-const renderDriver = (
-  driver: Driver,
-  rounds: Round[],
-  driversCount: number
-) => {
-  const roundsLen = rounds.length
-  const points = rounds
-    .map(
-      (round, i) =>
-        `${i === 0 ? 'M' : 'L'} ${(i / roundsLen) * 100} ${
-          (driverPosInRound(driver.code, round) / driversCount) * 100
-        }`
-    )
-    .join(' ')
-  return `
-    <path d="${points}" fill="none" stroke="currentColor" />
-    <text x="100" y="${
-      (driverPosInRound(driver.code, rounds[roundsLen - 1]) / driversCount) *
-      100
-    }" font-size="4" fill="currentColor" text-anchor="end" dominant-baseline="middle">${
-    driver.code
-  }</text>
-  `
+const renderAFrame = (driverCodes: string[], rounds: Round[]) => {
+  let scene = `<a-plane position="0 0 -${
+    DISTANCE_TO_WALL / 2
+  }" rotation="-90 0 0" width="${CHART_W}" height="${DISTANCE_TO_WALL}" color="#1c221f"></a-plane>`
+
+  driverCodes.forEach((driverCode) => {
+    let lastX = -2
+    let lastY = WALL_H
+    const textScale = '0.4 0.4 0'
+    const textFont = 'sourcecodepro'
+    const textPosition = `${CHART_W / 2} ${driverPosToY(
+      driverPosInRound(driverCode, rounds[rounds.length - 1]) /
+        driverCodes.length
+    )} -${DISTANCE_TO_WALL}`
+    scene += `<a-text value="${driverCode}" position="${textPosition}" font="${textFont}" scale="${textScale}"></a-text>`
+    rounds.forEach((round, roundIndex) => {
+      const x = CHART_W / -2 + CHART_W * (roundIndex / (rounds.length - 1))
+      const y = driverPosToY(
+        driverPosInRound(driverCode, round) / driverCodes.length
+      )
+      if (roundIndex > 0)
+        scene += `<a-entity line="start: ${lastX} ${lastY} -${DISTANCE_TO_WALL}; end: ${x} ${y} -${DISTANCE_TO_WALL}; color: ${COLORS_BY_DRIVER_CODE[driverCode]}"></a-entity>`
+      lastX = x
+      lastY = y
+    })
+  })
+
+  return `<a-scene>${scene}</a-scene>`
 }
 
 const generate = async () => {
   let html = ''
   const promises = []
+  const paper = document.querySelector('#app .paper')
+  const loading = document.createElement('div')
+  let article: HTMLElement | null
+  loading.innerText = 'Loading…'
+  if (paper) {
+    article = paper.querySelector('.article')
+    if (article) article.appendChild(loading)
+  }
 
   // standings
   //
   promises.push(loadAllDriverStandings({ year: 2022, round: 1 }))
 
-  /*
-  const roundsLen = standings.length
-  html = `<div>Rounds: ${roundsLen}</div>`
-  html += `
-    <div style="display: flex; margin: 0 -18rem">
-      ${standings.map(renderRound).join('')}
-    </div>`
-  */
-
   // drivers
   //
   promises.push(loadAllDrivers({ year: 2022 }))
 
-  Promise.all(promises).then(([standings, drivers]) => {
-    const driversByCode = drivers.reduce(
+  return Promise.all(promises).then(([standings, drivers]) => {
+    const driversByCode: Record<string, Driver> = (drivers as Driver[]).reduce(
       (dict: Record<string, Driver>, d: Driver) => ({ ...dict, [d.code]: d }),
       {}
     )
 
-    // console.log(driversByCode)
-
     const driverCodes = Object.keys(driversByCode)
-
-    html += `
-  <svg width="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    ${driverCodes
-      .map((code) =>
-        renderDriver(driversByCode[code], standings, drivers.length)
-      )
-      .join('')}
-  </svg>
-  `
+    html += renderAFrame(driverCodes, standings as Round[] /* driversByCode */)
 
     const mountEl = document.createElement('div')
-    document.querySelector('#app .paper').appendChild(mountEl)
-    mountEl.setAttribute('style', 'padding: var(--spacer-2);')
+    loading.remove()
+    if (paper && article) {
+      article.setAttribute('style', 'position: absolute')
+      paper.appendChild(mountEl)
+    }
     mountEl.innerHTML = html
   })
 }
