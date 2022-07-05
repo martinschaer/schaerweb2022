@@ -32,14 +32,6 @@ sectionPagesMenu = "all"
   [menu.main.params]
     target = "_blank"
 [[menu.main]]
-  identifier = 'twitch'
-  name = 'Twitch'
-  title = 'Twitch'
-  url = 'https://twitch.tv/martinschaer'
-  weight = 4
-  [menu.main.params]
-    target = "_blank"
-[[menu.main]]
   identifier = 'linkedin'
   name = 'LinkedIn'
   title = 'LinkedIn'

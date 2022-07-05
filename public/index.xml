@@ -6,7 +6,7 @@
     <description>Recent content on Martin Schaer Web</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Jun 2022 10:09:18 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 05 Jul 2022 07:53:21 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Radiomaster TX16S</title>
       <link>https://www.schaerweb.com/drone-parts/radiomaster-tx16s/</link>
@@ -154,6 +154,15 @@ Specifications  DC Input Voltage 11-18V Charge power max.50W Discharger power ma
       <guid>https://www.schaerweb.com/drone-parts/tattu-funfly-1550mah-4s-100c/</guid>
       <description>getfpv
  Minimum Capacity: 1550mAh Configuration: 4S1P / 14.8V / 4 Cells Discharge Rate: 100C Max Burst Discharge Rate: 200C Net Weight(±20g): 178g/unit Dimensions: 72mm Length x 35mm Width x 36mm Height Charge Plug: JST-XHR Discharge Plug: XT-60  </description>
+    </item>
+    
+    <item>
+      <title>F1 car in Augmented Reality (AR)</title>
+      <link>https://www.schaerweb.com/notes/f1-ar/</link>
+      <pubDate>Tue, 05 Jul 2022 07:53:21 -0600</pubDate>
+      
+      <guid>https://www.schaerweb.com/notes/f1-ar/</guid>
+      <description>From Blender to WebXR with aframe.io</description>
     </item>
     
     <item>

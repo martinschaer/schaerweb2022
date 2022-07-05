@@ -6,7 +6,16 @@
     <description>Recent content in Notes on Martin Schaer Web</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 May 2022 19:20:18 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/notes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 05 Jul 2022 07:53:21 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/notes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>F1 car in Augmented Reality (AR)</title>
+      <link>https://www.schaerweb.com/notes/f1-ar/</link>
+      <pubDate>Tue, 05 Jul 2022 07:53:21 -0600</pubDate>
+      
+      <guid>https://www.schaerweb.com/notes/f1-ar/</guid>
+      <description>From Blender to WebXR with aframe.io</description>
+    </item>
+    
     <item>
       <title>Getting started with FPV drones</title>
       <link>https://www.schaerweb.com/notes/drones/</link>
