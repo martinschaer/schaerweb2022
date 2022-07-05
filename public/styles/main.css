@@ -32,6 +32,8 @@
 
 .article__content {
   box-sizing: border-box; }
+  .article__content img {
+    max-width: 100%; }
   .article__content figure {
     margin: var(--spacer-2) 0;
     padding: var(--spacer);
