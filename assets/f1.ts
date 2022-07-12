@@ -109,34 +109,44 @@ const loadAllDrivers = async (params: APIParams) => {
   return apiResult.MRData.DriverTable.Drivers as Driver[]
 }
 
-const WALL_H = 3
-const CHART_H = 2
-const CHART_W = 4
-const DISTANCE_TO_WALL = 2
+const WALL_H = 4
+const CHART_H = 2.5
+const CHART_W = 6
+const FLOOR_W = 10
+const DISTANCE_TO_CENTER = 5
 const driverPosToY = (pos: number): number => WALL_H - CHART_H * pos
 
+const carAnimation =
+  'property: rotation; to: 0 360 0; loop: true; dur: 40000; easing: linear;'
+
 const renderAFrame = (driverCodes: string[], rounds: Round[]) => {
-  let scene = `<a-plane position="0 0 -${
-    DISTANCE_TO_WALL / 2
-  }" rotation="-90 0 0" width="${CHART_W}" height="${DISTANCE_TO_WALL}" color="#1c221f"></a-plane>`
+  let scene = `
+<a-assets>
+  <a-asset-item id="carModel" src="/f1.gltf"></a-asset-item>
+</a-assets>
+<a-plane position="0 0 -${DISTANCE_TO_CENTER}" rotation="-90 0 0" width="${FLOOR_W}" height="${FLOOR_W}" color="#1c221f"></a-plane>
+<a-cylinder position="0 0.1 -${DISTANCE_TO_CENTER}" color="#0e110f" height="0.1" radius="3"></a-cylinder>
+<a-entity id="car" position="0 0.1 -${DISTANCE_TO_CENTER}" rotation="0 0 0" gltf-model="#carModel" animation="${carAnimation}"></a-entity>
+`
 
   driverCodes.forEach((driverCode) => {
     let lastX = -2
     let lastY = WALL_H
     const textScale = '0.4 0.4 0'
     const textFont = 'sourcecodepro'
-    const textPosition = `${CHART_W / 2} ${driverPosToY(
+    const textPosition = `${CHART_W / 2 - 0.15} ${driverPosToY(
       driverPosInRound(driverCode, rounds[rounds.length - 1]) /
         driverCodes.length
-    )} -${DISTANCE_TO_WALL}`
+    )} -${DISTANCE_TO_CENTER}`
     scene += `<a-text value="${driverCode}" position="${textPosition}" font="${textFont}" scale="${textScale}"></a-text>`
     rounds.forEach((round, roundIndex) => {
-      const x = CHART_W / -2 + CHART_W * (roundIndex / (rounds.length - 1))
+      const w = CHART_W - 0.3
+      const x = w / -2 + w * (roundIndex / (rounds.length - 1))
       const y = driverPosToY(
         driverPosInRound(driverCode, round) / driverCodes.length
       )
       if (roundIndex > 0)
-        scene += `<a-entity line="start: ${lastX} ${lastY} -${DISTANCE_TO_WALL}; end: ${x} ${y} -${DISTANCE_TO_WALL}; color: ${COLORS_BY_DRIVER_CODE[driverCode]}"></a-entity>`
+        scene += `<a-entity line="start: ${lastX} ${lastY} -${DISTANCE_TO_CENTER}; end: ${x} ${y} -${DISTANCE_TO_CENTER}; color: ${COLORS_BY_DRIVER_CODE[driverCode]}"></a-entity>`
       lastX = x
       lastY = y
     })
