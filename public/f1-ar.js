@@ -58987,14 +58987,15 @@
 
   // <stdin>
   var import_aframe = __toESM(require_aframe_master());
+  var carAnimation = "property: rotation; to: 0 360 0; loop: true; dur: 40000; easing: linear;";
   var renderAFrame = () => {
-    const scene = `<a-plane position="0 0 -4" rotation="-90 0 0" width="6" height="6" color="#1c221f"></a-plane>
+    const scene = `
 <a-assets>
   <a-asset-item id="carModel" src="/f1.gltf"></a-asset-item>
 </a-assets>
-<a-entity id="car" position="0 0 -4" rotation="0 -45 0" gltf-model="#carModel"></a-entity>
+<a-entity id="car" position="0 0 -4" rotation="0 -45 0" gltf-model="#carModel" animation="${carAnimation}"></a-entity>
     `;
-    return `<a-scene stats embedded webxr="optionalFeatures:  hit-test;" ar-hit-test="target:#car;" style="height: 400px">${scene}</a-scene>`;
+    return `<a-scene embedded webxr="optionalFeatures: hit-test;" ar-hit-test="target:#car;" style="height: 400px">${scene}</a-scene>`;
   };
   var generate = async () => {
     let html = "";
