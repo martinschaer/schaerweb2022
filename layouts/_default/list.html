@@ -1,6 +1,6 @@
 {{ define "main" }}
 <div class="paper" style="padding-top: var(--titlebar-height);">
-  <div class="article">
+  <div class="article article--wide">
     <div class="article__content">
       <header>
         <h1>{{ humanize .Section }}</h1>
@@ -9,8 +9,14 @@
       <ul class="article-list">
         {{ range .Pages }}
         <li class="article-list__item">
-          <h2><a href="{{.RelPermalink}}">{{ .Title }}</a></h2>
-          <p><a href="{{.RelPermalink}}">{{ .Summary }}</a></p>
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          <p><a href="{{ .RelPermalink }}">{{ .Summary }}</a></p>
+          {{ if .Params.cover }}
+            {{ $image := .Resources.GetMatch .Params.cover }}
+            <div class="article__cover my-4">
+              <img src="{{ $image.RelPermalink }}" alt="{{ .Title }}" />
+            </div>
+          {{ end }}
           {{ partial "metadata.html" .}}
         </li>
         {{ end }}

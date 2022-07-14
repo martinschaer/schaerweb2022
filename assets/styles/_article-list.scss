@@ -2,11 +2,15 @@
   list-style: none;
   margin: var(--spacer) 0;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50ch, 1fr));
+  grid-gap: var(--spacer);
 }
 
 .article-list__item {
   border: 1px solid var(--color-border);
   padding: var(--spacer-2);
+  margin: 0 0 var(--spacer-2);
 
   h2 {
     margin-top: 0;
