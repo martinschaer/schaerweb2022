@@ -25,9 +25,10 @@
   }
 
   nav a {
-    margin: 0 var(--spacer-50);
-    text-decoration: none;
     color: var(--color-accent);
+    margin: 0 var(--spacer-50);
+    padding: 0;
+    text-decoration: none;
   }
 
   .brand {
@@ -38,5 +39,42 @@
   .brand a {
     text-decoration: none;
     color: var(--color-accent);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .titlebar {
+    flex-direction: column;
+    font-size: 1rem;
+    height: auto;
+    position: static;
+
+    .brand {
+      background-color: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      box-sizing: border-box;
+      position: fixed;
+      height: var(--titlebar-height);
+      left: 0;
+      position: fixed;
+      margin: 0;
+      line-height: var(--titlebar-height);
+      padding: 0 var(--spacer);
+      top: 0;
+      width: 100%;
+    }
+
+    nav {
+      margin: 0;
+      padding: calc(var(--spacer) + var(--titlebar-height)) 0 var(--spacer);
+
+      a {
+        display: block;
+        margin: 0;
+        padding: var(--spacer);
+        text-align: center;
+        font-size: 1.2rem;
+      }
+    }
   }
 }
