@@ -18,7 +18,7 @@
   }
 
   h2 {
-    padding-top: calc(var(--spacer) * 4);
+    padding-top: var(--spacer-2);
     margin-top: calc(var(--spacer) * 4);
     background-color: var(--color-bg);
   }
