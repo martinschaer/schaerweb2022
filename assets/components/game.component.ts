@@ -2,16 +2,16 @@ import Game from '../game/game'
 
 const style = `
 :host {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  overflow: hidden;
 }
 
 #hud {
   position: absolute;
-  top: 3rem;
+  top: var(--titlebar-height);
   right: 0;
   background-color: var(--color-accent-alpha-50);
   padding: 1rem;

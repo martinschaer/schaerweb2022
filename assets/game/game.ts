@@ -83,8 +83,9 @@ export default class Game {
 
   constructor(el: HTMLElement) {
     this.$el = el
-    this.winW = window.innerWidth
-    this.winH = window.innerHeight
+    const rect = document.body.getBoundingClientRect()
+    this.winW = rect.width
+    this.winH = rect.height
     this.circuits = {
       // test: testCircuit,
       seoul,
@@ -411,8 +412,9 @@ export default class Game {
   }
 
   windowResized() {
-    this.winW = window.innerWidth
-    this.winH = window.innerHeight
+    const rect = document.body.getBoundingClientRect()
+    this.winW = rect.width
+    this.winH = rect.height
     this.p5Instance.resizeCanvas(this.winW, this.winH)
   }
 
