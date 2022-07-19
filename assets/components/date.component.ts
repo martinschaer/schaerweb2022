@@ -23,6 +23,7 @@ class DateComponent extends HTMLElement {
     const hours = Math.floor(diff / 3600000)
     const days = Math.floor(diff / (3600000 * 24))
     const weeks = Math.floor(diff / (3600000 * 24 * 7))
+    const months = Math.floor(diff / (3600000 * 24 * 30))
     // eslint-disable-next-line no-console
     // console.table({ weeks, days, hours, minutes, seconds })
     let formatted: string
@@ -36,6 +37,8 @@ class DateComponent extends HTMLElement {
       formatted = formatStr(t('{0} days ago'), days)
     } else if (weeks < 5) {
       formatted = formatStr(t('{0} weeks ago'), weeks)
+    } else if (months < 12) {
+      formatted = formatStr(t('{0} months ago'), months)
     } else {
       formatted = date.toLocaleString()
     }
