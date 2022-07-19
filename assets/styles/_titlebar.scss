@@ -2,78 +2,30 @@
   --titlebar-height: calc(var(--spacer) * 2.5);
 }
 
-.titlebar {
-  align-items: center;
-  display: flex;
-  height: var(--titlebar-height);
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  font-size: 0.8rem;
-  background-color: var(--color-bg);
-  box-sizing: border-box;
-  border-bottom: 1px solid var(--color-border);
-
-  & > * {
-    margin: var(--spacer);
-  }
-
+schaerweb-titlebar {
   nav {
     margin-left: auto;
-  }
 
-  nav a {
-    color: var(--color-accent);
-    margin: 0 var(--spacer-50);
-    padding: 0;
-    text-decoration: none;
-  }
-
-  .brand {
-    font-weight: bolder;
-  }
-
-  nav a,
-  .brand a {
-    text-decoration: none;
-    color: var(--color-accent);
+    a {
+      color: var(--color-accent);
+      margin: 0 var(--spacer-50);
+      padding: 0;
+      text-decoration: none;
+    }
   }
 }
 
 @media screen and (max-width: 800px) {
-  .titlebar {
-    flex-direction: column;
-    font-size: 1rem;
-    height: auto;
-    position: relative;
+  schaerweb-titlebar nav {
+    margin: 0;
+    padding: calc(var(--spacer) + var(--titlebar-height)) 0 var(--spacer);
+  }
 
-    .brand {
-      background-color: var(--color-bg);
-      border-bottom: 1px solid var(--color-border);
-      box-sizing: border-box;
-      position: fixed;
-      height: var(--titlebar-height);
-      left: 0;
-      margin: 0;
-      line-height: var(--titlebar-height);
-      padding: 0 var(--spacer);
-      top: 0;
-      width: 100%;
-    }
-
-    nav {
-      margin: 0;
-      padding: calc(var(--spacer) + var(--titlebar-height)) 0 var(--spacer);
-
-      a {
-        display: block;
-        margin: 0;
-        padding: var(--spacer);
-        text-align: center;
-        font-size: 1.2rem;
-      }
-    }
+  schaerweb-titlebar nav a {
+    display: block;
+    margin: 0;
+    padding: var(--spacer);
+    text-align: center;
+    font-size: 1.2rem;
   }
 }

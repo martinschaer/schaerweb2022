@@ -28,17 +28,14 @@
 </head>
 
 <body>
-  <div class="titlebar">
-    <div class="brand">
-      <a href="/">Martin Schaer Web</a>
-    </div>
-    <nav>
+  <schaerweb-titlebar>
+    <nav slot="nav">
       {{ $currentPage := . }}
       {{ range .Site.Menus.main }}
       <a href="{{ .URL }}" title="{{ .Title }}" target="{{ .Params.target }}">{{ .Name }}</a>
       {{ end }}
     </nav>
-  </div>
+  </schaerweb-titlebar>
   <div id="app">
     {{- block "main" . }}{{- end }}
   </div>
