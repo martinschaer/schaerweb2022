@@ -13,12 +13,9 @@
     </div>
     {{ end }}
     <div class="article__metadata">
-      <strong>Table of contents:</strong>
+      {{ partial "metadata.html" .}}
+      <p><strong>Table of contents:</strong></p>
       {{ .TableOfContents }}
-      <div class="text-muted mt-5">
-        <strong>Metadata:</strong>
-        {{ partial "metadata.html" .}}
-      </div>
     </div>
     <main class="article__content">
       {{ .Content }}

@@ -13,7 +13,7 @@
           <p class="mx-3"><a href="{{ .RelPermalink }}">{{ .Summary }}</a></p>
           {{ if .Params.cover }}
           {{ $image := .Resources.GetMatch .Params.cover }}
-          <div class="mb-3">
+          <div>
             <img src="{{ $image.RelPermalink }}" alt="{{ .Title }}" />
           </div>
           {{ end }}
