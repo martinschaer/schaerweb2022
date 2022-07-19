@@ -15,11 +15,8 @@
   <link rel="stylesheet" href="/normalize.css"><link rel="stylesheet" href="/styles/main.css"></head>
 
 <body>
-  <div class="titlebar">
-    <div class="brand">
-      <a href="/">Martin Schaer Web</a>
-    </div>
-    <nav>
+  <schaerweb-titlebar>
+    <nav slot="nav">
       
       
       <a href="/notes/" title="Notes" target="">Notes</a>
@@ -31,7 +28,7 @@
       <a href="https://www.linkedin.com/in/martinschaer/" title="LinkedIn" target="_blank">LinkedIn</a>
       
     </nav>
-  </div>
+  </schaerweb-titlebar>
   <div id="app">
 <div class="paper" style="padding-top: var(--titlebar-height);">
   <div class="article article--wide">
