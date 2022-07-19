@@ -55,6 +55,7 @@
       const hours = Math.floor(diff / 36e5);
       const days = Math.floor(diff / (36e5 * 24));
       const weeks = Math.floor(diff / (36e5 * 24 * 7));
+      const months = Math.floor(diff / (36e5 * 24 * 30));
       let formatted;
       if (seconds < 60) {
         formatted = formatStr(t("{0} seconds ago"), seconds);
@@ -66,6 +67,8 @@
         formatted = formatStr(t("{0} days ago"), days);
       } else if (weeks < 5) {
         formatted = formatStr(t("{0} weeks ago"), weeks);
+      } else if (months < 12) {
+        formatted = formatStr(t("{0} months ago"), months);
       } else {
         formatted = date.toLocaleString();
       }

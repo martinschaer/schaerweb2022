@@ -30,6 +30,18 @@
   box-sizing: border-box;
   padding: var(--article-spacer) 0; }
 
+ul.metadata {
+  list-style: none;
+  display: flex;
+  font-size: 0.8rem;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap; }
+  ul.metadata li {
+    margin: 0;
+    padding: 0 0 var(--spacer-50) var(--spacer-50);
+    min-width: 30ch; }
+
 .article__content {
   box-sizing: border-box; }
   .article__content img {
