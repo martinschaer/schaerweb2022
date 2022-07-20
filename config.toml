@@ -3,6 +3,8 @@ googleAnalytics = 'UA-15165899-1'
 languageCode = 'en-us'
 title = 'Martin Schaer Web'
 enableGitInfo = true
+enableRobotsTXT = true
+canonifyURLs = true
 sectionPagesMenu = "all"
 [build]
   noJSConfigInAssets = true
