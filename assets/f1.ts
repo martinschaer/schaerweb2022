@@ -124,6 +124,8 @@ const renderAFrame = (driverCodes: string[], rounds: Round[]) => {
 <a-assets>
   <a-asset-item id="carModel" src="/f1.gltf"></a-asset-item>
 </a-assets>
+<a-entity light="type: ambient; color: #FFF; intensity: 0.5"></a-entity>
+<a-entity light="type: directional; color: #FFF; intensity: 0.2" position="0 1 0"></a-entity>
 <a-plane position="0 0 -${DISTANCE_TO_CENTER}" rotation="-90 0 0" width="${FLOOR_W}" height="${FLOOR_W}" color="#1c221f"></a-plane>
 <a-cylinder position="0 0.1 -${DISTANCE_TO_CENTER}" color="#0e110f" height="0.1" radius="3"></a-cylinder>
 <a-entity id="car" position="0 0.1 -${DISTANCE_TO_CENTER}" rotation="0 0 0" gltf-model="#carModel" animation="${carAnimation}"></a-entity>
