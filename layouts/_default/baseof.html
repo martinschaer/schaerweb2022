@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html prefix="og: http://ogp.me/ns#" lang="{{ .Language }}">
 
-<head>
-  <title>Martin Schaer Web</title>
+<head itemscope itemtype="https://schema.org/WebPage">
+  <title>{{ if not .IsHome }}{{ .Title }} - {{ end }}{{ site.Title }}</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <meta name="theme-color" content="#00ff80">
+
+  {{ partial "opengraph.html" . }}
+  {{ template "_internal/schema.html" . }}
+  {{ partial "twitter_cards.html" . }}
+
   {{ if .IsHome }}
   {{ $gamejs := resources.Get "game.ts" | js.Build }}
   <script type="module" src="{{ $gamejs.RelPermalink }}" defer></script>

@@ -12,6 +12,10 @@ sectionPagesMenu = "all"
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+[params]
+  description = 'Creative Technologist'
+  images = ['notes/f1-ar/005.png']
+  title = 'Martin Schaer Web'
 [menu]
 [[menu.main]]
   identifier = 'notes'
