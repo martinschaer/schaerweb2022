@@ -1,11 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html prefix="og: http://ogp.me/ns#" lang="en">
 
-<head>
-  <title>Martin Schaer Web</title>
+<head itemscope itemtype="https://schema.org/WebPage">
+  <title>F1 car in Augmented/Virtual Reality (AR/VR) - Martin Schaer Web</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <meta name="theme-color" content="#00ff80">
+
+  <meta property="og:title" content="F1 car in Augmented/Virtual Reality (AR/VR)" />
+<meta property="og:description" content="From Blender to WebXR with aframe.io" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.schaerweb.com/notes/f1-ar/" /><meta property="og:image" content="https://www.schaerweb.com/notes/f1-ar/005.png" /><meta property="article:section" content="notes" />
+  <meta property="article:published_time" content="2022-07-05T07:53:21-06:00" />
+  <meta property="article:modified_time" content="2022-07-20T10:52:40-06:00" /><meta property="og:site_name" content="Martin Schaer Web" />
+
+
+  <meta itemprop="name" content="F1 car in Augmented/Virtual Reality (AR/VR)">
+<meta itemprop="description" content="From Blender to WebXR with aframe.io"><meta itemprop="datePublished" content="2022-07-05T07:53:21-06:00" />
+<meta itemprop="dateModified" content="2022-07-20T10:52:40-06:00" />
+<meta itemprop="wordCount" content="116"><meta itemprop="image" content="https://www.schaerweb.com/005.png">
+<meta itemprop="keywords" content="" />
+  <meta name="twitter:card" content="summary_large_image"/><meta property="og:image" content="https://www.schaerweb.com/notes/f1-ar/005.png" /><meta name="twitter:image" content="https://www.schaerweb.com/005.png"/>
+
+<meta name="twitter:title" content="F1 car in Augmented/Virtual Reality (AR/VR)"/>
+<meta name="twitter:description" content="From Blender to WebXR with aframe.io"/>
+
+
   
   
   <script type="module" src="https://www.schaerweb.com/f1-ar.js" defer></script>
@@ -33,6 +53,7 @@
     </nav>
   </schaerweb-titlebar>
   <div id="app">
+
 <div class="paper" style="padding-top: var(--titlebar-height);">
   <article class="article">
     
@@ -42,17 +63,22 @@
       <h1>F1 car in Augmented/Virtual Reality (AR/VR)</h1>
     </header>
     
-    <div class="article__cover">
-      <img src="004.png" alt="F1 car in Augmented/Virtual Reality (AR/VR)" />
-    </div>
+      
+        
+        
+          <div class="article__cover">
+            <img src="https://www.schaerweb.com/notes/f1-ar/005.png" alt="F1 car in Augmented/Virtual Reality (AR/VR)" />
+          </div>
+        
+      
     
     <div class="article__metadata">
       <ul class="metadata">
   <li><span>Categories:</span> </li>
   <li><span>Keywords:</span> []</li>
   <li><span>Created:</span> <schaerweb-date unix="1657029201">Tuesday, July 5, 2022, 7:53am CST</schaerweb-date></li>
-  <li><span>Last modified:</span> <schaerweb-date unix="1657590026">Monday, July 11, 2022, 7:40pm CST</schaerweb-date></li>
-  <li><span>Word count:</span> 100</li>
+  <li><span>Last modified:</span> <schaerweb-date unix="1658335960">Wednesday, July 20, 2022, 10:52am CST</schaerweb-date></li>
+  <li><span>Word count:</span> 200</li>
   <li><span>Reading time:</span> 1 minutes</li>
 </ul>
 
@@ -76,9 +102,21 @@
 <div id="ar-container"></div>
 <h2 id="3d-model">3D Model</h2>
 <p>Progress:</p>
-<p><img src="001.png" alt="First 3D model iteration">
-<img src="002.png" alt="Second 3D model iteration">
-<img src="003.png" alt="Third 3D model iteration"></p>
+<p><figure><img src="001.png"/><figcaption>
+            <h4>First 3D model iteration</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="002.png"/><figcaption>
+            <h4>Second 3D model iteration</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="003.png"/><figcaption>
+            <h4>Third 3D model iteration</h4>
+        </figcaption>
+</figure>
+</p>
 <p>At this point the mesh was a mess. I wanted to have a cleaner mesh, because that would make it easier to adjust.</p>
 <p>So I turned to YouTube and found this amazing tutorial:</p>
 
@@ -87,7 +125,26 @@
 </div>
 
 <p>Then started from scratch and in no time I made this (also I went for a <em>zero-sidepods</em> look like the Mercedes team):</p>
-<p><img src="004.png" alt="Fourth 3D model iteration"></p>
+<p><figure><img src="004.png"/><figcaption>
+            <h4>Fourth 3D model iteration</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="005.png"/><figcaption>
+            <h4>Fifth 3D model iteration</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="f1-wireframe-solid.png"/><figcaption>
+            <h4>Wireframe</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="f1-wireframe.png"/><figcaption>
+            <h4>Quads</h4>
+        </figcaption>
+</figure>
+</p>
 <h2 id="f1-vr-room">F1 VR Room</h2>
 <p>I used the F1 model to decorate my F1 VR Room: <a href="https://www.schaerweb.com/f1">F1 VR Room</a></p>
 
