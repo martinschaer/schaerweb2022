@@ -1,7 +1,7 @@
 ---
 title: "Getting started with FPV drones"
 date: 2022-05-23T19:20:18-06:00
-cover: drone.jpg
+images: ["drone.jpg"]
 script: drones.ts
 summary: Choose all the parts you nee for a FPV drone
 layout: wide

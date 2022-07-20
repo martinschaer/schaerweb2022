@@ -1,7 +1,7 @@
 ---
 title: "Betafpv Vr02"
 date: 2022-06-06T09:52:24-06:00
-cover: betafpv-vr02.jpg
+images: ["betafpv-vr02.jpg"]
 price: 49.99
 weight: 2
 categories:

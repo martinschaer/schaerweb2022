@@ -1,7 +1,7 @@
 ---
 title: "Nanohawk"
 date: 2022-05-31T21:54:31-06:00
-cover: nanohawk.jpg
+images: ["nanohawk.jpg"]
 price: 139.99
 weight: 3
 categories:

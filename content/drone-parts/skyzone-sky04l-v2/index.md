@@ -1,7 +1,7 @@
 ---
 title: "Skyzone SKY04L V2"
 date: 2022-05-31T22:13:01-06:00
-cover: skyzone-sky04l.jpg
+images: ["skyzone-sky04l.jpg"]
 price: 362.99
 weight: 2
 categories:

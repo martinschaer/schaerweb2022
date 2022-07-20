@@ -1,7 +1,7 @@
 ---
 title: "Mini Mustang P-51D FPV"
 date: 2022-07-13T23:02:05-06:00
-cover: mini-mustang.jpg
+images: ['mini-mustang.jpg']
 summary: "We put a camera on this mini RC plane. And it's amazing"
 categories:
 - Drones & Planes

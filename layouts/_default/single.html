@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{ $page := . }}
 <div class="paper" style="padding-top: var(--titlebar-height);">
   <article class="article{{ if eq .Params.layout "wide" }} article--wide{{ end }}">
     {{ with .Parent }}
@@ -7,10 +8,15 @@
     <header>
       <h1>{{ .Title }}</h1>
     </header>
-    {{ if .Params.cover }}
-    <div class="article__cover">
-      <img src="{{ .Params.cover }}" alt="{{ .Title }}" />
-    </div>
+    {{ if .Params.images }}
+      {{ range first 1 .Params.images }}
+        {{ $image := $page.Resources.GetMatch .}}
+        {{ if $image }}
+          <div class="article__cover">
+            <img src="{{ $image.Permalink }}" alt="{{ $page.Title }}" />
+          </div>
+        {{ end }}
+      {{ end }}
     {{ end }}
     <div class="article__metadata">
       {{ partial "metadata.html" .}}

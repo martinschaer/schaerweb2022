@@ -1,8 +1,14 @@
 {{- $list := slice -}}
 {{- range .Pages -}}
   {{- $cover := "" -}}
-  {{- if .Params.cover -}}
-    {{- $cover = (print .RelPermalink .Params.cover) -}}
+  {{- $page := . -}}
+  {{- if .Params.images -}}
+    {{- range first 1 .Params.images -}}
+      {{- $image := $page.Resources.GetMatch . -}}
+      {{- if $image -}}
+        {{- $cover = $image.Permalink -}}
+      {{- end -}}
+    {{- end -}}
   {{- end -}}
   {{- $list = $list | append (dict
     "Title" .Title

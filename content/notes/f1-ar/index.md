@@ -1,7 +1,7 @@
 ---
 title: "F1 car in Augmented/Virtual Reality (AR/VR)"
 date: 2022-07-05T07:53:21-06:00
-cover: 005.png
+images: ["005.png"]
 script: f1-ar.ts
 summary: From Blender to WebXR with aframe.io
 ---

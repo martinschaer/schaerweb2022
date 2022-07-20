@@ -3,7 +3,7 @@ title: "Tattu Funfly 1550mah 4s Lipo"
 date: 2022-06-03T23:41:36-06:00
 price: 20.99
 weight: 10
-cover: funfly-1550-4s.jpg
+images: ["funfly-1550-4s.jpg"]
 categories:
 - Batteries
 ---

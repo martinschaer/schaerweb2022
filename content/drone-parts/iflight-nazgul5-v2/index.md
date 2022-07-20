@@ -1,7 +1,7 @@
 ---
 title: "iFlight Nazgul5 V2"
 date: 2022-06-03T23:08:44-06:00
-cover: iflight-nazgul5-v2.jpg
+images: ["iflight-nazgul5-v2.jpg"]
 price: 259.99
 weight: 4
 categories:

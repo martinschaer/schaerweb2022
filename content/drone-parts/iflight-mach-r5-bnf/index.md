@@ -1,7 +1,7 @@
 ---
 title: "iFlight Mach R5 BNF"
 date: 2022-06-03T23:20:23-06:00
-cover: iflight-mach-r5-bnf.jpg
+images: ["iflight-mach-r5-bnf.jpg"]
 price: 319.99
 weight: 4
 categories:

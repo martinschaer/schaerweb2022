@@ -1,10 +1,16 @@
 <h3>{{ .Params.Title }}</h3>
-{{ if .Params.cover }}
-<figure>
-  <img src="{{ print .RelPermalink .Params.cover }}" alt="{{ .Params.Title }}">
-  <figcaption>
-    <h4>{{ .Params.Title }}</h4>
-  </figcaption>
-</figure>
+{{ $page := . }}
+{{ if $page.Params.images }}
+  {{ range first 1 $page.Params.images }}
+    {{ $image := $page.Resources.GetMatch .}}
+    {{ if $image }}
+      <figure>
+        <img src="{{ $image.Permalink }}" alt="{{ $page.Params.Title }}">
+        <figcaption>
+          <h4>{{ $page.Params.Title }}</h4>
+        </figcaption>
+      </figure>
+    {{ end }}
+  {{ end }}
 {{ end }}
 {{ .Content }}
