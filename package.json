@@ -7,8 +7,8 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "imagemin": "./bin/imagemin.mjs",
-    "start": "hugo server -D --disableFastRender",
-    "build": "hugo",
+    "start": "hugo server -D --disableFastRender --gc",
+    "build": "hugo --gc",
     "lint:style": "stylelint \"assets/**/*.?(s)css\"",
     "lint:script": "eslint \"assets/**/*.{j,t}s\"",
     "lint": "npm run lint:script & npm run lint:style",
