@@ -30,14 +30,6 @@ sectionPagesMenu = "all"
   url = '/f1'
   weight = 2
 [[menu.main]]
-  identifier = 'youtube'
-  name = 'YouTube'
-  title = 'YouTube'
-  url = 'https://www.youtube.com/user/martinco06'
-  weight = 3
-  [menu.main.params]
-    target = "_blank"
-[[menu.main]]
   identifier = 'linkedin'
   name = 'LinkedIn'
   title = 'LinkedIn'
