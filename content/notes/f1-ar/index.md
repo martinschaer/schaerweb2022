@@ -1,7 +1,7 @@
 ---
 title: "F1 car in Augmented/Virtual Reality (AR/VR)"
 date: 2022-07-05T07:53:21-06:00
-images: ["005.png"]
+images: ["007.png"]
 script: f1-ar.ts
 summary: From Blender to WebXR with aframe.io
 ---
@@ -36,6 +36,9 @@ Then started from scratch and in no time I made this (also I went for a *zero-si
 {{< figure src="005.png" title="Fifth 3D model iteration" >}}
 {{< figure src="f1-wireframe-solid.png" title="Wireframe" >}}
 {{< figure src="f1-wireframe.png" title="Quads" >}}
+
+{{< figure src="006.png" title="More detail to the side pods" >}}
+{{< figure src="007.png" title="Halo and environment image" >}}
 
 ## F1 VR Room
 
