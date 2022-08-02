@@ -1,11 +1,11 @@
 baseURL = 'https://www.schaerweb.com/'
-googleAnalytics = 'UA-15165899-1'
-languageCode = 'en-us'
-title = 'Martin Schaer Web'
+canonifyURLs = true
 enableGitInfo = true
 enableRobotsTXT = true
-canonifyURLs = true
+googleAnalytics = 'UA-15165899-1'
+languageCode = 'en-us'
 sectionPagesMenu = "all"
+title = 'Martin Schaer Web'
 [build]
   noJSConfigInAssets = true
 [markup]
@@ -14,26 +14,20 @@ sectionPagesMenu = "all"
       unsafe = true
 [params]
   description = 'Creative Technologist'
-  images = ['notes/f1-ar/005.png']
+  images = ['articles/f1-3d/008.png']
   title = 'Martin Schaer Web'
+[taxonomies]
+  tag = 'tags'
 [menu]
 [[menu.main]]
-  identifier = 'notes'
-  name = 'Notes'
-  title = 'Notes'
-  url = '/notes/'
+  identifier = 'articles'
+  name = 'Articles'
+  title = 'Articles'
+  url = '/articles/'
   weight = 1
 [[menu.main]]
-  identifier = 'f1'
-  name = 'F1 VR Room'
-  title = 'F1 VR Room'
-  url = '/f1'
-  weight = 2
-[[menu.main]]
-  identifier = 'linkedin'
-  name = 'LinkedIn'
-  title = 'LinkedIn'
-  url = 'https://www.linkedin.com/in/martinschaer/'
+  identifier = 'about'
+  name = 'About'
+  title = 'About'
+  url = '/about/'
   weight = 5
-  [menu.main.params]
-    target = "_blank"
