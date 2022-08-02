@@ -1,4 +1,7 @@
-const style = `
+const css = String.raw
+const html = String.raw
+
+const styleContent = css`
 :host {
   align-items: center;
   display: flex;
@@ -73,9 +76,9 @@ const style = `
 `
 
 // Web Component
-const template = document.createElement('template')
-template.innerHTML = `
-  <style>${style}</style>
+const templateEl = document.createElement('template')
+templateEl.innerHTML = html`
+  <style>${styleContent}</style>
   <div class="brand">
     <a href="/">Martin Schaer Web</a>
   </div>
@@ -90,7 +93,7 @@ class TitleBarComponent extends HTMLElement {
 
   constructor() {
     super()
-    const tC = template.content
+    const tC = templateEl.content
     this.attachShadow({ mode: 'open' }).appendChild(tC.cloneNode(true))
     this.classList.add('closed')
 
