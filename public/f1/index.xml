@@ -1,11 +1,1 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>F1 on Martin Schaer Web</title>
-    <link>https://www.schaerweb.com/f1/</link>
-    <description>Recent content in F1 on Martin Schaer Web</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 29 May 2022 22:08:54 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/f1/index.xml" rel="self" type="application/rss+xml" />
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>F1 on Martin Schaer Web</title><link>https://www.schaerweb.com/f1/</link><description>Recent content in F1 on Martin Schaer Web</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 29 May 2022 22:08:54 -0600</lastBuildDate><atom:link href="https://www.schaerweb.com/f1/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
