@@ -3,13 +3,15 @@ title: "F1 3D model for WebXR"
 date: 2022-07-05T07:53:21-06:00
 images: ["008.png"]
 script: f1-ar.ts
-keywords:
+tags:
 - F1
 - WebXR
 - Blender
 - 3D
 summary: From Blender to WebXR with aframe.io
 ---
+
+{{< toc >}}
 
 ## AR/VR
 

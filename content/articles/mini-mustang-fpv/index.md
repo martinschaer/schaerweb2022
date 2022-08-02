@@ -5,9 +5,11 @@ images: ['mini-mustang.jpg']
 summary: "We put a camera on this mini RC plane. And it's amazing"
 categories:
 - Drones & Planes
-keywords:
+tags:
 - FPV
 ---
+
+{{< toc >}}
 
 ## Parts
 
