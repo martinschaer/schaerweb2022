@@ -29,7 +29,7 @@ $colors: (
   --color-bg: var(--color-darker);
   --color-border: var(--color-light-alpha-10);
   --color-accent: var(--color-green);
-  --color-accent-highlight: var(--color-green-darker-10);
+  // --color-accent-highlight: var(--color-green-darker-10);
   --color-accent-alpha-50: var(--color-green-alpha-50);
   --color-paper: var(--color-dark);
   --color-shadow: var(--color-darker-alpha-50);
@@ -42,7 +42,7 @@ $colors: (
     --color-bg: var(--color-light);
     --color-border: var(--color-dark-alpha-10);
     --color-accent: var(--color-green-darker-10);
-    --color-accent-highlight: var(--color-green);
+    // --color-accent-highlight: var(--color-green);
     --color-accent-alpha-50: var(--color-green-alpha-50);
     --color-paper: var(--color-lighter);
     --color-shadow: var(--color-darker-alpha-05);
