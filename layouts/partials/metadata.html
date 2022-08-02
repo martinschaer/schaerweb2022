@@ -1,8 +1,19 @@
 <ul class="metadata">
   <!-- <li><span>Categories:</span> {{ .Params.categories }}</li> -->
-  <li><span>Keywords:</span> {{ .Keywords }}</li>
+  <li>
+    <span>Tags:</span>
+    {{ range $index, $tag := (.GetTerms "tags") -}}
+      {{- if gt $index 0 }}, {{ end -}}
+      <a href="{{ $tag.Permalink }}">{{ $tag.LinkTitle }}</a>
+    {{- end }}
+  </li>
   <!-- <li><span>Created:</span> <schaerweb-date unix="{{.Date.Unix}}">{{ .Date.Format "Monday, January 2, 2006, 3:04pm MST" }}</schaerweb-date></li> -->
-  <li><span>Last modified:</span> <schaerweb-date unix="{{.Lastmod.Unix}}">{{ .Lastmod.Format "Monday, January 2, 2006, 3:04pm MST" }}</schaerweb-date></li>
+  <li>
+    <span>Last modified:</span>
+    <schaerweb-date unix="{{.Lastmod.Unix}}"
+      >{{ .Lastmod.Format "Monday, January 2, 2006, 3:04pm MST" }}
+    </schaerweb-date>
+  </li>
   <!-- <li><span>Word count:</span> {{ .FuzzyWordCount }}</li> -->
   <!-- <li><span>Reading time:</span> {{ .ReadingTime }} minutes</li> -->
 </ul>
