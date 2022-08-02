@@ -7,7 +7,7 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "imagemin": "./bin/imagemin.mjs",
-    "start": "hugo server -D --disableFastRender --gc",
+    "start": "hugo server --disableFastRender --gc",
     "build": "hugo --gc --minify",
     "lint:style": "stylelint \"assets/**/*.?(s)css\"",
     "lint:script": "eslint \"assets/**/*.{j,t}s\"",

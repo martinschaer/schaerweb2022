@@ -1,14 +1,14 @@
 ---
-title: "iFlight Nazgul5 V2"
+title: "iFlight Nazgul5 V2 4S"
 date: 2022-06-03T23:08:44-06:00
 images: ["iflight-nazgul5-v2.jpg"]
-price: 259.99
+price: 279.99
 weight: 4
 categories:
 - BNF Drone
 ---
 
-[getfpv](https://www.getfpv.com/iflight-nazgul5-v2-5-fpv-freestyle-rtf-bnf.html)
+[Banggood](https://www.banggood.com/custlink/3DDcKhOqDO)
 
 ## Features
 
@@ -21,7 +21,7 @@ categories:
 - FC: SucceX-E F7 45A flight stack
 - ESC: SucceX-E 45A 2-6S BLHeli_S 4-in-1 ESC
 - VTX:  SucceX Force 5.8g 800mW VTX Adjustable
-- XING-E 2207 FPV Motor（6S 1800KV / 4S 2750KV)
+- XING-E 2207 FPV Motor（4S 2750KV)
 - Wheelbase: 240mm*240mm
 - Body size: 170*170mm
 - Propeller size: 5 inch /5.1 inch
@@ -32,8 +32,6 @@ categories:
 ## Recommended Parts (Not Included)
 
 - Battery 4S 1550mAh
-- Battery 6S 1300mAh
-- GoPro Mounts
 
 ## Includes
 

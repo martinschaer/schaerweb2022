@@ -1,5 +1,6 @@
 ---
 title: "Skyzone Cobra X V2"
+draft: true
 date: 2022-05-31T22:10:38-06:00
 images: ["skyzone-cobra-x.jpg"]
 price: 209.99

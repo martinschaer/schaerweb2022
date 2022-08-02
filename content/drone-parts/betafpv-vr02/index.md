@@ -2,13 +2,13 @@
 title: "Betafpv Vr02"
 date: 2022-06-06T09:52:24-06:00
 images: ["betafpv-vr02.jpg"]
-price: 49.99
+price: 65.99
 weight: 2
 categories:
 - Goggles
 ---
 
-- $49.99 [getfpv](https://www.getfpv.com/betafpv-vr02-fpv-goggles.html)
+- $65.99 [Amazon](https://amzn.to/3OOyiCM)
 - Includes battery
 - Weight: 300g
 - Screen resolution: 800*480 px

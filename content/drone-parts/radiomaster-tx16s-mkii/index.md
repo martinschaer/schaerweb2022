@@ -8,6 +8,7 @@ categories:
 - Radio Controller
 ---
 
-- Protocol: OpenTX
+- 4in1, ELRS, and Crossfire options.
+- Operating System: EdgeTX/OpenTX
 - $199.99 [getfpv](https://www.getfpv.com/radios/radio-controllers/radiomaster-tx16s-mkii-2-4ghz-16ch-radio-transmitter-multi-protocol-w-hall-gimbals-v4-0.html)
 
