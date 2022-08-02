@@ -5,6 +5,7 @@
 schaerweb-titlebar {
   nav {
     margin-left: auto;
+    background-color: var(--color-bg);
 
     a {
       color: var(--color-accent);
@@ -18,7 +19,9 @@ schaerweb-titlebar {
 @media screen and (max-width: 800px) {
   schaerweb-titlebar nav {
     margin: 0;
-    padding: calc(var(--spacer) + var(--titlebar-height)) 0 var(--spacer);
+    padding: calc(var(--spacer) + var(--titlebar-height)) 0 var(--spacer-2);
+    position: fixed;
+    width: 100%;
   }
 
   schaerweb-titlebar nav a {

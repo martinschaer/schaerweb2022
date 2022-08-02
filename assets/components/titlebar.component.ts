@@ -50,27 +50,29 @@ const styleContent = css`
     background-color: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
     box-sizing: border-box;
-    position: fixed;
     height: var(--titlebar-height);
     left: 0;
-    margin: 0;
     line-height: var(--titlebar-height);
+    margin: 0;
     padding: 0 var(--spacer);
+    position: fixed;
     top: 0;
     width: 100%;
+    z-index: 1000;
   }
 
   .close {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    height: var(--titlebar-height);
-    width: var(--titlebar-height);
-    border: 0;
     background: transparent;
+    border: 0;
     color: var(--fg);
+    display: block;
+    height: var(--titlebar-height);
+    margin: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: var(--titlebar-height);
+    z-index: 1010;
   }
 }
 `
