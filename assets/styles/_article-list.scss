@@ -9,7 +9,9 @@
 
 .article-list__item {
   border: 1px solid var(--color-border);
-  margin: 0 0 var(--spacer-2);
+  border-radius: var(--spacer-50);
+  overflow: hidden;
+  margin: 0;
 
   h2 {
     margin-top: 0;

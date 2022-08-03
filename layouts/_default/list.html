@@ -12,7 +12,7 @@
         {{ range .Pages }} {{ $page := .}}
         <li class="article-list__item">
           <h2 class="mb-0"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-          <p class="mx-3"><a href="{{ .RelPermalink }}">{{ .Summary }}</a></p>
+          <p class="mx-3 small">{{ .Summary }}</p>
           {{ if .Params.images }} {{ range first 1 .Params.images }} {{ $image
           := $page.Resources.GetMatch . }} {{ if $image }}
           <div>
