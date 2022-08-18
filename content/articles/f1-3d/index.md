@@ -1,7 +1,7 @@
 ---
 title: "F1 3D model for WebXR"
 date: 2022-07-05T07:53:21-06:00
-images: ["008.png"]
+images: ["012.png"]
 script: f1-ar.ts
 tags:
 - F1
@@ -47,6 +47,7 @@ Then started from scratch and in no time I made this (also I went for a *zero-si
 {{< figure src="006.png" title="More detail to the side pods" >}}
 {{< figure src="007.png" title="Halo and environment image" >}}
 {{< figure src="008.png" title="Larger sidepods and some textures" >}}
+{{< figure src="012.png" title="Carbon fiber and tire materials" >}}
 
 ## F1 VR Room
 
