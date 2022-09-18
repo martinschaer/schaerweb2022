@@ -21,10 +21,12 @@
     "matter-js": "^0.18.0",
     "normalize.css": "^8.0.1",
     "p5": "^1.4.1",
-    "poly-decomp": "^0.3.0"
+    "poly-decomp": "^0.3.0",
+    "three": "^0.144.0"
   },
   "devDependencies": {
     "@types/matter-js": "^0.17.7",
+    "@types/three": "^0.144.0",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "eslint": "^8.9.0",
