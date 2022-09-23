@@ -12,14 +12,14 @@
 {{ partial "twitter_cards.html" . }}
 
 {{- if .IsHome -}}
-  {{- $gamejs := resources.Get "game.ts" | js.Build | resources.Minify }}
+  {{- $gamejs := resources.Get "game.ts" | js.Build }}
   <script type="module" src="{{ $gamejs.RelPermalink }}" defer></script>
 {{- end -}}
 {{- if .Params.script -}}
   {{- $extrajs := resources.Get .Params.script | js.Build }}
   <script type="module" src="{{ $extrajs.RelPermalink }}" defer></script>
 {{- end -}}
-{{- $js := resources.Get "main.ts" | js.Build | resources.Minify }}
+{{- $js := resources.Get "main.ts" | js.Build }}
   <script type="module" src="{{ $js.RelPermalink }}" defer></script>
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">

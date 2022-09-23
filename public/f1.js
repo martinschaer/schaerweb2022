@@ -58987,6 +58987,8 @@
 
   // <stdin>
   var import_aframe = __toESM(require_aframe_master());
+
+  // ns-hugo:/Users/m.corrales.schaer/Proyectos/schaerweb2022/assets/services/ergast.ts
   var endpoint = "https://ergast.com/api/f1";
   var COLORS_BY_DRIVER_CODE = {
     VER: "blue",
@@ -59013,14 +59015,14 @@
   };
   var driverPosInRound = (driverCode, round) => {
     for (let i = 0; i < round.DriverStandings.length; i += 1) {
-      if (round.DriverStandings[i].Driver.code === driverCode) {
-        return +round.DriverStandings[i].position;
+      if (round.DriverStandings[i]?.Driver.code === driverCode) {
+        return +(round.DriverStandings[i]?.position ?? 0);
       }
     }
     return round.DriverStandings.length + 1;
   };
-  var load = async (api, { year, round }) => {
-    const res = await fetch(`${endpoint}/${year}${round !== void 0 ? `/${round}` : ""}/${api}.json`);
+  var load = async (api, { year, round, lap }) => {
+    const res = await fetch(`${endpoint}/${year}${round !== void 0 ? `/${round}` : ""}/${api}${lap ? `/${lap}` : ""}.json`);
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
@@ -59047,6 +59049,8 @@
     const apiResult = await load("drivers", params);
     return apiResult.MRData.DriverTable.Drivers;
   };
+
+  // <stdin>
   var WALL_H = 4;
   var CHART_H = 2.5;
   var CHART_W = 6;
@@ -59068,9 +59072,12 @@
     driverCodes.forEach((driverCode) => {
       let lastX = -2;
       let lastY = WALL_H;
+      const lastRound = rounds[rounds.length - 1];
+      if (!lastRound)
+        return;
       const textScale = "0.4 0.4 0";
       const textFont = "sourcecodepro";
-      const textPosition = `${CHART_W / 2 - 0.15} ${driverPosToY(driverPosInRound(driverCode, rounds[rounds.length - 1]) / driverCodes.length)} -${DISTANCE_TO_CENTER}`;
+      const textPosition = `${CHART_W / 2 - 0.15} ${driverPosToY(driverPosInRound(driverCode, lastRound) / driverCodes.length)} -${DISTANCE_TO_CENTER}`;
       scene += `<a-text value="${driverCode}" position="${textPosition}" font="${textFont}" scale="${textScale}"></a-text>`;
       rounds.forEach((round, roundIndex) => {
         const w = CHART_W - 0.3;
