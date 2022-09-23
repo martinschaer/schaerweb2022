@@ -9,6 +9,7 @@ tags:
 - 3D
 ---
 
+{{< figure src="f1-mp4.gif" title="F1 2022 with McLaren MP4/4 Livery" >}}
 {{< figure src="f1-2022-mclaren-mp4-002.png" title="F1 2022 with McLaren MP4/4 Livery" >}}
 {{< figure src="f1-2022-mclaren-mp4-003.png" title="F1 2022 with McLaren MP4/4 Livery" >}}
 {{< figure src="f1-2022-mclaren-mp4-004.png" title="F1 2022 with McLaren MP4/4 Livery" >}}
