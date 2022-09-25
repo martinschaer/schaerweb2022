@@ -59011,7 +59011,8 @@
     ZHO: "darkred",
     MSC: "gray",
     HUL: "darkgreen",
-    LAT: "skyblue"
+    LAT: "skyblue",
+    DEV: "skyblue"
   };
   var driverPosInRound = (driverCode, round) => {
     for (let i = 0; i < round.DriverStandings.length; i += 1) {
