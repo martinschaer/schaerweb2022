@@ -112,6 +112,7 @@ export const COLORS_BY_DRIVER_CODE: Record<string, string> = {
   MSC: 'gray',
   HUL: 'darkgreen',
   LAT: 'skyblue',
+  DEV: 'skyblue',
 }
 
 export const driverPosInRound = (driverCode: string, round: Round) => {
@@ -125,8 +126,7 @@ export const driverPosInRound = (driverCode: string, round: Round) => {
 
 export const load = async (api: string, { year, round, lap }: APIParams) => {
   const res = await fetch(
-    `${endpoint}/${year}${round !== undefined ? `/${round}` : ''}/${api}${
-      lap ? `/${lap}` : ''
+    `${endpoint}/${year}${round !== undefined ? `/${round}` : ''}/${api}${lap ? `/${lap}` : ''
     }.json`
   )
   if (!res.ok) {
@@ -167,12 +167,12 @@ export const loadRace = async (year: number, round: number) => {
 }
 
 export const getGridPosByDriverId = (race: Race) => {
-  const grid: Record<string, string> = {}
+  const grid: Record<Driver["driverId"], number> = {}
   for (let i = 0; i < race.Results.length; i += 1) {
     const raceResult = race.Results[i]
     if (raceResult) {
       // grid[raceResult.grid] = raceResult.Driver.driverId
-      grid[raceResult.Driver.driverId] = raceResult.grid
+      grid[raceResult.Driver.driverId] = +raceResult.grid
     }
   }
   return grid
