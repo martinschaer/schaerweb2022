@@ -10,15 +10,6 @@
       {{- end -}}
     {{- end -}}
   {{- end -}}
-  {{- $list = $list | append (dict
-    "Title" .Title
-    "Permalink" .Permalink
-    "Key" .RelPermalink
-    "Summary" .Summary
-    "Cover" $cover
-    "Price" .Params.price
-    "Lastmod" .Lastmod
-    "Categories" .Params.categories
-  ) -}}
+  {{- $list = $list | append (dict "Title" .Title "Permalink" .Permalink "Key" .RelPermalink "Summary" .Summary "Cover" $cover "Price" .Params.price "Lastmod" .Lastmod "Categories" .Params.categories) -}}
 {{- end -}}
 {{- $list | jsonify -}}
