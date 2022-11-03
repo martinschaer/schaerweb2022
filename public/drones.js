@@ -2,7 +2,7 @@
   // <stdin>
   console.log("Hello drones.ts");
   var data = [];
-  var selectedKeys = /* @__PURE__ */ new Set();
+  var selectedKeys = new Set();
   var loadData = async () => {
     const res = await fetch("/drone-parts/index.json");
     if (res.ok) {
@@ -130,7 +130,7 @@
     <div class="drones-app__total">$ 0</div>
   </div>
 `;
-  var renderCategories = ({ categories }) => `
+  var renderCategories = ({categories}) => `
   ${categories.map((cat) => `
   <div class="category">
     <h3 class="category__title" data-key="${cat}">${cat}</h3>
@@ -156,8 +156,64 @@
   var DronesComponent = class extends HTMLElement {
     constructor() {
       super();
+      this.openSidebar = () => {
+        const el = this.shadowRoot?.querySelector(".drones-app");
+        if (!el)
+          return;
+        el.classList.remove("closed");
+      };
+      this.toggleSidebar = () => {
+        const el = this.shadowRoot?.querySelector(".drones-app");
+        if (!el)
+          return;
+        if (el.classList.contains("closed")) {
+          el.classList.remove("closed");
+        } else {
+          el.classList.add("closed");
+        }
+      };
+      this.toggleItem = (key) => {
+        if (selectedKeys.has(key)) {
+          selectedKeys.delete(key);
+        } else {
+          selectedKeys.add(key);
+        }
+        this.openSidebar();
+        this.update();
+      };
+      this.injectItems = () => {
+        const container = document.querySelector(".article__content");
+        container?.querySelectorAll(".drone-item").forEach((x) => {
+          const injected = document.createElement("div");
+          const btn = document.createElement("button");
+          btn.innerText = "Add";
+          btn.addEventListener("click", () => {
+            this.toggleItem(x.getAttribute("data-key") || "");
+          });
+          injected.appendChild(btn);
+          x.appendChild(injected);
+        });
+      };
+      this.update = () => {
+        this.shadowRoot?.querySelectorAll(".category > ul > li").forEach((li) => {
+          const key = li.getAttribute("data-key") || "";
+          const amount = li.querySelector(".item__amount");
+          if (selectedKeys.has(key)) {
+            li.classList.add("active");
+            if (amount)
+              amount.innerHTML = "1";
+          } else {
+            li.classList.remove("active");
+            if (amount)
+              amount.innerHTML = "";
+          }
+        });
+        const totalEl = this.shadowRoot?.querySelector(".drones-app__total");
+        if (totalEl)
+          totalEl.innerHTML = `$ ${getSelectedItems().reduce((sum, x) => sum + +x.Price, 0).toLocaleString()}`;
+      };
       const tC = template.content;
-      this.attachShadow({ mode: "open" }).appendChild(tC.cloneNode(true));
+      this.attachShadow({mode: "open"}).appendChild(tC.cloneNode(true));
     }
     connectedCallback() {
       loadData().then(() => {
@@ -165,7 +221,7 @@
           return;
         this.shadowRoot.innerHTML = render();
         this.shadowRoot?.querySelector(".opener")?.addEventListener("click", () => this.toggleSidebar());
-        const categories = /* @__PURE__ */ new Set();
+        const categories = new Set();
         data.forEach((item) => {
           item.Categories.forEach((category) => {
             categories.add(category);
@@ -187,67 +243,11 @@
           title?.addEventListener("click", () => {
             const itemEl = document.querySelector(`.drone-item[data-key="${key}"]`);
             if (itemEl)
-              itemEl.scrollIntoView({ behavior: "smooth" });
+              itemEl.scrollIntoView({behavior: "smooth"});
           });
         });
       });
     }
-    openSidebar = () => {
-      const el = this.shadowRoot?.querySelector(".drones-app");
-      if (!el)
-        return;
-      el.classList.remove("closed");
-    };
-    toggleSidebar = () => {
-      const el = this.shadowRoot?.querySelector(".drones-app");
-      if (!el)
-        return;
-      if (el.classList.contains("closed")) {
-        el.classList.remove("closed");
-      } else {
-        el.classList.add("closed");
-      }
-    };
-    toggleItem = (key) => {
-      if (selectedKeys.has(key)) {
-        selectedKeys.delete(key);
-      } else {
-        selectedKeys.add(key);
-      }
-      this.openSidebar();
-      this.update();
-    };
-    injectItems = () => {
-      const container = document.querySelector(".article__content");
-      container?.querySelectorAll(".drone-item").forEach((x) => {
-        const injected = document.createElement("div");
-        const btn = document.createElement("button");
-        btn.innerText = "Add";
-        btn.addEventListener("click", () => {
-          this.toggleItem(x.getAttribute("data-key") || "");
-        });
-        injected.appendChild(btn);
-        x.appendChild(injected);
-      });
-    };
-    update = () => {
-      this.shadowRoot?.querySelectorAll(".category > ul > li").forEach((li) => {
-        const key = li.getAttribute("data-key") || "";
-        const amount = li.querySelector(".item__amount");
-        if (selectedKeys.has(key)) {
-          li.classList.add("active");
-          if (amount)
-            amount.innerHTML = "1";
-        } else {
-          li.classList.remove("active");
-          if (amount)
-            amount.innerHTML = "";
-        }
-      });
-      const totalEl = this.shadowRoot?.querySelector(".drones-app__total");
-      if (totalEl)
-        totalEl.innerHTML = `$ ${getSelectedItems().reduce((sum, x) => sum + +x.Price, 0).toLocaleString()}`;
-    };
   };
   customElements.define("schaerweb-drones", DronesComponent);
   var mountEl = document.createElement("schaerweb-drones");
