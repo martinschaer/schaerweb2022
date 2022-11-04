@@ -1,5 +1,5 @@
 (() => {
-  // ns-hugo:/Users/m.corrales.schaer/Proyectos/schaerweb2022/assets/services/ergast.ts
+  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/services/ergast.ts
   var endpoint = "https://ergast.com/api/f1";
   var COLORS_BY_DRIVER_CODE = {
     VER: "blue",
@@ -26,7 +26,9 @@
     DEV: "skyblue"
   };
   var load = async (api, { year, round, lap }) => {
-    const res = await fetch(`${endpoint}/${year}${round !== void 0 ? `/${round}` : ""}/${api}${lap ? `/${lap}` : ""}.json`);
+    const res = await fetch(
+      `${endpoint}/${year}${round !== void 0 ? `/${round}` : ""}/${api}${lap ? `/${lap}` : ""}.json`
+    );
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
@@ -64,13 +66,17 @@
     const totalLaps = Number(race.Results[0]?.laps);
     const lapPromises = [];
     for (let lap = 1; lap <= totalLaps; lap += 1) {
-      lapPromises.push(load("laps", { year: +race.season, round: +race.round, lap }).then((result) => result.MRData.RaceTable.Races[0].Laps[0]));
+      lapPromises.push(
+        load("laps", { year: +race.season, round: +race.round, lap }).then(
+          (result) => result.MRData.RaceTable.Races[0].Laps[0]
+        )
+      );
     }
     const results = await Promise.allSettled(lapPromises);
     return results.map((x) => x.status === "fulfilled" ? x.value : x.reason);
   };
 
-  // ns-hugo:/Users/m.corrales.schaer/Proyectos/schaerweb2022/assets/lib/race-charts/template.ts
+  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/lib/race-charts/template.ts
   var html = String.raw;
   var s4 = () => Math.floor((1 + Math.random()) * 65536).toString(16).substring(1);
   var template = ({ width: width2 = 1200, height: height2 = 400 }) => {
@@ -127,10 +133,13 @@
     const posByDriver = {};
     Object.keys(grid).forEach((driverId) => {
       const gridPos = grid[driverId] ?? 0;
-      posByDriver[driverId] = laps.reduce((state, lap) => {
-        const pos = lap[driverId];
-        return pos !== void 0 ? [...state, pos] : state;
-      }, [gridPos]);
+      posByDriver[driverId] = laps.reduce(
+        (state, lap) => {
+          const pos = lap[driverId];
+          return pos !== void 0 ? [...state, pos] : state;
+        },
+        [gridPos]
+      );
     });
     return posByDriver;
   };
@@ -147,14 +156,20 @@
         text.setAttribute("text-anchor", "end");
         text.innerHTML = driverObjects[driverId]?.givenName || "";
         $lapChart?.appendChild(text);
-        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        const circle = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "circle"
+        );
         circle.setAttribute("fill", getColorByDriverId(driverId));
         circle.setAttribute("r", "8");
         circle.setAttribute("cx", x(0).toString());
         circle.setAttribute("cy", y(gridPos).toString());
         $lapChart?.appendChild(circle);
         let d = "M";
-        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        const path = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        );
         path.setAttribute("stroke", getColorByDriverId(driverId));
         path.setAttribute("fill", "none");
         path.setAttribute("stroke-linejoin", "round");
