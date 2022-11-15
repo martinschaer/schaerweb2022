@@ -1,6 +1,13 @@
 .paper {
   background-color: var(--color-paper);
   display: flex;
+  padding-top: var(--titlebar-height);
+}
+
+@media print {
+  .paper {
+    padding-top: 0;
+  }
 }
 
 .article {
@@ -105,5 +112,12 @@ ul.metadata {
     --article-spacer: 4rem;
 
     padding: var(--article-spacer);
+  }
+}
+
+@media print {
+  .article {
+    padding: 0;
+    width: 100%;
   }
 }

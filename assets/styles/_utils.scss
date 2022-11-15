@@ -33,3 +33,15 @@ $spacers: (
   }
 }
 
+.print\:block {
+  display: none;
+}
+
+@media print {
+  .print\:hidden {
+    display: none;
+  }
+  .print\:block {
+    display: block;
+  }
+}
