@@ -1,14 +1,16 @@
 ---
-title: "About"
+title: "Martin Schaer"
 date: 2022-08-02T16:31:20-06:00
 images: []
 ---
+
+Tech Manager / Agile Advocate / Entrepreneur / FPV Pilot / Sim Racer
 
 ## Background
 
 - Education: Computer Science Engineer, TEC Costa Rica
 - Specialization: Cloud SaaS Architectures, Design Systems, Software Management
-- Interests: Robotics, Machine Learning, Computer Graphics
+- Interests: Robotics, Machine Learning, Computer Graphics, Entrepreneurship
 
 ## Strengths
 
@@ -20,14 +22,14 @@ images: []
 
 ## Technology
 
-- TypeScript, JavaScript, Golang
+- TypeScript, JavaScript, Rust, Golang
 - React, Vue, Lit, Angular
 - Zustand, Pinia, Redux
 - MSWjs, GraphQL, Swagger, Postman
 - Unit testing (jest, mocha, vitest)
 - ESlint, prettier
 - WebGL, ThreeJS, A-frame
-- PostgreSQL, MongoDB, DynamoDB
+- PostgreSQL, MongoDB, DynamoDB, SurrealDB
 - AWS
   - S3, Lambda, CloudFront, Route53, Cognito, SQS, EC2, RDS, CodeBuild, CodePipeline
 - GCP
@@ -38,6 +40,14 @@ images: []
 - nvim, git, tmux, lazygit
 - Unix, Raspberry, Arduino
 - Unity
+
+## Management & New Ventures
+
+- Business Strategy: Jobs-to-be-done, Lean Canvas
+- Time to market, closed beta testing, analytics
+- Agile, SCRUM, Six Sigma
+- Direction of multidisciplinary teams (Dev, UX/UI)
+- Mentoring
 
 ## Design
 
@@ -94,8 +104,8 @@ This is my personal website. You'll find here what I care to document and share.
 - [neovim](https://neovim.io/) for coding and writing (I like markdown better than docx)
 - lunarvim
 - lazygit
+- tmux and tmuxinator
 - [Excalidraw](excalidraw.com/) as a virtual whiteboard. Not for collaborative work. Useful for drafting diagrams, instead of going with UML at first.
-- [stackedit.io](https://stackedit.io) for editing markdown if you don't have your IDE with markdown preview and mermaid extensions.
 - mermaid
 - PlantUML
 

@@ -17,6 +17,7 @@ class DateComponent extends HTMLElement {
 
   connectedCallback() {
     const date = new Date(+this.getAttribute('unix') * 1000)
+    const dateStr = date.toLocaleString()
     const diff = new Date().getTime() - date.getTime()
     const seconds = Math.floor(diff / 1000)
     const minutes = Math.floor(diff / 60000)
@@ -40,9 +41,26 @@ class DateComponent extends HTMLElement {
     } else if (months < 12) {
       formatted = formatStr(t('{0} months ago'), months)
     } else {
-      formatted = date.toLocaleString()
+      formatted = dateStr
     }
-    this.shadowRoot.innerHTML = formatted
+    this.shadowRoot.innerHTML = `
+      <style>
+      .print\\:block {
+        display: none;
+      }
+
+      @media print {
+        .print\\:hidden {
+          display: none;
+        }
+        .print\\:block {
+          display: block;
+        }
+      }
+      </style>
+      <span class="print:hidden">${formatted}</span>
+      <span class="print:block">${dateStr}</span>
+    `
   }
 
   // disconnectedCallback() {}
