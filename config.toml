@@ -25,15 +25,29 @@ title = 'Martin Schaer Web'
   title = 'Articles'
   url = '/articles/'
   weight = 1
-[[menu.main]]
-  identifier = 'hangar'
-  name = 'Enter my Metaverse'
-  title = 'Enter my Metaverse'
-  url = '/hangar'
-  weight = 2
+# [[menu.main]]
+#   identifier = 'hangar'
+#   name = 'Enter my Metaverse'
+#   title = 'Enter my Metaverse'
+#   url = '/hangar'
+#   weight = 2
 [[menu.main]]
   identifier = 'about'
   name = 'About'
   title = 'About'
   url = '/about/'
   weight = 5
+[[menu.main]]
+  identifier = 'github'
+  name = 'GitHub'
+  title = 'GitHub'
+  url = 'https://github.com/martinschaer'
+  weight = 6
+  [menu.main.params]
+    target = 'blank'
+[[menu.main]]
+  identifier = 'Social'
+  name = 'Social'
+  title = 'Social'
+  url = '/about/#social-links'
+  weight = 7
