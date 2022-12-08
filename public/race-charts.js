@@ -148,7 +148,10 @@
       $lapChart.innerHTML = "";
       Object.keys(lapPosByDriver).forEach((driverId) => {
         const gridPos = lapPosByDriver[driverId]?.[0] || 0;
-        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        const text = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "text"
+        );
         text.setAttribute("x", (x(0) - 12).toString());
         text.setAttribute("y", (y(gridPos) + 4).toString());
         text.setAttribute("font-size", "12");
@@ -183,7 +186,61 @@
       });
     }
   };
+  var plotByOrder = (lapTimes, grid) => {
+    const laps = new Array(lapTimes.length);
+    for (let lap = 0; lap < lapTimes.length; lap += 1) {
+      const positions = getPosByDriverId(lapTimes[lap]?.Timings || []);
+      laps[lap] = positions;
+    }
+    const lapPosByDriver = getLapPositionsByDriver(laps, grid);
+    const totalDrivers = Object.keys(lapPosByDriver).length;
+    const x = (lap) => margin.left + lap * ((width - margin.left - margin.right) / lapTimes.length);
+    const y = (pos) => margin.top + pos * ((height - margin.top - margin.bottom) / totalDrivers);
+    updateLapsGraph(lapPosByDriver, x, y);
+  };
+  var timeStrToNumber = (timeStr) => {
+    const [mins, seconds] = timeStr.split(":");
+    return parseInt(mins ?? "0", 10) * 60 + parseInt(seconds ?? "0", 10);
+  };
+  var getCumLapTime = (lapTimes, lapN) => {
+    let time = 0;
+    for (let i = lapN; i >= 0; i -= 1) {
+      time += timeStrToNumber(lapTimes[i]?.time ?? "0");
+    }
+    return time;
+  };
+  var getDistanceByDriver = (lapTimes, referenceLapTimes) => {
+    const distanceByDriver = {};
+    const driverIds = lapTimes[0]?.Timings.map((x) => x.driverId) ?? [];
+    driverIds.forEach((driverId) => {
+      let last = 0;
+      let lastRef = 0;
+      distanceByDriver[driverId] = lapTimes.map((lap, i) => {
+        const t = timeStrToNumber(
+          lap.Timings.find((x) => x.driverId === driverId)?.time ?? "0"
+        );
+        const tRef = timeStrToNumber(referenceLapTimes[i]?.time ?? "0");
+        last += t;
+        lastRef += tRef;
+        return i + (lastRef - last);
+      });
+    });
+    return distanceByDriver;
+  };
+  var plotByDistance = (lapTimes, totalDistance, referenceLapTimes) => {
+    const distanceByDriver = getDistanceByDriver(lapTimes, referenceLapTimes);
+    const chartW = width - margin.left - margin.right;
+    const chartH = height - margin.top - margin.bottom;
+    const totalTime = referenceLapTimes.reduce(
+      (acc, cur) => acc + timeStrToNumber(cur.time),
+      0
+    );
+    const x = (lap) => margin.left + getCumLapTime(referenceLapTimes, lap) * (chartW / totalTime);
+    const y = (d) => margin.top + chartH * (1 - d / totalDistance);
+    updateLapsGraph(distanceByDriver, x, y);
+  };
   var load2 = async (year = 2022, round = 1) => {
+    const mode = "ordinal";
     if ($year && $round && $loadBtn) {
       $year.valueAsNumber = year;
       $year.disabled = true;
@@ -200,6 +257,7 @@
     const [driversPromise, lapTimesPromise] = await Promise.allSettled(promises);
     let lapTimes = [];
     if (driversPromise?.status === "fulfilled") {
+      ;
       driversPromise.value.forEach((driver) => {
         driverObjects[driver.driverId] = driver;
       });
@@ -207,16 +265,19 @@
     if (lapTimesPromise?.status === "fulfilled") {
       lapTimes = lapTimesPromise.value;
     }
-    const laps = new Array(lapTimes.length);
-    for (let lap = 0; lap < lapTimes.length; lap += 1) {
-      const positions = getPosByDriverId(lapTimes[lap].Timings);
-      laps[lap] = positions;
+    const winner = race.Results[0]?.Driver.driverId ?? "";
+    const referenceLapTimes = lapTimes.map(
+      (lap) => lap.Timings.find((lt) => lt.driverId === winner)
+    );
+    switch (mode) {
+      case "distance":
+        plotByDistance(lapTimes, lapTimes.length, referenceLapTimes);
+        break;
+      case "ordinal":
+      default:
+        plotByOrder(lapTimes, grid);
+        break;
     }
-    const lapPosByDriver = getLapPositionsByDriver(laps, grid);
-    const totalDrivers = Object.keys(lapPosByDriver).length;
-    const x = (lap) => margin.left + lap * ((width - margin.left - margin.right) / lapTimes.length);
-    const y = (pos) => margin.top + pos * ((height - margin.top - margin.bottom) / totalDrivers);
-    updateLapsGraph(lapPosByDriver, x, y);
     if ($year && $round && $loadBtn) {
       $year.disabled = false;
       $round.disabled = false;

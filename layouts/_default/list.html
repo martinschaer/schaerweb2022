@@ -13,15 +13,13 @@
         <li class="article-list__item">
           <h2 class="mb-0"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
           <p class="mx-3 small">{{ .Summary }}</p>
-          {{ if .Params.images }} {{ range first 1 .Params.images }} {{ $image
-          := $page.Resources.GetMatch . }} {{ if $image }}
+          {{ if .Params.images }} {{ range first 1 .Params.images }} {{ $image := $page.Resources.GetMatch . }} {{ if $image }}
           <div>
             <a href="{{ $page.RelPermalink }}"
               ><img src="{{ $image.Permalink }}" alt="{{ $page.Title }}"
             /></a>
           </div>
-          {{ else }} No image {{ . }} {{ end }} {{ end }} {{ end }} {{ partial
-          "metadata.html" .}}
+          {{ else }} No image {{ . }} {{ end }} {{ end }} {{ end }} {{ partial "metadata.html" .}}
         </li>
         {{ end }}
       </ul>

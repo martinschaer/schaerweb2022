@@ -50,7 +50,7 @@
 
 .article__metadata {
   box-sizing: border-box;
-  padding: var(--article-spacer) 0;
+  padding: calc(var(--article-spacer) * 0.25) 0;
 }
 
 .article__content {

@@ -3,7 +3,7 @@
 <div class="paper">
   <article class="article{{ if eq .Params.layout "wide" }} article--wide{{ end }}">
     {{ with .Parent }}
-    <p class="mt-3 mb-0 small text-muted print:hidden">Back to <a href="{{ .RelPermalink }}">{{ .Title }}</a></p>
+    <p class="my-0 small text-muted print:hidden">Back to <a href="{{ .RelPermalink }}">{{ .Title }}</a></p>
     {{ end }}
     <header>
       <h1>{{ .Title }}</h1>

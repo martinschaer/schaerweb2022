@@ -46,13 +46,13 @@ type Time = {
   time: string
 }
 
-type LapTiming = {
+export type LapTiming = {
   driverId: string
   position: string
   time: string
 }
 
-type Lap = {
+export type Lap = {
   number: string
   Timings: LapTiming[]
 }
