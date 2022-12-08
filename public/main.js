@@ -52,6 +52,7 @@
     }
     connectedCallback() {
       const date = new Date(+this.getAttribute("unix") * 1e3);
+      const dateStr = date.toLocaleString();
       const diff = new Date().getTime() - date.getTime();
       const seconds = Math.floor(diff / 1e3);
       const minutes = Math.floor(diff / 6e4);
@@ -73,9 +74,26 @@
       } else if (months < 12) {
         formatted = formatStr(t("{0} months ago"), months);
       } else {
-        formatted = date.toLocaleString();
+        formatted = dateStr;
       }
-      this.shadowRoot.innerHTML = formatted;
+      this.shadowRoot.innerHTML = `
+      <style>
+      .print\\:block {
+        display: none;
+      }
+
+      @media print {
+        .print\\:hidden {
+          display: none;
+        }
+        .print\\:block {
+          display: block;
+        }
+      }
+      </style>
+      <span class="print:hidden">${formatted}</span>
+      <span class="print:block">${dateStr}</span>
+    `;
     }
   };
   customElements.define("schaerweb-date", DateComponent);
