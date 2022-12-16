@@ -41,6 +41,14 @@ a {
   // }
 }
 
+kbd {
+  border-radius: 0.2em;
+  border: 0.1em solid var(--color-border);
+  padding: 0.2em 0.4em;
+  font-size: 0.8em;
+  background-color: var(--color-shadow);
+}
+
 .text-muted {
   color: var(--color-muted);
 }
