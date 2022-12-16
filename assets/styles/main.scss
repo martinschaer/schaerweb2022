@@ -43,10 +43,11 @@ a {
 
 kbd {
   border-radius: 0.2em;
-  border: 0.1em solid var(--color-border);
-  padding: 0.2em 0.4em;
+  padding: 0.2em 0.5em;
   font-size: 0.8em;
-  background-color: var(--color-shadow);
+  line-height: 1em;
+  background-color: var(--color-fg);
+  color: var(--color-bg);
 }
 
 .text-muted {
