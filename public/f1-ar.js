@@ -23,10 +23,7 @@
     }
     return to;
   };
-  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-    mod
-  ));
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
 
   // node_modules/aframe/dist/aframe-master.js
   var require_aframe_master = __commonJS({
@@ -56,7 +53,7 @@
             function o(i2, f) {
               if (!n[i2]) {
                 if (!e2[i2]) {
-                  var c = "function" == typeof __require && __require;
+                  var c = typeof __require == "function" && __require;
                   if (!f && c)
                     return c(i2, true);
                   if (u)
@@ -72,7 +69,7 @@
               }
               return n[i2].exports;
             }
-            for (var u = "function" == typeof __require && __require, i = 0; i < t.length; i++)
+            for (var u = typeof __require == "function" && __require, i = 0; i < t.length; i++)
               o(t[i]);
             return o;
           }
@@ -166,22 +163,14 @@
             var parts = [];
             var maxChunkLength = 16383;
             for (var i2 = 0, len22 = len2 - extraBytes; i2 < len22; i2 += maxChunkLength) {
-              parts.push(encodeChunk(
-                uint8,
-                i2,
-                i2 + maxChunkLength > len22 ? len22 : i2 + maxChunkLength
-              ));
+              parts.push(encodeChunk(uint8, i2, i2 + maxChunkLength > len22 ? len22 : i2 + maxChunkLength));
             }
             if (extraBytes === 1) {
               tmp = uint8[len2 - 1];
-              parts.push(
-                lookup[tmp >> 2] + lookup[tmp << 4 & 63] + "=="
-              );
+              parts.push(lookup[tmp >> 2] + lookup[tmp << 4 & 63] + "==");
             } else if (extraBytes === 2) {
               tmp = (uint8[len2 - 2] << 8) + uint8[len2 - 1];
-              parts.push(
-                lookup[tmp >> 10] + lookup[tmp >> 4 & 63] + lookup[tmp << 2 & 63] + "="
-              );
+              parts.push(lookup[tmp >> 10] + lookup[tmp >> 4 & 63] + lookup[tmp << 2 & 63] + "=");
             }
             return parts.join("");
           }
@@ -288,9 +277,7 @@
               }
               if (typeof arg === "number") {
                 if (typeof encodingOrOffset === "string") {
-                  throw new Error(
-                    "If encoding is specified then the first argument must be a string"
-                  );
+                  throw new Error("If encoding is specified then the first argument must be a string");
                 }
                 return allocUnsafe(this, arg);
               }
@@ -891,9 +878,7 @@
                   length = void 0;
                 }
               } else {
-                throw new Error(
-                  "Buffer.write(string, encoding, offset[, length]) is no longer supported"
-                );
+                throw new Error("Buffer.write(string, encoding, offset[, length]) is no longer supported");
               }
               var remaining = this.length - offset;
               if (length === void 0 || length > remaining)
@@ -1013,10 +998,7 @@
               var res = "";
               var i = 0;
               while (i < len) {
-                res += String.fromCharCode.apply(
-                  String,
-                  codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH)
-                );
+                res += String.fromCharCode.apply(String, codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH));
               }
               return res;
             }
@@ -1525,11 +1507,7 @@
                   target[i + targetStart] = this[i + start];
                 }
               } else {
-                Uint8Array.prototype.set.call(
-                  target,
-                  this.subarray(start, start + len),
-                  targetStart
-                );
+                Uint8Array.prototype.set.call(target, this.subarray(start, start + len), targetStart);
               }
               return len;
             };
@@ -1643,27 +1621,15 @@
                 } else if (codePoint < 2048) {
                   if ((units -= 2) < 0)
                     break;
-                  bytes.push(
-                    codePoint >> 6 | 192,
-                    codePoint & 63 | 128
-                  );
+                  bytes.push(codePoint >> 6 | 192, codePoint & 63 | 128);
                 } else if (codePoint < 65536) {
                   if ((units -= 3) < 0)
                     break;
-                  bytes.push(
-                    codePoint >> 12 | 224,
-                    codePoint >> 6 & 63 | 128,
-                    codePoint & 63 | 128
-                  );
+                  bytes.push(codePoint >> 12 | 224, codePoint >> 6 & 63 | 128, codePoint & 63 | 128);
                 } else if (codePoint < 1114112) {
                   if ((units -= 4) < 0)
                     break;
-                  bytes.push(
-                    codePoint >> 18 | 240,
-                    codePoint >> 12 & 63 | 128,
-                    codePoint >> 6 & 63 | 128,
-                    codePoint & 63 | 128
-                  );
+                  bytes.push(codePoint >> 18 | 240, codePoint >> 12 & 63 | 128, codePoint >> 6 & 63 | 128, codePoint & 63 | 128);
                 } else {
                   throw new Error("Invalid code point");
                 }
@@ -1724,12 +1690,7 @@
                 params.bubbles = !!params.bubbles;
                 params.cancelable = !!params.cancelable;
                 evt = document.createEvent("CustomEvent");
-                evt.initCustomEvent(
-                  event,
-                  params.bubbles,
-                  params.cancelable,
-                  params.detail
-                );
+                evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
                 origPrevent = evt.preventDefault;
                 evt.preventDefault = function() {
                   origPrevent.call(this);
@@ -1756,7 +1717,7 @@
           exports3.save = save;
           exports3.load = load;
           exports3.useColors = useColors;
-          exports3.storage = "undefined" != typeof chrome && "undefined" != typeof chrome.storage ? chrome.storage.local : localstorage();
+          exports3.storage = typeof chrome != "undefined" && typeof chrome.storage != "undefined" ? chrome.storage.local : localstorage();
           exports3.colors = [
             "lightseagreen",
             "forestgreen",
@@ -1782,10 +1743,10 @@
             var index = 0;
             var lastC = 0;
             args[0].replace(/%[a-z%]/g, function(match) {
-              if ("%%" === match)
+              if (match === "%%")
                 return;
               index++;
-              if ("%c" === match) {
+              if (match === "%c") {
                 lastC = index;
               }
             });
@@ -1793,11 +1754,11 @@
             return args;
           }
           function log() {
-            return "object" === typeof console && console.log && Function.prototype.apply.call(console.log, console, arguments);
+            return typeof console === "object" && console.log && Function.prototype.apply.call(console.log, console, arguments);
           }
           function save(namespaces) {
             try {
-              if (null == namespaces) {
+              if (namespaces == null) {
                 exports3.storage.removeItem("debug");
               } else {
                 exports3.storage.debug = namespaces;
@@ -1839,13 +1800,13 @@
             disabled.enabled = false;
             function enabled2() {
               var self2 = enabled2;
-              if (null == self2.useColors)
+              if (self2.useColors == null)
                 self2.useColors = exports3.useColors();
-              if (null == self2.color && self2.useColors)
+              if (self2.color == null && self2.useColors)
                 self2.color = selectColor();
               var args = Array.prototype.slice.call(arguments);
               args[0] = exports3.coerce(args[0]);
-              if ("string" !== typeof args[0]) {
+              if (typeof args[0] !== "string") {
                 args = ["%o"].concat(args);
               }
               var index = 0;
@@ -1854,7 +1815,7 @@
                   return match;
                 index++;
                 var formatter = exports3.formatters[format];
-                if ("function" === typeof formatter) {
+                if (typeof formatter === "function") {
                   var val = args[index];
                   match = formatter.call(self2, val);
                   args.splice(index, 1);
@@ -1862,7 +1823,7 @@
                 }
                 return match;
               });
-              if ("function" === typeof exports3.formatArgs) {
+              if (typeof exports3.formatArgs === "function") {
                 args = exports3.formatArgs.apply(self2, args);
               }
               var logFn = enabled2.log || exports3.log || console.log.bind(console);
@@ -2760,19 +2721,13 @@
             var bound;
             var binder = function() {
               if (this instanceof bound) {
-                var result = target.apply(
-                  this,
-                  args.concat(slice.call(arguments))
-                );
+                var result = target.apply(this, args.concat(slice.call(arguments)));
                 if (Object(result) === result) {
                   return result;
                 }
                 return this;
               } else {
-                return target.apply(
-                  that,
-                  args.concat(slice.call(arguments))
-                );
+                return target.apply(that, args.concat(slice.call(arguments)));
               }
             };
             var boundLength = Math.max(0, target.length - args.length);
@@ -3872,19 +3827,16 @@
             if (!headers)
               return {};
             var result = {};
-            forEach(
-              trim(headers).split("\n"),
-              function(row) {
-                var index = row.indexOf(":"), key = trim(row.slice(0, index)).toLowerCase(), value = trim(row.slice(index + 1));
-                if (typeof result[key] === "undefined") {
-                  result[key] = value;
-                } else if (isArray(result[key])) {
-                  result[key].push(value);
-                } else {
-                  result[key] = [result[key], value];
-                }
+            forEach(trim(headers).split("\n"), function(row) {
+              var index = row.indexOf(":"), key = trim(row.slice(0, index)).toLowerCase(), value = trim(row.slice(index + 1));
+              if (typeof result[key] === "undefined") {
+                result[key] = value;
+              } else if (isArray(result[key])) {
+                result[key].push(value);
+              } else {
+                result[key] = [result[key], value];
               }
-            );
+            });
             return result;
           };
         }, { "for-each": 24, "string.prototype.trim": 53 }], 48: [function(require2, module3, exports3) {
@@ -4918,10 +4870,7 @@
             return getAttribute(el, "width") * 2 + getAttribute(el, "height") * 2;
           }
           function getLineLength(el) {
-            return getDistance(
-              { x: getAttribute(el, "x1"), y: getAttribute(el, "y1") },
-              { x: getAttribute(el, "x2"), y: getAttribute(el, "y2") }
-            );
+            return getDistance({ x: getAttribute(el, "x1"), y: getAttribute(el, "y1") }, { x: getAttribute(el, "x2"), y: getAttribute(el, "y2") });
           }
           function getPolylineLength(el) {
             var points = el.points;
@@ -43788,11 +43737,7 @@
               this.controllerEventsActive = false;
             },
             checkIfControllerPresent: function() {
-              checkControllerPresentAndSetup(
-                this,
-                GAMEPAD_ID_PREFIX,
-                this.data.hand ? { hand: this.data.hand } : {}
-              );
+              checkControllerPresentAndSetup(this, GAMEPAD_ID_PREFIX, this.data.hand ? { hand: this.data.hand } : {});
             },
             play: function() {
               this.checkIfControllerPresent();
@@ -43959,11 +43904,7 @@
               this.controllerEventsActive = false;
             },
             checkIfControllerPresent: function() {
-              checkControllerPresentAndSetup(
-                this,
-                GAMEPAD_ID_PREFIX,
-                this.data.hand ? { hand: this.data.hand } : {}
-              );
+              checkControllerPresentAndSetup(this, GAMEPAD_ID_PREFIX, this.data.hand ? { hand: this.data.hand } : {});
             },
             play: function() {
               this.checkIfControllerPresent();
@@ -44127,11 +44068,7 @@
             checkIfControllerPresent: function() {
               var data = this.data;
               var hand = data.hand ? data.hand : void 0;
-              checkControllerPresentAndSetup(
-                this,
-                GAMEPAD_ID_PREFIX,
-                { hand, iterateControllerProfiles: true }
-              );
+              checkControllerPresentAndSetup(this, GAMEPAD_ID_PREFIX, { hand, iterateControllerProfiles: true });
             },
             play: function() {
               if (this.wasControllerConnected) {
@@ -44769,11 +44706,7 @@
             checkIfControllerPresent: function() {
               var data = this.data;
               var hand = data.hand ? data.hand : void 0;
-              checkControllerPresentAndSetup(
-                this,
-                "",
-                { hand, iterateControllerProfiles: true, handTracking: true }
-              );
+              checkControllerPresentAndSetup(this, "", { hand, iterateControllerProfiles: true, handTracking: true });
             },
             play: function() {
               this.checkIfControllerPresent();
@@ -45089,11 +45022,7 @@
             },
             checkIfControllerPresent: function() {
               var data = this.data;
-              checkControllerPresentAndSetup(
-                this,
-                GAMEPAD_ID,
-                { index: this.controllerIndex, hand: data.hand }
-              );
+              checkControllerPresentAndSetup(this, GAMEPAD_ID, { index: this.controllerIndex, hand: data.hand });
             },
             injectTrackedControls: function() {
               var el = this.el;
@@ -45424,17 +45353,7 @@
                     tempCanvasContext.rotate(Math.PI);
                   }
                 }
-                tempCanvasContext.drawImage(
-                  src,
-                  (i + faceOffset) * textureSourceCubeFaceSize,
-                  0,
-                  textureSourceCubeFaceSize,
-                  textureSourceCubeFaceSize,
-                  0,
-                  0,
-                  cubeFaceSize,
-                  cubeFaceSize
-                );
+                tempCanvasContext.drawImage(src, (i + faceOffset) * textureSourceCubeFaceSize, 0, textureSourceCubeFaceSize, textureSourceCubeFaceSize, 0, 0, cubeFaceSize, cubeFaceSize);
                 tempCanvasContext.restore();
                 if (callback) {
                   callback();
@@ -45468,15 +45387,7 @@
               }
               var errorCode = 0;
               cubefaceTextures.forEach(function(canvas, i) {
-                gl.texSubImage2D(
-                  gl.TEXTURE_CUBE_MAP_POSITIVE_X + i,
-                  0,
-                  0,
-                  0,
-                  gl.RGBA,
-                  gl.UNSIGNED_BYTE,
-                  canvas
-                );
+                gl.texSubImage2D(gl.TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, 0, 0, gl.RGBA, gl.UNSIGNED_BYTE, canvas);
                 errorCode = gl.getError();
               });
               if (errorCode !== 0) {
@@ -46046,11 +45957,7 @@
               if (!data.image || oldData.image === data.image) {
                 return;
               }
-              el.setAttribute(
-                "material",
-                "pano",
-                typeof data.image === "string" ? data.image : data.image.src
-              );
+              el.setAttribute("material", "pano", typeof data.image === "string" ? data.image : data.image.src);
             },
             updatePeekMode: function() {
               var el = this.el;
@@ -46736,11 +46643,7 @@
             },
             checkIfControllerPresent: function() {
               var data = this.data;
-              checkControllerPresentAndSetup(
-                this,
-                GAMEPAD_ID_COMPOSITE,
-                { index: this.controllerIndex, hand: data.hand }
-              );
+              checkControllerPresentAndSetup(this, GAMEPAD_ID_COMPOSITE, { index: this.controllerIndex, hand: data.hand });
             },
             injectTrackedControls: function() {
               var el = this.el;
@@ -47171,11 +47074,7 @@
               this.controllerEventsActive = false;
             },
             checkIfControllerPresent: function() {
-              checkControllerPresentAndSetup(
-                this,
-                GAMEPAD_ID_PREFIX,
-                this.data.hand ? { hand: this.data.hand } : {}
-              );
+              checkControllerPresentAndSetup(this, GAMEPAD_ID_PREFIX, this.data.hand ? { hand: this.data.hand } : {});
             },
             play: function() {
               this.checkIfControllerPresent();
@@ -47728,10 +47627,7 @@
                 if (intersectedEls.indexOf(prevIntersectedEls[i]) !== -1) {
                   continue;
                 }
-                prevIntersectedEls[i].emit(
-                  EVENTS.INTERSECT_CLEAR,
-                  this.intersectedClearedDetail
-                );
+                prevIntersectedEls[i].emit(EVENTS.INTERSECT_CLEAR, this.intersectedClearedDetail);
                 clearedIntersectedEls.push(prevIntersectedEls[i]);
               }
               if (clearedIntersectedEls.length) {
@@ -47828,10 +47724,7 @@
             clearAllIntersections: function() {
               var i;
               for (i = 0; i < this.intersectedEls.length; i++) {
-                this.intersectedEls[i].emit(
-                  EVENTS.INTERSECT_CLEAR,
-                  this.intersectedClearedDetail
-                );
+                this.intersectedEls[i].emit(EVENTS.INTERSECT_CLEAR, this.intersectedClearedDetail);
               }
               copyArray(this.clearedIntersectedEls, this.intersectedEls);
               this.intersectedEls.length = 0;
@@ -48349,13 +48242,7 @@
               this.onDeviceMotionDialogAllowClicked = bind(this.onDeviceMotionDialogAllowClicked, this);
               this.onDeviceMotionDialogDenyClicked = bind(this.onDeviceMotionDialogDenyClicked, this);
               DeviceOrientationEvent.requestPermission().catch(function() {
-                self2.devicePermissionDialogEl = createPermissionDialog(
-                  self2.data.denyButtonText,
-                  self2.data.allowButtonText,
-                  self2.data.deviceMotionMessage,
-                  self2.onDeviceMotionDialogAllowClicked,
-                  self2.onDeviceMotionDialogDenyClicked
-                );
+                self2.devicePermissionDialogEl = createPermissionDialog(self2.data.denyButtonText, self2.data.allowButtonText, self2.data.deviceMotionMessage, self2.onDeviceMotionDialogAllowClicked, self2.onDeviceMotionDialogDenyClicked);
                 self2.el.appendChild(self2.devicePermissionDialogEl);
               }).then(function() {
                 self2.el.emit("deviceorientationpermissiongranted");
@@ -48372,13 +48259,9 @@
             },
             showHTTPAlert: function() {
               var self2 = this;
-              var httpAlertEl = createAlertDialog(
-                self2.data.cancelButtonText,
-                self2.data.httpsMessage,
-                function() {
-                  self2.el.removeChild(httpAlertEl);
-                }
-              );
+              var httpAlertEl = createAlertDialog(self2.data.cancelButtonText, self2.data.httpsMessage, function() {
+                self2.el.removeChild(httpAlertEl);
+              });
               this.el.appendChild(httpAlertEl);
             },
             onDeviceMotionDialogAllowClicked: function() {
@@ -48749,21 +48632,11 @@
         }, { "../../core/component": 136, "../../utils/debug": 208 }], 112: [function(require2, module3, exports3) {
           var register = require2("../../core/component").registerComponent;
           function updateLights(estimate, probeLight, directionalLight, directionalLightPosition) {
-            var intensityScalar = Math.max(
-              estimate.primaryLightIntensity.x,
-              Math.max(
-                estimate.primaryLightIntensity.y,
-                estimate.primaryLightIntensity.z
-              )
-            );
+            var intensityScalar = Math.max(estimate.primaryLightIntensity.x, Math.max(estimate.primaryLightIntensity.y, estimate.primaryLightIntensity.z));
             probeLight.sh.fromArray(estimate.sphericalHarmonicsCoefficients);
             probeLight.intensity = 1;
             if (directionalLight) {
-              directionalLight.color.setRGB(
-                estimate.primaryLightIntensity.x / intensityScalar,
-                estimate.primaryLightIntensity.y / intensityScalar,
-                estimate.primaryLightIntensity.z / intensityScalar
-              );
+              directionalLight.color.setRGB(estimate.primaryLightIntensity.x / intensityScalar, estimate.primaryLightIntensity.y / intensityScalar, estimate.primaryLightIntensity.z / intensityScalar);
               directionalLight.intensity = intensityScalar;
               directionalLightPosition.copy(estimate.primaryLightDirection);
             }
@@ -48855,12 +48728,7 @@
               if (frame && this.xrLightProbe) {
                 var estimate = frame.getLightEstimate(this.xrLightProbe);
                 if (estimate) {
-                  updateLights(
-                    estimate,
-                    this.probeLight.components.light.light,
-                    this.data.directionalLight && this.data.directionalLight.components.light.light,
-                    this.data.directionalLight && this.data.directionalLight.object3D.position
-                  );
+                  updateLights(estimate, this.probeLight.components.light.light, this.data.directionalLight && this.data.directionalLight.components.light.light, this.data.directionalLight && this.data.directionalLight.object3D.position);
                 }
               }
               if (this.needsVREnvironmentUpdate) {
@@ -48938,10 +48806,7 @@
                   fragmentShader: FRAGMENT_SHADER,
                   side: THREE2.DoubleSide
                 });
-                self2.quad = new THREE2.Mesh(
-                  new THREE2.PlaneBufferGeometry(1, 1),
-                  self2.material
-                );
+                self2.quad = new THREE2.Mesh(new THREE2.PlaneBufferGeometry(1, 1), self2.material);
                 self2.quad.visible = false;
                 self2.camera = new THREE2.OrthographicCamera(-1 / 2, 1 / 2, 1 / 2, -1 / 2, -1e4, 1e4);
                 self2.canvas = document.createElement("canvas");
@@ -48994,15 +48859,12 @@
                 size = { width: this.data.width, height: this.data.height };
               } else {
                 camera = this.camera;
-                cubeRenderTarget = new THREE2.WebGLCubeRenderTarget(
-                  Math.min(this.cubeMapSize, 2048),
-                  {
-                    format: THREE2.RGBFormat,
-                    generateMipmaps: true,
-                    minFilter: THREE2.LinearMipmapLinearFilter,
-                    encoding: THREE2.sRGBEncoding
-                  }
-                );
+                cubeRenderTarget = new THREE2.WebGLCubeRenderTarget(Math.min(this.cubeMapSize, 2048), {
+                  format: THREE2.RGBFormat,
+                  generateMipmaps: true,
+                  minFilter: THREE2.LinearMipmapLinearFilter,
+                  encoding: THREE2.sRGBEncoding
+                });
                 cubeCamera = new THREE2.CubeCamera(el.camera.near, el.camera.far, cubeRenderTarget);
                 el.camera.getWorldPosition(cubeCamera.position);
                 el.camera.getWorldQuaternion(cubeCamera.quaternion);
@@ -49299,10 +49161,7 @@
             wrapper.setAttribute(constants.AFRAME_INJECTED, "");
             vrButton = document.createElement("button");
             vrButton.className = ENTER_VR_BTN_CLASS;
-            vrButton.setAttribute(
-              "title",
-              "Enter VR mode with a headset or fullscreen mode on a desktop. Visit https://webvr.rocks or https://webvr.info for more information."
-            );
+            vrButton.setAttribute("title", "Enter VR mode with a headset or fullscreen mode on a desktop. Visit https://webvr.rocks or https://webvr.info for more information.");
             vrButton.setAttribute(constants.AFRAME_INJECTED, "");
             if (utils.device.isMobile()) {
               applyStickyHoverFix(vrButton);
@@ -49322,10 +49181,7 @@
             wrapper.setAttribute(constants.AFRAME_INJECTED, "");
             arButton = document.createElement("button");
             arButton.className = ENTER_AR_BTN_CLASS;
-            arButton.setAttribute(
-              "title",
-              "Enter AR mode with a headset or handheld device. Visit https://webvr.rocks or https://webvr.info for more information."
-            );
+            arButton.setAttribute("title", "Enter AR mode with a headset or handheld device. Visit https://webvr.rocks or https://webvr.info for more information.");
             arButton.setAttribute(constants.AFRAME_INJECTED, "");
             if (utils.device.isMobile()) {
               applyStickyHoverFix(arButton);
@@ -49811,11 +49667,7 @@
               }
               geometryComponent = el.getAttribute("geometry");
               width = data.width || geometryComponent && geometryComponent.width || DEFAULT_WIDTH;
-              textRenderWidth = computeWidth(
-                data.wrapPixels,
-                data.wrapCount,
-                this.currentFont.widthFactor
-              );
+              textRenderWidth = computeWidth(data.wrapPixels, data.wrapCount, this.currentFont.widthFactor);
               textScale = width / textRenderWidth;
               layout = geometry.layout;
               height = textScale * (layout.height + layout.descender);
@@ -49865,11 +49717,7 @@
                 geometryUpdateData.font = font;
                 geometryUpdateData.lineHeight = data.lineHeight && isFinite(data.lineHeight) ? data.lineHeight : font.common.lineHeight;
                 geometryUpdateData.text = data.value.toString().replace(newLineRegex, "\n").replace(tabRegex, "	");
-                geometryUpdateData.width = computeWidth(
-                  data.wrapPixels,
-                  data.wrapCount,
-                  font.widthFactor
-                );
+                geometryUpdateData.width = computeWidth(data.wrapPixels, data.wrapCount, font.widthFactor);
                 geometry.update(utils.extend(geometryUpdateBase, data, geometryUpdateData));
               };
             }()
@@ -50014,13 +49862,7 @@
             },
             updateGamepad: function() {
               var data = this.data;
-              var controller = controllerUtils.findMatchingControllerWebVR(
-                this.system.controllers,
-                data.id,
-                data.idPrefix,
-                data.hand,
-                data.controller
-              );
+              var controller = controllerUtils.findMatchingControllerWebVR(this.system.controllers, data.id, data.idPrefix, data.hand, data.controller);
               this.controller = controller;
               this.el.components["tracked-controls"].controller = controller;
               if (this.data.autoHide) {
@@ -50043,11 +49885,7 @@
               pose = controller.pose;
               hand = (controller ? controller.hand : void 0) || DEFAULT_HANDEDNESS;
               controllerPosition.copy(headObject3D.position);
-              deltaControllerPosition.set(
-                EYES_TO_ELBOW.x * (hand === "left" ? -1 : hand === "right" ? 1 : 0),
-                EYES_TO_ELBOW.y,
-                EYES_TO_ELBOW.z
-              );
+              deltaControllerPosition.set(EYES_TO_ELBOW.x * (hand === "left" ? -1 : hand === "right" ? 1 : 0), EYES_TO_ELBOW.y, EYES_TO_ELBOW.z);
               deltaControllerPosition.multiplyScalar(userHeight);
               deltaControllerPosition.applyAxisAngle(headObject3D.up, headObject3D.rotation.y);
               controllerPosition.add(deltaControllerPosition);
@@ -50225,14 +50063,7 @@
               return true;
             },
             updateController: function() {
-              this.controller = controllerUtils.findMatchingControllerWebXR(
-                this.system.controllers,
-                this.data.id,
-                this.data.hand,
-                this.data.index,
-                this.data.iterateControllerProfiles,
-                this.data.handTrackingEnabled
-              );
+              this.controller = controllerUtils.findMatchingControllerWebXR(this.system.controllers, this.data.id, this.data.hand, this.data.index, this.data.iterateControllerProfiles, this.data.handTrackingEnabled);
               this.el.components["tracked-controls"].controller = this.controller;
               if (this.data.autoHide) {
                 this.el.object3D.visible = !!this.controller;
@@ -50849,11 +50680,7 @@
               this.removeControllersUpdateListener();
             },
             checkIfControllerPresent: function() {
-              checkControllerPresentAndSetup(
-                this,
-                GAMEPAD_ID_PREFIX,
-                this.data.hand ? { hand: this.data.hand } : {}
-              );
+              checkControllerPresentAndSetup(this, GAMEPAD_ID_PREFIX, this.data.hand ? { hand: this.data.hand } : {});
             },
             play: function() {
               this.checkIfControllerPresent();
@@ -51608,9 +51435,7 @@
                 value: function() {
                   var self2 = this;
                   var src = this.getAttribute("src");
-                  fileLoader.setResponseType(
-                    this.getAttribute("response-type") || inferResponseType(src)
-                  );
+                  fileLoader.setResponseType(this.getAttribute("response-type") || inferResponseType(src));
                   fileLoader.load(src, function handleOnLoad(response) {
                     self2.data = response;
                     setTimeout(function load() {
@@ -51736,9 +51561,7 @@
                     }
                     return srcs;
                   }
-                  warn(
-                    "<a-cubemap> did not contain exactly six elements each with a `src` attribute."
-                  );
+                  warn("<a-cubemap> did not contain exactly six elements each with a `src` attribute.");
                 },
                 writable: window.debug
               }
@@ -51835,9 +51658,7 @@
                 var oldObj;
                 var self2 = this;
                 if (!(obj instanceof THREE2.Object3D)) {
-                  throw new Error(
-                    "`Entity.setObject3D` was called with an object that was not an instance of THREE.Object3D."
-                  );
+                  throw new Error("`Entity.setObject3D` was called with an object that was not an instance of THREE.Object3D.");
                 }
                 oldObj = this.getObject3D(type);
                 if (oldObj) {
@@ -51995,11 +51816,7 @@
                   return;
                 }
                 for (i = 0; i < dependencies.length; i++) {
-                  self2.initComponent(
-                    dependencies[i],
-                    window.HTMLElement.prototype.getAttribute.call(self2, dependencies[i]) || void 0,
-                    true
-                  );
+                  self2.initComponent(dependencies[i], window.HTMLElement.prototype.getAttribute.call(self2, dependencies[i]) || void 0, true);
                 }
               }
             },
@@ -52072,10 +51889,7 @@
                   this.updateComponent(name, this.getDOMAttribute(name));
                 }
                 for (name in componentsToUpdate) {
-                  data = mergeComponentData(
-                    this.getDOMAttribute(name),
-                    extraComponents && extraComponents[name]
-                  );
+                  data = mergeComponentData(this.getDOMAttribute(name), extraComponents && extraComponents[name]);
                   this.updateComponent(name, data);
                   delete componentsToUpdate[name];
                 }
@@ -52236,10 +52050,7 @@
                     return;
                   }
                   if (!this.components[attrName] && this.hasAttribute(attrName)) {
-                    this.updateComponent(
-                      attrName,
-                      window.HTMLElement.prototype.getAttribute.call(this, attrName)
-                    );
+                    this.updateComponent(attrName, window.HTMLElement.prototype.getAttribute.call(this, attrName));
                   }
                   if (typeof arg2 !== "undefined" && typeof arg1 === "string" && arg1.length > 0 && typeof utils.styleParser.parse(arg1) === "string") {
                     for (key in singlePropUpdate) {
@@ -52627,11 +52438,7 @@
                     }
                     if (this.computedMixinStr) {
                       this.computedMixinStr = this.computedMixinStr.trim();
-                      window.HTMLElement.prototype.setAttribute.call(
-                        this,
-                        "mixin",
-                        this.computedMixinStr
-                      );
+                      window.HTMLElement.prototype.setAttribute.call(this, "mixin", this.computedMixinStr);
                     }
                     return mixinIds;
                   };
@@ -52940,11 +52747,7 @@
               if (attrValue === null || attrValue === void 0) {
                 return;
               }
-              window.HTMLElement.prototype.setAttribute.call(
-                this.el,
-                this.attrName,
-                this.stringify(attrValue)
-              );
+              window.HTMLElement.prototype.setAttribute.call(this.el, this.attrName, this.stringify(attrValue));
             },
             updateProperties: function(attrValue, clobber) {
               var el = this.el;
@@ -53202,10 +53005,7 @@
             NewComponent.prototype.system = systems && systems.systems[name];
             NewComponent.prototype.play = wrapPlay(NewComponent.prototype.play);
             NewComponent.prototype.pause = wrapPause(NewComponent.prototype.pause);
-            schema2 = utils.extend(processSchema(
-              NewComponent.prototype.schema,
-              NewComponent.prototype.name
-            ));
+            schema2 = utils.extend(processSchema(NewComponent.prototype.schema, NewComponent.prototype.name));
             schemaIsSingleProp = isSingleProp(NewComponent.prototype.schema);
             if (!schemaIsSingleProp) {
               NewComponent.prototype.schemaChangeKeys = [];
@@ -53657,10 +53457,7 @@
                     window.addEventListener("vrdisplaydeactivate", this.exitVRBound);
                     window.addEventListener("vrdisplaydisconnect", this.exitVRTrueBound);
                     window.addEventListener("vrdisplaypointerrestricted", this.pointerRestrictedBound);
-                    window.addEventListener(
-                      "vrdisplaypointerunrestricted",
-                      this.pointerUnrestrictedBound
-                    );
+                    window.addEventListener("vrdisplaypointerunrestricted", this.pointerUnrestrictedBound);
                   }
                   window.addEventListener("sessionend", this.resize);
                   this.addEventListener("cameraready", function() {
@@ -53787,20 +53584,17 @@
                       var xrMode = useAR ? "immersive-ar" : "immersive-vr";
                       xrInit = this.sceneEl.systems.webxr.sessionConfiguration;
                       return new Promise(function(resolve, reject) {
-                        navigator.xr.requestSession(xrMode, xrInit).then(
-                          function requestSuccess(xrSession) {
-                            self2.xrSession = xrSession;
-                            vrManager.layersEnabled = xrInit.requiredFeatures.indexOf("layers") !== -1;
-                            vrManager.setSession(xrSession);
-                            xrSession.addEventListener("end", self2.exitVRBound);
-                            enterVRSuccess(resolve);
-                          },
-                          function requestFail(error) {
-                            var useAR2 = xrMode === "immersive-ar";
-                            var mode = useAR2 ? "AR" : "VR";
-                            throw new Error("Failed to enter " + mode + " mode (`requestSession`) " + error);
-                          }
-                        );
+                        navigator.xr.requestSession(xrMode, xrInit).then(function requestSuccess(xrSession) {
+                          self2.xrSession = xrSession;
+                          vrManager.layersEnabled = xrInit.requiredFeatures.indexOf("layers") !== -1;
+                          vrManager.setSession(xrSession);
+                          xrSession.addEventListener("end", self2.exitVRBound);
+                          enterVRSuccess(resolve);
+                        }, function requestFail(error) {
+                          var useAR2 = xrMode === "immersive-ar";
+                          var mode = useAR2 ? "AR" : "VR";
+                          throw new Error("Failed to enter " + mode + " mode (`requestSession`) " + error);
+                        });
                       });
                     } else {
                       vrDisplay = utils.device.getVRDisplay();
@@ -54820,11 +54614,7 @@
               originalParent.add(outerGroup);
               el.object3D = outerGroup;
               originalGroup.position.set(-1 * data.x, -1 * data.y, -1 * data.z);
-              outerGroup.position.set(
-                data.x + originalPosition.x,
-                data.y + originalPosition.y,
-                data.z + originalPosition.z
-              );
+              outerGroup.position.set(data.x + originalPosition.x, data.y + originalPosition.y, data.z + originalPosition.z);
               outerGroup.rotation.copy(originalGroup.rotation);
               originalGroup.rotation.set(0, 0, 0);
             }
@@ -55301,14 +55091,7 @@
               segmentsDepth: { default: 1, min: 1, max: 20, type: "int" }
             },
             init: function(data) {
-              this.geometry = new THREE2.BoxGeometry(
-                data.width,
-                data.height,
-                data.depth,
-                data.segmentsWidth,
-                data.segmentsHeight,
-                data.segmentsDepth
-              );
+              this.geometry = new THREE2.BoxGeometry(data.width, data.height, data.depth, data.segmentsWidth, data.segmentsHeight, data.segmentsDepth);
             }
           });
         }, { "../core/geometry": 137, "../lib/three": 184 }], 168: [function(require2, module3, exports3) {
@@ -55323,12 +55106,7 @@
               thetaStart: { default: 0 }
             },
             init: function(data) {
-              this.geometry = new THREE2.CircleGeometry(
-                data.radius,
-                data.segments,
-                degToRad(data.thetaStart),
-                degToRad(data.thetaLength)
-              );
+              this.geometry = new THREE2.CircleGeometry(data.radius, data.segments, degToRad(data.thetaStart), degToRad(data.thetaLength));
             }
           });
         }, { "../core/geometry": 137, "../lib/three": 184 }], 169: [function(require2, module3, exports3) {
@@ -55347,16 +55125,7 @@
               thetaStart: { default: 0 }
             },
             init: function(data) {
-              this.geometry = new THREE2.CylinderGeometry(
-                data.radiusTop,
-                data.radiusBottom,
-                data.height,
-                data.segmentsRadial,
-                data.segmentsHeight,
-                data.openEnded,
-                degToRad(data.thetaStart),
-                degToRad(data.thetaLength)
-              );
+              this.geometry = new THREE2.CylinderGeometry(data.radiusTop, data.radiusBottom, data.height, data.segmentsRadial, data.segmentsHeight, data.openEnded, degToRad(data.thetaStart), degToRad(data.thetaLength));
             }
           });
         }, { "../core/geometry": 137, "../lib/three": 184 }], 170: [function(require2, module3, exports3) {
@@ -55374,16 +55143,7 @@
               thetaStart: { default: 0 }
             },
             init: function(data) {
-              this.geometry = new THREE2.CylinderGeometry(
-                data.radius,
-                data.radius,
-                data.height,
-                data.segmentsRadial,
-                data.segmentsHeight,
-                data.openEnded,
-                degToRad(data.thetaStart),
-                degToRad(data.thetaLength)
-              );
+              this.geometry = new THREE2.CylinderGeometry(data.radius, data.radius, data.height, data.segmentsRadial, data.segmentsHeight, data.openEnded, degToRad(data.thetaStart), degToRad(data.thetaLength));
             }
           });
         }, { "../core/geometry": 137, "../lib/three": 184 }], 171: [function(require2, module3, exports3) {
@@ -55465,14 +55225,7 @@
               thetaStart: { default: 0 }
             },
             init: function(data) {
-              this.geometry = new THREE2.RingGeometry(
-                data.radiusInner,
-                data.radiusOuter,
-                data.segmentsTheta,
-                data.segmentsPhi,
-                degToRad(data.thetaStart),
-                degToRad(data.thetaLength)
-              );
+              this.geometry = new THREE2.RingGeometry(data.radiusInner, data.radiusOuter, data.segmentsTheta, data.segmentsPhi, degToRad(data.thetaStart), degToRad(data.thetaLength));
             }
           });
         }, { "../core/geometry": 137, "../lib/three": 184 }], 177: [function(require2, module3, exports3) {
@@ -55490,15 +55243,7 @@
               segmentsWidth: { default: 36, min: 3, type: "int" }
             },
             init: function(data) {
-              this.geometry = new THREE2.SphereGeometry(
-                data.radius,
-                data.segmentsWidth,
-                data.segmentsHeight,
-                degToRad(data.phiStart),
-                degToRad(data.phiLength),
-                degToRad(data.thetaStart),
-                degToRad(data.thetaLength)
-              );
+              this.geometry = new THREE2.SphereGeometry(data.radius, data.segmentsWidth, data.segmentsHeight, degToRad(data.phiStart), degToRad(data.phiLength), degToRad(data.thetaStart), degToRad(data.thetaLength));
             }
           });
         }, { "../core/geometry": 137, "../lib/three": 184 }], 178: [function(require2, module3, exports3) {
@@ -55526,13 +55271,7 @@
               segmentsTubular: { default: 32, min: 3, type: "int" }
             },
             init: function(data) {
-              this.geometry = new THREE2.TorusGeometry(
-                data.radius,
-                data.radiusTubular * 2,
-                data.segmentsRadial,
-                data.segmentsTubular,
-                degToRad(data.arc)
-              );
+              this.geometry = new THREE2.TorusGeometry(data.radius, data.radiusTubular * 2, data.segmentsRadial, data.segmentsTubular, degToRad(data.arc));
             }
           });
         }, { "../core/geometry": 137, "../lib/three": 184 }], 180: [function(require2, module3, exports3) {
@@ -55548,14 +55287,7 @@
               segmentsTubular: { default: 100, min: 3, type: "int" }
             },
             init: function(data) {
-              this.geometry = new THREE2.TorusKnotGeometry(
-                data.radius,
-                data.radiusTubular * 2,
-                data.segmentsTubular,
-                data.segmentsRadial,
-                data.p,
-                data.q
-              );
+              this.geometry = new THREE2.TorusKnotGeometry(data.radius, data.radiusTubular * 2, data.segmentsTubular, data.segmentsRadial, data.p, data.q);
             }
           });
         }, { "../core/geometry": 137, "../lib/three": 184 }], 181: [function(require2, module3, exports3) {
@@ -55661,9 +55393,7 @@
             warn("Put the A-Frame <script> tag in the <head> of the HTML *before* the scene to ensure everything for A-Frame is properly registered before they are used from HTML.");
           }
           if (!window.cordova && window.location.protocol === "file:") {
-            error(
-              "This HTML file is currently being served via the file:// protocol. Assets, textures, and models WILL NOT WORK due to cross-origin policy! Please use a local or hosted server: https://aframe.io/docs/0.5.0/introduction/getting-started.html#using-a-local-server."
-            );
+            error("This HTML file is currently being served via the file:// protocol. Assets, textures, and models WILL NOT WORK due to cross-origin policy! Please use a local or hosted server: https://aframe.io/docs/0.5.0/introduction/getting-started.html#using-a-local-server.");
           }
           require2("present");
           if (utils.device.isBrowserEnvironment) {
@@ -55693,10 +55423,7 @@
           require2("./extras/components/");
           require2("./extras/primitives/");
           console.log("A-Frame Version: 1.3.0 (Date 2022-02-04, Commit #cc3516ce)");
-          console.log(
-            "THREE Version (https://github.com/supermedium/three.js):",
-            pkg.dependencies["super-three"]
-          );
+          console.log("THREE Version (https://github.com/supermedium/three.js):", pkg.dependencies["super-three"]);
           console.log("WebVR Polyfill Version:", pkg.dependencies["webvr-polyfill"]);
           module3.exports = window.AFRAME = {
             AComponent: require2("./core/component").Component,
@@ -56888,10 +56615,7 @@
               this.materials = {};
               this.textureCounts = {};
               this.textureCache = {};
-              this.sceneEl.addEventListener(
-                "materialtextureloaded",
-                bind(this.onMaterialTextureLoaded, this)
-              );
+              this.sceneEl.addEventListener("materialtextureloaded", bind(this.onMaterialTextureLoaded, this));
             },
             clearTextureCache: function() {
               this.textureCache = {};
@@ -56961,10 +56685,7 @@
               texture = new THREE2.VideoTexture(videoEl);
               texture.minFilter = THREE2.LinearFilter;
               setTextureProperties(texture, data);
-              if (this.sceneEl.isIOS && isHLS(
-                videoEl.src || videoEl.getAttribute("src"),
-                videoEl.type || videoEl.getAttribute("type")
-              )) {
+              if (this.sceneEl.isIOS && isHLS(videoEl.src || videoEl.getAttribute("src"), videoEl.type || videoEl.getAttribute("type"))) {
                 texture.format = THREE2.RGBAFormat;
                 texture.needsCorrectionBGRA = true;
                 texture.flipY = false;
@@ -57043,19 +56764,10 @@
                 resolveTexture(new THREE2.Texture(src));
                 return;
               }
-              TextureLoader.load(
-                src,
-                resolveTexture,
-                function() {
-                },
-                function(xhr) {
-                  error(
-                    "`$s` could not be fetched (Error code: %s; Response: %s)",
-                    xhr.status,
-                    xhr.statusText
-                  );
-                }
-              );
+              TextureLoader.load(src, resolveTexture, function() {
+              }, function(xhr) {
+                error("`$s` could not be fetched (Error code: %s; Response: %s)", xhr.status, xhr.statusText);
+              });
             }
           }
           function createVideoEl(src, width, height) {
@@ -57262,10 +56974,7 @@
               xrSession.requestReferenceSpace(refspace).then(function(referenceSpace) {
                 self2.referenceSpace = referenceSpace;
               }).catch(function(err) {
-                self2.el.sceneEl.systems.webxr.warnIfFeatureNotRequested(
-                  refspace,
-                  'tracked-controls-webxr uses reference space "' + refspace + '".'
-                );
+                self2.el.sceneEl.systems.webxr.warnIfFeatureNotRequested(refspace, 'tracked-controls-webxr uses reference space "' + refspace + '".');
                 throw err;
               });
             },
@@ -58011,11 +57720,7 @@
             if (src instanceof THREE2.Texture) {
               setMap(src);
             } else {
-              el.sceneEl.systems.material.loadTexture(
-                src,
-                { src, repeat: data.repeat, offset: data.offset, npot: data.npot },
-                checkSetMap
-              );
+              el.sceneEl.systems.material.loadTexture(src, { src, repeat: data.repeat, offset: data.offset, npot: data.npot }, checkSetMap);
             }
             function checkSetMap(texture) {
               if (shader.materialSrcs[materialName] !== src) {
@@ -58454,13 +58159,7 @@
             if (!gamepads.length) {
               return false;
             }
-            return !!findMatchingControllerWebVR(
-              gamepads,
-              null,
-              idPrefix,
-              queryObject.hand,
-              filterControllerIndex
-            );
+            return !!findMatchingControllerWebVR(gamepads, null, idPrefix, queryObject.hand, filterControllerIndex);
           }
           function isControllerPresentWebXR(component, id, queryObject) {
             var controllers;
@@ -58473,14 +58172,7 @@
             if (!controllers || !controllers.length) {
               return false;
             }
-            return findMatchingControllerWebXR(
-              controllers,
-              id,
-              queryObject.hand,
-              queryObject.index,
-              queryObject.iterateControllerProfiles,
-              queryObject.handTracking
-            );
+            return findMatchingControllerWebXR(controllers, id, queryObject.hand, queryObject.index, queryObject.iterateControllerProfiles, queryObject.handTracking);
           }
           module3.exports.isControllerPresentWebVR = isControllerPresentWebVR;
           module3.exports.isControllerPresentWebXR = isControllerPresentWebXR;
