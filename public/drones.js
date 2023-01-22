@@ -131,18 +131,22 @@
   </div>
 `;
   var renderCategories = ({ categories }) => `
-  ${categories.map((cat) => `
+  ${categories.map(
+    (cat) => `
   <div class="category">
     <h3 class="category__title" data-key="${cat}">${cat}</h3>
     <ul>
-      ${data.filter((item) => item.Categories.includes(cat)).map((item) => `
+      ${data.filter((item) => item.Categories.includes(cat)).map(
+      (item) => `
       <li class="item" data-key="${item.Key}">
         <div class="item__amount"></div>
         <div class="item__title">${item.Title}</div>
-      </li>`).join("")}
+      </li>`
+    ).join("")}
     </ul>
   </div>
-      `).join("")}
+      `
+  ).join("")}
 `;
   var getSelectedItems = () => {
     const result = [];
@@ -185,7 +189,9 @@
             this.toggleItem(key);
           });
           title?.addEventListener("click", () => {
-            const itemEl = document.querySelector(`.drone-item[data-key="${key}"]`);
+            const itemEl = document.querySelector(
+              `.drone-item[data-key="${key}"]`
+            );
             if (itemEl)
               itemEl.scrollIntoView({ behavior: "smooth" });
           });
