@@ -4,21 +4,31 @@ date: 2022-08-02T16:31:20-06:00
 images: []
 ---
 
-Tech Manager / Agile Advocate / Entrepreneur / FPV Pilot / Sim Racer
+Software Engineer / Full-stack Developer / Entrepreneur / FPV Pilot / Sim Racer
+
 
 ## Background
 
 - Education: Computer Science Engineer, TEC Costa Rica
-- Specialization: Cloud SaaS Architectures, Design Systems, Software Management
-- Interests: Robotics, Machine Learning, Computer Graphics, Entrepreneurship
+- Specialization: Cloud SaaS architectures, full-stack development
+- Interests: Machine Learning, Computer Graphics
+- [CliftonStrengths](https://www.gallup.com/cliftonstrengths/en/253715/34-cliftonstrengths-themes.aspx): Strategic / Learner / Achiever / Futuristic / Relator
 
-## Strengths
+## Me
 
-- Strategic
-- Learner
-- Achiever
-- Futuristic
-- Relator
+I'm a computer science engineer specialized in full-stack web development and architecture design for cloud solutions with 12+ years of experience managing teams. I'm a former entrepreneur and founded a successful advertising agency, which gave me my background in web design, UX, and marketing.
+
+Last 3 years, I have been working on transforming AI experiments into real life products at Accenture.
+
+<!-- In my personal time, I have been experimenting with computer graphics, and robotics, with the goal of combining that with my background in cloud technologies and AI integrations. -->
+
+<!-- Since I was very young, I’ve been passionate about cars, inventing, and coding. I became a computer engineer to harness the power behind coding – the greatest tool for creativity and innovation – and, during my free time, I’m a karting and eSports driver. I’ve competed in the Costa Rica Karting Championship in 2018 and the Costa Rica Virtual Racing Championship in 2020. -->
+
+<!-- I believe if I could go back in time, young Martin would be proud of the person I’ve become and the fact that I’ve always done what I truly loved. -->
+
+<!-- This is my personal website. You'll find here what I care to document and share. It’s also my playground to test web technologies. -->
+
+On my free time, I like to [code](/tags/dev), [build and fly FPV planes and drones](/tags/fpv), do [3D modelling and rendering](/tags/3d), and [race in eSports](https://youtu.be/7ru7-QaSaKY).
 
 ## Technology
 
@@ -51,8 +61,9 @@ Tech Manager / Agile Advocate / Entrepreneur / FPV Pilot / Sim Racer
 
 ## Design
 
-- Blender
-- Figma, Sketch, Photoshop, Gimp
+- UI / UX
+- Intermediate 3D modelling
+- Tools: Figma, Sketch, Blender, Photoshop, Gimp
 
 ## Experience
 
@@ -78,20 +89,6 @@ Tech Manager / Agile Advocate / Entrepreneur / FPV Pilot / Sim Racer
 - Web Developer, at a small web design studio, Costa Rica
   - Feb 2009 – Ago 2010 (1 yr 6 mos)
 
-## Me
-
-I'm a computer science engineer specialized in full-stack web development and architecture design for cloud solutions with 12+ years of experience managing teams. I'm a former entrepreneur and founded a successful advertising agency, which gave me my background in web design, UX, and marketing.
-
-Last 3 years, I have been working on transforming AI experiments into real life products at Accenture.
-
-In my personal time, I have been experimenting with computer graphics, and robotics, with the goal of combining that with my background in cloud technologies and AI integrations.
-
-Since I was very young, I’ve been passionate about cars, inventing, and coding. I became a computer engineer to harness the power behind coding – the greatest tool for creativity and innovation – and, during my free time, I’m a karting and eSports driver. I’ve competed in the Costa Rica Karting Championship in 2018 and the Costa Rica Virtual Racing Championship in 2020.
-
-I believe if I could go back in time, young Martin would be proud of the person I’ve become and the fact that I’ve always done what I truly loved.
-
-This is my personal website. You'll find here what I care to document and share. It’s also my playground to test web technologies.
-
 ## Social links:
 
 - <a href="https://www.linkedin.com/in/martinschaer/" target="_blank">LinkedIn</a>
@@ -101,11 +98,6 @@ This is my personal website. You'll find here what I care to document and share.
 
 ## Favorite tools:
 
-- [neovim](https://neovim.io/) for coding and writing (I like markdown better than docx)
-- lunarvim
-- lazygit
-- tmux and tmuxinator
-- [Excalidraw](excalidraw.com/) as a virtual whiteboard. Not for collaborative work. Useful for drafting diagrams, instead of going with UML at first.
-- mermaid
-- PlantUML
+- Dev environment: neovim + lazygit + tmux
+- Diagraming: [Excalidraw](excalidraw.com/), mermaid and PlantUML
 
