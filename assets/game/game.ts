@@ -5,6 +5,9 @@ import p5 from 'p5'
 // import newRecordAudioURL from 'url:../../assets/newrecord.m4a'
 
 import seoul from './circuits/seoul.json'
+import page5 from './circuits/page5.json'
+import drift from './circuits/drift.json'
+import testCircuit from './circuits/test.json'
 import Checkpoint from './Checkpoint'
 import Car from './Car'
 import Corner from './Corner'
@@ -87,10 +90,10 @@ export default class Game {
     this.winW = rect.width
     this.winH = rect.height
     this.circuits = {
-      // test: testCircuit,
+      test: testCircuit,
       seoul,
-      // drift,
-      // page5,
+      drift,
+      page5,
     }
 
     this.bounds = []
@@ -127,7 +130,6 @@ export default class Game {
       a: this.circuit.car.a,
       c: this.color,
     })
-
   }
 
   preload() {
