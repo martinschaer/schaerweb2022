@@ -2,9 +2,14 @@
 {{ $page := . }}
 <div class="paper">
   <article class="article{{ if eq .Params.layout "wide" }} article--wide{{ end }}">
-    {{ with .Parent }}
-    <p class="my-0 small text-muted print:hidden">Back to <a href="{{ .RelPermalink }}">{{ .Title }}</a></p>
-    {{ end }}
+    <div class="flex">
+      {{ with .Parent }}
+      <p class="my-0 small text-muted print:hidden">Back to <a href="{{ .RelPermalink }}">{{ .Title }}</a></p>
+      {{ end }}
+      <div class="ml-auto">
+        {{ partial "metadata.html" .}}
+      </div>
+    </div>
     <header>
       <h1>{{ .Title }}</h1>
     </header>
@@ -18,9 +23,6 @@
         {{ end }}
       {{ end }}
     {{ end }}
-    <div class="article__metadata">
-      {{ partial "metadata.html" .}}
-    </div>
     <main class="article__content">
       {{ .Content }}
     </main>

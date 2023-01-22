@@ -45,7 +45,7 @@ class DateComponent extends HTMLElement {
     }
     this.shadowRoot.innerHTML = `
       <style>
-      .print\\:block {
+      .print\\:inline {
         display: none;
       }
 
@@ -53,13 +53,13 @@ class DateComponent extends HTMLElement {
         .print\\:hidden {
           display: none;
         }
-        .print\\:block {
-          display: block;
+        .print\\:inline {
+          display: inline;
         }
       }
       </style>
       <span class="print:hidden">${formatted}</span>
-      <span class="print:block">${dateStr}</span>
+      <span class="print:inline">${dateStr}</span>
     `
   }
 

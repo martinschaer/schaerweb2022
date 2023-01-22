@@ -62,6 +62,10 @@ kbd {
   display: none;
 }
 
+.flex {
+  display: flex;
+}
+
 .grid {
   display: grid;
   grid-gap: var(--spacer);
