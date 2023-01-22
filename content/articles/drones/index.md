@@ -5,6 +5,8 @@ images: ["drone.jpg"]
 script: drones.ts
 summary: Choose all the parts you need for a FPV drone
 layout: wide
+tags:
+- fpv
 ---
 
 ## Parts

@@ -5,8 +5,8 @@ images: ["012.png"]
 script: f1-ar.ts
 tags:
 - F1
-- WebXR
-- Blender
+- Dev
+- XR
 - 3D
 summary: From Blender to WebXR with aframe.io
 ---

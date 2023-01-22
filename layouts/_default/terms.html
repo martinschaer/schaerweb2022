@@ -1,0 +1,29 @@
+{{ define "main" }}
+<div class="paper">
+  <div class="article article--wide">
+    <div class="article__content">
+      <header>
+        <h1>{{ .Title }}</h1>
+      </header>
+      {{- if .Content -}}
+      <div>{{ .Content }}</div>
+      {{ end }}
+      <ul class="article-list">
+        {{ range .Data.Terms.Alphabetical }} {{ if ne .Page.Title ""}}
+        <li class="article-list__item">
+          <h2 class="mb-0">
+            <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
+          </h2>
+          <p class="mx-3">{{ .Page.Summary }}</p>
+          <div class="mx-3 small text-muted">
+            {{ range .Pages }}
+            <p><a href="{{ .Page.RelPermalink }}">{{ .Title }}</a></p>
+            {{ end }}
+          </div>
+        </li>
+        {{ end }} {{ end }}
+      </ul>
+    </div>
+  </div>
+</div>
+{{ end }}

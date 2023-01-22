@@ -3,8 +3,8 @@ title: "Work in progress"
 date: 2022-12-02T19:01:24-06:00
 images: []
 tags:
-- WebXR
-- Web Dev
+- Dev
+- XR
 ---
 
 - [Enter the hangar](/hangar)
