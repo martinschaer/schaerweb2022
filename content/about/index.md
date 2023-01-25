@@ -67,9 +67,10 @@ On my free time, I like to [code](/tags/dev), [build and fly FPV planes and dron
 
 ## Experience
 
-- Web Development Lead, Accenture, Costa Rica
+- Full-stack Engineer, Infrastructure Achitect, Data Science Practitioner, Accenture, Costa Rica
   - Nov 2019 – present (>3 yrs)
-  - Worked with AI scientist and full-stack developers to transform experiments into real products. I designed the cloud architectures, lead the development team, and created a design system library that helped reduce the time and effort of building functional prototypes and demos
+  - Worked together with AI scientist and data engineers to transform experiments into real products. Designed cloud architectures, lead the development team, and created design systems.
+  - Tech Architect for new ventures
   - Tech Lead for B2B Growth, winner of The Sammy 2021
 
 - Full-stack Web Developer, Freelance, Costa Rica
