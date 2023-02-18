@@ -11,7 +11,7 @@ Software Engineer / Full-stack Developer / Entrepreneur / FPV Pilot / Sim Racer
 
 - Education: Computer Science Engineer, TEC Costa Rica
 - Specialization: Cloud SaaS architectures, full-stack development
-- Interests: Machine Learning, Computer Graphics
+- Interests: Machine Learning, [Computer Graphics](/tags/xr)
 - [CliftonStrengths](https://www.gallup.com/cliftonstrengths/en/253715/34-cliftonstrengths-themes.aspx): Strategic / Learner / Achiever / Futuristic / Relator
 
 ## Me
@@ -32,7 +32,7 @@ On my free time, I like to [code](/tags/dev), [build and fly FPV planes and dron
 
 ## Technology
 
-- TypeScript, JavaScript, Rust, Golang
+- TypeScript, JavaScript, [Rust](/tags/rust), Golang
 - React, Vue, Lit, Angular
 - Zustand, Pinia, Redux
 - MSWjs, GraphQL, Swagger, Postman
