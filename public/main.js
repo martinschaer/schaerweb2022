@@ -1,5 +1,5 @@
 (() => {
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/i18n.ts
+  // ns-hugo:/home/martin/Repos/schaerweb2022/assets/i18n.ts
   var dict = {
     en: {
       "{0} seconds ago": "{0} seconds ago",
@@ -37,7 +37,7 @@
   })(I18n || (I18n = {}));
   var { t, setLanguage } = I18n;
 
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/components/date.component.ts
+  // ns-hugo:/home/martin/Repos/schaerweb2022/assets/components/date.component.ts
   var template = document.createElement("template");
   template.innerHTML = `<span></span>`;
   var formatStr = (str, ...args) => str.replace(
@@ -95,10 +95,11 @@
       <span class="print:inline">${dateStr}</span>
     `;
     }
+    // disconnectedCallback() {}
   };
   customElements.define("schaerweb-date", DateComponent);
 
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/components/titlebar.component.ts
+  // ns-hugo:/home/martin/Repos/schaerweb2022/assets/components/titlebar.component.ts
   var css = String.raw;
   var html = String.raw;
   var styleContent = css`

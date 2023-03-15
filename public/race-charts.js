@@ -1,5 +1,5 @@
 (() => {
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/services/ergast.ts
+  // ns-hugo:/home/martin/Repos/schaerweb2022/assets/services/ergast.ts
   var endpoint = "https://ergast.com/api/f1";
   var COLORS_BY_DRIVER_CODE = {
     VER: "blue",
@@ -76,7 +76,7 @@
     return results.map((x) => x.status === "fulfilled" ? x.value : x.reason);
   };
 
-  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/lib/race-charts/template.ts
+  // ns-hugo:/home/martin/Repos/schaerweb2022/assets/lib/race-charts/template.ts
   var html = String.raw;
   var s4 = () => Math.floor((1 + Math.random()) * 65536).toString(16).substring(1);
   var template = ({ width: width2 = 1200, height: height2 = 400 }) => {
