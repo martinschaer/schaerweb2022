@@ -10,11 +10,11 @@ tags:
 
 ## First step, option A: Vim in VS Code
 
-Contrary to the popular belief, learn vim by installing this [VIM extension in VS Code](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim).
+Start learning vim by installing this [VIM extension in VS Code](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim).
 
 ## First step, option B
 
-Install an [neovim](https://neovim.io/), or a preconfigured setup like [LunarVim](https://www.lunarvim.org/) (this is the one I'm currently using).
+Install [neovim](https://neovim.io/), or a preconfigured setup like [LunarVim](https://www.lunarvim.org/) (this is the one I'm currently using).
 
 {{< youtube X6AR2RMB5tE >}}
 
@@ -29,7 +29,7 @@ Use vim to take notes. Create a Markdown file to write down your daily to-do's. 
 ### Normal mode
 
 - <kbd>A</kbd>: enters insert mode at the end of the line
-- <kbd>dd</kbd>: delete the while line
+- <kbd>dd</kbd>: delete the whole line
 - <kbd>gg</kbd> and <kbd>G</kbd>: go to the top and the bottom of the document
 - <kbd>control+u</kbd> y<kbd>control+d</kbd>: jump a few lines to the top and the bottom
 - <kbd>*</kbd>: mark the word under the cursor, and with <kbd>n</kbd> jumps to the next occurrence of the same word
