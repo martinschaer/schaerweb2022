@@ -236,6 +236,8 @@
         x.appendChild(injected);
       });
     };
+    // Update
+    //
     update = () => {
       this.shadowRoot?.querySelectorAll(".category > ul > li").forEach((li) => {
         const key = li.getAttribute("data-key") || "";
@@ -254,6 +256,7 @@
       if (totalEl)
         totalEl.innerHTML = `$ ${getSelectedItems().reduce((sum, x) => sum + +x.Price, 0).toLocaleString()}`;
     };
+    // disconnectedCallback() {}
   };
   customElements.define("schaerweb-drones", DronesComponent);
   var mountEl = document.createElement("schaerweb-drones");
