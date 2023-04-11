@@ -1,5 +1,5 @@
 (() => {
-  // node_modules/.pnpm/three@0.144.0/node_modules/three/build/three.module.js
+  // node_modules/three/build/three.module.js
   var REVISION = "144";
   var CullFaceNone = 0;
   var CullFaceBack = 1;
@@ -2795,7 +2795,6 @@
     dot(v) {
       return this.x * v.x + this.y * v.y + this.z * v.z;
     }
-    // TODO lengthSquared?
     lengthSq() {
       return this.x * this.x + this.y * this.y + this.z * this.z;
     }
@@ -4552,7 +4551,6 @@
       yield this._z;
       yield this._order;
     }
-    // @deprecated since r138, 02cf0df1cb4575d5842fef9c85bb5a89fe020d53
     toVector3() {
       console.error("THREE.Euler: .toVector3() has been removed. Use Vector3.setFromEuler() instead");
     }
@@ -5136,8 +5134,6 @@
       }
       return target.set(0, 0, 0);
     }
-    // static/instance method to calculate barycentric coordinates
-    // based on: http://www.blackpawn.com/texts/pointinpoly/default.html
     static getBarycoord(point, a, b, c, target) {
       _v0$1.subVectors(c, a);
       _v1$3.subVectors(b, a);
@@ -5897,7 +5893,6 @@
         data.updateRange = this.updateRange;
       return data;
     }
-    // @deprecated
     copyColorsArray() {
       console.error("THREE.BufferAttribute: copyColorsArray() was removed in r144.");
     }
@@ -6304,7 +6299,6 @@
         normalAttribute.needsUpdate = true;
       }
     }
-    // @deprecated since r144
     merge() {
       console.error("THREE.BufferGeometry.merge() has been removed. Use THREE.BufferGeometryUtils.mergeBufferGeometries() instead.");
       return this;
@@ -6856,13 +6850,9 @@
       this.clipping = false;
       this.extensions = {
         derivatives: false,
-        // set to use derivatives
         fragDepth: false,
-        // set to use fragment depth values
         drawBuffers: false,
-        // set to use draw buffers
         shaderTextureLOD: false
-        // set to use shader texture LOD
       };
       this.defaultAttributeValues = {
         "color": [1, 1, 1],
@@ -7016,22 +7006,11 @@
       this.filmOffset = source.filmOffset;
       return this;
     }
-    /**
-     * Sets the FOV by focal length in respect to the current .filmGauge.
-     *
-     * The default film gauge is 35, so that the focal length can be specified for
-     * a 35mm (full frame) camera.
-     *
-     * Values for focal length and film gauge must have the same unit.
-     */
     setFocalLength(focalLength) {
       const vExtentSlope = 0.5 * this.getFilmHeight() / focalLength;
       this.fov = RAD2DEG * 2 * Math.atan(vExtentSlope);
       this.updateProjectionMatrix();
     }
-    /**
-     * Calculates the focal length from the current .fov and .filmGauge.
-     */
     getFocalLength() {
       const vExtentSlope = Math.tan(DEG2RAD * 0.5 * this.fov);
       return 0.5 * this.getFilmHeight() / vExtentSlope;
@@ -7047,41 +7026,6 @@
     getFilmHeight() {
       return this.filmGauge / Math.max(this.aspect, 1);
     }
-    /**
-     * Sets an offset in a larger frustum. This is useful for multi-window or
-     * multi-monitor/multi-machine setups.
-     *
-     * For example, if you have 3x2 monitors and each monitor is 1920x1080 and
-     * the monitors are in grid like this
-     *
-     *   +---+---+---+
-     *   | A | B | C |
-     *   +---+---+---+
-     *   | D | E | F |
-     *   +---+---+---+
-     *
-     * then for each monitor you would call it like this
-     *
-     *   const w = 1920;
-     *   const h = 1080;
-     *   const fullWidth = w * 3;
-     *   const fullHeight = h * 2;
-     *
-     *   --A--
-     *   camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h );
-     *   --B--
-     *   camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 0, w, h );
-     *   --C--
-     *   camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 0, w, h );
-     *   --D--
-     *   camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 1, w, h );
-     *   --E--
-     *   camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h );
-     *   --F--
-     *   camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h );
-     *
-     *   Note there is no reason monitors have to be the same size or in a grid.
-     */
     setViewOffset(fullWidth, fullHeight, x, y, width2, height2) {
       this.aspect = fullWidth / fullHeight;
       if (this.view === null) {
@@ -7250,9 +7194,7 @@
         uniforms: {
           tEquirect: { value: null }
         },
-        vertexShader: (
-          /* glsl */
-          `
+        vertexShader: `
 
 				varying vec3 vWorldDirection;
 
@@ -7270,11 +7212,8 @@
 					#include <project_vertex>
 
 				}
-			`
-        ),
-        fragmentShader: (
-          /* glsl */
-          `
+			`,
+        fragmentShader: `
 
 				uniform sampler2D tEquirect;
 
@@ -7292,7 +7231,6 @@
 
 				}
 			`
-        )
       };
       const geometry = new BoxGeometry(5, 5, 5);
       const material = new ShaderMaterial({
@@ -8003,11 +7941,8 @@
       envMap: { value: null },
       flipEnvMap: { value: -1 },
       reflectivity: { value: 1 },
-      // basic, lambert, phong
       ior: { value: 1.5 },
-      // physical
       refractionRatio: { value: 0.98 }
-      // basic, lambert, phong
     },
     aomap: {
       aoMap: { value: null },
@@ -8102,7 +8037,6 @@
         skyColor: {},
         groundColor: {}
       } },
-      // TODO (abelnation): RectAreaLight BRDF data needs to be moved from example to main src
       rectAreaLights: { value: [], properties: {
         color: {},
         position: {},
@@ -8207,7 +8141,6 @@
           roughness: { value: 1 },
           metalness: { value: 0 },
           envMapIntensity: { value: 1 }
-          // temporary
         }
       ]),
       vertexShader: ShaderChunk.meshphysical_vert,
@@ -8593,7 +8526,6 @@
         attributeDivisors[i] = 0;
       }
       return {
-        // for backward compatibility on non-VAO support browser
         geometry: null,
         program: null,
         wireframe: false,
@@ -8983,9 +8915,7 @@
     this.numPlanes = 0;
     this.numIntersection = 0;
     this.init = function(planes, enableLocalClipping, camera2) {
-      const enabled = planes.length !== 0 || enableLocalClipping || // enable state of previous frame - the clipping code has to
-      // run another frame in order to reset the state:
-      numGlobalPlanes !== 0 || localClippingEnabled;
+      const enabled = planes.length !== 0 || enableLocalClipping || numGlobalPlanes !== 0 || localClippingEnabled;
       localClippingEnabled = enableLocalClipping;
       globalState = projectPlanes(planes, camera2, 0);
       numGlobalPlanes = planes.length;
@@ -9226,13 +9156,6 @@
       this._equirectMaterial = null;
       this._compileMaterial(this._blurMaterial);
     }
-    /**
-     * Generates a PMREM from a supplied Scene, which can be faster than using an
-     * image if networking bandwidth is low. Optional sigma specifies a blur radius
-     * in radians to be applied to the scene before PMREM generation. Optional near
-     * and far planes ensure the scene is rendered in its entirety (the cubeCamera
-     * is placed at the origin).
-     */
     fromScene(scene2, sigma = 0, near = 0.1, far = 100) {
       _oldTarget = this._renderer.getRenderTarget();
       this._setSize(256);
@@ -9246,47 +9169,24 @@
       this._cleanup(cubeUVRenderTarget);
       return cubeUVRenderTarget;
     }
-    /**
-     * Generates a PMREM from an equirectangular texture, which can be either LDR
-     * or HDR. The ideal input image size is 1k (1024 x 512),
-     * as this matches best with the 256 x 256 cubemap output.
-     */
     fromEquirectangular(equirectangular, renderTarget = null) {
       return this._fromTexture(equirectangular, renderTarget);
     }
-    /**
-     * Generates a PMREM from an cubemap texture, which can be either LDR
-     * or HDR. The ideal input cube size is 256 x 256,
-     * as this matches best with the 256 x 256 cubemap output.
-     */
     fromCubemap(cubemap, renderTarget = null) {
       return this._fromTexture(cubemap, renderTarget);
     }
-    /**
-     * Pre-compiles the cubemap shader. You can get faster start-up by invoking this method during
-     * your texture's network fetch for increased concurrency.
-     */
     compileCubemapShader() {
       if (this._cubemapMaterial === null) {
         this._cubemapMaterial = _getCubemapMaterial();
         this._compileMaterial(this._cubemapMaterial);
       }
     }
-    /**
-     * Pre-compiles the equirectangular shader. You can get faster start-up by invoking this method during
-     * your texture's network fetch for increased concurrency.
-     */
     compileEquirectangularShader() {
       if (this._equirectMaterial === null) {
         this._equirectMaterial = _getEquirectMaterial();
         this._compileMaterial(this._equirectMaterial);
       }
     }
-    /**
-     * Disposes of the PMREMGenerator's internal memory. Note that PMREMGenerator is a static class,
-     * so you should not need more than one PMREMGenerator object. If you do, calling dispose() on
-     * one of them will cause any others to also become unusable.
-     */
     dispose() {
       this._dispose();
       if (this._cubemapMaterial !== null)
@@ -9294,7 +9194,6 @@
       if (this._equirectMaterial !== null)
         this._equirectMaterial.dispose();
     }
-    // private interface
     _setSize(cubeSize) {
       this._lodMax = Math.floor(Math.log2(cubeSize));
       this._cubeSize = Math.pow(2, this._lodMax);
@@ -9444,13 +9343,6 @@
       }
       renderer2.autoClear = autoClear;
     }
-    /**
-     * This is a two-pass Gaussian blur for a cubemap. Normally this is done
-     * vertically and horizontally, but this breaks down on a cube. Here we apply
-     * the blur latitudinally (around the poles), and then longitudinally (towards
-     * the poles) to approximate the orthogonally-separable blur. It is least
-     * accurate at the poles, but still does a decent job.
-     */
     _blur(cubeUVRenderTarget, lodIn, lodOut, sigma, poleAxis) {
       const pingPongRenderTarget = this._pingPongRenderTarget;
       this._halfBlur(
@@ -9622,9 +9514,7 @@
         "poleAxis": { value: poleAxis }
       },
       vertexShader: _getCommonVertexShader(),
-      fragmentShader: (
-        /* glsl */
-        `
+      fragmentShader: `
 
 			precision mediump float;
 			precision mediump int;
@@ -9684,8 +9574,7 @@
 				}
 
 			}
-		`
-      ),
+		`,
       blending: NoBlending,
       depthTest: false,
       depthWrite: false
@@ -9699,9 +9588,7 @@
         "envMap": { value: null }
       },
       vertexShader: _getCommonVertexShader(),
-      fragmentShader: (
-        /* glsl */
-        `
+      fragmentShader: `
 
 			precision mediump float;
 			precision mediump int;
@@ -9720,8 +9607,7 @@
 				gl_FragColor = vec4( texture2D ( envMap, uv ).rgb, 1.0 );
 
 			}
-		`
-      ),
+		`,
       blending: NoBlending,
       depthTest: false,
       depthWrite: false
@@ -9735,9 +9621,7 @@
         "flipEnvMap": { value: -1 }
       },
       vertexShader: _getCommonVertexShader(),
-      fragmentShader: (
-        /* glsl */
-        `
+      fragmentShader: `
 
 			precision mediump float;
 			precision mediump int;
@@ -9753,17 +9637,14 @@
 				gl_FragColor = textureCube( envMap, vec3( flipEnvMap * vOutputDirection.x, vOutputDirection.yz ) );
 
 			}
-		`
-      ),
+		`,
       blending: NoBlending,
       depthTest: false,
       depthWrite: false
     });
   }
   function _getCommonVertexShader() {
-    return (
-      /* glsl */
-      `
+    return `
 
 		precision mediump float;
 		precision mediump int;
@@ -9818,8 +9699,7 @@
 			gl_Position = vec4( position, 1.0 );
 
 		}
-	`
-    );
+	`;
   }
   function WebGLCubeUVMaps(renderer2) {
     let cubeUVmaps = /* @__PURE__ */ new WeakMap();
@@ -11291,12 +11171,10 @@
         "uniform bool isOrthographic;",
         parameters.toneMapping !== NoToneMapping ? "#define TONE_MAPPING" : "",
         parameters.toneMapping !== NoToneMapping ? ShaderChunk["tonemapping_pars_fragment"] : "",
-        // this code is required here because it is used by the toneMapping() function defined below
         parameters.toneMapping !== NoToneMapping ? getToneMappingFunction("toneMapping", parameters.toneMapping) : "",
         parameters.dithering ? "#define DITHERING" : "",
         parameters.opaque ? "#define OPAQUE" : "",
         ShaderChunk["encodings_pars_fragment"],
-        // this code is required here because it is used by the various encoding/decoding function defined below
         getTexelEncodingFunction("linearToOutputTexel", parameters.outputEncoding),
         parameters.useDepthPacking ? "#define DEPTH_PACKING " + parameters.depthPacking : "",
         "\n"
@@ -11864,7 +11742,6 @@
       acquireProgram,
       releaseProgram,
       releaseShaderCache,
-      // Exposed for resource monitoring & error feedback via renderer.info:
       programs,
       dispose
     };
@@ -13444,10 +13321,7 @@
     } catch (err) {
     }
     function createCanvas(width2, height2) {
-      return useOffscreenCanvas ? (
-        // eslint-disable-next-line compat/compat
-        new OffscreenCanvas(width2, height2)
-      ) : createElementNS("canvas");
+      return useOffscreenCanvas ? new OffscreenCanvas(width2, height2) : createElementNS("canvas");
     }
     function resizeImage(image, needsPowerOfTwo, needsNewCanvas, maxSize) {
       let scale = 1;
@@ -15715,9 +15589,7 @@
       const value = uniform.value;
       const info2 = {
         boundary: 0,
-        // bytes
         storage: 0
-        // bytes
       };
       if (typeof value === "number") {
         info2.boundary = 4;
@@ -15787,10 +15659,6 @@
     const renderStateStack = [];
     this.domElement = _canvas2;
     this.debug = {
-      /**
-       * Enables error checking and reporting when shader programs are being compiled
-       * @type {boolean}
-       */
       checkShaderErrors: true
     };
     this.autoClear = true;
@@ -15805,7 +15673,6 @@
     this.toneMapping = NoToneMapping;
     this.toneMappingExposure = 1;
     Object.defineProperties(this, {
-      // @deprecated since r136, 0e21088102b4de7e0a0a33140620b7a3424b9e6d
       gammaFactor: {
         get: function() {
           console.warn("THREE.WebGLRenderer: .gammaFactor has been removed.");
@@ -16844,9 +16711,7 @@
             return;
           }
           const halfFloatSupportedByExt = textureType === HalfFloatType && (extensions.has("EXT_color_buffer_half_float") || capabilities.isWebGL2 && extensions.has("EXT_color_buffer_float"));
-          if (textureType !== UnsignedByteType && utils.convert(textureType) !== _gl.getParameter(35738) && // Edge and Chrome Mac < 52 (#9513)
-          !(textureType === FloatType && (capabilities.isWebGL2 || extensions.has("OES_texture_float") || extensions.has("WEBGL_color_buffer_float"))) && // Chrome Mac >= 52 and Firefox
-          !halfFloatSupportedByExt) {
+          if (textureType !== UnsignedByteType && utils.convert(textureType) !== _gl.getParameter(35738) && !(textureType === FloatType && (capabilities.isWebGL2 || extensions.has("OES_texture_float") || extensions.has("WEBGL_color_buffer_float"))) && !halfFloatSupportedByExt) {
             console.error("THREE.WebGLRenderer.readRenderTargetPixels: renderTarget is not in UnsignedByteType or implementation defined type.");
             return;
           }
@@ -17021,7 +16886,6 @@
         data.object.fog = this.fog.toJSON();
       return data;
     }
-    // @deprecated
     get autoUpdate() {
       console.warn("THREE.Scene: autoUpdate was renamed to matrixWorldAutoUpdate in r144.");
       return this.matrixWorldAutoUpdate;
@@ -17624,8 +17488,6 @@
             continue;
           intersects.push({
             distance,
-            // What do we want? intersection point on the ray or on the segment??
-            // point: raycaster.ray.at( distance ),
             point: interSegment.clone().applyMatrix4(this.matrixWorld),
             index: i,
             face: null,
@@ -17648,8 +17510,6 @@
             continue;
           intersects.push({
             distance,
-            // What do we want? intersection point on the ray or on the segment??
-            // point: raycaster.ray.at( distance ),
             point: interSegment.clone().applyMatrix4(this.matrixWorld),
             index: i,
             face: null,
@@ -18025,8 +17885,7 @@
     return array.slice(from, to);
   }
   function convertArray(array, type, forceClone) {
-    if (!array || // let 'undefined' and 'null' pass
-    !forceClone && array.constructor === type)
+    if (!array || !forceClone && array.constructor === type)
       return array;
     if (typeof type.BYTES_PER_ELEMENT === "number") {
       return new type(array);
@@ -18195,7 +18054,6 @@
       }
       return result;
     }
-    // Template methods for derived classes:
     interpolate_() {
       throw new Error("call to abstract method");
     }
@@ -18296,8 +18154,6 @@
       this.values = convertArray(values, this.ValueBufferType);
       this.setInterpolation(interpolation || this.DefaultInterpolation);
     }
-    // Serialization (in static context, because of constructor invocation
-    // and automatic invocation of .toJSON):
     static toJSON(track) {
       const trackType = track.constructor;
       let json;
@@ -18367,7 +18223,6 @@
     getValueSize() {
       return this.values.length / this.times.length;
     }
-    // move all keyframes either forwards or backwards in time
     shift(timeOffset) {
       if (timeOffset !== 0) {
         const times = this.times;
@@ -18377,7 +18232,6 @@
       }
       return this;
     }
-    // scale all keyframe times by a factor (useful for frame <-> seconds conversions)
     scale(timeScale) {
       if (timeScale !== 1) {
         const times = this.times;
@@ -18387,8 +18241,6 @@
       }
       return this;
     }
-    // removes keyframes before and after animation without changing any values within the range [startTime, endTime].
-    // IMPORTANT: We do not shift around keys to the start of the track time, because for interpolated keys this will change their values
     trim(startTime, endTime) {
       const times = this.times, nKeys = times.length;
       let from = 0, to = nKeys - 1;
@@ -18410,7 +18262,6 @@
       }
       return this;
     }
-    // ensure we do not get a GarbageInGarbageOut situation, make sure tracks are at least minimally viable
     validate() {
       let valid = true;
       const valueSize = this.getValueSize();
@@ -18452,8 +18303,6 @@
       }
       return valid;
     }
-    // removes equivalent sequential keys as common in morph target sequences
-    // (0,0,0,0,1,1,1,0,0,0,0,0,0,0) --> (0,0,1,1,0,0)
     optimize() {
       const times = arraySlice(this.times), values = arraySlice(this.values), stride = this.getValueSize(), smoothInterpolation = this.getInterpolation() === InterpolateSmooth, lastIndex = times.length - 1;
       let writeIndex = 1;
@@ -18655,7 +18504,6 @@
       }
       return clips;
     }
-    // parse the animation.hierarchy format
     static parseAnimation(animation, bones) {
       if (!animation) {
         console.error("THREE.AnimationClip: No animation in JSONLoader data.");
@@ -18993,7 +18841,6 @@
       const req = new Request(url, {
         headers: new Headers(this.requestHeader),
         credentials: this.withCredentials ? "include" : "same-origin"
-        // An abort controller could be added within a future PR
       });
       const mimeType = this.mimeType;
       const responseType = this.responseType;
@@ -19369,29 +19216,11 @@
       this._frameExtents = new Vector2(4, 2);
       this._viewportCount = 6;
       this._viewports = [
-        // These viewports map a cube-map onto a 2D texture with the
-        // following orientation:
-        //
-        //  xzXZ
-        //   y Y
-        //
-        // X - Positive x direction
-        // x - Negative x direction
-        // Y - Positive y direction
-        // y - Negative y direction
-        // Z - Positive z direction
-        // z - Negative z direction
-        // positive X
         new Vector4(2, 1, 1, 1),
-        // negative X
         new Vector4(0, 1, 1, 1),
-        // positive Z
         new Vector4(3, 1, 1, 1),
-        // negative Z
         new Vector4(1, 1, 1, 1),
-        // positive Y
         new Vector4(3, 0, 1, 1),
-        // negative Y
         new Vector4(1, 0, 1, 1)
       ];
       this._cubeDirections = [
@@ -19639,13 +19468,6 @@
         return new PropertyBinding.Composite(root, path, parsedPath);
       }
     }
-    /**
-     * Replaces spaces with underscores and removes unsupported characters from
-     * node names, to ensure compatibility with parseTrackName().
-     *
-     * @param {string} name Node name to be sanitized.
-     * @return {string}
-     */
     static sanitizeNodeName(name) {
       return name.replace(/\s/g, "_").replace(_reservedRe, "");
     }
@@ -19655,12 +19477,10 @@
         throw new Error("PropertyBinding: Cannot parse trackName: " + trackName);
       }
       const results = {
-        // directoryName: matches[ 1 ], // (tschw) currently unused
         nodeName: matches[2],
         objectName: matches[3],
         objectIndex: matches[4],
         propertyName: matches[5],
-        // required
         propertyIndex: matches[6]
       };
       const lastDot = results.nodeName && results.nodeName.lastIndexOf(".");
@@ -19706,12 +19526,10 @@
       }
       return null;
     }
-    // these are used to "bind" a nonexistent property
     _getValue_unavailable() {
     }
     _setValue_unavailable() {
     }
-    // Getters
     _getValue_direct(buffer, offset) {
       buffer[offset] = this.targetObject[this.propertyName];
     }
@@ -19727,7 +19545,6 @@
     _getValue_toArray(buffer, offset) {
       this.resolvedProperty.toArray(buffer, offset);
     }
-    // Direct
     _setValue_direct(buffer, offset) {
       this.targetObject[this.propertyName] = buffer[offset];
     }
@@ -19739,7 +19556,6 @@
       this.targetObject[this.propertyName] = buffer[offset];
       this.targetObject.matrixWorldNeedsUpdate = true;
     }
-    // EntireArray
     _setValue_array(buffer, offset) {
       const dest = this.resolvedProperty;
       for (let i = 0, n = dest.length; i !== n; ++i) {
@@ -19760,7 +19576,6 @@
       }
       this.targetObject.matrixWorldNeedsUpdate = true;
     }
-    // ArrayElement
     _setValue_arrayElement(buffer, offset) {
       this.resolvedProperty[this.propertyIndex] = buffer[offset];
     }
@@ -19772,7 +19587,6 @@
       this.resolvedProperty[this.propertyIndex] = buffer[offset];
       this.targetObject.matrixWorldNeedsUpdate = true;
     }
-    // HasToFromArray
     _setValue_fromArray(buffer, offset) {
       this.resolvedProperty.fromArray(buffer, offset);
     }
@@ -19792,7 +19606,6 @@
       this.bind();
       this.setValue(sourceArray, offset);
     }
-    // create getter / setter pair for a property in the scene graph
     bind() {
       let targetObject = this.node;
       const parsedPath = this.parsedPath;
@@ -19931,25 +19744,21 @@
   ];
   PropertyBinding.prototype.SetterByBindingTypeAndVersioning = [
     [
-      // Direct
       PropertyBinding.prototype._setValue_direct,
       PropertyBinding.prototype._setValue_direct_setNeedsUpdate,
       PropertyBinding.prototype._setValue_direct_setMatrixWorldNeedsUpdate
     ],
     [
-      // EntireArray
       PropertyBinding.prototype._setValue_array,
       PropertyBinding.prototype._setValue_array_setNeedsUpdate,
       PropertyBinding.prototype._setValue_array_setMatrixWorldNeedsUpdate
     ],
     [
-      // ArrayElement
       PropertyBinding.prototype._setValue_arrayElement,
       PropertyBinding.prototype._setValue_arrayElement_setNeedsUpdate,
       PropertyBinding.prototype._setValue_arrayElement_setMatrixWorldNeedsUpdate
     ],
     [
-      // HasToFromArray
       PropertyBinding.prototype._setValue_fromArray,
       PropertyBinding.prototype._setValue_fromArray_setNeedsUpdate,
       PropertyBinding.prototype._setValue_fromArray_setMatrixWorldNeedsUpdate
@@ -19969,7 +19778,7 @@
     }
   }
 
-  // node_modules/.pnpm/three@0.144.0/node_modules/three/examples/jsm/loaders/GLTFLoader.js
+  // node_modules/three/examples/jsm/loaders/GLTFLoader.js
   var GLTFLoader = class extends Loader {
     constructor(manager) {
       super(manager);
@@ -21035,7 +20844,6 @@
   };
   var WEBGL_CONSTANTS = {
     FLOAT: 5126,
-    //FLOAT_MAT2: 35674,
     FLOAT_MAT3: 35675,
     FLOAT_MAT4: 35676,
     FLOAT_VEC2: 35664,
@@ -21102,8 +20910,6 @@
   };
   var INTERPOLATION = {
     CUBICSPLINE: void 0,
-    // We use a custom interpolant (GLTFCubicSplineInterpolation) for CUBICSPLINE tracks. Each
-    // keyframe track will be initialized with a default interpolation type, then modified.
     LINEAR: InterpolateLinear,
     STEP: InterpolateDiscrete
   };
@@ -21326,9 +21132,6 @@
         });
       }).catch(onError);
     }
-    /**
-     * Marks the special nodes/meshes in json for efficient parse.
-     */
     _markDefs() {
       const nodeDefs = this.json.nodes || [];
       const skinDefs = this.json.skins || [];
@@ -21352,15 +21155,6 @@
         }
       }
     }
-    /**
-     * Counts references to shared node / Object3D resources. These resources
-     * can be reused, or "instantiated", at multiple nodes in the scene
-     * hierarchy. Mesh, Camera, and Light instances are instantiated and must
-     * be marked. Non-scenegraph resources (like Materials, Geometries, and
-     * Textures) can be reused directly and are not marked here.
-     *
-     * Example: CesiumMilkTruck sample model reuses "Wheel" meshes.
-     */
     _addNodeRef(cache, index) {
       if (index === void 0)
         return;
@@ -21369,7 +21163,6 @@
       }
       cache.refs[index]++;
     }
-    /** Returns a reference to a shared resource, cloning it if necessary. */
     _getNodeRef(cache, index, object) {
       if (cache.refs[index] <= 1)
         return object;
@@ -21408,12 +21201,6 @@
       }
       return pending;
     }
-    /**
-     * Requests the specified dependency asynchronously, with caching.
-     * @param {string} type
-     * @param {number} index
-     * @return {Promise<Object3D|Material|THREE.Texture|AnimationClip|ArrayBuffer|Object>}
-     */
     getDependency(type, index) {
       const cacheKey = type + ":" + index;
       let dependency = this.cache.get(cacheKey);
@@ -21469,11 +21256,6 @@
       }
       return dependency;
     }
-    /**
-     * Requests all dependencies of the specified type asynchronously, with caching.
-     * @param {string} type
-     * @return {Promise<Array<Object>>}
-     */
     getDependencies(type) {
       let dependencies = this.cache.get(type);
       if (!dependencies) {
@@ -21486,11 +21268,6 @@
       }
       return dependencies;
     }
-    /**
-     * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#buffers-and-buffer-views
-     * @param {number} bufferIndex
-     * @return {Promise<ArrayBuffer>}
-     */
     loadBuffer(bufferIndex) {
       const bufferDef = this.json.buffers[bufferIndex];
       const loader = this.fileLoader;
@@ -21507,11 +21284,6 @@
         });
       });
     }
-    /**
-     * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#buffers-and-buffer-views
-     * @param {number} bufferViewIndex
-     * @return {Promise<ArrayBuffer>}
-     */
     loadBufferView(bufferViewIndex) {
       const bufferViewDef = this.json.bufferViews[bufferViewIndex];
       return this.getDependency("buffer", bufferViewDef.buffer).then(function(buffer) {
@@ -21520,11 +21292,6 @@
         return buffer.slice(byteOffset, byteOffset + byteLength);
       });
     }
-    /**
-     * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#accessors
-     * @param {number} accessorIndex
-     * @return {Promise<BufferAttribute|InterleavedBufferAttribute>}
-     */
     loadAccessor(accessorIndex) {
       const parser = this;
       const json = this.json;
@@ -21596,11 +21363,6 @@
         return bufferAttribute;
       });
     }
-    /**
-     * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#textures
-     * @param {number} textureIndex
-     * @return {Promise<THREE.Texture>}
-     */
     loadTexture(textureIndex) {
       const json = this.json;
       const options = this.options;
@@ -21688,13 +21450,6 @@
       this.sourceCache[sourceIndex] = promise;
       return promise;
     }
-    /**
-     * Asynchronously assigns a texture to the given material parameters.
-     * @param {Object} materialParams
-     * @param {string} mapName
-     * @param {Object} mapDef
-     * @return {Promise<Texture>}
-     */
     assignTexture(materialParams, mapName, mapDef, encoding) {
       const parser = this;
       return this.getDependency("texture", mapDef.index).then(function(texture) {
@@ -21716,14 +21471,6 @@
         return texture;
       });
     }
-    /**
-     * Assigns final material to a Mesh, Line, or Points instance. The instance
-     * already has a material (generated from the glTF material options alone)
-     * but reuse of the same glTF material may require multiple threejs materials
-     * to accommodate different primitive types, defines, etc. New materials will
-     * be created if necessary, and reused from a cache.
-     * @param  {Object3D} mesh Mesh, Line, or Points instance.
-     */
     assignFinalMaterial(mesh) {
       const geometry = mesh.geometry;
       let material = mesh.material;
@@ -21789,11 +21536,6 @@
     getMaterialType() {
       return MeshStandardMaterial;
     }
-    /**
-     * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#materials
-     * @param {number} materialIndex
-     * @return {Promise<Material>}
-     */
     loadMaterial(materialIndex) {
       const parser = this;
       const json = this.json;
@@ -21885,7 +21627,6 @@
         return material;
       });
     }
-    /** When Object3D instances are targeted by animation, they need unique names. */
     createUniqueName(originalName) {
       const sanitizedName = PropertyBinding.sanitizeNodeName(originalName || "");
       let name = sanitizedName;
@@ -21895,14 +21636,6 @@
       this.nodeNamesUsed[name] = true;
       return name;
     }
-    /**
-     * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#geometry
-     *
-     * Creates BufferGeometries from primitives.
-     *
-     * @param {Array<GLTF.Primitive>} primitives
-     * @return {Promise<Array<BufferGeometry>>}
-     */
     loadGeometries(primitives) {
       const parser = this;
       const extensions = this.extensions;
@@ -21932,11 +21665,6 @@
       }
       return Promise.all(pending);
     }
-    /**
-     * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#meshes
-     * @param {number} meshIndex
-     * @return {Promise<Group|Mesh|SkinnedMesh>}
-     */
     loadMesh(meshIndex) {
       const parser = this;
       const json = this.json;
@@ -22006,11 +21734,6 @@
         return group;
       });
     }
-    /**
-     * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#cameras
-     * @param {number} cameraIndex
-     * @return {Promise<THREE.Camera>}
-     */
     loadCamera(cameraIndex) {
       let camera2;
       const cameraDef = this.json.cameras[cameraIndex];
@@ -22029,11 +21752,6 @@
       assignExtrasToUserData(camera2, cameraDef);
       return Promise.resolve(camera2);
     }
-    /**
-     * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#skins
-     * @param {number} skinIndex
-     * @return {Promise<Object>}
-     */
     loadSkin(skinIndex) {
       const skinDef = this.json.skins[skinIndex];
       const skinEntry = { joints: skinDef.joints };
@@ -22045,11 +21763,6 @@
         return skinEntry;
       });
     }
-    /**
-     * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#animations
-     * @param {number} animationIndex
-     * @return {Promise<AnimationClip>}
-     */
     loadAnimation(animationIndex) {
       const json = this.json;
       const animationDef = json.animations[animationIndex];
@@ -22169,11 +21882,6 @@
         return node;
       });
     }
-    /**
-     * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#nodes-and-hierarchy
-     * @param {number} nodeIndex
-     * @return {Promise<Object3D>}
-     */
     loadNode(nodeIndex) {
       const json = this.json;
       const extensions = this.extensions;
@@ -22244,11 +21952,6 @@
         return node;
       });
     }
-    /**
-     * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#scenes
-     * @param {number} sceneIndex
-     * @return {Promise<Group>}
-     */
     loadScene(sceneIndex) {
       const json = this.json;
       const extensions = this.extensions;
@@ -22462,7 +22165,7 @@
     return newGeometry;
   }
 
-  // node_modules/.pnpm/three@0.144.0/node_modules/three/examples/jsm/controls/PointerLockControls.js
+  // node_modules/three/examples/jsm/controls/PointerLockControls.js
   var _euler = new Euler(0, 0, 0, "YXZ");
   var _vector = new Vector3();
   var _changeEvent = { type: "change" };
@@ -22720,12 +22423,8 @@
   };
   init();
 })();
-/*! Bundled license information:
-
-three/build/three.module.js:
-  (**
-   * @license
-   * Copyright 2010-2022 Three.js Authors
-   * SPDX-License-Identifier: MIT
-   *)
-*/
+/**
+ * @license
+ * Copyright 2010-2022 Three.js Authors
+ * SPDX-License-Identifier: MIT
+ */

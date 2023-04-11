@@ -13,9 +13,9 @@ tags:
 
 ## Parts
 
-- [Mini Mustang P-51D](https://amzn.to/3RLqUuw)
-- [iFlight FPV Goggles with DVR](https://amzn.to/3obtMmT)
-- [FPV camera and video transmitter](https://amzn.to/3INuy2V)
+- [Mini Mustang P-51D](https://amzn.to/3MvWD2R)
+- [iFlight FPV Goggles with DVR](https://amzn.to/3Uva5pK)
+- [FPV camera and video transmitter](https://amzn.to/3MARTZQ)
 - 3D printed camera mount
 
 ## FVP videos

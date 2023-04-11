@@ -24,17 +24,13 @@
     return to;
   };
   var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-    // If the importer is in node compatibility mode or this is not an ESM
-    // file that has been converted to a CommonJS file using a Babel-
-    // compatible transform (i.e. "__esModule" has not been set), then set
-    // "default" to the CommonJS "module.exports" for node compatibility.
     isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
     mod
   ));
 
-  // node_modules/.pnpm/aframe@1.3.0/node_modules/aframe/dist/aframe-master.js
+  // node_modules/aframe/dist/aframe-master.js
   var require_aframe_master = __commonJS({
-    "node_modules/.pnpm/aframe@1.3.0/node_modules/aframe/dist/aframe-master.js"(exports, module) {
+    "node_modules/aframe/dist/aframe-master.js"(exports, module) {
       (function(f) {
         if (typeof exports === "object" && typeof module !== "undefined") {
           module.exports = f();
@@ -192,7 +188,6 @@
         }, {}], 4: [function(require2, module3, exports3) {
           "use strict";
           module3.exports = {
-            // Create a <link> tag with optional data attributes
             createLink: function(href, attributes) {
               var head = document.head || document.getElementsByTagName("head")[0];
               var link = document.createElement("link");
@@ -207,7 +202,6 @@
               }
               head.appendChild(link);
             },
-            // Create a <style> tag with optional data attributes
             createStyle: function(cssText, attributes) {
               var head = document.head || document.getElementsByTagName("head")[0], style = document.createElement("style");
               style.type = "text/css";
@@ -265,9 +259,7 @@
                 arr.__proto__ = { __proto__: Uint8Array.prototype, foo: function() {
                   return 42;
                 } };
-                return arr.foo() === 42 && // typed array instances can be augmented
-                typeof arr.subarray === "function" && // chrome 9-10 lack `subarray`
-                arr.subarray(1, 1).byteLength === 0;
+                return arr.foo() === 42 && typeof arr.subarray === "function" && arr.subarray(1, 1).byteLength === 0;
               } catch (e2) {
                 return false;
               }
@@ -1774,10 +1766,7 @@
             "crimson"
           ];
           function useColors() {
-            return "WebkitAppearance" in document.documentElement.style || // is firebug? http://stackoverflow.com/a/398120/376773
-            window.console && (console.firebug || console.exception && console.table) || // is firefox >= v31?
-            // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
-            navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31;
+            return "WebkitAppearance" in document.documentElement.style || window.console && (console.firebug || console.exception && console.table) || navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31;
           }
           exports3.formatters.j = function(v) {
             return JSON.stringify(v);
@@ -2257,7 +2246,6 @@
             "$ %Error%": Error,
             "$ %ErrorPrototype%": Error.prototype,
             "$ %eval%": eval,
-            // eslint-disable-line no-eval
             "$ %EvalError%": EvalError,
             "$ %EvalErrorPrototype%": EvalError.prototype,
             "$ %Float32Array%": typeof Float32Array === "undefined" ? undefined2 : Float32Array,
@@ -2420,7 +2408,6 @@
               }
               return $isNaN(x) && $isNaN(y);
             },
-            // https://www.ecma-international.org/ecma-262/5.1/#sec-8
             Type: function Type(x) {
               if (x === null) {
                 return "Null";
@@ -2441,7 +2428,6 @@
                 return "String";
               }
             },
-            // https://ecma-international.org/ecma-262/6.0/#sec-property-descriptor-specification-type
             IsPropertyDescriptor: function IsPropertyDescriptor(Desc) {
               if (this.Type(Desc) !== "Object") {
                 return false;
@@ -2466,7 +2452,6 @@
               }
               return true;
             },
-            // https://ecma-international.org/ecma-262/5.1/#sec-8.10.1
             IsAccessorDescriptor: function IsAccessorDescriptor(Desc) {
               if (typeof Desc === "undefined") {
                 return false;
@@ -2477,7 +2462,6 @@
               }
               return true;
             },
-            // https://ecma-international.org/ecma-262/5.1/#sec-8.10.2
             IsDataDescriptor: function IsDataDescriptor(Desc) {
               if (typeof Desc === "undefined") {
                 return false;
@@ -2488,7 +2472,6 @@
               }
               return true;
             },
-            // https://ecma-international.org/ecma-262/5.1/#sec-8.10.3
             IsGenericDescriptor: function IsGenericDescriptor(Desc) {
               if (typeof Desc === "undefined") {
                 return false;
@@ -2499,7 +2482,6 @@
               }
               return false;
             },
-            // https://ecma-international.org/ecma-262/5.1/#sec-8.10.4
             FromPropertyDescriptor: function FromPropertyDescriptor(Desc) {
               if (typeof Desc === "undefined") {
                 return Desc;
@@ -2523,7 +2505,6 @@
                 throw new $TypeError("FromPropertyDescriptor must be called with a fully populated Property Descriptor");
               }
             },
-            // https://ecma-international.org/ecma-262/5.1/#sec-8.10.5
             ToPropertyDescriptor: function ToPropertyDescriptor(Obj) {
               if (this.Type(Obj) !== "Object") {
                 throw new $TypeError("ToPropertyDescriptor requires an object");
@@ -2569,7 +2550,6 @@
           var $SyntaxError = GetIntrinsic("%SyntaxError%");
           var has = require2("has");
           var predicates = {
-            // https://ecma-international.org/ecma-262/6.0/#sec-property-descriptor-specification-type
             "Property Descriptor": function isPropertyDescriptor(ES, Desc) {
               if (ES.Type(Desc) !== "Object") {
                 return false;
@@ -2998,8 +2978,7 @@
           var toString = Object.prototype.toString;
           function isFunction(fn) {
             var string = toString.call(fn);
-            return string === "[object Function]" || typeof fn === "function" && string !== "[object RegExp]" || typeof window !== "undefined" && // IE8 and below
-            (fn === window.setTimeout || fn === window.alert || fn === window.confirm || fn === window.prompt);
+            return string === "[object Function]" || typeof fn === "function" && string !== "[object RegExp]" || typeof window !== "undefined" && (fn === window.setTimeout || fn === window.alert || fn === window.confirm || fn === window.prompt);
           }
           ;
         }, {}], 34: [function(require2, module3, exports3) {
@@ -4591,71 +4570,44 @@
             var curves = {
               In: [
                 [0.55, 0.085, 0.68, 0.53],
-                /* inQuad */
                 [0.55, 0.055, 0.675, 0.19],
-                /* inCubic */
                 [0.895, 0.03, 0.685, 0.22],
-                /* inQuart */
                 [0.755, 0.05, 0.855, 0.06],
-                /* inQuint */
                 [0.47, 0, 0.745, 0.715],
-                /* inSine */
                 [0.95, 0.05, 0.795, 0.035],
-                /* inExpo */
                 [0.6, 0.04, 0.98, 0.335],
-                /* inCirc */
                 [0.6, -0.28, 0.735, 0.045],
-                /* inBack */
                 elastic
-                /* inElastic */
               ],
               Out: [
                 [0.25, 0.46, 0.45, 0.94],
-                /* outQuad */
                 [0.215, 0.61, 0.355, 1],
-                /* outCubic */
                 [0.165, 0.84, 0.44, 1],
-                /* outQuart */
                 [0.23, 1, 0.32, 1],
-                /* outQuint */
                 [0.39, 0.575, 0.565, 1],
-                /* outSine */
                 [0.19, 1, 0.22, 1],
-                /* outExpo */
                 [0.075, 0.82, 0.165, 1],
-                /* outCirc */
                 [0.175, 0.885, 0.32, 1.275],
-                /* outBack */
                 function(a, p) {
                   return function(t) {
                     return 1 - elastic(a, p)(1 - t);
                   };
                 }
-                /* outElastic */
               ],
               InOut: [
                 [0.455, 0.03, 0.515, 0.955],
-                /* inOutQuad */
                 [0.645, 0.045, 0.355, 1],
-                /* inOutCubic */
                 [0.77, 0, 0.175, 1],
-                /* inOutQuart */
                 [0.86, 0, 0.07, 1],
-                /* inOutQuint */
                 [0.445, 0.05, 0.55, 0.95],
-                /* inOutSine */
                 [1, 0, 0, 1],
-                /* inOutExpo */
                 [0.785, 0.135, 0.15, 0.86],
-                /* inOutCirc */
                 [0.68, -0.55, 0.265, 1.55],
-                /* inOutBack */
                 function(a, p) {
                   return function(t) {
                     return t < 0.5 ? elastic(a, p)(t * 2) / 2 : 1 - elastic(a, p)(t * -2 + 2) / 2;
                   };
                 }
-                /* inOutElastic */
               ]
             };
             var eases = {
@@ -8550,7 +8502,6 @@
               dot(v) {
                 return this.x * v.x + this.y * v.y + this.z * v.z;
               }
-              // TODO lengthSquared?
               lengthSq() {
                 return this.x * this.x + this.y * this.y + this.z * this.z;
               }
@@ -10668,8 +10619,6 @@
                 }
                 return target.set(0, 0, 0);
               }
-              // static/instance method to calculate barycentric coordinates
-              // based on: http://www.blackpawn.com/texts/pointinpoly/default.html
               static getBarycoord(point, a, b, c, target) {
                 _v0$1.subVectors(c, a);
                 _v1$3.subVectors(b, a);
@@ -12470,13 +12419,9 @@
                 this.clipping = false;
                 this.extensions = {
                   derivatives: false,
-                  // set to use derivatives
                   fragDepth: false,
-                  // set to use fragment depth values
                   drawBuffers: false,
-                  // set to use draw buffers
                   shaderTextureLOD: false
-                  // set to use shader texture LOD
                 };
                 this.defaultAttributeValues = {
                   "color": [1, 1, 1],
@@ -12631,22 +12576,11 @@
                 this.filmOffset = source.filmOffset;
                 return this;
               }
-              /**
-               * Sets the FOV by focal length in respect to the current .filmGauge.
-               *
-               * The default film gauge is 35, so that the focal length can be specified for
-               * a 35mm (full frame) camera.
-               *
-               * Values for focal length and film gauge must have the same unit.
-               */
               setFocalLength(focalLength) {
                 const vExtentSlope = 0.5 * this.getFilmHeight() / focalLength;
                 this.fov = RAD2DEG * 2 * Math.atan(vExtentSlope);
                 this.updateProjectionMatrix();
               }
-              /**
-               * Calculates the focal length from the current .fov and .filmGauge.
-               */
               getFocalLength() {
                 const vExtentSlope = Math.tan(DEG2RAD * 0.5 * this.fov);
                 return 0.5 * this.getFilmHeight() / vExtentSlope;
@@ -12660,41 +12594,6 @@
               getFilmHeight() {
                 return this.filmGauge / Math.max(this.aspect, 1);
               }
-              /**
-               * Sets an offset in a larger frustum. This is useful for multi-window or
-               * multi-monitor/multi-machine setups.
-               *
-               * For example, if you have 3x2 monitors and each monitor is 1920x1080 and
-               * the monitors are in grid like this
-               *
-               *	 +---+---+---+
-               *	 | A | B | C |
-               *	 +---+---+---+
-               *	 | D | E | F |
-               *	 +---+---+---+
-               *
-               * then for each monitor you would call it like this
-               *
-               *	 const w = 1920;
-               *	 const h = 1080;
-               *	 const fullWidth = w * 3;
-               *	 const fullHeight = h * 2;
-               *
-               *	 --A--
-               *	 camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h );
-               *	 --B--
-               *	 camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 0, w, h );
-               *	 --C--
-               *	 camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 0, w, h );
-               *	 --D--
-               *	 camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 1, w, h );
-               *	 --E--
-               *	 camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h );
-               *	 --F--
-               *	 camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h );
-               *
-               *	 Note there is no reason monitors have to be the same size or in a grid.
-               */
               setViewOffset(fullWidth, fullHeight, x, y, width, height) {
                 this.aspect = fullWidth / fullHeight;
                 if (this.view === null) {
@@ -12869,9 +12768,7 @@
                       value: null
                     }
                   },
-                  vertexShader: (
-                    /* glsl */
-                    `
+                  vertexShader: `
 
 				varying vec3 vWorldDirection;
 
@@ -12889,11 +12786,8 @@
 					#include <project_vertex>
 
 				}
-			`
-                  ),
-                  fragmentShader: (
-                    /* glsl */
-                    `
+			`,
+                  fragmentShader: `
 
 				uniform sampler2D tEquirect;
 
@@ -12911,7 +12805,6 @@
 
 				}
 			`
-                  )
                 };
                 const geometry = new BoxGeometry(5, 5, 5);
                 const material = new ShaderMaterial({
@@ -13627,11 +13520,9 @@
                 reflectivity: {
                   value: 1
                 },
-                // basic, lambert, phong
                 ior: {
                   value: 1.5
                 },
-                // standard, physical
                 refractionRatio: {
                   value: 0.98
                 }
@@ -13803,7 +13694,6 @@
                     groundColor: {}
                   }
                 },
-                // TODO (abelnation): RectAreaLight BRDF data needs to be moved from example to main src
                 rectAreaLights: {
                   value: [],
                   properties: {
@@ -13917,7 +13807,6 @@
                   envMapIntensity: {
                     value: 1
                   }
-                  // temporary
                 }]),
                 vertexShader: ShaderChunk.meshphysical_vert,
                 fragmentShader: ShaderChunk.meshphysical_frag
@@ -13991,9 +13880,6 @@
                 vertexShader: ShaderChunk.background_vert,
                 fragmentShader: ShaderChunk.background_frag
               },
-              /* -------------------------------------------------------------------------
-              //	Cube map shader
-               ------------------------------------------------------------------------- */
               cube: {
                 uniforms: mergeUniforms([UniformsLib.envmap, {
                   opacity: {
@@ -14316,7 +14202,6 @@
                   attributeDivisors[i] = 0;
                 }
                 return {
-                  // for backward compatibility on non-VAO support browser
                   geometry: null,
                   program: null,
                   wireframe: false,
@@ -14674,9 +14559,7 @@
               this.numPlanes = 0;
               this.numIntersection = 0;
               this.init = function(planes, enableLocalClipping, camera) {
-                const enabled = planes.length !== 0 || enableLocalClipping || // enable state of previous frame - the clipping code has to
-                // run another frame in order to reset the state:
-                numGlobalPlanes !== 0 || localClippingEnabled;
+                const enabled = planes.length !== 0 || enableLocalClipping || numGlobalPlanes !== 0 || localClippingEnabled;
                 localClippingEnabled = enableLocalClipping;
                 globalState = projectPlanes(planes, camera, 0);
                 numGlobalPlanes = planes.length;
@@ -14916,13 +14799,6 @@
                 this._cubemapShader = null;
                 this._compileMaterial(this._blurMaterial);
               }
-              /**
-               * Generates a PMREM from a supplied Scene, which can be faster than using an
-               * image if networking bandwidth is low. Optional sigma specifies a blur radius
-               * in radians to be applied to the scene before PMREM generation. Optional near
-               * and far planes ensure the scene is rendered in its entirety (the cubeCamera
-               * is placed at the origin).
-               */
               fromScene(scene, sigma = 0, near = 0.1, far = 100) {
                 _oldTarget = this._renderer.getRenderTarget();
                 const cubeUVRenderTarget = this._allocateTargets();
@@ -14934,47 +14810,24 @@
                 this._cleanup(cubeUVRenderTarget);
                 return cubeUVRenderTarget;
               }
-              /**
-               * Generates a PMREM from an equirectangular texture, which can be either LDR
-               * or HDR. The ideal input image size is 1k (1024 x 512),
-               * as this matches best with the 256 x 256 cubemap output.
-               */
               fromEquirectangular(equirectangular, renderTarget = null) {
                 return this._fromTexture(equirectangular, renderTarget);
               }
-              /**
-               * Generates a PMREM from an cubemap texture, which can be either LDR
-               * or HDR. The ideal input cube size is 256 x 256,
-               * as this matches best with the 256 x 256 cubemap output.
-               */
               fromCubemap(cubemap, renderTarget = null) {
                 return this._fromTexture(cubemap, renderTarget);
               }
-              /**
-               * Pre-compiles the cubemap shader. You can get faster start-up by invoking this method during
-               * your texture's network fetch for increased concurrency.
-               */
               compileCubemapShader() {
                 if (this._cubemapShader === null) {
                   this._cubemapShader = _getCubemapShader();
                   this._compileMaterial(this._cubemapShader);
                 }
               }
-              /**
-               * Pre-compiles the equirectangular shader. You can get faster start-up by invoking this method during
-               * your texture's network fetch for increased concurrency.
-               */
               compileEquirectangularShader() {
                 if (this._equirectShader === null) {
                   this._equirectShader = _getEquirectShader();
                   this._compileMaterial(this._equirectShader);
                 }
               }
-              /**
-               * Disposes of the PMREMGenerator's internal memory. Note that PMREMGenerator is a static class,
-               * so you should not need more than one PMREMGenerator object. If you do, calling dispose() on
-               * one of them will cause any others to also become unusable.
-               */
               dispose() {
                 this._blurMaterial.dispose();
                 if (this._pingPongRenderTarget !== null)
@@ -14987,7 +14840,6 @@
                   _lodPlanes[i].dispose();
                 }
               }
-              // private interface
               _cleanup(outputTarget) {
                 this._renderer.setRenderTarget(_oldTarget);
                 outputTarget.scissorTest = false;
@@ -15113,13 +14965,6 @@
                 }
                 renderer.autoClear = autoClear;
               }
-              /**
-               * This is a two-pass Gaussian blur for a cubemap. Normally this is done
-               * vertically and horizontally, but this breaks down on a cube. Here we apply
-               * the blur latitudinally (around the poles), and then longitudinally (towards
-               * the poles) to approximate the orthogonally-separable blur. It is least
-               * accurate at the poles, but still does a decent job.
-               */
               _blur(cubeUVRenderTarget, lodIn, lodOut, sigma, poleAxis) {
                 const pingPongRenderTarget = this._pingPongRenderTarget;
                 this._halfBlur(cubeUVRenderTarget, pingPongRenderTarget, lodIn, lodOut, sigma, "latitudinal", poleAxis);
@@ -15267,9 +15112,7 @@
                   }
                 },
                 vertexShader: _getCommonVertexShader(),
-                fragmentShader: (
-                  /* glsl */
-                  `
+                fragmentShader: `
 
 			precision mediump float;
 			precision mediump int;
@@ -15329,8 +15172,7 @@
 				}
 
 			}
-		`
-                ),
+		`,
                 blending: NoBlending,
                 depthTest: false,
                 depthWrite: false
@@ -15350,9 +15192,7 @@
                   }
                 },
                 vertexShader: _getCommonVertexShader(),
-                fragmentShader: (
-                  /* glsl */
-                  `
+                fragmentShader: `
 
 			precision mediump float;
 			precision mediump int;
@@ -15386,8 +15226,7 @@
 				gl_FragColor.rgb = mix( tm, bm, f.y );
 
 			}
-		`
-                ),
+		`,
                 blending: NoBlending,
                 depthTest: false,
                 depthWrite: false
@@ -15406,9 +15245,7 @@
                   }
                 },
                 vertexShader: _getCommonVertexShader(),
-                fragmentShader: (
-                  /* glsl */
-                  `
+                fragmentShader: `
 
 			precision mediump float;
 			precision mediump int;
@@ -15424,8 +15261,7 @@
 				gl_FragColor = textureCube( envMap, vec3( flipEnvMap * vOutputDirection.x, vOutputDirection.yz ) );
 
 			}
-		`
-                ),
+		`,
                 blending: NoBlending,
                 depthTest: false,
                 depthWrite: false
@@ -15433,9 +15269,7 @@
               return shaderMaterial;
             }
             function _getCommonVertexShader() {
-              return (
-                /* glsl */
-                `
+              return `
 
 		precision mediump float;
 		precision mediump int;
@@ -15492,8 +15326,7 @@
 			gl_Position = vec4( position, 1.0 );
 
 		}
-	`
-              );
+	`;
             }
             function WebGLCubeUVMaps(renderer) {
               let cubeUVmaps = /* @__PURE__ */ new WeakMap();
@@ -16868,12 +16701,10 @@
                   "uniform bool isOrthographic;",
                   parameters.toneMapping !== NoToneMapping ? "#define TONE_MAPPING" : "",
                   parameters.toneMapping !== NoToneMapping ? ShaderChunk["tonemapping_pars_fragment"] : "",
-                  // this code is required here because it is used by the toneMapping() function defined below
                   parameters.toneMapping !== NoToneMapping ? getToneMappingFunction("toneMapping", parameters.toneMapping) : "",
                   parameters.dithering ? "#define DITHERING" : "",
                   parameters.alphaWrite ? "" : "#define OPAQUE",
                   ShaderChunk["encodings_pars_fragment"],
-                  // this code is required here because it is used by the various encoding/decoding function defined below
                   getTexelEncodingFunction("linearToOutputTexel", parameters.outputEncoding),
                   parameters.depthPacking ? "#define DEPTH_PACKING " + parameters.depthPacking : "",
                   "\n"
@@ -17408,7 +17239,6 @@
                 acquireProgram,
                 releaseProgram,
                 releaseShaderCache,
-                // Exposed for resource monitoring & error feedback via renderer.info:
                 programs,
                 dispose
               };
@@ -21395,10 +21225,6 @@
               const renderStateStack = [];
               this.domElement = _canvas2;
               this.debug = {
-                /**
-                 * Enables error checking and reporting when shader programs are being compiled
-                 * @type {boolean}
-                 */
                 checkShaderErrors: true
               };
               this.autoClear = true;
@@ -22414,9 +22240,7 @@
                       return;
                     }
                     const halfFloatSupportedByExt = textureType === HalfFloatType && (extensions.has("EXT_color_buffer_half_float") || capabilities.isWebGL2 && extensions.has("EXT_color_buffer_float"));
-                    if (textureType !== UnsignedByteType && utils.convert(textureType) !== _gl.getParameter(_gl.IMPLEMENTATION_COLOR_READ_TYPE) && // Edge and Chrome Mac < 52 (#9513)
-                    !(textureType === FloatType && (capabilities.isWebGL2 || extensions.has("OES_texture_float") || extensions.has("WEBGL_color_buffer_float"))) && // Chrome Mac >= 52 and Firefox
-                    !halfFloatSupportedByExt) {
+                    if (textureType !== UnsignedByteType && utils.convert(textureType) !== _gl.getParameter(_gl.IMPLEMENTATION_COLOR_READ_TYPE) && !(textureType === FloatType && (capabilities.isWebGL2 || extensions.has("OES_texture_float") || extensions.has("WEBGL_color_buffer_float"))) && !halfFloatSupportedByExt) {
                       console.error("THREE.WebGLRenderer.readRenderTargetPixels: renderTarget is not in UnsignedByteType or implementation defined type.");
                       return;
                     }
@@ -23507,8 +23331,6 @@
                         continue;
                       intersects2.push({
                         distance,
-                        // What do we want? intersection point on the ray or on the segment??
-                        // point: raycaster.ray.at( distance ),
                         point: interSegment.clone().applyMatrix4(this.matrixWorld),
                         index: i,
                         face: null,
@@ -23531,8 +23353,6 @@
                         continue;
                       intersects2.push({
                         distance,
-                        // What do we want? intersection point on the ray or on the segment??
-                        // point: raycaster.ray.at( distance ),
                         point: interSegment.clone().applyMatrix4(this.matrixWorld),
                         index: i,
                         face: null,
@@ -24138,7 +23958,6 @@
                 const t = (1 + Math.sqrt(5)) / 2;
                 const r = 1 / t;
                 const vertices = [
-                  // (±1, ±1, ±1)
                   -1,
                   -1,
                   -1,
@@ -24163,7 +23982,6 @@
                   1,
                   1,
                   1,
-                  // (0, ±1/φ, ±φ)
                   0,
                   -r,
                   -t,
@@ -24176,7 +23994,6 @@
                   0,
                   r,
                   t,
-                  // (±1/φ, ±φ, 0)
                   -r,
                   -t,
                   0,
@@ -24189,7 +24006,6 @@
                   r,
                   t,
                   0,
-                  // (±φ, 0, ±1/φ)
                   -t,
                   0,
                   -r,
@@ -24308,19 +24124,14 @@
                 this.type = "Curve";
                 this.arcLengthDivisions = 200;
               }
-              // Virtual base class method to overwrite and implement in subclasses
-              //	- t [0 .. 1]
               getPoint() {
                 console.warn("THREE.Curve: .getPoint() not implemented.");
                 return null;
               }
-              // Get point at relative position in curve according to arc length
-              // - u [0 .. 1]
               getPointAt(u, optionalTarget) {
                 const t = this.getUtoTmapping(u);
                 return this.getPoint(t, optionalTarget);
               }
-              // Get sequence of points using getPoint( t )
               getPoints(divisions = 5) {
                 const points = [];
                 for (let d = 0; d <= divisions; d++) {
@@ -24328,7 +24139,6 @@
                 }
                 return points;
               }
-              // Get sequence of points using getPointAt( u )
               getSpacedPoints(divisions = 5) {
                 const points = [];
                 for (let d = 0; d <= divisions; d++) {
@@ -24336,12 +24146,10 @@
                 }
                 return points;
               }
-              // Get total curve arc length
               getLength() {
                 const lengths = this.getLengths();
                 return lengths[lengths.length - 1];
               }
-              // Get list of cumulative segment lengths
               getLengths(divisions = this.arcLengthDivisions) {
                 if (this.cacheArcLengths && this.cacheArcLengths.length === divisions + 1 && !this.needsUpdate) {
                   return this.cacheArcLengths;
@@ -24364,7 +24172,6 @@
                 this.needsUpdate = true;
                 this.getLengths();
               }
-              // Given u ( 0 .. 1 ), get a t to find p. This gives you points which are equidistant
               getUtoTmapping(u, distance) {
                 const arcLengths = this.getLengths();
                 let i = 0;
@@ -24399,10 +24206,6 @@
                 const t = (i + segmentFraction) / (il - 1);
                 return t;
               }
-              // Returns a unit vector tangent at t
-              // In case any sub curve does not implement its tangent derivation,
-              // 2 points a small delta apart will be used to find its gradient
-              // which seems to give a reasonable approximation
               getTangent(t, optionalTarget) {
                 const delta = 1e-4;
                 let t1 = t - delta;
@@ -24859,7 +24662,6 @@
                 }
                 return point;
               }
-              // Line curve is linear, so we can overwrite default getPointAt
               getPointAt(u, optionalTarget) {
                 return this.getPoint(u, optionalTarget);
               }
@@ -24906,7 +24708,6 @@
                 }
                 return point;
               }
-              // Line curve is linear, so we can overwrite default getPointAt
               getPointAt(u, optionalTarget) {
                 return this.getPoint(u, optionalTarget);
               }
@@ -25081,13 +24882,6 @@
                   this.curves.push(new LineCurve(endPoint, startPoint));
                 }
               }
-              // To get accurate point with reference to
-              // entire path distance at time t,
-              // following has to be done:
-              // 1. Length of each sub path have to be known
-              // 2. Locate and identify type of curve
-              // 3. Get t for the curve
-              // 4. Return curve.getPointAt(t')
               getPoint(t, optionalTarget) {
                 const d = t * this.getLength();
                 const curveLengths = this.getCurveLengths();
@@ -25104,21 +24898,15 @@
                 }
                 return null;
               }
-              // We cannot use the default THREE.Curve getPoint() with getLength() because in
-              // THREE.Curve, getLength() depends on getPoint() but in THREE.CurvePath
-              // getPoint() depends on getLength
               getLength() {
                 const lens = this.getCurveLengths();
                 return lens[lens.length - 1];
               }
-              // cacheLengths must be recalculated.
               updateArcLengths() {
                 this.needsUpdate = true;
                 this.cacheLengths = null;
                 this.getCurveLengths();
               }
-              // Compute lengths and cache them
-              // We cannot overwrite getLengths() because UtoT mapping uses it.
               getCurveLengths() {
                 if (this.cacheLengths && this.cacheLengths.length === this.curves.length) {
                   return this.cacheLengths;
@@ -25297,7 +25085,6 @@
                 }
                 return holesPts;
               }
-              // get points of shape and holes (keypoints based on segments parameter)
               extractPoints(divisions) {
                 return {
                   shape: this.getPoints(divisions),
@@ -25660,8 +25447,7 @@
               return (cx - px2) * (ay - py2) - (ax - px2) * (cy - py2) >= 0 && (ax - px2) * (by - py2) - (bx - px2) * (ay - py2) >= 0 && (bx - px2) * (cy - py2) - (cx - px2) * (by - py2) >= 0;
             }
             function isValidDiagonal(a, b) {
-              return a.next.i !== b.i && a.prev.i !== b.i && !intersectsPolygon(a, b) && (locallyInside(a, b) && locallyInside(b, a) && middleInside(a, b) && (area(a.prev, a, b.prev) || area(a, b.prev, b)) || // does not create opposite-facing sectors
-              equals(a, b) && area(a.prev, a, a.next) > 0 && area(b.prev, b, b.next) > 0);
+              return a.next.i !== b.i && a.prev.i !== b.i && !intersectsPolygon(a, b) && (locallyInside(a, b) && locallyInside(b, a) && middleInside(a, b) && (area(a.prev, a, b.prev) || area(a, b.prev, b)) || equals(a, b) && area(a.prev, a, a.next) > 0 && area(b.prev, b, b.next) > 0);
             }
             function area(p, q, r) {
               return (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
@@ -25767,7 +25553,6 @@
               return sum;
             }
             class ShapeUtils {
-              // calculate area of the contour polygon
               static area(contour) {
                 const n = contour.length;
                 let a = 0;
@@ -27359,17 +27144,14 @@
               Material
             });
             const AnimationUtils = {
-              // same as Array.prototype.slice, but also works on typed arrays
               arraySlice: function(array, from, to) {
                 if (AnimationUtils.isTypedArray(array)) {
                   return new array.constructor(array.subarray(from, to !== void 0 ? to : array.length));
                 }
                 return array.slice(from, to);
               },
-              // converts an array to a specific type
               convertArray: function(array, type, forceClone) {
-                if (!array || // let 'undefined' and 'null' pass
-                !forceClone && array.constructor === type)
+                if (!array || !forceClone && array.constructor === type)
                   return array;
                 if (typeof type.BYTES_PER_ELEMENT === "number") {
                   return new type(array);
@@ -27379,7 +27161,6 @@
               isTypedArray: function(object) {
                 return ArrayBuffer.isView(object) && !(object instanceof DataView);
               },
-              // returns an array by which times and values can be sorted
               getKeyframeOrder: function(times) {
                 function compareTime(i, j) {
                   return times[i] - times[j];
@@ -27391,7 +27172,6 @@
                 result.sort(compareTime);
                 return result;
               },
-              // uses the array previously returned by 'getKeyframeOrder' to sort data
               sortedArray: function(values, stride, order) {
                 const nValues = values.length;
                 const result = new values.constructor(nValues);
@@ -27403,7 +27183,6 @@
                 }
                 return result;
               },
-              // function for parsing AOS keyframe formats
               flattenJSON: function(jsonKeys, times, values, valuePropertyName) {
                 let i = 1, key = jsonKeys[0];
                 while (key !== void 0 && key[valuePropertyName] === void 0) {
@@ -27641,7 +27420,6 @@
                 }
                 return result;
               }
-              // Template methods for derived classes:
               interpolate_() {
                 throw new Error("call to abstract method");
               }
@@ -27744,8 +27522,6 @@
                 this.values = AnimationUtils.convertArray(values, this.ValueBufferType);
                 this.setInterpolation(interpolation || this.DefaultInterpolation);
               }
-              // Serialization (in static context, because of constructor invocation
-              // and automatic invocation of .toJSON):
               static toJSON(track) {
                 const trackType = track.constructor;
                 let json;
@@ -27815,7 +27591,6 @@
               getValueSize() {
                 return this.values.length / this.times.length;
               }
-              // move all keyframes either forwards or backwards in time
               shift(timeOffset) {
                 if (timeOffset !== 0) {
                   const times = this.times;
@@ -27825,7 +27600,6 @@
                 }
                 return this;
               }
-              // scale all keyframe times by a factor (useful for frame <-> seconds conversions)
               scale(timeScale) {
                 if (timeScale !== 1) {
                   const times = this.times;
@@ -27835,8 +27609,6 @@
                 }
                 return this;
               }
-              // removes keyframes before and after animation without changing any values within the range [startTime, endTime].
-              // IMPORTANT: We do not shift around keys to the start of the track time, because for interpolated keys this will change their values
               trim(startTime, endTime) {
                 const times = this.times, nKeys = times.length;
                 let from = 0, to = nKeys - 1;
@@ -27858,7 +27630,6 @@
                 }
                 return this;
               }
-              // ensure we do not get a GarbageInGarbageOut situation, make sure tracks are at least minimally viable
               validate() {
                 let valid = true;
                 const valueSize = this.getValueSize();
@@ -27900,8 +27671,6 @@
                 }
                 return valid;
               }
-              // removes equivalent sequential keys as common in morph target sequences
-              // (0,0,0,0,1,1,1,0,0,0,0,0,0,0) --> (0,0,1,1,0,0)
               optimize() {
                 const times = AnimationUtils.arraySlice(this.times), values = AnimationUtils.arraySlice(this.values), stride = this.getValueSize(), smoothInterpolation = this.getInterpolation() === InterpolateSmooth, lastIndex = times.length - 1;
                 let writeIndex = 1;
@@ -28093,7 +27862,6 @@
                 }
                 return clips;
               }
-              // parse the animation.hierarchy format
               static parseAnimation(animation, bones) {
                 if (!animation) {
                   console.error("THREE.AnimationClip: No animation in JSONLoader data.");
@@ -28407,7 +28175,6 @@
                 const req = new Request(url, {
                   headers: new Headers(this.requestHeader),
                   credentials: this.withCredentials ? "include" : "same-origin"
-                  // An abort controller could be added within a future PR
                 });
                 const mimeType = this.mimeType;
                 const responseType = this.responseType;
@@ -28973,29 +28740,11 @@
                 this._frameExtents = new Vector2(4, 2);
                 this._viewportCount = 6;
                 this._viewports = [
-                  // These viewports map a cube-map onto a 2D texture with the
-                  // following orientation:
-                  //
-                  //	xzXZ
-                  //	 y Y
-                  //
-                  // X - Positive x direction
-                  // x - Negative x direction
-                  // Y - Positive y direction
-                  // y - Negative y direction
-                  // Z - Positive z direction
-                  // z - Negative z direction
-                  // positive X
                   new Vector4(2, 1, 1, 1),
-                  // negative X
                   new Vector4(0, 1, 1, 1),
-                  // positive Z
                   new Vector4(3, 1, 1, 1),
-                  // negative Z
                   new Vector4(1, 1, 1, 1),
-                  // positive Y
                   new Vector4(3, 0, 1, 1),
-                  // negative Y
                   new Vector4(1, 0, 1, 1)
                 ];
                 this._cubeDirections = [new Vector3(1, 0, 0), new Vector3(-1, 0, 0), new Vector3(0, 0, 1), new Vector3(0, 0, -1), new Vector3(0, 1, 0), new Vector3(0, -1, 0)];
@@ -29127,8 +28876,6 @@
                 }
                 return this;
               }
-              // get the radiance in the direction of the normal
-              // target is a Vector3
               getAt(normal, target) {
                 const x = normal.x, y = normal.y, z = normal.z;
                 const coeff = this.coefficients;
@@ -29143,9 +28890,6 @@
                 target.addScaledVector(coeff[8], 0.546274 * (x * x - y * y));
                 return target;
               }
-              // get the irradiance (radiance convolved with cosine lobe) in the direction of the normal
-              // target is a Vector3
-              // https://graphics.stanford.edu/papers/envmap/envmap.pdf
               getIrradianceAt(normal, target) {
                 const x = normal.x, y = normal.y, z = normal.z;
                 const coeff = this.coefficients;
@@ -29212,8 +28956,6 @@
                 }
                 return array;
               }
-              // evaluate the basis functions
-              // shBasis is an Array[ 9 ]
               static getBasisAt(normal, shBasis) {
                 const x = normal.x, y = normal.y, z = normal.z;
                 shBasis[0] = 0.282095;
@@ -30323,7 +30065,6 @@
                   }
                 });
               }
-              /* DEPRECATED */
               setTexturePath(value) {
                 console.warn("THREE.ObjectLoader: .setTexturePath() has been renamed to .setResourcePath().");
                 return this.setResourcePath(value);
@@ -30985,7 +30726,6 @@
                 this.useCount = 0;
                 this.referenceCount = 0;
               }
-              // accumulate data in the 'incoming' region into 'accu<i>'
               accumulate(accuIndex, weight) {
                 const buffer = this.buffer, stride = this.valueSize, offset = accuIndex * stride + stride;
                 let currentWeight = this.cumulativeWeight;
@@ -31001,7 +30741,6 @@
                 }
                 this.cumulativeWeight = currentWeight;
               }
-              // accumulate data in the 'incoming' region into 'add'
               accumulateAdditive(weight) {
                 const buffer = this.buffer, stride = this.valueSize, offset = stride * this._addIndex;
                 if (this.cumulativeWeightAdditive === 0) {
@@ -31010,7 +30749,6 @@
                 this._mixBufferRegionAdditive(buffer, offset, 0, weight, stride);
                 this.cumulativeWeightAdditive += weight;
               }
-              // apply the state of 'accu<i>' to the binding when accus differ
               apply(accuIndex) {
                 const stride = this.valueSize, buffer = this.buffer, offset = accuIndex * stride + stride, weight = this.cumulativeWeight, weightAdditive = this.cumulativeWeightAdditive, binding = this.binding;
                 this.cumulativeWeight = 0;
@@ -31029,7 +30767,6 @@
                   }
                 }
               }
-              // remember the state of the bound property and copy it to both accus
               saveOriginalState() {
                 const binding = this.binding;
                 const buffer = this.buffer, stride = this.valueSize, originalValueOffset = stride * this._origIndex;
@@ -31041,7 +30778,6 @@
                 this.cumulativeWeight = 0;
                 this.cumulativeWeightAdditive = 0;
               }
-              // apply the state previously taken via 'saveOriginalState' to the binding
               restoreOriginalState() {
                 const originalValueOffset = this.valueSize * 3;
                 this.binding.setValue(this.buffer, originalValueOffset);
@@ -31064,7 +30800,6 @@
                   this.buffer[targetIndex + i] = this.buffer[startIndex + i];
                 }
               }
-              // mix functions
               _select(buffer, dstOffset, srcOffset, t, stride) {
                 if (t >= 0.5) {
                   for (let i = 0; i !== stride; ++i) {
@@ -31151,13 +30886,6 @@
                   return new PropertyBinding.Composite(root, path, parsedPath);
                 }
               }
-              /**
-               * Replaces spaces with underscores and removes unsupported characters from
-               * node names, to ensure compatibility with parseTrackName().
-               *
-               * @param {string} name Node name to be sanitized.
-               * @return {string}
-               */
               static sanitizeNodeName(name) {
                 return name.replace(/\s/g, "_").replace(_reservedRe, "");
               }
@@ -31167,12 +30895,10 @@
                   throw new Error("PropertyBinding: Cannot parse trackName: " + trackName);
                 }
                 const results = {
-                  // directoryName: matches[ 1 ], // (tschw) currently unused
                   nodeName: matches[2],
                   objectName: matches[3],
                   objectIndex: matches[4],
                   propertyName: matches[5],
-                  // required
                   propertyIndex: matches[6]
                 };
                 const lastDot = results.nodeName && results.nodeName.lastIndexOf(".");
@@ -31218,12 +30944,10 @@
                 }
                 return null;
               }
-              // these are used to "bind" a nonexistent property
               _getValue_unavailable() {
               }
               _setValue_unavailable() {
               }
-              // Getters
               _getValue_direct(buffer, offset) {
                 buffer[offset] = this.targetObject[this.propertyName];
               }
@@ -31239,7 +30963,6 @@
               _getValue_toArray(buffer, offset) {
                 this.resolvedProperty.toArray(buffer, offset);
               }
-              // Direct
               _setValue_direct(buffer, offset) {
                 this.targetObject[this.propertyName] = buffer[offset];
               }
@@ -31251,7 +30974,6 @@
                 this.targetObject[this.propertyName] = buffer[offset];
                 this.targetObject.matrixWorldNeedsUpdate = true;
               }
-              // EntireArray
               _setValue_array(buffer, offset) {
                 const dest = this.resolvedProperty;
                 for (let i = 0, n = dest.length; i !== n; ++i) {
@@ -31272,7 +30994,6 @@
                 }
                 this.targetObject.matrixWorldNeedsUpdate = true;
               }
-              // ArrayElement
               _setValue_arrayElement(buffer, offset) {
                 this.resolvedProperty[this.propertyIndex] = buffer[offset];
               }
@@ -31284,7 +31005,6 @@
                 this.resolvedProperty[this.propertyIndex] = buffer[offset];
                 this.targetObject.matrixWorldNeedsUpdate = true;
               }
-              // HasToFromArray
               _setValue_fromArray(buffer, offset) {
                 this.resolvedProperty.fromArray(buffer, offset);
               }
@@ -31304,7 +31024,6 @@
                 this.bind();
                 this.setValue(sourceArray, offset);
               }
-              // create getter / setter pair for a property in the scene graph
               bind() {
                 let targetObject = this.node;
                 const parsedPath = this.parsedPath;
@@ -31431,22 +31150,18 @@
             };
             PropertyBinding.prototype.GetterByBindingType = [PropertyBinding.prototype._getValue_direct, PropertyBinding.prototype._getValue_array, PropertyBinding.prototype._getValue_arrayElement, PropertyBinding.prototype._getValue_toArray];
             PropertyBinding.prototype.SetterByBindingTypeAndVersioning = [[
-              // Direct
               PropertyBinding.prototype._setValue_direct,
               PropertyBinding.prototype._setValue_direct_setNeedsUpdate,
               PropertyBinding.prototype._setValue_direct_setMatrixWorldNeedsUpdate
             ], [
-              // EntireArray
               PropertyBinding.prototype._setValue_array,
               PropertyBinding.prototype._setValue_array_setNeedsUpdate,
               PropertyBinding.prototype._setValue_array_setMatrixWorldNeedsUpdate
             ], [
-              // ArrayElement
               PropertyBinding.prototype._setValue_arrayElement,
               PropertyBinding.prototype._setValue_arrayElement_setNeedsUpdate,
               PropertyBinding.prototype._setValue_arrayElement_setMatrixWorldNeedsUpdate
             ], [
-              // HasToFromArray
               PropertyBinding.prototype._setValue_fromArray,
               PropertyBinding.prototype._setValue_fromArray_setNeedsUpdate,
               PropertyBinding.prototype._setValue_fromArray_setMatrixWorldNeedsUpdate
@@ -31535,7 +31250,6 @@
                 }
                 this.nCachedObjects_ = nCachedObjects;
               }
-              // remove & forget
               uncache() {
                 const objects = this._objects, indicesByUUID = this._indicesByUUID, bindings = this._bindings, nBindings = bindings.length;
                 let nCachedObjects = this.nCachedObjects_, nObjects = objects.length;
@@ -31573,7 +31287,6 @@
                 }
                 this.nCachedObjects_ = nCachedObjects;
               }
-              // Internal interface used by befriended PropertyBinding.Composite:
               subscribe_(path, parsedPath) {
                 const indicesByPath = this._bindingsIndicesByPath;
                 let index = indicesByPath[path];
@@ -31645,7 +31358,6 @@
                 this.zeroSlopeAtStart = true;
                 this.zeroSlopeAtEnd = true;
               }
-              // State & Scheduling
               play() {
                 this._mixer._activateAction(this);
                 return this;
@@ -31665,7 +31377,6 @@
               isRunning() {
                 return this.enabled && !this.paused && this.timeScale !== 0 && this._startTime === null && this._mixer._isActiveAction(this);
               }
-              // return true when play has been called
               isScheduled() {
                 return this._mixer._isActiveAction(this);
               }
@@ -31678,16 +31389,11 @@
                 this.repetitions = repetitions;
                 return this;
               }
-              // Weight
-              // set the weight stopping any scheduled fading
-              // although .enabled = false yields an effective weight of zero, this
-              // method does *not* change .enabled, because it would be confusing
               setEffectiveWeight(weight) {
                 this.weight = weight;
                 this._effectiveWeight = this.enabled ? weight : 0;
                 return this.stopFading();
               }
-              // return the weight considering fading and .enabled
               getEffectiveWeight() {
                 return this._effectiveWeight;
               }
@@ -31718,16 +31424,11 @@
                 }
                 return this;
               }
-              // Time Scale Control
-              // set the time scale stopping any scheduled warping
-              // although .paused = true yields an effective time scale of zero, this
-              // method does *not* change .paused, because it would be confusing
               setEffectiveTimeScale(timeScale) {
                 this.timeScale = timeScale;
                 this._effectiveTimeScale = this.paused ? 0 : timeScale;
                 return this.stopWarping();
               }
-              // return the time scale considering warping and .paused
               getEffectiveTimeScale() {
                 return this._effectiveTimeScale;
               }
@@ -31765,7 +31466,6 @@
                 }
                 return this;
               }
-              // Object Accessors
               getMixer() {
                 return this._mixer;
               }
@@ -31775,7 +31475,6 @@
               getRoot() {
                 return this._localRoot || this._mixer._root;
               }
-              // Interna
               _update(time, deltaTime, timeDirection, accuIndex) {
                 if (!this.enabled) {
                   this._updateWeight(time);
@@ -32042,7 +31741,6 @@
                   this._takeBackAction(action);
                 }
               }
-              // Memory manager
               _initMemoryManager() {
                 this._actions = [];
                 this._nActiveActions = 0;
@@ -32080,7 +31778,6 @@
                   }
                 };
               }
-              // Memory management for AnimationAction objects
               _isActiveAction(action) {
                 const index = action._cacheIndex;
                 return index !== null && index < this._nActiveActions;
@@ -32145,7 +31842,6 @@
                 lastActiveAction._cacheIndex = prevIndex;
                 actions[prevIndex] = lastActiveAction;
               }
-              // Memory management for PropertyMixer objects
               _addInactiveBinding(binding, rootUuid, trackName) {
                 const bindingsByRoot = this._bindingsByRootAndName, bindings = this._bindings;
                 let bindingByName = bindingsByRoot[rootUuid];
@@ -32181,7 +31877,6 @@
                 lastActiveBinding._cacheIndex = prevIndex;
                 bindings[prevIndex] = lastActiveBinding;
               }
-              // Memory management of Interpolants for weight and time scale
               _lendControlInterpolant() {
                 const interpolants = this._controlInterpolants, lastActiveIndex = this._nActiveControlInterpolants++;
                 let interpolant = interpolants[lastActiveIndex];
@@ -32199,9 +31894,6 @@
                 lastActiveInterpolant.__cacheIndex = prevIndex;
                 interpolants[prevIndex] = lastActiveInterpolant;
               }
-              // return an action for a clip optionally using a custom root target
-              // object (this method allocates a lot of dynamic memory in case a
-              // previously unknown clip/root combination is specified)
               clipAction(clip, optionalRoot, blendMode) {
                 const root = optionalRoot || this._root, rootUuid = root.uuid;
                 let clipObject = typeof clip === "string" ? AnimationClip.findByName(root, clip) : clip;
@@ -32231,7 +31923,6 @@
                 this._addInactiveAction(newAction, clipUuid, rootUuid);
                 return newAction;
               }
-              // get an existing action
               existingAction(clip, optionalRoot) {
                 const root = optionalRoot || this._root, rootUuid = root.uuid, clipObject = typeof clip === "string" ? AnimationClip.findByName(root, clip) : clip, clipUuid = clipObject ? clipObject.uuid : clip, actionsForClip = this._actionsByClip[clipUuid];
                 if (actionsForClip !== void 0) {
@@ -32239,7 +31930,6 @@
                 }
                 return null;
               }
-              // deactivates all previously scheduled actions
               stopAllAction() {
                 const actions = this._actions, nActions = this._nActiveActions;
                 for (let i = nActions - 1; i >= 0; --i) {
@@ -32247,7 +31937,6 @@
                 }
                 return this;
               }
-              // advance the time and update apply the animation
               update(deltaTime) {
                 deltaTime *= this.timeScale;
                 const actions = this._actions, nActions = this._nActiveActions, time = this.time += deltaTime, timeDirection = Math.sign(deltaTime), accuIndex = this._accuIndex ^= 1;
@@ -32261,7 +31950,6 @@
                 }
                 return this;
               }
-              // Allows you to seek to a specific time in an animation.
               setTime(timeInSeconds) {
                 this.time = 0;
                 for (let i = 0; i < this._actions.length; i++) {
@@ -32269,11 +31957,9 @@
                 }
                 return this.update(timeInSeconds);
               }
-              // return this mixer's root target object
               getRoot() {
                 return this._root;
               }
-              // free all resources specific to a particular clip
               uncacheClip(clip) {
                 const actions = this._actions, clipUuid = clip.uuid, actionsByClip = this._actionsByClip, actionsForClip = actionsByClip[clipUuid];
                 if (actionsForClip !== void 0) {
@@ -32292,7 +31978,6 @@
                   delete actionsByClip[clipUuid];
                 }
               }
-              // free all resources specific to a particular root target object
               uncacheRoot(root) {
                 const rootUuid = root.uuid, actionsByClip = this._actionsByClip;
                 for (const clipUuid in actionsByClip) {
@@ -32311,7 +31996,6 @@
                   }
                 }
               }
-              // remove a targeted clip from the cache
               uncacheAction(clip, optionalRoot) {
                 const action = this.existingAction(clip, optionalRoot);
                 if (action !== null) {
@@ -32469,7 +32153,6 @@
                 this.theta = other.theta;
                 return this;
               }
-              // restrict phi to be betwee EPS and PI-EPS
               makeSafe() {
                 const EPS = 1e-6;
                 this.phi = Math.max(EPS, Math.min(Math.PI - EPS, this.phi));
@@ -33237,7 +32920,6 @@
             const _axis = /* @__PURE__ */ new Vector3();
             let _lineGeometry, _coneGeometry;
             class ArrowHelper extends Object3D {
-              // dir is assumed to be normalized
               constructor(dir = new Vector3(0, 0, 1), origin = new Vector3(0, 0, 0), length = 1, color = 16776960, headLength = length * 0.2, headWidth = headLength * 0.2) {
                 super();
                 this.type = "ArrowHelper";
@@ -33504,7 +33186,6 @@
             const _floatView = new Float32Array(1);
             const _int32View = new Int32Array(_floatView.buffer);
             class DataUtils {
-              // Converts float32 to float16 (stored as uint16 value).
               static toHalfFloat(val) {
                 if (val > 65504) {
                   console.warn("THREE.DataUtils.toHalfFloat(): value exceeds 65504.");
@@ -35074,7 +34755,6 @@
         }, {}], 58: [function(require2, module3, exports3) {
           (function() {
             class LightProbeGenerator {
-              // https://www.ppsloan.org/publications/StupidSH36.pdf
               static fromCubeTexture(cubeTexture) {
                 let totalWeight = 0;
                 const coord = new THREE.Vector3();
@@ -35271,7 +34951,6 @@
                   this.decodeGeometry(buffer, taskConfig).then(onLoad).catch(onError);
                 }, onProgress, onError);
               }
-              /** @deprecated Kept for backward-compatibility with previous DRACOLoader versions. */
               decodeDracoFile(buffer, callback, attributeIDs, attributeTypes) {
                 const taskConfig = {
                   attributeIDs: attributeIDs || this.defaultAttributeIDs,
@@ -36521,7 +36200,6 @@
             }
             const WEBGL_CONSTANTS = {
               FLOAT: 5126,
-              //FLOAT_MAT2: 35674,
               FLOAT_MAT3: 35675,
               FLOAT_MAT4: 35676,
               FLOAT_VEC2: 35664,
@@ -36588,8 +36266,6 @@
             };
             const INTERPOLATION = {
               CUBICSPLINE: void 0,
-              // We use a custom interpolant (GLTFCubicSplineInterpolation) for CUBICSPLINE tracks. Each
-              // keyframe track will be initialized with a default interpolation type, then modified.
               LINEAR: THREE.InterpolateLinear,
               STEP: THREE.InterpolateDiscrete
             };
@@ -36791,9 +36467,6 @@
                   });
                 }).catch(onError);
               }
-              /**
-               * Marks the special nodes/meshes in json for efficient parse.
-               */
               _markDefs() {
                 const nodeDefs = this.json.nodes || [];
                 const skinDefs = this.json.skins || [];
@@ -36817,15 +36490,6 @@
                   }
                 }
               }
-              /**
-               * Counts references to shared node / THREE.Object3D resources. These resources
-               * can be reused, or "instantiated", at multiple nodes in the scene
-               * hierarchy. THREE.Mesh, Camera, and Light instances are instantiated and must
-               * be marked. Non-scenegraph resources (like Materials, Geometries, and
-               * Textures) can be reused directly and are not marked here.
-               *
-               * Example: CesiumMilkTruck sample model reuses "Wheel" meshes.
-               */
               _addNodeRef(cache, index) {
                 if (index === void 0)
                   return;
@@ -36834,7 +36498,6 @@
                 }
                 cache.refs[index]++;
               }
-              /** Returns a reference to a shared resource, cloning it if necessary. */
               _getNodeRef(cache, index, object) {
                 if (cache.refs[index] <= 1)
                   return object;
@@ -36873,12 +36536,6 @@
                 }
                 return pending;
               }
-              /**
-               * Requests the specified dependency asynchronously, with caching.
-               * @param {string} type
-               * @param {number} index
-               * @return {Promise<Object3D|Material|THREE.Texture|AnimationClip|ArrayBuffer|Object>}
-               */
               getDependency(type, index) {
                 const cacheKey = type + ":" + index;
                 let dependency = this.cache.get(cacheKey);
@@ -36932,11 +36589,6 @@
                 }
                 return dependency;
               }
-              /**
-               * Requests all dependencies of the specified type asynchronously, with caching.
-               * @param {string} type
-               * @return {Promise<Array<Object>>}
-               */
               getDependencies(type) {
                 let dependencies = this.cache.get(type);
                 if (!dependencies) {
@@ -36949,11 +36601,6 @@
                 }
                 return dependencies;
               }
-              /**
-               * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#buffers-and-buffer-views
-               * @param {number} bufferIndex
-               * @return {Promise<ArrayBuffer>}
-               */
               loadBuffer(bufferIndex) {
                 const bufferDef = this.json.buffers[bufferIndex];
                 const loader = this.fileLoader;
@@ -36970,11 +36617,6 @@
                   });
                 });
               }
-              /**
-               * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#buffers-and-buffer-views
-               * @param {number} bufferViewIndex
-               * @return {Promise<ArrayBuffer>}
-               */
               loadBufferView(bufferViewIndex) {
                 const bufferViewDef = this.json.bufferViews[bufferViewIndex];
                 return this.getDependency("buffer", bufferViewDef.buffer).then(function(buffer) {
@@ -36983,11 +36625,6 @@
                   return buffer.slice(byteOffset, byteOffset + byteLength);
                 });
               }
-              /**
-               * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#accessors
-               * @param {number} accessorIndex
-               * @return {Promise<BufferAttribute|InterleavedBufferAttribute>}
-               */
               loadAccessor(accessorIndex) {
                 const parser = this;
                 const json = this.json;
@@ -37059,11 +36696,6 @@
                   return bufferAttribute;
                 });
               }
-              /**
-               * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#textures
-               * @param {number} textureIndex
-               * @return {Promise<THREE.Texture>}
-               */
               loadTexture(textureIndex) {
                 const json = this.json;
                 const options = this.options;
@@ -37137,13 +36769,6 @@
                 this.textureCache[cacheKey] = promise;
                 return promise;
               }
-              /**
-               * Asynchronously assigns a texture to the given material parameters.
-               * @param {Object} materialParams
-               * @param {string} mapName
-               * @param {Object} mapDef
-               * @return {Promise<Texture>}
-               */
               assignTexture(materialParams, mapName, mapDef) {
                 const parser = this;
                 return this.getDependency("texture", mapDef.index).then(function(texture) {
@@ -37162,14 +36787,6 @@
                   return texture;
                 });
               }
-              /**
-               * Assigns final material to a THREE.Mesh, THREE.Line, or THREE.Points instance. The instance
-               * already has a material (generated from the glTF material options alone)
-               * but reuse of the same glTF material may require multiple threejs materials
-               * to accommodate different primitive types, defines, etc. New materials will
-               * be created if necessary, and reused from a cache.
-               * @param  {Object3D} mesh THREE.Mesh, THREE.Line, or THREE.Points instance.
-               */
               assignFinalMaterial(mesh) {
                 const geometry = mesh.geometry;
                 let material = mesh.material;
@@ -37235,11 +36852,6 @@
               getMaterialType() {
                 return THREE.MeshStandardMaterial;
               }
-              /**
-               * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#materials
-               * @param {number} materialIndex
-               * @return {Promise<Material>}
-               */
               loadMaterial(materialIndex) {
                 const parser = this;
                 const json = this.json;
@@ -37338,7 +36950,6 @@
                   return material;
                 });
               }
-              /** When THREE.Object3D instances are targeted by animation, they need unique names. */
               createUniqueName(originalName) {
                 const sanitizedName = THREE.PropertyBinding.sanitizeNodeName(originalName || "");
                 let name = sanitizedName;
@@ -37348,14 +36959,6 @@
                 this.nodeNamesUsed[name] = true;
                 return name;
               }
-              /**
-               * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#geometry
-               *
-               * Creates BufferGeometries from primitives.
-               *
-               * @param {Array<GLTF.Primitive>} primitives
-               * @return {Promise<Array<BufferGeometry>>}
-               */
               loadGeometries(primitives) {
                 const parser = this;
                 const extensions = this.extensions;
@@ -37388,11 +36991,6 @@
                 }
                 return Promise.all(pending);
               }
-              /**
-               * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#meshes
-               * @param {number} meshIndex
-               * @return {Promise<Group|Mesh|SkinnedMesh>}
-               */
               loadMesh(meshIndex) {
                 const parser = this;
                 const json = this.json;
@@ -37464,11 +37062,6 @@
                   return group;
                 });
               }
-              /**
-               * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#cameras
-               * @param {number} cameraIndex
-               * @return {Promise<THREE.Camera>}
-               */
               loadCamera(cameraIndex) {
                 let camera;
                 const cameraDef = this.json.cameras[cameraIndex];
@@ -37487,11 +37080,6 @@
                 assignExtrasToUserData(camera, cameraDef);
                 return Promise.resolve(camera);
               }
-              /**
-               * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#skins
-               * @param {number} skinIndex
-               * @return {Promise<Object>}
-               */
               loadSkin(skinIndex) {
                 const skinDef = this.json.skins[skinIndex];
                 const skinEntry = {
@@ -37505,11 +37093,6 @@
                   return skinEntry;
                 });
               }
-              /**
-               * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#animations
-               * @param {number} animationIndex
-               * @return {Promise<AnimationClip>}
-               */
               loadAnimation(animationIndex) {
                 const json = this.json;
                 const animationDef = json.animations[animationIndex];
@@ -37619,11 +37202,6 @@
                   return node;
                 });
               }
-              /**
-               * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#nodes-and-hierarchy
-               * @param {number} nodeIndex
-               * @return {Promise<Object3D>}
-               */
               loadNode(nodeIndex) {
                 const json = this.json;
                 const extensions = this.extensions;
@@ -37694,11 +37272,6 @@
                   return node;
                 });
               }
-              /**
-               * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#scenes
-               * @param {number} sceneIndex
-               * @return {Promise<Group>}
-               */
               loadScene(sceneIndex) {
                 const json = this.json;
                 const extensions = this.extensions;
@@ -37916,19 +37489,6 @@
               constructor(manager) {
                 super(manager);
               }
-              /**
-               * Loads and parses a MTL asset from a URL.
-               *
-               * @param {String} url - URL to the MTL file.
-               * @param {Function} [onLoad] - Callback invoked with the loaded object.
-               * @param {Function} [onProgress] - Callback for download progress.
-               * @param {Function} [onError] - Callback for download errors.
-               *
-               * @see setPath setResourcePath
-               *
-               * @note In order for relative texture references to resolve correctly
-               * you must call setResourcePath() explicitly prior to load.
-               */
               load(url, onLoad, onProgress, onError) {
                 const scope = this;
                 const path = this.path === "" ? THREE.LoaderUtils.extractUrlBase(url) : this.path;
@@ -37953,17 +37513,6 @@
                 this.materialOptions = value;
                 return this;
               }
-              /**
-               * Parses a MTL file.
-               *
-               * @param {String} text - Content of MTL file
-               * @return {MaterialCreator}
-               *
-               * @see setPath setResourcePath
-               *
-               * @note In order for relative texture references to resolve correctly
-               * you must call setResourcePath() explicitly prior to parse.
-               */
               parse(text, path) {
                 const lines = text.split("\n");
                 let info = {};
@@ -43383,9 +42932,6 @@
               this.pauseAnimation();
               this.removeEventListeners();
             },
-            /**
-             * `play` handler only for resuming scene.
-             */
             play: function() {
               if (!this.paused) {
                 return;
@@ -43397,9 +42943,6 @@
                 this.pausedWasPlaying = false;
               }
             },
-            /**
-             * Start animation from scratch.
-             */
             createAndStartAnimation: function() {
               var data = this.data;
               this.updateConfig();
@@ -43417,10 +42960,6 @@
               }
               this.beginAnimation();
             },
-            /**
-             * This is before animation start (including from startEvents).
-             * Set to initial state (config.from, time = 0, seekTime = 0).
-             */
             beginAnimation: function() {
               this.updateConfig();
               this.animation.began = true;
@@ -43435,9 +42974,6 @@
             resumeAnimation: function() {
               this.animationIsPlaying = true;
             },
-            /**
-             * startEvents callback.
-             */
             onStartEvent: function() {
               if (!this.data.enabled) {
                 return;
@@ -43453,9 +42989,6 @@
               }
               this.beginAnimation();
             },
-            /**
-             * rawProperty: true and type: color;
-             */
             updateConfigForRawColor: function() {
               var config = this.config;
               var data = this.data;
@@ -43489,9 +43022,6 @@
                 };
               }();
             },
-            /**
-             * Stuff property into generic `property` key.
-             */
             updateConfigForDefault: function() {
               var config = this.config;
               var data = this.data;
@@ -43545,10 +43075,6 @@
                 };
               }();
             },
-            /**
-             * Extend x/y/z/w onto the config.
-             * Update vector by modifying object3D.
-             */
             updateConfigForVector: function() {
               var config = this.config;
               var data = this.data;
@@ -43603,9 +43129,6 @@
                 };
               }();
             },
-            /**
-             * Update the config before each run.
-             */
             updateConfig: function() {
               var propType;
               propType = getPropertyType(this.el, this.data.property);
@@ -43617,9 +43140,6 @@
                 this.updateConfigForDefault();
               }
             },
-            /**
-             * Wait for component to initialize.
-             */
             waitComponentInitRawProperty: function(cb) {
               var componentName;
               var data = this.data;
@@ -43645,11 +43165,6 @@
               });
               return true;
             },
-            /**
-             * Make sure two animations on the same property don't fight each other.
-             * e.g., animation__mouseenter="property: material.opacity"
-             *       animation__mouseleave="property: material.opacity"
-             */
             stopRelatedAnimations: function() {
               var component;
               var componentName;
@@ -43799,19 +43314,12 @@
               spectator: { default: false },
               zoom: { default: 1, min: 0 }
             },
-            /**
-             * Initialize three.js camera and add it to the entity.
-             * Add reference from scene to this entity as the camera.
-             */
             init: function() {
               var camera;
               var el = this.el;
               camera = this.camera = new THREE2.PerspectiveCamera();
               el.setObject3D("camera", camera);
             },
-            /**
-             * Update three.js camera.
-             */
             update: function(oldData) {
               var data = this.data;
               var camera = this.camera;
@@ -43850,9 +43358,6 @@
                 system.disableSpectatorCamera();
               }
             },
-            /**
-             * Remove camera on remove (callback).
-             */
             remove: function() {
               this.el.removeObject3D("camera");
             }
@@ -44053,9 +43558,6 @@
                 }
               };
             }(),
-            /**
-             * Trigger mousedown and keep track of the mousedowned entity.
-             */
             onCursorDown: function(evt) {
               this.isCursorDown = true;
               if (this.data.rayOrigin === "mouse" && evt.type === "touchstart") {
@@ -44066,13 +43568,6 @@
               this.twoWayEmit(EVENTS.MOUSEDOWN);
               this.cursorDownEl = this.intersectedEl;
             },
-            /**
-             * Trigger mouseup if:
-             * - Not fusing (mobile has no mouse).
-             * - Currently intersecting an entity.
-             * - Currently-intersected entity is the same as the one when mousedown was triggered,
-             *   in case user mousedowned one entity, dragged to another, and mouseupped.
-             */
             onCursorUp: function(evt) {
               if (!this.isCursorDown) {
                 return;
@@ -44092,9 +43587,6 @@
                 evt.preventDefault();
               }
             },
-            /**
-             * Handle intersection.
-             */
             onIntersection: function(evt) {
               var currentIntersection;
               var cursorEl = this.el;
@@ -44119,9 +43611,6 @@
               this.clearCurrentIntersection(true);
               this.setIntersection(intersectedEl, intersection);
             },
-            /**
-             * Handle intersection cleared.
-             */
             onIntersectionCleared: function(evt) {
               var clearedEls = evt.detail.clearedEls;
               if (clearedEls.indexOf(this.intersectedEl) === -1) {
@@ -44201,9 +43690,6 @@
               }
               this.setIntersection(intersection.object.el, intersection);
             },
-            /**
-             * Helper to emit on both the cursor and the intersected entity (if exists).
-             */
             twoWayEmit: function(evtName) {
               var el = this.el;
               var intersectedEl = this.intersectedEl;
@@ -44245,7 +43731,6 @@
           module3.exports.Component = registerComponent("daydream-controls", {
             schema: {
               hand: { default: "" },
-              // This informs the degenerate arm model.
               buttonColor: { type: "color", default: "#000000" },
               buttonTouchedColor: { type: "color", default: "#777777" },
               buttonHighlightColor: { type: "color", default: "#FFFFFF" },
@@ -44417,7 +43902,6 @@
           module3.exports.Component = registerComponent("gearvr-controls", {
             schema: {
               hand: { default: "" },
-              // This informs the degenerate arm model.
               buttonColor: { type: "color", default: "#000000" },
               buttonTouchedColor: { type: "color", default: "#777777" },
               buttonHighlightColor: { type: "color", default: "#FFFFFF" },
@@ -44516,7 +44000,6 @@
             onControllersUpdate: function() {
               this.checkIfControllerPresent();
             },
-            // No need for onButtonChanged, since Gear VR controller has no analog buttons.
             onModelLoaded: function(evt) {
               var controllerObject3D = evt.detail.model;
               var buttonMeshes;
@@ -44580,17 +44063,11 @@
           module3.exports.Component = registerComponent("generic-tracked-controller-controls", {
             schema: {
               hand: { default: "" },
-              // This informs the degenerate arm model.
               defaultModel: { default: true },
               defaultModelColor: { default: "gray" },
               orientationOffset: { type: "vec3" },
               disabled: { default: false }
             },
-            /**
-             * Button IDs:
-             * 0 - trackpad
-             * 1 - trigger
-             */
             mapping: INPUT_MAPPING,
             bindMethods: function() {
               this.onControllersUpdate = bind(this.onControllersUpdate, this);
@@ -44728,9 +44205,6 @@
             init: function() {
               this.geometry = null;
             },
-            /**
-             * Talk to geometry system to get or create geometry.
-             */
             update: function(previousData) {
               var data = this.data;
               var el = this.el;
@@ -44757,18 +44231,11 @@
                 el.setObject3D("mesh", mesh);
               }
             },
-            /**
-             * Tell geometry system that entity is no longer using the geometry.
-             * Unset the geometry on the mesh
-             */
             remove: function() {
               this.system.unuseGeometry(this.data);
               this.el.getObject3D("mesh").geometry = dummyGeometry;
               this.geometry = null;
             },
-            /**
-             * Update geometry component schema based on geometry type.
-             */
             updateSchema: function(data) {
               var currentGeometryType = this.oldData && this.oldData.primitive;
               var newGeometryType = data.primitive;
@@ -44846,15 +44313,10 @@
           };
           var ANIMATIONS = {
             open: "Open",
-            // point: grip active, trackpad surface active, trigger inactive.
             point: "Point",
-            // pointThumb: grip active, trigger inactive, trackpad surface inactive.
             pointThumb: "Point + Thumb",
-            // fist: grip active, trigger active, trackpad surface active.
             fist: "Fist",
-            // hold: trigger active, grip inactive.
             hold: "Hold",
-            // thumbUp: grip active, trigger active, trackpad surface inactive.
             thumbUp: "Thumb Up"
           };
           var EVENTS = {};
@@ -45014,10 +44476,6 @@
               el.removeEventListener("surfacetouchstart", this.onSurfaceTouchStart);
               el.removeEventListener("surfacetouchend", this.onSurfaceTouchEnd);
             },
-            /**
-             * Update handler. More like the `init` handler since the only property is the hand, and
-             * that won't be changing much.
-             */
             update: function(previousHand) {
               var controlConfiguration;
               var el = this.el;
@@ -45052,17 +44510,6 @@
             remove: function() {
               this.el.removeObject3D("mesh");
             },
-            /**
-             * Play model animation, based on which button was pressed and which kind of event.
-             *
-             * 1. Process buttons.
-             * 2. Determine gesture (this.determineGesture()).
-             * 3. Animation gesture (this.animationGesture()).
-             * 4. Emit gesture events (this.emitGestureEvents()).
-             *
-             * @param {string} button - Name of the button.
-             * @param {string} evt - Type of event for the button (i.e., down/up/touchstart/touchend).
-             */
             handleButton: function(button, evt) {
               var lastGesture;
               var isPressed = evt === "down";
@@ -45086,9 +44533,6 @@
               this.animateGesture(this.gesture, lastGesture);
               this.emitGestureEvents(this.gesture, lastGesture);
             },
-            /**
-             * Determine which pose hand should be in considering active and touched buttons.
-             */
             determineGesture: function() {
               var gesture;
               var isGripActive = this.pressedButtons.grip;
@@ -45116,9 +44560,6 @@
               }
               return gesture;
             },
-            /**
-             * Play corresponding clip to a gesture
-             */
             getClip: function(gesture) {
               var clip;
               var i;
@@ -45130,12 +44571,6 @@
                 return clip;
               }
             },
-            /**
-             * Play gesture animation.
-             *
-             * @param {string} gesture - Which pose to animate to. If absent, then animate to open.
-             * @param {string} lastGesture - Previous gesture, to reverse back to open if needed.
-             */
             animateGesture: function(gesture, lastGesture) {
               if (gesture) {
                 this.playAnimation(gesture || ANIMATIONS.open, lastGesture, false);
@@ -45143,9 +44578,6 @@
               }
               this.playAnimation(lastGesture, lastGesture, true);
             },
-            /**
-             * Emit `hand-controls`-specific events.
-             */
             emitGestureEvents: function(gesture, lastGesture) {
               var el = this.el;
               var eventName;
@@ -45161,13 +44593,6 @@
                 el.emit(eventName);
               }
             },
-            /**
-            * Play hand animation based on button state.
-            *
-            * @param {string} gesture - Name of the animation as specified by the model.
-            * @param {string} lastGesture - Previous pose.
-            * @param {boolean} reverse - Whether animation should play in reverse.
-            */
             playAnimation: function(gesture, lastGesture, reverse) {
               var clip;
               var fromAction;
@@ -45674,7 +45099,6 @@
               var el = this.el;
               var data = this.data;
               el.setAttribute("tracked-controls", {
-                // TODO: verify expected behavior between reserved prefixes.
                 idPrefix: GAMEPAD_ID,
                 hand: data.hand,
                 controller: this.controllerIndex,
@@ -46003,21 +45427,13 @@
                 tempCanvasContext.drawImage(
                   src,
                   (i + faceOffset) * textureSourceCubeFaceSize,
-                  // top left x coord in source
                   0,
-                  // top left y coord in source
                   textureSourceCubeFaceSize,
-                  // x pixel count from source
                   textureSourceCubeFaceSize,
-                  // y pixel count from source
                   0,
-                  // dest x offset in the canvas
                   0,
-                  // dest y offset in the canvas
                   cubeFaceSize,
-                  // x pixel count in dest
                   cubeFaceSize
-                  // y pixel count in dest
                 );
                 tempCanvasContext.restore();
                 if (callback) {
@@ -46284,7 +45700,6 @@
                 schemaChange: true
               },
               target: { type: "selector", if: { type: ["spot", "directional"] } },
-              // Shadows.
               castShadow: { default: false, if: { type: ["point", "spot", "directional"] } },
               shadowBias: { default: 0, if: { castShadow: true } },
               shadowCameraFar: { default: 500, if: { castShadow: true } },
@@ -46299,9 +45714,6 @@
               shadowMapWidth: { default: 512, if: { castShadow: true } },
               shadowRadius: { default: 1, if: { castShadow: true } }
             },
-            /**
-             * Notifies scene a light has been added to remove default lighting.
-             */
             init: function() {
               var el = this.el;
               this.light = null;
@@ -46309,9 +45721,6 @@
               this.rendererSystem = this.el.sceneEl.systems.renderer;
               this.system.registerLight(el);
             },
-            /**
-             * (Re)create or update light.
-             */
             update: function(oldData) {
               var data = this.data;
               var diffData = diff(data, oldData);
@@ -46401,9 +45810,6 @@
                 }
               }
             },
-            /**
-             * Updates shadow-related properties on the current light.
-             */
             updateShadow: function() {
               var el = this.el;
               var data = this.data;
@@ -46437,11 +45843,6 @@
                 cameraHelper.update();
               }
             },
-            /**
-             * Creates a new three.js light object given data object defining the light.
-             *
-             * @param {object} data
-             */
             getLight: function(data) {
               var angle = data.angle;
               var color = new THREE2.Color(data.color);
@@ -46500,9 +45901,6 @@
                 }
               }
             },
-            /**
-             * Generate the spherical harmonics for the LightProbe from a cube map
-             */
             updateProbeMap: function(data, light) {
               if (!data.envMap) {
                 light.copy(new THREE2.LightProbe());
@@ -46528,9 +45926,6 @@
             onSetTarget: function(targetEl, light) {
               light.target = targetEl.object3D;
             },
-            /**
-             * Remove light on remove (callback).
-             */
             remove: function() {
               var el = this.el;
               el.removeObject3D("light");
@@ -46657,9 +46052,6 @@
                 typeof data.image === "string" ? data.image : data.image.src
               );
             },
-            /*
-             * Toggle all elements and full 360 preview of the linked page.
-             */
             updatePeekMode: function() {
               var el = this.el;
               var sphereEl = this.sphereEl;
@@ -46755,13 +46147,6 @@
             navigate: function() {
               window.location = this.data.href;
             },
-            /**
-             * 1. Swap plane that represents portal with sphere with a hole when the camera is close
-             * so user can peek inside portal. Sphere is rendered on oposite side of portal
-             * from where user enters.
-             * 2. Place the url/title above or inside portal depending on distance to camera.
-             * 3. Face portal to camera when far away from user.
-             */
             tick: function() {
               var cameraWorldPosition = new THREE2.Vector3();
               var elWorldPosition = new THREE2.Vector3();
@@ -46852,10 +46237,6 @@
               });
               this.hiddenEls = [];
             },
-            /**
-             * Calculate whether the camera faces the front or back face of the portal.
-             * @returns {number} > 0 if camera faces front of portal, < 0 if it faces back of portal.
-             */
             calculateCameraPortalOrientation: function() {
               var mat4 = new THREE2.Matrix4();
               var cameraPosition = new THREE2.Vector3();
@@ -47039,9 +46420,6 @@
               this.onPointerLockChange = bind(this.onPointerLockChange, this);
               this.onPointerLockError = bind(this.onPointerLockError, this);
             },
-            /**
-             * Set up states and Object3Ds needed to store rotation data.
-             */
             setupMouseControls: function() {
               this.mouseDown = false;
               this.pitchObject = new THREE2.Object3D();
@@ -47049,9 +46427,6 @@
               this.yawObject.position.y = 10;
               this.yawObject.add(this.pitchObject);
             },
-            /**
-             * Add mouse and touch event listeners to canvas.
-             */
             addEventListeners: function() {
               var sceneEl = this.el.sceneEl;
               var canvasEl = sceneEl.canvas;
@@ -47073,9 +46448,6 @@
                 document.addEventListener("pointerlockerror", this.onPointerLockError, false);
               }
             },
-            /**
-             * Remove mouse and touch event listeners from canvas.
-             */
             removeEventListeners: function() {
               var sceneEl = this.el.sceneEl;
               var canvasEl = sceneEl && sceneEl.canvas;
@@ -47094,10 +46466,6 @@
               document.removeEventListener("mozpointerlockchange", this.onPointerLockChange, false);
               document.removeEventListener("pointerlockerror", this.onPointerLockError, false);
             },
-            /**
-             * Update orientation for mobile, mouse drag, and headset.
-             * Mouse-drag only enabled if HMD is not active.
-             */
             updateOrientation: function() {
               var object3D = this.el.object3D;
               var pitchObject = this.pitchObject;
@@ -47128,12 +46496,6 @@
                 }
               }
             },
-            /**
-             * Translate mouse drag into rotation.
-             *
-             * Dragging up and down rotates the camera around the X-axis (yaw).
-             * Dragging left and right rotates the camera around the Y-axis (pitch).
-             */
             onMouseMove: function(evt) {
               var direction;
               var movementX;
@@ -47158,9 +46520,6 @@
               pitchObject.rotation.x += movementY * 2e-3 * direction;
               pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
             },
-            /**
-             * Register mouse down to detect mouse drag.
-             */
             onMouseDown: function(evt) {
               var sceneEl = this.el.sceneEl;
               if (!this.data.enabled || !this.data.mouseEnabled || (sceneEl.is("vr-mode") || sceneEl.is("ar-mode")) && sceneEl.checkHeadsetConnected()) {
@@ -47182,28 +46541,16 @@
                 }
               }
             },
-            /**
-             * Shows grabbing cursor on scene
-             */
             showGrabbingCursor: function() {
               this.el.sceneEl.canvas.style.cursor = "grabbing";
             },
-            /**
-             * Hides grabbing cursor on scene
-             */
             hideGrabbingCursor: function() {
               this.el.sceneEl.canvas.style.cursor = "";
             },
-            /**
-             * Register mouse up to detect release of mouse drag.
-             */
             onMouseUp: function() {
               this.mouseDown = false;
               this.hideGrabbingCursor();
             },
-            /**
-             * Register touch down to detect touch drag.
-             */
             onTouchStart: function(evt) {
               if (evt.touches.length !== 1 || !this.data.touchEnabled || this.el.sceneEl.is("vr-mode") || this.el.sceneEl.is("ar-mode")) {
                 return;
@@ -47214,9 +46561,6 @@
               };
               this.touchStarted = true;
             },
-            /**
-             * Translate touch move to Y-axis rotation.
-             */
             onTouchMove: function(evt) {
               var direction;
               var canvas = this.el.sceneEl.canvas;
@@ -47233,15 +46577,9 @@
                 y: evt.touches[0].pageY
               };
             },
-            /**
-             * Register touch end to detect release of touch drag.
-             */
             onTouchEnd: function() {
               this.touchStarted = false;
             },
-            /**
-             * Save pose.
-             */
             onEnterVR: function() {
               var sceneEl = this.el.sceneEl;
               if (!sceneEl.checkHeadsetConnected()) {
@@ -47255,9 +46593,6 @@
                 this.el.object3D.updateMatrix();
               }
             },
-            /**
-             * Restore the pose.
-             */
             onExitVR: function() {
               if (!this.el.sceneEl.checkHeadsetConnected()) {
                 return;
@@ -47266,26 +46601,16 @@
               this.previousHMDPosition.set(0, 0, 0);
               this.el.object3D.matrixAutoUpdate = true;
             },
-            /**
-             * Update Pointer Lock state.
-             */
             onPointerLockChange: function() {
               this.pointerLocked = !!(document.pointerLockElement || document.mozPointerLockElement);
             },
-            /**
-             * Recover from Pointer Lock error.
-             */
             onPointerLockError: function() {
               this.pointerLocked = false;
             },
-            // Exits pointer-locked mode.
             exitPointerLock: function() {
               document.exitPointerLock();
               this.pointerLocked = false;
             },
-            /**
-             * Toggle the feature of showing/hiding the grab cursor.
-             */
             updateGrabCursor: function(enabled) {
               var sceneEl = this.el.sceneEl;
               function enableGrabCursor() {
@@ -47308,18 +46633,12 @@
               }
               disableGrabCursor();
             },
-            /**
-             * Save camera pose before entering VR to restore later if exiting.
-             */
             saveCameraPose: function() {
               var el = this.el;
               this.savedPose.position.copy(el.object3D.position);
               this.savedPose.rotation.copy(el.object3D.rotation);
               this.hasSavedPose = true;
             },
-            /**
-             * Reset camera pose to before entering VR.
-             */
             restoreCameraPose: function() {
               var el = this.el;
               var savedPose = this.savedPose;
@@ -47427,7 +46746,6 @@
               var el = this.el;
               var data = this.data;
               el.setAttribute("tracked-controls", {
-                // TODO: verify expected behavior between reserved prefixes.
                 idPrefix: GAMEPAD_ID_COMPOSITE,
                 hand: data.hand,
                 controller: this.controllerIndex,
@@ -47447,9 +46765,6 @@
             onControllersUpdate: function() {
               this.checkIfControllerPresent();
             },
-            /**
-             * Rotate the trigger button based on how hard the trigger is pressed.
-             */
             onButtonChanged: function(evt) {
               var button = this.mapping.buttons[evt.detail.id];
               var analogValue;
@@ -47504,11 +46819,6 @@
             init: function() {
               this.material = null;
             },
-            /**
-             * Update or create material.
-             *
-             * @param {object|null} oldData
-             */
             update: function(oldData) {
               var data = this.data;
               if (!this.shader || data.shader !== oldData.shader) {
@@ -47578,10 +46888,6 @@
               this.setMaterial(shaderInstance.material);
               this.updateSchema(data);
             },
-            /**
-             * Set and update base material properties.
-             * Set `needsUpdate` when needed.
-             */
             updateMaterial: function(oldData) {
               var data = this.data;
               var material = this.material;
@@ -47604,10 +46910,6 @@
                 material.needsUpdate = true;
               }
             },
-            /**
-             * Remove material on remove (callback).
-             * Dispose of it from memory and unsubscribe from scene updates.
-             */
             remove: function() {
               var defaultMaterial = new THREE2.MeshBasicMaterial();
               var material = this.material;
@@ -47617,14 +46919,6 @@
               }
               disposeMaterial(material, this.system);
             },
-            /**
-             * (Re)create new material. Has side-effects of setting `this.material` and updating
-             * material registration in scene.
-             *
-             * @param {object} data - Material component data.
-             * @param {object} type - Material type to create.
-             * @returns {object} Material.
-             */
             setMaterial: function(material) {
               var el = this.el;
               var mesh;
@@ -47783,9 +47077,6 @@
                 el.emit("model-loaded", { format: "obj", model: objModel });
               });
             },
-            /**
-             * Apply material from material component recursively.
-             */
             applyMaterial: function() {
               var material = this.el.components.material;
               if (!material) {
@@ -47822,7 +47113,6 @@
           module3.exports.Component = registerComponent("oculus-go-controls", {
             schema: {
               hand: { default: "" },
-              // This informs the degenerate arm model.
               buttonColor: { type: "color", default: "#FFFFFF" },
               buttonTouchedColor: { type: "color", default: "#BBBBBB" },
               buttonHighlightColor: { type: "color", default: "#7A7A7A" },
@@ -47918,7 +47208,6 @@
             onControllersUpdate: function() {
               this.checkIfControllerPresent();
             },
-            // No need for onButtonChanged, since Oculus Go controller has no analog buttons.
             onModelLoaded: function(evt) {
               var controllerObject3D = evt.detail.model;
               var buttonMeshes;
@@ -48066,10 +47355,8 @@
             schema: {
               hand: { default: "left" },
               buttonColor: { type: "color", default: "#999" },
-              // Off-white.
               buttonTouchColor: { type: "color", default: "#8AB" },
               buttonHighlightColor: { type: "color", default: "#2DF" },
-              // Light blue.
               model: { default: true },
               controllerType: { default: "auto", oneOf: ["auto", "oculus-touch", "oculus-touch-v2", "oculus-touch-v3"] },
               orientationOffset: { type: "vec3", default: { x: 43, y: 0, z: 0 } }
@@ -48323,9 +47610,6 @@
               this.intersectionClearedDetail = { clearedEls: this.clearedIntersectedEls };
               this.intersectionDetail = {};
             },
-            /**
-             * Create or update raycaster object.
-             */
             update: function(oldData) {
               var data = this.data;
               var el = this.el;
@@ -48378,15 +47662,9 @@
               this.el.sceneEl.removeEventListener("object3dset", this.setDirty);
               this.el.sceneEl.removeEventListener("object3dremove", this.setDirty);
             },
-            /**
-             * Mark the object list as dirty, to be refreshed before next raycast.
-             */
             setDirty: function() {
               this.dirty = true;
             },
-            /**
-             * Update list of objects to test for intersection.
-             */
             refreshObjects: function() {
               var data = this.data;
               var els;
@@ -48394,9 +47672,6 @@
               this.objects = this.flattenObject3DMaps(els);
               this.dirty = false;
             },
-            /**
-             * Check for intersections and cleared intersections on an interval.
-             */
             tock: function(time) {
               var data = this.data;
               var prevCheckTime = this.prevCheckTime;
@@ -48409,9 +47684,6 @@
               this.prevCheckTime = time;
               this.checkIntersections();
             },
-            /**
-             * Raycast for intersections and emit events for current and cleared intersections.
-             */
             checkIntersections: function() {
               var clearedIntersectedEls = this.clearedIntersectedEls;
               var el = this.el;
@@ -48495,11 +47767,6 @@
               }
               this.drawLine(lineLength);
             },
-            /**
-             * Return the most recent intersection details for a given entity, if any.
-             * @param {AEntity} el
-             * @return {Object}
-             */
             getIntersection: function(el) {
               var i;
               var intersection;
@@ -48511,10 +47778,6 @@
               }
               return null;
             },
-            /**
-             * Update origin and direction of raycaster using entity transforms and supplied origin or
-             * direction offsets.
-             */
             updateOriginDirection: function() {
               var direction = new THREE2.Vector3();
               var originVec3 = new THREE2.Vector3();
@@ -48534,19 +47797,6 @@
                 this.raycaster.set(originVec3, direction);
               };
             }(),
-            /**
-             * Create or update line to give raycaster visual representation.
-             * Customize the line through through line component.
-             * We draw the line in the raycaster component to customize the line to the
-             * raycaster's origin, direction, and far.
-             *
-             * Unlike the raycaster, we create the line as a child of the object. The line will
-             * be affected by the transforms of the objects, so we don't have to calculate transforms
-             * like we do with the raycaster.
-             *
-             * @param {number} length - Length of line. Pass in to shorten the line to the intersection
-             *   point. If not provided, length will default to the max length, `raycaster.far`.
-             */
             drawLine: function(length) {
               var data = this.data;
               var el = this.el;
@@ -48561,17 +47811,6 @@
               this.lineData.opacity = data.lineOpacity;
               el.setAttribute("line", this.lineData);
             },
-            /**
-             * Return A-Frame attachments of each element's object3D group (e.g., mesh).
-             * Children are flattened by one level, removing the THREE.Group wrapper,
-             * so that non-recursive raycasting remains useful.
-             *
-             * Only push children defined as component attachements (e.g., setObject3D),
-             * NOT actual children in the scene graph hierarchy.
-             *
-             * @param  {Array<Element>} els
-             * @return {Array<THREE.Object3D>}
-             */
             flattenObject3DMaps: function(els) {
               var key;
               var i;
@@ -48612,9 +47851,6 @@
           var registerComponent = require2("../core/component").registerComponent;
           module3.exports.Component = registerComponent("rotation", {
             schema: { type: "vec3" },
-            /**
-             * Updates object3D rotation.
-             */
             update: function() {
               var data = this.data;
               var object3D = this.el.object3D;
@@ -49145,9 +48381,6 @@
               );
               this.el.appendChild(httpAlertEl);
             },
-            /**
-             * Enable device motion permission when clicked.
-             */
             onDeviceMotionDialogAllowClicked: function() {
               var self2 = this;
               this.el.emit("deviceorientationpermissionrequested");
@@ -49281,9 +48514,6 @@
                 fog[key] = value;
               });
             },
-            /**
-             * Remove fog on remove (callback).
-             */
             remove: function() {
               var fog = this.el.object3D.fog;
               if (!fog) {
@@ -49351,9 +48581,6 @@
               remove: function() {
                 this.removeEventListeners();
               },
-              /**
-               * <ctrl> + <alt> + i keyboard shortcut.
-               */
               onKeydown: function(evt) {
                 var shortcutPressed = evt.keyCode === 73 && (evt.ctrlKey && evt.altKey || evt.getModifierState("AltGraph"));
                 if (!shortcutPressed) {
@@ -49367,9 +48594,6 @@
               hideLoader: function() {
                 document.body.removeChild(this.loadingMessageEl);
               },
-              /**
-               * postMessage. aframe.io uses this to create a button on examples to open Inspector.
-               */
               onMessage: function(evt) {
                 if (evt.data === "INJECT_AFRAME_INSPECTOR") {
                   this.openInspector();
@@ -49474,9 +48698,6 @@
                 this.initPool();
               }
             },
-            /**
-             * Add a new entity to the list of available entities.
-             */
             createEntity: function() {
               var el;
               el = document.createElement("a-entity");
@@ -49487,10 +48708,6 @@
               this.container.appendChild(el);
               this.availableEls.push(el);
             },
-            /**
-             * Play wrapper for pooled entities. When pausing and playing a scene, don't want to play
-             * entities that are not in use.
-             */
             wrapPlay: function(playMethod) {
               var usedEls = this.usedEls;
               return function() {
@@ -49500,9 +48717,6 @@
                 playMethod.call(this);
               };
             },
-            /**
-             * Used to request one of the available entities of the pool.
-             */
             requestEntity: function() {
               var el;
               if (this.availableEls.length === 0) {
@@ -49519,9 +48733,6 @@
               el.object3D.visible = true;
               return el;
             },
-            /**
-             * Used to return a used entity to the pool.
-             */
             returnEntity: function(el) {
               var index = this.usedEls.indexOf(el);
               if (index === -1) {
@@ -49763,10 +48974,6 @@
             play: function() {
               window.addEventListener("keydown", this.onKeyDown);
             },
-            /**
-             * <ctrl> + <alt> + s = Regular screenshot.
-             * <ctrl> + <alt> + <shift> + s = Equirectangular screenshot.
-            */
             onKeyDown: function(evt) {
               var shortcutPressed = evt.keyCode === 83 && evt.ctrlKey && evt.altKey;
               if (!this.data || !shortcutPressed) {
@@ -49775,11 +48982,6 @@
               var projection = evt.shiftKey ? "equirectangular" : "perspective";
               this.capture(projection);
             },
-            /**
-             * Capture a screenshot of the scene.
-             *
-             * @param {string} projection - Screenshot projection (equirectangular or perspective).
-             */
             setCapture: function(projection) {
               var el = this.el;
               var size;
@@ -49815,9 +49017,6 @@
                 projection
               };
             },
-            /**
-             * Maintained for backwards compatibility.
-             */
             capture: function(projection) {
               var isVREnabled = this.el.renderer.xr.enabled;
               var renderer = this.el.renderer;
@@ -49828,9 +49027,6 @@
               this.saveCapture();
               renderer.xr.enabled = isVREnabled;
             },
-            /**
-             * Return canvas instead of triggering download (e.g., for uploading blob to server).
-             */
             getCanvas: function(projection) {
               var isVREnabled = this.el.renderer.xr.enabled;
               var renderer = this.el.renderer;
@@ -49876,9 +49072,6 @@
               }
               return flippedPixels;
             },
-            /**
-             * Download capture to file.
-             */
             saveCapture: function() {
               this.canvas.toBlob(function(blob) {
                 var fileName = "screenshot-" + document.title.toLowerCase() + "-" + Date.now() + ".png";
@@ -49956,7 +49149,6 @@
             var plugins = scene.isMobile ? [] : [threeStats, aframeStats];
             return new RStats({
               css: [],
-              // Our stylesheet is injected from `src/index.js`.
               values: {
                 fps: { caption: "fps", below: 30 }
               },
@@ -50013,21 +49205,12 @@
               this.toggleOrientationModalIfNeeded = bind(this.toggleOrientationModalIfNeeded, this);
               this.updateEnterInterfaces = bind(this.updateEnterInterfaces, this);
             },
-            /**
-             * Exit VR when modal clicked.
-             */
             onModalClick: function() {
               this.el.exitVR();
             },
-            /**
-             * Enter VR when clicked.
-             */
             onEnterVRButtonClick: function() {
               this.el.enterVR();
             },
-            /**
-             * Enter AR when clicked.
-             */
             onEnterARButtonClick: function() {
               this.el.enterAR();
             },
@@ -50315,9 +49498,6 @@
                 warn("Audio source not properly disconnected");
               }
             },
-            /**
-            *  Update listener attached to the user defined on event.
-            */
             updateEventListener: function(oldEvt) {
               var el = this.el;
               if (oldEvt) {
@@ -50328,11 +49508,6 @@
             removeEventListener: function() {
               this.el.removeEventListener(this.data.on, this.playSoundBound);
             },
-            /**
-             * Removes current sound object, creates new sound object, adds to entity.
-             *
-             * @returns {object} sound
-             */
             setupSound: function() {
               var el = this.el;
               var i;
@@ -50365,9 +49540,6 @@
                 };
               }
             },
-            /**
-             * Pause all the sounds in the pool.
-             */
             pauseSound: function() {
               var i;
               var sound;
@@ -50381,9 +49553,6 @@
                 sound.pause();
               }
             },
-            /**
-             * Look for an unused sound in the pool and play it if found.
-             */
             playSound: function(processSound) {
               var found;
               var i;
@@ -50413,9 +49582,6 @@
               }
               this.mustPlay = false;
             },
-            /**
-             * Stop all the sounds in the pool.
-             */
             stopSound: function() {
               var i;
               var sound;
@@ -50465,19 +49631,14 @@
             schema: {
               align: { type: "string", default: "left", oneOf: ["left", "right", "center"] },
               alphaTest: { default: 0.5 },
-              // `anchor` defaults to center to match geometries.
               anchor: { default: "center", oneOf: ["left", "right", "center", "align"] },
               baseline: { default: "center", oneOf: ["top", "center", "bottom"] },
               color: { type: "color", default: "#FFF" },
               font: { type: "string", default: DEFAULT_FONT },
-              // `fontImage` defaults to the font name as a .png (e.g., mozillavr.fnt -> mozillavr.png).
               fontImage: { type: "string" },
-              // `height` has no default, will be populated at layout.
               height: { type: "number" },
               letterSpacing: { type: "number", default: 0 },
-              // `lineHeight` defaults to font's `lineHeight` value.
               lineHeight: { type: "number" },
-              // `negate` must be true for fonts generated with older versions of msdfgen (white background).
               negate: { type: "boolean", default: true },
               opacity: { type: "number", default: 1 },
               shader: { default: "sdf", oneOf: shaders },
@@ -50486,17 +49647,11 @@
               transparent: { default: true },
               value: { type: "string" },
               whiteSpace: { default: "normal", oneOf: ["normal", "pre", "nowrap"] },
-              // `width` defaults to geometry width if present, else `DEFAULT_WIDTH`.
               width: { type: "number" },
-              // `wrapCount` units are about one default font character. Wrap roughly at this number.
               wrapCount: { type: "number", default: 40 },
-              // `wrapPixels` will wrap using bmfont pixel units (e.g., dejavu's is 32 pixels).
               wrapPixels: { type: "number" },
-              // `xOffset` to add padding.
               xOffset: { type: "number", default: 0 },
-              // `yOffset` to adjust generated fonts from tools that may have incorrect metrics.
               yOffset: { type: "number", default: 0 },
-              // `zOffset` will provide a small z offset to avoid z-fighting.
               zOffset: { type: "number", default: 1e-3 }
             },
             init: function() {
@@ -50523,9 +49678,6 @@
                 this.updateLayout();
               }
             },
-            /**
-             * Clean up geometry, material, texture, mesh, objects.
-             */
             remove: function() {
               this.geometry.dispose();
               this.geometry = null;
@@ -50538,9 +49690,6 @@
                 delete this.shaderObject;
               }
             },
-            /**
-             * Update the shader of the material.
-             */
             createOrUpdateMaterial: function() {
               var data = this.data;
               var hasChangedShader;
@@ -50576,9 +49725,6 @@
                 this.mesh.material = this.material;
               }
             },
-            /**
-             * Load font for geometry, load font image for material, and apply.
-             */
             updateFont: function() {
               var data = this.data;
               var el = this.el;
@@ -50645,9 +49791,6 @@
               }
               return THREE2.LoaderUtils.extractUrlBase(fontSrc) + imageSrc;
             },
-            /**
-             * Update layout with anchor, alignment, baseline, and considering any meshes.
-             */
             updateLayout: function() {
               var anchor;
               var baseline;
@@ -50709,16 +49852,9 @@
               mesh.position.z = data.zOffset;
               mesh.scale.set(textScale, -1 * textScale, textScale);
             },
-            /**
-             * Grab font from the constant.
-             * Set as a method for test stubbing purposes.
-             */
             lookupFont: function(key) {
               return FONTS[key];
             },
-            /**
-             * Update the text geometry using `three-bmfont-text.update`.
-             */
             updateGeometry: function() {
               var geometryUpdateBase = {};
               var geometryUpdateData = {};
@@ -50846,7 +49982,6 @@
               hand: { type: "string", default: "" },
               idPrefix: { type: "string", default: "" },
               orientationOffset: { type: "vec3" },
-              // Arm model parameters when not 6DoF.
               armModel: { default: false },
               headElement: { type: "selector" }
             },
@@ -50871,21 +50006,12 @@
               this.updatePose();
               this.updateButtons();
             },
-            /**
-             * Return default user height to use for non-6DOF arm model.
-             */
             defaultUserHeight: function() {
               return DEFAULT_CAMERA_HEIGHT;
             },
-            /**
-             * Return head element to use for non-6DOF arm model.
-             */
             getHeadElement: function() {
               return this.data.headElement || this.el.sceneEl.camera.el;
             },
-            /**
-             * Handle update controller match criteria (such as `id`, `idPrefix`, `hand`, `controller`)
-             */
             updateGamepad: function() {
               var data = this.data;
               var controller = controllerUtils.findMatchingControllerWebVR(
@@ -50901,12 +50027,6 @@
                 this.el.object3D.visible = !!this.controller;
               }
             },
-            /**
-             * Applies an artificial arm model to simulate elbow to wrist positioning
-             * based on the orientation of the controller.
-             *
-             * @param {object} controllerPosition - Existing vector to update with controller position.
-             */
             applyArmModel: function(controllerPosition) {
               var controller = this.controller;
               var controllerEuler = this.controllerEuler;
@@ -50926,7 +50046,6 @@
               deltaControllerPosition.set(
                 EYES_TO_ELBOW.x * (hand === "left" ? -1 : hand === "right" ? 1 : 0),
                 EYES_TO_ELBOW.y,
-                // Lower than our eyes.
                 EYES_TO_ELBOW.z
               );
               deltaControllerPosition.multiplyScalar(userHeight);
@@ -50944,9 +50063,6 @@
               deltaControllerPosition.applyEuler(controllerEuler);
               controllerPosition.add(deltaControllerPosition);
             },
-            /**
-             * Read pose from controller (from Gamepad API), apply transforms, apply to entity.
-             */
             updatePose: function() {
               var controller = this.controller;
               var data = this.data;
@@ -50978,9 +50094,6 @@
               object3D.rotateY(this.data.orientationOffset.y * THREE2.Math.DEG2RAD);
               object3D.rotateZ(this.data.orientationOffset.z * THREE2.Math.DEG2RAD);
             },
-            /**
-             * Handle button changes including axes, presses, touches, values.
-             */
             updateButtons: function() {
               var buttonState;
               var controller = this.controller;
@@ -51000,13 +50113,6 @@
               }
               this.handleAxes();
             },
-            /**
-             * Handle presses and touches for a single button.
-             *
-             * @param {number} id - Index of button in Gamepad button array.
-             * @param {number} buttonState - Value of button state from 0 to 1.
-             * @returns {boolean} Whether button has changed in any way.
-             */
             handleButton: function(id, buttonState) {
               var changed;
               changed = this.handlePress(id, buttonState) | this.handleTouch(id, buttonState) | this.handleValue(id, buttonState);
@@ -51016,12 +50122,6 @@
               this.el.emit(EVENTS.BUTTONCHANGED, this.buttonEventDetails[id], false);
               return true;
             },
-            /**
-             * An axis is an array of values from -1 (up, left) to 1 (down, right).
-             * Compare each component of the axis to the previous value to determine change.
-             *
-             * @returns {boolean} Whether axes changed.
-             */
             handleAxes: function() {
               var changed = false;
               var controllerAxes = this.controller.axes;
@@ -51045,13 +50145,6 @@
               this.el.emit(EVENTS.AXISMOVE, this.axisMoveEventDetail, false);
               return true;
             },
-            /**
-             * Determine whether a button press has occured and emit events as appropriate.
-             *
-             * @param {string} id - ID of the button to check.
-             * @param {object} buttonState - State of the button to check.
-             * @returns {boolean} Whether button press state changed.
-             */
             handlePress: function(id, buttonState) {
               var evtName;
               var previousButtonState = this.buttonStates[id];
@@ -51063,13 +50156,6 @@
               previousButtonState.pressed = buttonState.pressed;
               return true;
             },
-            /**
-             * Determine whether a button touch has occured and emit events as appropriate.
-             *
-             * @param {string} id - ID of the button to check.
-             * @param {object} buttonState - State of the button to check.
-             * @returns {boolean} Whether button touch state changed.
-             */
             handleTouch: function(id, buttonState) {
               var evtName;
               var previousButtonState = this.buttonStates[id];
@@ -51081,13 +50167,6 @@
               previousButtonState.touched = buttonState.touched;
               return true;
             },
-            /**
-             * Determine whether a button value has changed.
-             *
-             * @param {string} id - Id of the button to check.
-             * @param {object} buttonState - State of the button to check.
-             * @returns {boolean} Whether button value changed.
-             */
             handleValue: function(id, buttonState) {
               var previousButtonState = this.buttonStates[id];
               if (buttonState.value === previousButtonState.value) {
@@ -51145,9 +50224,6 @@
               }
               return true;
             },
-            /**
-             * Handle update controller match criteria (such as `id`, `idPrefix`, `hand`, `controller`)
-             */
             updateController: function() {
               this.controller = controllerUtils.findMatchingControllerWebXR(
                 this.system.controllers,
@@ -51184,9 +50260,6 @@
               object3D.matrix.elements = pose.transform.matrix;
               object3D.matrix.decompose(object3D.position, object3D.rotation, object3D.scale);
             },
-            /**
-             * Handle button changes including axes, presses, touches, values.
-             */
             updateButtons: function() {
               var buttonState;
               var id;
@@ -51208,13 +50281,6 @@
               }
               this.handleAxes();
             },
-            /**
-             * Handle presses and touches for a single button.
-             *
-             * @param {number} id - Index of button in Gamepad button array.
-             * @param {number} buttonState - Value of button state from 0 to 1.
-             * @returns {boolean} Whether button has changed in any way.
-             */
             handleButton: function(id, buttonState) {
               var changed;
               changed = this.handlePress(id, buttonState) | this.handleTouch(id, buttonState) | this.handleValue(id, buttonState);
@@ -51224,12 +50290,6 @@
               this.el.emit(EVENTS.BUTTONCHANGED, this.buttonEventDetails[id], false);
               return true;
             },
-            /**
-             * An axis is an array of values from -1 (up, left) to 1 (down, right).
-             * Compare each component of the axis to the previous value to determine change.
-             *
-             * @returns {boolean} Whether axes changed.
-             */
             handleAxes: function() {
               var changed = false;
               var controllerAxes = this.controller.gamepad.axes;
@@ -51253,13 +50313,6 @@
               this.el.emit(EVENTS.AXISMOVE, this.axisMoveEventDetail, false);
               return true;
             },
-            /**
-             * Determine whether a button press has occured and emit events as appropriate.
-             *
-             * @param {string} id - ID of the button to check.
-             * @param {object} buttonState - State of the button to check.
-             * @returns {boolean} Whether button press state changed.
-             */
             handlePress: function(id, buttonState) {
               var evtName;
               var previousButtonState = this.buttonStates[id];
@@ -51271,13 +50324,6 @@
               previousButtonState.pressed = buttonState.pressed;
               return true;
             },
-            /**
-             * Determine whether a button touch has occured and emit events as appropriate.
-             *
-             * @param {string} id - ID of the button to check.
-             * @param {object} buttonState - State of the button to check.
-             * @returns {boolean} Whether button touch state changed.
-             */
             handleTouch: function(id, buttonState) {
               var evtName;
               var previousButtonState = this.buttonStates[id];
@@ -51289,13 +50335,6 @@
               previousButtonState.touched = buttonState.touched;
               return true;
             },
-            /**
-             * Determine whether a button value has changed.
-             *
-             * @param {string} id - Id of the button to check.
-             * @param {object} buttonState - State of the button to check.
-             * @returns {boolean} Whether button value changed.
-             */
             handleValue: function(id, buttonState) {
               var previousButtonState = this.buttonStates[id];
               if (buttonState.value === previousButtonState.value) {
@@ -51316,7 +50355,6 @@
               idPrefix: { type: "string", default: "" },
               handTrackingEnabled: { default: false },
               orientationOffset: { type: "vec3" },
-              // Arm model parameters when not 6DoF.
               armModel: { default: false },
               headElement: { type: "selector" },
               iterateControllerProfiles: { default: false }
@@ -51374,9 +50412,7 @@
             schema: {
               hand: { default: "left" },
               buttonColor: { type: "color", default: "#FAFAFA" },
-              // Off-white.
               buttonHighlightColor: { type: "color", default: "#22D1EE" },
-              // Light blue.
               model: { default: true },
               orientationOffset: { type: "vec3" }
             },
@@ -51445,12 +50481,6 @@
               el.removeEventListener("axismove", this.onAxisMoved);
               this.controllerEventsActive = false;
             },
-            /**
-             * Once OpenVR returns correct hand data in supporting browsers, we can use hand property.
-             * var isPresent = checkControllerPresentAndSetup(this.el.sceneEl, GAMEPAD_ID_PREFIX,
-                                                                  { hand: data.hand });
-             * Until then, use hardcoded index.
-             */
             checkIfControllerPresent: function() {
               var data = this.data;
               var controllerIndex = data.hand === "right" ? 0 : data.hand === "left" ? 1 : 2;
@@ -51461,7 +50491,6 @@
               var data = this.data;
               el.setAttribute("tracked-controls", {
                 idPrefix: GAMEPAD_ID_PREFIX,
-                // Hand IDs: 1 = right, 0 = left, 2 = anything else.
                 controller: data.hand === "right" ? 1 : data.hand === "left" ? 0 : 2,
                 hand: data.hand,
                 orientationOffset: data.orientationOffset
@@ -51484,9 +50513,6 @@
             onControllersUpdate: function() {
               this.checkIfControllerPresent();
             },
-            /**
-             * Rotate the trigger button based on how hard the trigger is pressed.
-             */
             onButtonChanged: function(evt) {
               var button = this.mapping.buttons[evt.detail.id];
               var buttonMeshes = this.buttonMeshes;
@@ -51584,9 +50610,7 @@
             schema: {
               hand: { default: "left" },
               buttonColor: { type: "color", default: "#FAFAFA" },
-              // Off-white.
               buttonHighlightColor: { type: "color", default: "#22D1EE" },
-              // Light blue.
               model: { default: true },
               orientationOffset: { type: "vec3" }
             },
@@ -51653,12 +50677,6 @@
               el.removeEventListener("axismove", this.onAxisMoved);
               this.controllerEventsActive = false;
             },
-            /**
-             * Once OpenVR returns correct hand data in supporting browsers, we can use hand property.
-             * var isPresent = checkControllerPresentAndSetup(this.el.sceneEl, GAMEPAD_ID_PREFIX,
-                                                                  { hand: data.hand });
-             * Until then, use hardcoded index.
-             */
             checkIfControllerPresent: function() {
               var data = this.data;
               checkControllerPresentAndSetup(this, GAMEPAD_ID_PREFIX, { index: this.controllerIndex, hand: data.hand });
@@ -51689,9 +50707,6 @@
             onControllersUpdate: function() {
               this.checkIfControllerPresent();
             },
-            /**
-             * Rotate the trigger button based on how hard the trigger is pressed.
-             */
             onButtonChanged: function(evt) {
               var button = this.mapping.buttons[evt.detail.id];
               var buttonMeshes = this.buttonMeshes;
@@ -51773,18 +50788,12 @@
           module3.exports.Component = registerComponent("vive-focus-controls", {
             schema: {
               hand: { default: "" },
-              // This informs the degenerate arm model.
               buttonTouchedColor: { type: "color", default: "#BBBBBB" },
               buttonHighlightColor: { type: "color", default: "#7A7A7A" },
               model: { default: true },
               orientationOffset: { type: "vec3" },
               armModel: { default: true }
             },
-            /**
-             * Button IDs:
-             * 0 - trackpad
-             * 1 - trigger
-             */
             mapping: {
               axes: { trackpad: [0, 1] },
               buttons: ["trackpad", "trigger"]
@@ -51894,7 +50903,6 @@
                 buttonMeshes.trackpadPressed.visible = false;
               }
             },
-            // No analog buttons, only emits 0/1 values
             onButtonChanged: function(evt) {
               var button = this.mapping.buttons[evt.detail.id];
               if (!button)
@@ -52150,22 +51158,14 @@
           var GAMEPAD_ID_PATTERN = /([0-9a-zA-Z]+-[0-9a-zA-Z]+)$/;
           var GAMEPAD_ID_PREFIX = isWebXRAvailable ? GAMEPAD_ID_WEBXR : GAMEPAD_ID_WEBVR;
           var INPUT_MAPPING_WEBVR = {
-            // A-Frame specific semantic axis names
             axes: { "thumbstick": [0, 1], "trackpad": [2, 3] },
-            // A-Frame specific semantic button names
             buttons: ["thumbstick", "trigger", "grip", "menu", "trackpad"],
-            // A mapping of the semantic name to node name in the glTF model file,
-            // that should be transformed by axis value.
-            // This array mirrors the browser Gamepad.axes array, such that
-            // the mesh corresponding to axis 0 is in this array index 0.
             axisMeshNames: [
               "THUMBSTICK_X",
               "THUMBSTICK_Y",
               "TOUCHPAD_TOUCH_X",
               "TOUCHPAD_TOUCH_Y"
             ],
-            // A mapping of the semantic name to button node name in the glTF model file,
-            // that should be transformed by button value.
             buttonMeshNames: {
               "trigger": "SELECT",
               "menu": "MENU",
@@ -52176,22 +51176,14 @@
             pointingPoseMeshName: "POINTING_POSE"
           };
           var INPUT_MAPPING_WEBXR = {
-            // A-Frame specific semantic axis names
             axes: { "touchpad": [0, 1], "thumbstick": [2, 3] },
-            // A-Frame specific semantic button names
             buttons: ["trigger", "squeeze", "touchpad", "thumbstick", "menu"],
-            // A mapping of the semantic name to node name in the glTF model file,
-            // that should be transformed by axis value.
-            // This array mirrors the browser Gamepad.axes array, such that
-            // the mesh corresponding to axis 0 is in this array index 0.
             axisMeshNames: [
               "TOUCHPAD_TOUCH_X",
               "TOUCHPAD_TOUCH_X",
               "THUMBSTICK_X",
               "THUMBSTICK_Y"
             ],
-            // A mapping of the semantic name to button node name in the glTF model file,
-            // that should be transformed by button value.
             buttonMeshNames: {
               "trigger": "SELECT",
               "menu": "MENU",
@@ -52205,12 +51197,8 @@
           module3.exports.Component = registerComponent("windows-motion-controls", {
             schema: {
               hand: { default: DEFAULT_HANDEDNESS },
-              // It is possible to have multiple pairs of controllers attached (a pair has both left and right).
-              // Set this to 1 to use a controller from the second pair, 2 from the third pair, etc.
               pair: { default: 0 },
-              // If true, loads the controller glTF asset.
               model: { default: true },
-              // If true, will hide the model from the scene if no matching gamepad (based on ID & hand) is connected.
               hideDisconnected: { default: true }
             },
             mapping: INPUT_MAPPING,
@@ -52306,10 +51294,6 @@
               var sourceUrl = this.createControllerModelUrl();
               this.loadModel(sourceUrl);
             },
-            /**
-             * Helper function that constructs a URL from the controller ID suffix, for future proofed
-             * art assets.
-             */
             createControllerModelUrl: function(forceDefault) {
               var trackedControlsComponent = this.el.components["tracked-controls"];
               var controller = trackedControlsComponent ? trackedControlsComponent.controller : null;
@@ -52526,7 +51510,6 @@
           };
         }, { "./keyboardevent": 129 }], 129: [function(require2, module3, exports3) {
           module3.exports = {
-            // Tiny KeyboardEvent.code polyfill.
             KEYCODE_TO_CODE: {
               "38": "ArrowUp",
               "37": "ArrowLeft",
@@ -52736,22 +51719,12 @@
           var warn = debug("core:cubemap:warn");
           module3.exports = registerElement("a-cubemap", {
             prototype: Object.create(window.HTMLElement.prototype, {
-              /**
-               * Calculates this.srcs.
-               */
               attachedCallback: {
                 value: function() {
                   this.srcs = this.validate();
                 },
                 writable: window.debug
               },
-              /**
-               * Checks for exactly six elements with [src].
-               * Does not check explicitly for <img>s in case user does not want
-               * prefetching.
-               *
-               * @returns {Array|null} - six URLs if valid, else null.
-               */
               validate: {
                 value: function() {
                   var elements = this.querySelectorAll("[src]");
@@ -52799,9 +51772,6 @@
                 this.states = [];
               }
             },
-            /**
-             * Handle changes coming from the browser DOM inspector.
-             */
             attributeChangedCallback: {
               value: function(attr, oldVal, newVal) {
                 var component = this.components[attr];
@@ -52815,9 +51785,6 @@
                 this.setEntityAttribute(attr, oldVal, newVal);
               }
             },
-            /**
-             * Add to parent, load, play.
-             */
             attachedCallback: {
               value: function() {
                 var assetsEl;
@@ -52841,10 +51808,6 @@
                 this.load();
               }
             },
-            /**
-             * Tell parent to remove this element's object3D from its object3D.
-             * Do not call on scene element because that will cause a call to document.body.remove().
-             */
             detachedCallback: {
               value: function() {
                 var componentName;
@@ -52867,12 +51830,6 @@
                 return this.object3DMap[type];
               }
             },
-            /**
-             * Set a THREE.Object3D into the map.
-             *
-             * @param {string} type - Developer-set name of the type of object, will be unique per type.
-             * @param {object} obj - A THREE.Object3D.
-             */
             setObject3D: {
               value: function(type, obj) {
                 var oldObj;
@@ -52897,9 +51854,6 @@
                 this.emit("object3dset", { object: obj, type });
               }
             },
-            /**
-             * Remove object from scene and entity object3D map.
-             */
             removeObject3D: {
               value: function(type) {
                 var obj = this.getObject3D(type);
@@ -52912,13 +51866,6 @@
                 this.emit("object3dremove", { type });
               }
             },
-            /**
-             * Gets or creates an object3D of a given type.
-             *
-             * @param {string} type - Type of the object3D.
-             * @param {string} Constructor - Constructor to use to create the object3D if needed.
-             * @returns {object}
-             */
             getOrCreateObject3D: {
               value: function(type, Constructor) {
                 var object3D = this.getObject3D(type);
@@ -52930,11 +51877,6 @@
                 return object3D;
               }
             },
-            /**
-             * Add child entity.
-             *
-             * @param {Element} el - Child entity.
-             */
             add: {
               value: function(el) {
                 if (!el.object3D) {
@@ -52944,9 +51886,6 @@
                 this.emit("child-attached", { el });
               }
             },
-            /**
-             * Tell parentNode to add this entity to itself.
-             */
             addToParent: {
               value: function() {
                 var parentNode = this.parentEl = this.parentNode;
@@ -52957,9 +51896,6 @@
                 this.attachedToParent = true;
               }
             },
-            /**
-             * Tell parentNode to remove this entity from itself.
-             */
             removeFromParent: {
               value: function() {
                 var parentEl = this.parentEl;
@@ -52987,11 +51923,6 @@
               },
               writable: window.debug
             },
-            /**
-             * Remove child entity.
-             *
-             * @param {Element} el - Child entity.
-             */
             remove: {
               value: function(el) {
                 if (el) {
@@ -53001,9 +51932,6 @@
                 }
               }
             },
-            /**
-             * @returns {array} Direct children that are entities.
-             */
             getChildEntities: {
               value: function() {
                 var children = this.children;
@@ -53017,13 +51945,6 @@
                 return childEntities;
               }
             },
-            /**
-             * Initialize component.
-             *
-             * @param {string} attrName - Attribute name asociated to the component.
-             * @param {object} data - Component data
-             * @param {boolean} isDependency - True if the component is a dependency.
-             */
             initComponent: {
               value: function(attrName, data, isDependency) {
                 var component;
@@ -53060,11 +51981,6 @@
               },
               writable: window.debug
             },
-            /**
-             * Initialize dependencies of a component.
-             *
-             * @param {string} name - Root component name.
-             */
             initComponentDependencies: {
               value: function(name) {
                 var self2 = this;
@@ -53114,14 +52030,6 @@
               },
               writable: window.debug
             },
-            /**
-             * Initialize or update all components.
-             * Build data using initial components, defined attributes, mixins, and defaults.
-             * Update default components before the rest.
-             *
-             * @member {function} getExtraComponents - Can be implemented to include component data
-             *   from other sources (e.g., implemented by primitives).
-             */
             updateComponents: {
               value: function() {
                 var data;
@@ -53174,15 +52082,6 @@
               },
               writable: window.debug
             },
-            /**
-             * Initialize, update, or remove a single component.
-             *
-             * When initializing, we set the component on `this.components`.
-             *
-             * @param {string} attr - Component name.
-             * @param {object} attrValue - Value of the DOM attribute.
-             * @param {boolean} clobber - If new attrValue completely replaces previous properties.
-             */
             updateComponent: {
               value: function(attr, attrValue, clobber) {
                 var component = this.components[attr];
@@ -53197,14 +52096,6 @@
                 this.initComponent(attr, attrValue, false);
               }
             },
-            /**
-             * If `attr` is a component name, detach the component from the entity.
-             *
-             * If `propertyName` is given, reset the component property value to its default.
-             *
-             * @param {string} attr - Attribute name, which could also be a component name.
-             * @param {string} propertyName - Component prop name, if resetting an individual prop.
-             */
             removeAttribute: {
               value: function(attr, propertyName) {
                 var component = this.components[attr];
@@ -53221,10 +52112,6 @@
                 window.HTMLElement.prototype.removeAttribute.call(this, attr);
               }
             },
-            /**
-             * Start dynamic behavior associated with entity such as dynamic components and animations.
-             * Tell all children entities to also play.
-             */
             play: {
               value: function() {
                 var entities;
@@ -53245,10 +52132,6 @@
               },
               writable: true
             },
-            /**
-             * Pause dynamic behavior associated with entity such as dynamic components and animations.
-             * Tell all children entities to also pause.
-             */
             pause: {
               value: function() {
                 var entities;
@@ -53269,13 +52152,6 @@
               },
               writable: true
             },
-            /**
-             * Deals with updates on entity-specific attributes (i.e., components and mixins).
-             *
-             * @param {string} attr
-             * @param {string} oldVal
-             * @param {string|object} newVal
-             */
             setEntityAttribute: {
               value: function(attr, oldVal, newVal) {
                 if (COMPONENTS[attr] || this.components[attr]) {
@@ -53290,9 +52166,6 @@
                 }
               }
             },
-            /**
-             * When mixins updated, trigger init or optimized-update of relevant components.
-             */
             mixinUpdate: {
               value: function() {
                 var componentsUpdated = [];
@@ -53343,20 +52216,6 @@
                 };
               }()
             },
-            /**
-             * setAttribute can:
-             *
-             * 1. Set a single property of a multi-property component.
-             * 2. Set multiple properties of a multi-property component.
-             * 3. Replace properties of a multi-property component.
-             * 4. Set a value for a single-property component, mixin, or normal HTML attribute.
-             *
-             * @param {string} attrName - Component or attribute name.
-             * @param {*} arg1 - Can be a value, property name, CSS-style property string, or
-             *   object of properties.
-             * @param {*|bool} arg2 - If arg1 is a property name, this should be a value. Otherwise,
-             *   it is a boolean indicating whether to clobber previous values (defaults to false).
-             */
             setAttribute: {
               value: function() {
                 var singlePropUpdate = {};
@@ -53402,11 +52261,6 @@
               }(),
               writable: window.debug
             },
-            /**
-             * Reflect component data in the DOM (as seen from the browser DOM Inspector).
-             *
-             * @param {bool} recursive - Also flushToDOM on the children.
-             **/
             flushToDOM: {
               value: function(recursive) {
                 var components = this.components;
@@ -53429,15 +52283,6 @@
                 }
               }
             },
-            /**
-             * If `attr` is a component, returns ALL component data including applied mixins and
-             * defaults.
-             *
-             * If `attr` is not a component, fall back to HTML getAttribute.
-             *
-             * @param {string} attr
-             * @returns {object|string} Object if component, else string.
-             */
             getAttribute: {
               value: function(attr) {
                 var component;
@@ -53461,16 +52306,6 @@
               },
               writable: window.debug
             },
-            /**
-             * If `attr` is a component, returns JUST the component data defined on the entity.
-             * Like a partial version of `getComputedAttribute` as returned component data
-             * does not include applied mixins or defaults.
-             *
-             * If `attr` is not a component, fall back to HTML getAttribute.
-             *
-             * @param {string} attr
-             * @returns {object|string} Object if component, else string.
-             */
             getDOMAttribute: {
               value: function(attr) {
                 var component = this.components[attr];
@@ -53500,26 +52335,16 @@
                 this.emit("stateremoved", state);
               }
             },
-            /**
-             * Checks if the element is in a given state. e.g. el.is('alive');
-             * @type {string} state - Name of the state we want to check
-             */
             is: {
               value: function(state) {
                 return this.states.indexOf(state) !== -1;
               }
             },
-            /**
-             * Open Inspector to this entity.
-             */
             inspect: {
               value: function() {
                 this.sceneEl.components.inspector.openInspector(this);
               }
             },
-            /**
-             * Clean up memory and return memory to object pools.
-             */
             destroy: {
               value: function() {
                 var key;
@@ -53608,18 +52433,12 @@
                   this.load();
                 }
               },
-              /**
-               * setAttribute that parses and caches component values.
-               */
               setAttribute: {
                 value: function(attr, value) {
                   window.HTMLElement.prototype.setAttribute.call(this, attr, value);
                   this.cacheAttribute(attr, value);
                 }
               },
-              /**
-               * If `attr` is a component, then parse the value using the schema and store it.
-               */
               cacheAttribute: {
                 value: function(attr, value) {
                   var component;
@@ -53635,18 +52454,11 @@
                   this.componentCache[attr] = component.parseAttrValueForCache(value);
                 }
               },
-              /**
-               * If `attr` is a component, then grab pre-parsed value from the cache.
-               * Else do a normal getAttribute.
-               */
               getAttribute: {
                 value: function(attr) {
                   return this.componentCache[attr] || window.HTMLElement.prototype.getAttribute.call(this, attr);
                 }
               },
-              /**
-               * Parse and cache every component defined on the mixin.
-               */
               cacheAttributes: {
                 value: function() {
                   var attributes = this.attributes;
@@ -53658,10 +52470,6 @@
                   }
                 }
               },
-              /**
-               * For entities that already have been loaded by the time the mixin was attached, tell
-               * those entities to register the mixin and refresh their component data.
-               */
               updateEntities: {
                 value: function() {
                   var entity;
@@ -53717,9 +52525,6 @@
                 },
                 writable: window.debug
               },
-              /**
-               * Handle mixin.
-               */
               attributeChangedCallback: {
                 value: function(attr, oldVal, newVal) {
                   if (newVal === this.computedMixinStr) {
@@ -53730,10 +52535,6 @@
                   }
                 }
               },
-              /**
-               * Returns the first scene by traversing up the tree starting from and
-               * including receiver element.
-               */
               closestScene: {
                 value: function closest() {
                   var element = this;
@@ -53746,12 +52547,6 @@
                   return element;
                 }
               },
-              /**
-               * Returns first element matching a selector by traversing up the tree starting
-               * from and including receiver element.
-               *
-               * @param {string} selector - Selector of element to find.
-               */
               closest: {
                 value: function closest(selector) {
                   var matches = this.matches || this.mozMatchesSelector || this.msMatchesSelector || this.oMatchesSelector || this.webkitMatchesSelector;
@@ -53770,10 +52565,6 @@
                   this.hasLoaded = false;
                 }
               },
-              /**
-               * Wait for children to load, if any.
-               * Then emit `loaded` event and set `hasLoaded`.
-               */
               load: {
                 value: function(cb, childFilter) {
                   var children;
@@ -53809,11 +52600,6 @@
                   return Array.prototype.slice.call(this.children, 0);
                 }
               },
-              /**
-               * Unregister old mixins and listeners.
-               * Register new mixins and listeners.
-               * Registering means to update `this.mixinEls` with listeners.
-               */
               updateMixins: {
                 value: function() {
                   var newMixinIdArray = [];
@@ -53851,11 +52637,6 @@
                   };
                 }()
               },
-              /**
-               * From mixin ID, add mixin element to `mixinEls`.
-               *
-               * @param {Element} mixinEl
-               */
               registerMixin: {
                 value: function(mixinEl) {
                   var compositedMixinIds;
@@ -53897,14 +52678,6 @@
                   }
                 }
               },
-              /**
-               * Emit a DOM event.
-               *
-               * @param {string} name - Name of event.
-               * @param {object} [detail={}] - Custom data to pass as `detail` to the event.
-               * @param {boolean} [bubbles=true] - Whether the event should bubble.
-               * @param {object} [extraData] - Extra data to pass to the event, if any.
-               */
               emit: {
                 value: function() {
                   var data = {};
@@ -54079,78 +52852,21 @@
             this.updateProperties(attrValue);
           };
           Component.prototype = {
-            /**
-             * Contains the type schema and defaults for the data values.
-             * Data is coerced into the types of the values of the defaults.
-             */
             schema: {},
-            /**
-             * Init handler. Similar to attachedCallback.
-             * Called during component initialization and is only run once.
-             * Components can use this to set initial state.
-             */
             init: function() {
             },
-            /**
-             * Map of event names to binded event handlers that will be lifecycle-handled.
-             * Will be detached on pause / remove.
-             * Will be attached on play.
-             */
             events: {},
-            /**
-             * Update handler. Similar to attributeChangedCallback.
-             * Called whenever component's data changes.
-             * Also called on component initialization when the component receives initial data.
-             *
-             * @param {object} prevData - Previous attributes of the component.
-             */
             update: function(prevData) {
             },
             updateSchema: void 0,
-            /**
-             * Tick handler.
-             * Called on each tick of the scene render loop.
-             * Affected by play and pause.
-             *
-             * @param {number} time - Scene tick time.
-             * @param {number} timeDelta - Difference in current render time and previous render time.
-             */
             tick: void 0,
-            /**
-             * Tock handler.
-             * Called on each tock of the scene render loop.
-             * Affected by play and pause.
-             *
-             * @param {number} time - Scene tick time.
-             * @param {number} timeDelta - Difference in current render time and previous render time.
-             * @param {object} camera - Camera used to render the last frame.
-             */
             tock: void 0,
-            /**
-             * Called to start any dynamic behavior (e.g., animation, AI, events, physics).
-             */
             play: function() {
             },
-            /**
-             * Called to stop any dynamic behavior (e.g., animation, AI, events, physics).
-             */
             pause: function() {
             },
-            /**
-             * Remove handler. Similar to detachedCallback.
-             * Called whenever component is removed from the entity (i.e., removeAttribute).
-             * Components can use this to reset behavior on the entity.
-             */
             remove: function() {
             },
-            /**
-             * Parses each property based on property type.
-             * If component is single-property, then parses the single property value.
-             *
-             * @param {string} value - HTML attribute value.
-             * @param {boolean} silent - Suppress warning messages.
-             * @returns {object} Component data.
-             */
             parse: function(value, silent) {
               var schema2 = this.schema;
               if (this.isSingleProperty) {
@@ -54158,15 +52874,6 @@
               }
               return parseProperties(styleParser.parse(value), schema2, true, this.name, silent);
             },
-            /**
-             * Stringify properties if necessary.
-             *
-             * Only called from `Entity.setAttribute` for properties whose parsers accept a non-string
-             * value (e.g., selector, vec3 property types).
-             *
-             * @param {object} data - Complete component data.
-             * @returns {string}
-             */
             stringify: function(data) {
               var schema2 = this.schema;
               if (typeof data === "string") {
@@ -54178,12 +52885,6 @@
               data = stringifyProperties(data, schema2);
               return styleParser.stringify(data);
             },
-            /**
-             * Update the cache of the pre-parsed attribute value.
-             *
-             * @param {string} value - New data.
-             * @param {boolean } clobber - Whether to wipe out and replace previous data.
-             */
             updateCachedAttrValue: function(value, clobber) {
               var newAttrValue;
               var tempObject;
@@ -54218,13 +52919,6 @@
               this.attrValue = extendProperties(this.attrValue, newAttrValue, this.isObjectBased);
               utils.objectPool.clearObject(tempObject);
             },
-            /**
-             * Given an HTML attribute value parses the string based on the component schema.
-             * To avoid double parsings of strings into strings we store the original instead
-             * of the parsed one
-             *
-             * @param {string} value - HTML attribute value
-             */
             parseAttrValueForCache: function(value) {
               var parsedValue;
               if (typeof value !== "string") {
@@ -54241,12 +52935,6 @@
               }
               return parsedValue;
             },
-            /**
-             * Write cached attribute data to the entity DOM element.
-             *
-             * @param {boolean} isDefault - Whether component is a default component. Always flush for
-             *   default components.
-             */
             flushToDOM: function(isDefault) {
               var attrValue = isDefault ? this.data : this.attrValue;
               if (attrValue === null || attrValue === void 0) {
@@ -54258,13 +52946,6 @@
                 this.stringify(attrValue)
               );
             },
-            /**
-             * Apply new component data if data has changed (from setAttribute).
-             *
-             * @param {string} attrValue - HTML attribute value.
-             *        If undefined, use the cached attribute value and continue updating properties.
-             * @param {boolean} clobber - The previous component data is overwritten by the atrrValue
-             */
             updateProperties: function(attrValue, clobber) {
               var el = this.el;
               if (!el.hasLoaded) {
@@ -54307,9 +52988,6 @@
               }
               el.emit("componentinitialized", this.evtDetail, false);
             },
-            /**
-             * @param attrValue - Passed argument from setAttribute.
-             */
             updateComponent: function(attrValue, clobber) {
               var key;
               var mayNeedSchemaUpdate;
@@ -54350,9 +53028,6 @@
                 this.data[key] = attrValue[key];
               }
             },
-            /**
-             * Check if component should fire update and fire update lifecycle handler.
-             */
             callUpdateHandler: function() {
               var hasComponentChanged;
               if (this.previousOldData instanceof Object) {
@@ -54378,12 +53053,6 @@
               this.data = this.buildData(this.attrValue);
               this.callUpdateHandler();
             },
-            /**
-             * Reset value of a property to the property's default value.
-             * If single-prop component, reset value to component's default value.
-             *
-             * @param {string} propertyName - Name of property to reset.
-             */
             resetProperty: function(propertyName) {
               if (this.isObjectBased) {
                 if (!(propertyName in this.attrValue)) {
@@ -54397,15 +53066,6 @@
               }
               this.updateProperties(this.attrValue);
             },
-            /**
-             * Extend schema of component given a partial schema.
-             *
-             * Some components might want to mutate their schema based on certain properties.
-             * e.g., Material component changes its schema based on `shader` to account for different
-             * uniforms
-             *
-             * @param {object} schemaAddon - Schema chunk that extend base schema.
-             */
             extendSchema: function(schemaAddon) {
               var extendedSchema;
               extendedSchema = utils.extend({}, components[this.name].schema);
@@ -54413,21 +53073,6 @@
               this.schema = processSchema(extendedSchema);
               this.el.emit("schemachanged", this.evtDetail);
             },
-            /**
-             * Build component data from the current state of the entity.data.
-             *
-             * Precedence:
-             * 1. Defaults data
-             * 2. Mixin data.
-             * 3. Attribute data.
-             *
-             * Finally coerce the data to the types of the defaults.
-             *
-             * @param {object} newData - Element new data.
-             * @param {boolean} clobber - The previous data is completely replaced by the new one.
-             * @param {boolean} silent - Suppress warning messages.
-             * @return {object} The component data
-             */
             buildData: function(newData, clobber, silent) {
               var componentDefined;
               var data;
@@ -54483,9 +53128,6 @@
               }
               return parseProperties(data, schema2, void 0, this.name, silent);
             },
-            /**
-             * Attach events from component-defined events map.
-             */
             eventsAttach: function() {
               var eventName;
               this.eventsDetach();
@@ -54493,18 +53135,12 @@
                 this.el.addEventListener(eventName, this.events[eventName]);
               }
             },
-            /**
-             * Detach events from component-defined events map.
-             */
             eventsDetach: function() {
               var eventName;
               for (eventName in this.events) {
                 this.el.removeEventListener(eventName, this.events[eventName]);
               }
             },
-            /**
-             * Release and free memory.
-             */
             destroy: function() {
               this.objectPool.recycle(this.attrValue);
               this.objectPool.recycle(this.oldData);
@@ -54672,25 +53308,11 @@
           var Geometry = module3.exports.Geometry = function() {
           };
           Geometry.prototype = {
-            /**
-             * Contains the type schema and defaults for the data values.
-             * Data is coerced into the types of the values of the defaults.
-             */
             schema: {},
-            /**
-             * Init handler. Similar to attachedCallback.
-             * Called during shader initialization and is only run once.
-             */
             init: function(data) {
               this.geometry = new THREE2.BufferGeometry();
               return this.geometry;
             },
-            /**
-             * Update handler. Similar to attributeChangedCallback.
-             * Called whenever the associated geometry data changes.
-             *
-             * @param {object} data - New geometry data.
-             */
             update: function(data) {
             }
           };
@@ -55069,9 +53691,6 @@
                 },
                 writable: window.debug
               },
-              /**
-               * Initialize all systems.
-               */
               initSystems: {
                 value: function() {
                   var name;
@@ -55084,9 +53703,6 @@
                   }
                 }
               },
-              /**
-               * Initialize a system.
-               */
               initSystem: {
                 value: function(name) {
                   if (this.systems[name]) {
@@ -55096,9 +53712,6 @@
                   this.systemNames.push(name);
                 }
               },
-              /**
-               * Shut down scene on detach.
-               */
               detachedCallback: {
                 value: function() {
                   var sceneIndex = scenes.indexOf(this);
@@ -55114,11 +53727,6 @@
                   this.renderer.xr.dispose();
                 }
               },
-              /**
-               * Add ticks and tocks.
-               *
-               * @param {object} behavior - A component.
-               */
               addBehavior: {
                 value: function(behavior) {
                   var behaviorArr;
@@ -55135,18 +53743,12 @@
                   }
                 }
               },
-              /**
-               * For tests.
-               */
               getPointerLockElement: {
                 value: function() {
                   return document.pointerLockElement;
                 },
                 writable: window.debug
               },
-              /**
-               * For tests.
-               */
               checkHeadsetConnected: {
                 value: utils.device.checkHeadsetConnected,
                 writable: window.debug
@@ -55165,14 +53767,6 @@
                   return this.enterVR(true);
                 }
               },
-              /**
-               * Call `requestPresent` if WebVR or WebVR polyfill.
-               * Call `requestFullscreen` on desktop.
-               * Handle events, states, fullscreen styles.
-               *
-               * @param {bool?} useAR - if true, try immersive-ar mode
-               * @returns {Promise}
-               */
               enterVR: {
                 value: function(useAR) {
                   var self2 = this;
@@ -55263,12 +53857,6 @@
                 },
                 writable: true
               },
-              /**
-              * Call `exitPresent` if WebVR / WebXR or WebVR polyfill.
-              * Handle events, states, fullscreen styles.
-              *
-              * @returns {Promise}
-              */
               exitVR: {
                 value: function() {
                   var self2 = this;
@@ -55344,10 +53932,6 @@
                   }
                 }
               },
-              /**
-               * Handle `vrdisplaypresentchange` event for exiting VR through other means than
-               * `<ESC>` key. For example, GearVR back button on Oculus Browser.
-               */
               onVRPresentChange: {
                 value: function(evt) {
                   var display = evt.display || evt.detail.display;
@@ -55358,10 +53942,6 @@
                   this.exitVR();
                 }
               },
-              /**
-               * Wraps Entity.getAttribute to take into account for systems.
-               * If system exists, then return system data rather than possible component data.
-               */
               getAttribute: {
                 value: function(attr) {
                   var system = this.systems[attr];
@@ -55371,20 +53951,12 @@
                   return AEntity.prototype.getAttribute.call(this, attr);
                 }
               },
-              /**
-               * `getAttribute` used to be `getDOMAttribute` and `getComputedAttribute` used to be
-               * what `getAttribute` is now. Now legacy code.
-               */
               getComputedAttribute: {
                 value: function(attr) {
                   warn("`getComputedAttribute` is deprecated. Use `getAttribute` instead.");
                   this.getAttribute(attr);
                 }
               },
-              /**
-               * Wraps Entity.getDOMAttribute to take into account for systems.
-               * If system exists, then return system data rather than possible component data.
-               */
               getDOMAttribute: {
                 value: function(attr) {
                   var system = this.systems[attr];
@@ -55394,11 +53966,6 @@
                   return AEntity.prototype.getDOMAttribute.call(this, attr);
                 }
               },
-              /**
-               * Wrap Entity.setAttribute to take into account for systems.
-               * If system exists, then skip component initialization checks and do a normal
-               * setAttribute.
-               */
               setAttribute: {
                 value: function(attr, value, componentPropValue) {
                   var system = this.systems[attr];
@@ -55410,9 +53977,6 @@
                   AEntity.prototype.setAttribute.call(this, attr, value, componentPropValue);
                 }
               },
-              /**
-               * @param {object} behavior - A component.
-               */
               removeBehavior: {
                 value: function(behavior) {
                   var behaviorArr;
@@ -55499,10 +54063,6 @@
                 },
                 writable: window.debug
               },
-              /**
-               * Handler attached to elements to help scene know when to kick off.
-               * Scene waits for all entities to load.
-               */
               play: {
                 value: function() {
                   var self2 = this;
@@ -55541,10 +54101,6 @@
                   });
                 }
               },
-              /**
-               * Wrap `updateComponent` to not initialize the component if the component has a system
-               * (aframevr/aframe#2365).
-               */
               updateComponent: {
                 value: function(componentName) {
                   if (componentName in systems) {
@@ -55553,11 +54109,6 @@
                   AEntity.prototype.updateComponent.apply(this, arguments);
                 }
               },
-              /**
-               * Behavior-updater meant to be called from scene render.
-               * Abstracted to a different function to facilitate unit testing (`scene.tick()`) without
-               * needing to render.
-               */
               tick: {
                 value: function(time, timeDelta) {
                   var i;
@@ -55576,11 +54127,6 @@
                   }
                 }
               },
-              /**
-               * Behavior-updater meant to be called after scene render for post processing purposes.
-               * Abstracted to a different function to facilitate unit testing (`scene.tock()`) without
-               * needing to render.
-               */
               tock: {
                 value: function(time, timeDelta, camera) {
                   var i;
@@ -55599,13 +54145,6 @@
                   }
                 }
               },
-              /**
-               * The render loop.
-               *
-               * Updates animations.
-               * Updates behaviors.
-               * Renders with request animation frame.
-               */
               render: {
                 value: function(time, frame) {
                   var renderer = this.renderer;
@@ -55673,8 +54212,7 @@
             }
           }
           function requestFullscreen(canvas) {
-            var requestFullscreen2 = canvas.requestFullscreen || canvas.webkitRequestFullscreen || canvas.mozRequestFullScreen || // The capitalized `S` is not a typo.
-            canvas.msRequestFullscreen;
+            var requestFullscreen2 = canvas.requestFullscreen || canvas.webkitRequestFullscreen || canvas.mozRequestFullScreen || canvas.msRequestFullscreen;
             requestFullscreen2.apply(canvas, [{ navigationUI: "hide" }]);
           }
           function exitFullscreen() {
@@ -55807,12 +54345,10 @@
           var extend = require2("../../utils").extend;
           var MOBILE_HEAD_TAGS = module3.exports.MOBILE_HEAD_TAGS = [
             Meta({ name: "viewport", content: "width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no,minimal-ui,viewport-fit=cover" }),
-            // W3C-standardised meta tags.
             Meta({ name: "mobile-web-app-capable", content: "yes" }),
             Meta({ name: "theme-color", content: "black" })
           ];
           var MOBILE_IOS_HEAD_TAGS = [
-            // iOS-specific meta tags for fullscreen when pinning to homescreen.
             Meta({ name: "apple-mobile-web-app-capable", content: "yes" }),
             Meta({ name: "apple-mobile-web-app-status-bar-style", content: "black" }),
             Link({ rel: "apple-touch-icon", href: "https://aframe.io/images/aframe-logo-152.png" })
@@ -56067,22 +54603,13 @@
           var Shader = module3.exports.Shader = function() {
           };
           Shader.prototype = {
-            /**
-             * Contains the type schema and defaults for the data values.
-             * Data is coerced into the types of the values of the defaults.
-             */
             schema: {},
             vertexShader: "void main() {gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);}",
             fragmentShader: "void main() {gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);}",
-            /**
-             * Init handler. Similar to attachedCallback.
-             * Called during shader initialization and is only run once.
-             */
             init: function(data) {
               this.attributes = this.initVariables(data, "attribute");
               this.uniforms = this.initVariables(data, "uniform");
               this.material = new (this.raw ? THREE2.RawShaderMaterial : THREE2.ShaderMaterial)({
-                // attributes: this.attributes,
                 uniforms: this.uniforms,
                 vertexShader: this.vertexShader,
                 fragmentShader: this.fragmentShader
@@ -56102,17 +54629,10 @@
                 variables[key] = {
                   type: varType,
                   value: void 0
-                  // Let updateVariables handle setting these.
                 };
               }
               return variables;
             },
-            /**
-             * Update handler. Similar to attributeChangedCallback.
-             * Called whenever the associated material data changes.
-             *
-             * @param {object} data - New material data.
-             */
             update: function(data) {
               this.updateVariables(data, "attribute");
               this.updateVariables(data, "uniform");
@@ -56219,27 +54739,11 @@
             this.update({});
           };
           System.prototype = {
-            /**
-             * Schema to configure system.
-             */
             schema: {},
-            /**
-             * Init handler. Called during scene initialization and is only run once.
-             * Systems can use this to set initial state.
-             */
             init: function() {
             },
-            /**
-             * Update handler. Called during scene attribute updates.
-             * Systems can use this to dynamically update their state.
-             */
             update: function(oldData) {
             },
-            /**
-             * Build data and call update handler.
-             *
-             * @private
-             */
             updateProperties: function(rawData) {
               var oldData = this.data;
               if (!Object.keys(schema).length) {
@@ -56248,9 +54752,6 @@
               this.buildData(rawData);
               this.update(oldData);
             },
-            /**
-             * Parse data.
-             */
             buildData: function(rawData) {
               var schema2 = this.schema;
               if (!Object.keys(schema2).length) {
@@ -56263,32 +54764,10 @@
                 this.data = parseProperties(styleParser.parse(rawData) || {}, schema2);
               }
             },
-            /**
-             * Tick handler.
-             * Called on each tick of the scene render loop.
-             * Affected by play and pause.
-             *
-             * @param {number} time - Scene tick time.
-             * @param {number} timeDelta - Difference in current render time and previous render time.
-             */
             tick: void 0,
-            /**
-             * Tock handler.
-             * Called on each tock of the scene render loop.
-             * Affected by play and pause.
-             *
-             * @param {number} time - Scene tick time.
-             * @param {number} timeDelta - Difference in current render time and previous render time.
-             */
             tock: void 0,
-            /**
-             * Called to start any dynamic behavior (e.g., animation, AI, events, physics).
-             */
             play: function() {
             },
-            /**
-             * Called to stop any dynamic behavior (e.g., animation, AI, events, physics).
-             */
             pause: function() {
             }
           };
@@ -56420,10 +54899,6 @@
                     this.resolveMappingCollisions();
                   }
                 },
-                /**
-                 * If a mapping collides with a registered component name
-                 * it renames the mapping to componentname-property
-                 */
                 resolveMappingCollisions: {
                   value: function() {
                     var mappings = this.mappings;
@@ -56503,11 +54978,6 @@
                     }
                   }
                 },
-                /**
-                 * Sync to attribute to component property whenever mapped attribute changes.
-                 * If attribute is mapped to a component property, set the component property using
-                 * the attribute value.
-                 */
                 attributeChangedCallback: {
                   value: function(attr, oldVal, value) {
                     var componentName = this.mappings[attr];
@@ -57347,10 +55817,6 @@
               wireframe: { default: false },
               wireframeLinewidth: { default: 2 }
             },
-            /**
-             * Initializes the shader.
-             * Adds a reference from the scene to this entity as the camera.
-             */
             init: function(data) {
               this.rendererSystem = this.el.sceneEl.systems.renderer;
               this.materialData = { color: new THREE2.Color() };
@@ -57364,11 +55830,6 @@
               this.updateMaterial(data);
               utils.material.updateMap(this, data);
             },
-            /**
-             * Updating existing material.
-             *
-             * @param {object} data - Material component data.
-             */
             updateMaterial: function(data) {
               var key;
               getMaterialData(data, this.materialData);
@@ -57460,7 +55921,6 @@
             "float median(float r, float g, float b) {",
             "  return max(min(r, g), min(max(r, g), b));",
             "}",
-            // FIXME: Experimentally determined constants.
             "#define BIG_ENOUGH 0.001",
             "#define MODIFIED_ALPHATEST (0.02 * isBigEnough / BIG_ENOUGH)",
             "void main() {",
@@ -57471,8 +55931,6 @@
             "  float dscale = 0.353505;",
             "  vec2 duv = dscale * (dFdx(vUV) + dFdy(vUV));",
             "  float isBigEnough = max(abs(duv.x), abs(duv.y));",
-            // When texel is too small, blend raw alpha value rather than supersampling.
-            // FIXME: Experimentally determined constant.
             "  // Do modified alpha test.",
             "  if (isBigEnough > BIG_ENOUGH) {",
             "    float ratio = BIG_ENOUGH / isBigEnough;",
@@ -57496,7 +55954,6 @@
             "float median(float r, float g, float b) {",
             "  return max(min(r, g), min(max(r, g), b));",
             "}",
-            // FIXME: Experimentally determined constants.
             "#define BIG_ENOUGH 0.001",
             "#define MODIFIED_ALPHATEST (0.02 * isBigEnough / BIG_ENOUGH)",
             "void main() {",
@@ -57507,8 +55964,6 @@
             "  float dscale = 0.353505;",
             "  vec2 duv = dscale * (dFdx(vUV) + dFdy(vUV));",
             "  float isBigEnough = max(abs(duv.x), abs(duv.y));",
-            // When texel is too small, blend raw alpha value rather than supersampling.
-            // FIXME: Experimentally determined constant.
             "  // Do modified alpha test.",
             "  if (isBigEnough > BIG_ENOUGH) {",
             "    float ratio = BIG_ENOUGH / isBigEnough;",
@@ -57573,10 +56028,6 @@
               bumpTextureOffset: { type: "vec2" },
               bumpTextureRepeat: { type: "vec2", default: { x: 1, y: 1 } }
             },
-            /**
-             * Initializes the shader.
-             * Adds a reference from the scene to this entity as the camera.
-             */
             init: function(data) {
               this.rendererSystem = this.el.sceneEl.systems.renderer;
               this.materialData = { color: new THREE2.Color(), specular: new THREE2.Color(), emissive: new THREE2.Color() };
@@ -57603,11 +56054,6 @@
               }
               this.updateEnvMap(data);
             },
-            /**
-             * Updating existing material.
-             *
-             * @param {object} data - Material component data.
-             */
             updateMaterial: function(data) {
               var key;
               getMaterialData(data, this.materialData);
@@ -57616,9 +56062,6 @@
                 this.material[key] = this.materialData[key];
               }
             },
-            /**
-             * Handle environment cubemap. Textures are cached in texturePromises.
-             */
             updateEnvMap: function(data) {
               var self2 = this;
               var material = this.material;
@@ -57760,14 +56203,12 @@
             "    return smoothstep(0.5 - afwidth, 0.5 + afwidth, value);",
             "  }",
             "#endif",
-            // FIXME: Experimentally determined constants.
             "#define BIG_ENOUGH 0.001",
             "#define MODIFIED_ALPHATEST (0.02 * isBigEnough / BIG_ENOUGH)",
             "#define ALL_SMOOTH 0.4",
             "#define ALL_ROUGH 0.02",
             "#define DISCARD_ALPHA (alphaTest / (2.2 - 1.2 * ratio))",
             "void main() {",
-            // When we have derivatives and can get texel size for supersampling.
             "  #ifdef GL_OES_standard_derivatives",
             "    vec2 uv = vUV;",
             "    vec4 texColor = texture2D(map, uv);",
@@ -57777,14 +56218,10 @@
             "    float dscale = 0.353505;",
             "    vec2 duv = dscale * (dFdx(uv) + dFdy(uv));",
             "    float isBigEnough = max(abs(duv.x), abs(duv.y));",
-            // When texel is too small, blend raw alpha value rather than supersampling.
-            // FIXME: experimentally determined constant
             "    if (isBigEnough > BIG_ENOUGH) {",
             "      float ratio = BIG_ENOUGH / isBigEnough;",
             "      alpha = ratio * alpha + (1.0 - ratio) * dist;",
             "    }",
-            // Otherwise do weighted supersampling.
-            // FIXME: why this weighting?
             "    if (isBigEnough <= BIG_ENOUGH) {",
             "      vec4 box = vec4 (uv - duv, uv + duv);",
             "      alpha = (alpha + 0.5 * (",
@@ -57794,17 +56231,12 @@
             "        + contour(texture2D(map, box.zy).a, width)",
             "      )) / 3.0;",
             "    }",
-            // Do modified alpha test.
             "    if (alpha < alphaTest * MODIFIED_ALPHATEST) { discard; return; }",
             "  #else",
-            // When we don't have derivatives, use approximations.
             "    vec4 texColor = texture2D(map, vUV);",
             "    float value = texColor.a;",
-            // FIXME: if we understood font pixel dimensions, this could probably be improved
             "    float afwidth = (1.0 / 32.0) * (1.4142135623730951 / (2.0 * gl_FragCoord.w));",
             "    float alpha = aastep(value, afwidth);",
-            // Use gl_FragCoord.w to guess when we should blend.
-            // FIXME: If we understood font pixel dimensions, this could probably be improved.
             "    float ratio = (gl_FragCoord.w >= ALL_SMOOTH) ? 1.0 : (gl_FragCoord.w < ALL_ROUGH) ? 0.0 : (gl_FragCoord.w - ALL_ROUGH) / (ALL_SMOOTH - ALL_ROUGH);",
             "    if (alpha < alphaTest) { if (ratio >= 1.0) { discard; return; } alpha = 0.0; }",
             "    alpha = alpha * ratio + (1.0 - ratio) * value;",
@@ -57831,14 +56263,12 @@
             "    return smoothstep(0.5 - afwidth, 0.5 + afwidth, value);",
             "  }",
             "#endif",
-            // FIXME: Experimentally determined constants.
             "#define BIG_ENOUGH 0.001",
             "#define MODIFIED_ALPHATEST (0.02 * isBigEnough / BIG_ENOUGH)",
             "#define ALL_SMOOTH 0.4",
             "#define ALL_ROUGH 0.02",
             "#define DISCARD_ALPHA (alphaTest / (2.2 - 1.2 * ratio))",
             "void main() {",
-            // When we have derivatives and can get texel size for supersampling.
             "  #ifdef GL_OES_standard_derivatives",
             "    vec2 uv = vUV;",
             "    vec4 texColor = texture(map, uv);",
@@ -57848,14 +56278,10 @@
             "    float dscale = 0.353505;",
             "    vec2 duv = dscale * (dFdx(uv) + dFdy(uv));",
             "    float isBigEnough = max(abs(duv.x), abs(duv.y));",
-            // When texel is too small, blend raw alpha value rather than supersampling.
-            // FIXME: experimentally determined constant
             "    if (isBigEnough > BIG_ENOUGH) {",
             "      float ratio = BIG_ENOUGH / isBigEnough;",
             "      alpha = ratio * alpha + (1.0 - ratio) * dist;",
             "    }",
-            // Otherwise do weighted supersampling.
-            // FIXME: why this weighting?
             "    if (isBigEnough <= BIG_ENOUGH) {",
             "      vec4 box = vec4 (uv - duv, uv + duv);",
             "      alpha = (alpha + 0.5 * (",
@@ -57865,17 +56291,12 @@
             "        + contour(texture(map, box.zy).a, width)",
             "      )) / 3.0;",
             "    }",
-            // Do modified alpha test.
             "    if (alpha < alphaTest * MODIFIED_ALPHATEST) { discard; return; }",
             "  #else",
-            // When we don't have derivatives, use approximations.
             "    vec4 texColor = texture(map, vUV);",
             "    float value = texColor.a;",
-            // FIXME: if we understood font pixel dimensions, this could probably be improved
             "    float afwidth = (1.0 / 32.0) * (1.4142135623730951 / (2.0 * gl_FragCoord.w));",
             "    float alpha = aastep(value, afwidth);",
-            // Use gl_FragCoord.w to guess when we should blend.
-            // FIXME: If we understood font pixel dimensions, this could probably be improved.
             "    float ratio = (gl_FragCoord.w >= ALL_SMOOTH) ? 1.0 : (gl_FragCoord.w < ALL_ROUGH) ? 0.0 : (gl_FragCoord.w - ALL_ROUGH) / (ALL_SMOOTH - ALL_ROUGH);",
             "    if (alpha < alphaTest) { if (ratio >= 1.0) { discard; return; } alpha = 0.0; }",
             "    alpha = alpha * ratio + (1.0 - ratio) * value;",
@@ -57905,10 +56326,6 @@
               transparent: { default: true },
               alphaToCoverage: { default: true }
             },
-            /**
-             * Initializes the shader.
-             * Adds a reference from the scene to this entity as the camera.
-             */
             init: function(data) {
               this.rendererSystem = this.el.sceneEl.systems.renderer;
               this.material = new THREE2.ShadowMaterial();
@@ -57962,10 +56379,6 @@
               wireframe: { default: false },
               wireframeLinewidth: { default: 2 }
             },
-            /**
-             * Initializes the shader.
-             * Adds a reference from the scene to this entity as the camera.
-             */
             init: function(data) {
               this.rendererSystem = this.el.sceneEl.systems.renderer;
               this.materialData = { color: new THREE2.Color(), emissive: new THREE2.Color() };
@@ -58011,12 +56424,6 @@
               }
               this.updateEnvMap(data);
             },
-            /**
-             * Updating existing material.
-             *
-             * @param {object} data - Material component data.
-             * @returns {object} Material.
-             */
             updateMaterial: function(data) {
               var key;
               var material = this.material;
@@ -58027,9 +56434,6 @@
                 material[key] = this.materialData[key];
               }
             },
-            /**
-             * Handle environment cubemap. Textures are cached in texturePromises.
-             */
             updateEnvMap: function(data) {
               var self2 = this;
               var material = this.material;
@@ -58116,14 +56520,6 @@
               this.numUserCamerasChecked = 0;
               this.setupInitialCamera();
             },
-            /**
-             * Setup initial camera, either searching for camera or
-             * creating a default camera if user has not added one during the initial scene traversal.
-             * We want sceneEl.camera to be ready, set, and initialized before the rest of the scene
-             * loads.
-             *
-             * Default camera offset height is at average eye level (~1.6m).
-             */
             setupInitialCamera: function() {
               var cameraEls;
               var i;
@@ -58155,12 +56551,6 @@
                 }
               }
             },
-            /**
-             * Check if a user-defined camera entity is appropriate to be initial camera.
-             * (active + non-spectator).
-             *
-             * Keep track of the number of cameras we checked and whether we found one.
-             */
             checkUserCamera: function(cameraEl) {
               var cameraData;
               var sceneEl = this.el.sceneEl;
@@ -58201,12 +56591,6 @@
               });
               sceneEl.appendChild(defaultCameraEl);
             },
-            /**
-             * Set a different active camera.
-             * When we choose a (sort of) random scene camera as the replacement, set its `active` to
-             * true. The camera component will call `setActiveCamera` and handle passing the torch to
-             * the new camera.
-             */
             disableActiveCamera: function() {
               var cameraEls;
               var newActiveCameraEl;
@@ -58214,13 +56598,6 @@
               newActiveCameraEl = cameraEls[cameraEls.length - 1];
               newActiveCameraEl.setAttribute("camera", "active", true);
             },
-            /**
-             * Set active camera to be used by renderer.
-             * Removes the default camera (if present).
-             * Disables all other cameras in the scene.
-             *
-             * @param {Element} newCameraEl - Entity with camera component.
-             */
             setActiveCamera: function(newCameraEl) {
               var cameraEl;
               var cameraEls;
@@ -58254,11 +56631,6 @@
               }
               sceneEl.emit("camera-set-active", { cameraEl: newCameraEl });
             },
-            /**
-             * Set spectator camera to render the scene on a 2D display.
-             *
-             * @param {Element} newCameraEl - Entity with camera component.
-             */
             setSpectatorCamera: function(newCameraEl) {
               var newCamera;
               var previousCamera = this.spectatorCameraEl;
@@ -58278,16 +56650,9 @@
               spectatorCameraEl.play();
               sceneEl.emit("camera-set-spectator", { cameraEl: newCameraEl });
             },
-            /**
-             * Disables current spectator camera.
-             */
             disableSpectatorCamera: function() {
               this.spectatorCameraEl = void 0;
             },
-            /**
-             * Wrap the render method of the renderer to render
-             * the spectator camera after vrDisplay.submitFrame.
-             */
             wrapRender: function() {
               if (!this.spectatorCameraEl || this.originalRender) {
                 return;
@@ -58337,18 +56702,10 @@
               this.cache = {};
               this.cacheCount = {};
             },
-            /**
-             * Reset cache. Mainly for testing.
-             */
             clearCache: function() {
               this.cache = {};
               this.cacheCount = {};
             },
-            /**
-             * Attempt to retrieve from cache.
-             *
-             * @returns {Object|null} A geometry if it exists, else null.
-             */
             getOrCreateGeometry: function(data) {
               var cache = this.cache;
               var cachedGeometry;
@@ -58366,9 +56723,6 @@
               cache[hash] = cachedGeometry;
               return cachedGeometry;
             },
-            /**
-             * Let system know that an entity is no longer using a geometry.
-             */
             unuseGeometry: function(data) {
               var cache = this.cache;
               var cacheCount = this.cacheCount;
@@ -58390,11 +56744,6 @@
               delete cache[hash];
               delete cacheCount[hash];
             },
-            /**
-             * Use JSON.stringify to turn component data into hash.
-             * Should be deterministic within a single browser engine.
-             * If not, then look into json-stable-stringify.
-             */
             hash: function(data) {
               return JSON.stringify(data);
             }
@@ -58483,11 +56832,6 @@
               this.userDefinedLights = false;
               this.sceneEl.addEventListener("loaded", bind(this.setupDefaultLights, this));
             },
-            /**
-             * Notify scene that light has been added and to remove the default.
-             *
-             * @param {object} el - element holding the light component.
-             */
             registerLight: function(el) {
               if (!el.hasAttribute(DEFAULT_LIGHT_ATTR)) {
                 this.removeDefaultLights();
@@ -58506,11 +56850,6 @@
               }
               this.defaultLights = false;
             },
-            /**
-             * Prescibe default lights to the scene.
-             * Does so by injecting markup such that this state is not invisible.
-             * These lights are removed if the user adds any lights.
-             */
             setupDefaultLights: function() {
               var sceneEl = this.sceneEl;
               var ambientLight;
@@ -58557,13 +56896,6 @@
             clearTextureCache: function() {
               this.textureCache = {};
             },
-            /**
-             * Determine whether `src` is a image or video. Then try to load the asset, then call back.
-             *
-             * @param {string, or element} src - Texture URL or element.
-             * @param {string} data - Relevant texture data used for caching.
-             * @param {function} cb - Callback to pass texture to.
-             */
             loadTexture: function(src, data, cb) {
               var self2 = this;
               if (src.tagName === "CANVAS") {
@@ -58585,13 +56917,6 @@
                 self2.loadVideo(src2, data, cb);
               }
             },
-            /**
-             * High-level function for loading image textures (THREE.Texture).
-             *
-             * @param {Element|string} src - Texture source.
-             * @param {object} data - Texture data.
-             * @param {function} cb - Callback to pass texture to.
-             */
             loadImage: function(src, data, handleImageTextureLoaded) {
               var hash = this.hash(data);
               var textureCache = this.textureCache;
@@ -58602,29 +56927,12 @@
               textureCache[hash] = loadImageTexture(src, data);
               textureCache[hash].then(handleImageTextureLoaded);
             },
-            /**
-             * High-level function for loading canvas textures (THREE.Texture).
-             *
-             * @param {Element|string} src - Texture source.
-             * @param {object} data - Texture data.
-             * @param {function} cb - Callback to pass texture to.
-             */
             loadCanvas: function(src, data, cb) {
               var texture;
               texture = new THREE2.CanvasTexture(src);
               setTextureProperties(texture, data);
               cb(texture);
             },
-            /**
-            * Load video texture (THREE.VideoTexture).
-            * Which is just an image texture that RAFs + needsUpdate.
-            * Note that creating a video texture is synchronous unlike loading an image texture.
-            * Made asynchronous to be consistent with image textures.
-            *
-            * @param {Element|string} src - Texture source.
-            * @param {object} data - Texture data.
-            * @param {function} cb - Callback to pass texture to.
-            */
             loadVideo: function(src, data, cb) {
               var hash;
               var texture;
@@ -58666,9 +56974,6 @@
               textureCache[hash] = Promise.resolve(videoTextureResult);
               handleVideoTextureLoaded(videoTextureResult);
             },
-            /**
-             * Create a hash of the material properties for texture cache key.
-             */
             hash: function(data) {
               if (data.src.tagName) {
                 data = utils.extendDeep({}, data);
@@ -58679,20 +56984,9 @@
             hashVideo: function(data, videoEl) {
               return calculateVideoCacheHash(data, videoEl);
             },
-            /**
-             * Keep track of material in case an update trigger is needed (e.g., fog).
-             *
-             * @param {object} material
-             */
             registerMaterial: function(material) {
               this.materials[material.uuid] = material;
             },
-            /**
-             * Stop tracking material, and dispose of any textures not being used by
-             * another material component.
-             *
-             * @param {object} material
-             */
             unregisterMaterial: function(material) {
               delete this.materials[material.uuid];
               var textureCounts = this.textureCounts;
@@ -58705,23 +56999,12 @@
                 }
               });
             },
-            /**
-             * Trigger update to all registered materials.
-             */
             updateMaterials: function(material) {
               var materials = this.materials;
               Object.keys(materials).forEach(function(uuid) {
                 materials[uuid].needsUpdate = true;
               });
             },
-            /**
-             * Track textures used by material components, so that they can be safely
-             * disposed when no longer in use. Textures must be registered here, and not
-             * through registerMaterial(), because textures may not be attached at the
-             * time the material is registered.
-             *
-             * @param {Event} e
-             */
             onMaterialTextureLoaded: function(e2) {
               if (!this.textureCounts[e2.detail.texture.uuid]) {
                 this.textureCounts[e2.detail.texture.uuid] = 0;
@@ -58884,10 +57167,6 @@
                 this.setShadowMapEnabled(this.data.enabled);
               }
             },
-            /**
-             * Enables/disables the renderer shadow map.
-             * @param {boolean} enabled
-             */
             setShadowMapEnabled: function(enabled) {
               var renderer = this.sceneEl.renderer;
               this.shadowMapEnabled = this.data.enabled && enabled;
@@ -58928,9 +57207,6 @@
                 this.throttledUpdateControllerList();
               }
             },
-            /**
-             * Update controller list.
-             */
             updateControllerList: function() {
               var controllers = this.controllers;
               var gamepad;
@@ -61020,7 +59296,7 @@
   // <stdin>
   var import_aframe = __toESM(require_aframe_master());
 
-  // ns-hugo:/home/martin/Repos/schaerweb2022/assets/services/ergast.ts
+  // ns-hugo:/Users/martinschaer/Projects/schaerweb/schaerweb2022/assets/services/ergast.ts
   var endpoint = "https://ergast.com/api/f1";
   var COLORS_BY_DRIVER_CODE = {
     VER: "blue",
@@ -61150,11 +59426,7 @@
         {}
       );
       const driverCodes = Object.keys(driversByCode);
-      html += renderAFrame(
-        driverCodes,
-        standings
-        /* driversByCode */
-      );
+      html += renderAFrame(driverCodes, standings);
       const mountEl = document.createElement("div");
       loading.remove();
       if (paper && article) {
@@ -61166,163 +59438,159 @@
   };
   generate();
 })();
-/*! Bundled license information:
-
-aframe/dist/aframe-master.js:
-  (*!
-   * The buffer module from node.js, for the browser.
-   *
-   * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
-   * @license  MIT
-   *)
-  (*! (C) WebReflection Mit Style License *)
-  (*!
-   * Determine if an object is a Buffer
-   *
-   * @author   Feross Aboukhadijeh <https://feross.org>
-   * @license  MIT
-   *)
-  (*
-  object-assign
-  (c) Sindre Sorhus
-  @license MIT
-  *)
-  (**
-   * @license
-   * Copyright 2010-2022 Three.js Authors
-   * SPDX-License-Identifier: MIT
-   *)
-  (**
-   * @license
-   * webvr-polyfill
-   * Copyright (c) 2015-2017 Google
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   * http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   *)
-  (**
-   * @license
-   * cardboard-vr-display
-   * Copyright (c) 2015-2017 Google
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   * http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   *)
-  (**
-   * @license
-   * webvr-polyfill-dpdb 
-   * Copyright (c) 2017 Google
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   * http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   *)
-  (**
-   * @license
-   * wglu-preserve-state
-   * Copyright (c) 2016, Brandon Jones.
-   *
-   * Permission is hereby granted, free of charge, to any person obtaining a copy
-   * of this software and associated documentation files (the "Software"), to deal
-   * in the Software without restriction, including without limitation the rights
-   * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-   * copies of the Software, and to permit persons to whom the Software is
-   * furnished to do so, subject to the following conditions:
-   *
-   * The above copyright notice and this permission notice shall be included in
-   * all copies or substantial portions of the Software.
-   *
-   * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-   * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-   * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-   * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-   * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-   * THE SOFTWARE.
-   *)
-  (**
-   * @license
-   * nosleep.js
-   * Copyright (c) 2017, Rich Tibbett
-   *
-   * Permission is hereby granted, free of charge, to any person obtaining a copy
-   * of this software and associated documentation files (the "Software"), to deal
-   * in the Software without restriction, including without limitation the rights
-   * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-   * copies of the Software, and to permit persons to whom the Software is
-   * furnished to do so, subject to the following conditions:
-   *
-   * The above copyright notice and this permission notice shall be included in
-   * all copies or substantial portions of the Software.
-   *
-   * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-   * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-   * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-   * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-   * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-   * THE SOFTWARE.
-   *)
-  (**
-   * @license
-   * gl-preserve-state
-   * Copyright (c) 2016, Brandon Jones.
-   *
-   * Permission is hereby granted, free of charge, to any person obtaining a copy
-   * of this software and associated documentation files (the "Software"), to deal
-   * in the Software without restriction, including without limitation the rights
-   * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-   * copies of the Software, and to permit persons to whom the Software is
-   * furnished to do so, subject to the following conditions:
-   *
-   * The above copyright notice and this permission notice shall be included in
-   * all copies or substantial portions of the Software.
-   *
-   * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-   * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-   * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-   * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-   * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-   * THE SOFTWARE.
-   *)
-  (**
-   * @license
-   * webvr-polyfill-dpdb
-   * Copyright (c) 2015-2017 Google
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   * http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   *)
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
 */
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+/*! (C) WebReflection Mit Style License */
+/**
+ * @license
+ * Copyright 2010-2022 Three.js Authors
+ * SPDX-License-Identifier: MIT
+ */
+/**
+ * @license
+ * cardboard-vr-display
+ * Copyright (c) 2015-2017 Google
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * @license
+ * gl-preserve-state
+ * Copyright (c) 2016, Brandon Jones.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+/**
+ * @license
+ * nosleep.js
+ * Copyright (c) 2017, Rich Tibbett
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+/**
+ * @license
+ * webvr-polyfill
+ * Copyright (c) 2015-2017 Google
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * @license
+ * webvr-polyfill-dpdb
+ * Copyright (c) 2015-2017 Google
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * @license
+ * webvr-polyfill-dpdb 
+ * Copyright (c) 2017 Google
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * @license
+ * wglu-preserve-state
+ * Copyright (c) 2016, Brandon Jones.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
