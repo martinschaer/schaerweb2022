@@ -28,9 +28,9 @@
     mod
   ));
 
-  // node_modules/aframe/dist/aframe-master.js
+  // node_modules/.pnpm/aframe@1.3.0/node_modules/aframe/dist/aframe-master.js
   var require_aframe_master = __commonJS({
-    "node_modules/aframe/dist/aframe-master.js"(exports, module) {
+    "node_modules/.pnpm/aframe@1.3.0/node_modules/aframe/dist/aframe-master.js"(exports, module) {
       (function(f) {
         if (typeof exports === "object" && typeof module !== "undefined") {
           module.exports = f();

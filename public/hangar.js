@@ -1,5 +1,5 @@
 (() => {
-  // node_modules/three/build/three.module.js
+  // node_modules/.pnpm/three@0.144.0/node_modules/three/build/three.module.js
   var REVISION = "144";
   var CullFaceNone = 0;
   var CullFaceBack = 1;
@@ -19778,7 +19778,7 @@
     }
   }
 
-  // node_modules/three/examples/jsm/loaders/GLTFLoader.js
+  // node_modules/.pnpm/three@0.144.0/node_modules/three/examples/jsm/loaders/GLTFLoader.js
   var GLTFLoader = class extends Loader {
     constructor(manager) {
       super(manager);
@@ -22165,7 +22165,7 @@
     return newGeometry;
   }
 
-  // node_modules/three/examples/jsm/controls/PointerLockControls.js
+  // node_modules/.pnpm/three@0.144.0/node_modules/three/examples/jsm/controls/PointerLockControls.js
   var _euler = new Euler(0, 0, 0, "YXZ");
   var _vector = new Vector3();
   var _changeEvent = { type: "change" };
