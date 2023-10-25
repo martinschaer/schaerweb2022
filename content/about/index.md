@@ -1,6 +1,6 @@
 ---
 title: "Martin Schaer"
-date: 2022-08-02T16:31:20-06:00
+date: 2023-10-25T21:46:00-00:00
 images: []
 ---
 
@@ -18,7 +18,7 @@ Software Engineer / Full-stack Developer / Entrepreneur / FPV Pilot / Sim Racer
 
 I'm a computer science engineer specialized in full-stack web development and architecture design for cloud solutions with 12+ years of experience managing teams. I'm a former entrepreneur and founded a successful advertising agency, which gave me my background in web design, UX, and marketing.
 
-Last 3 years, I have been working on transforming AI experiments into real life products at Accenture.
+My recend experience has been transforming AI experiments into real life products at [Accenture](https://www.accenture.com), and moving lab research forward through automation as a robotics software engineer at [Automata Technologies](https://automata.tech/).
 
 <!-- In my personal time, I have been experimenting with computer graphics, and robotics, with the goal of combining that with my background in cloud technologies and AI integrations. -->
 
@@ -32,13 +32,13 @@ On my free time, I like to [code](/tags/dev), [build and fly FPV planes and dron
 
 ## Technology
 
-- TypeScript, JavaScript, [Rust](/tags/rust), Golang
+- TypeScript, JavaScript, [Rust](/tags/rust), Python, Golang
 - React, Vue, Lit, Angular
 - Zustand, Pinia, Redux
 - MSWjs, GraphQL, Swagger, Postman
-- Unit testing (jest, mocha, vitest)
-- ESlint, prettier
-- WebGL, ThreeJS, A-frame
+- Unit testing (jest, mocha, vitest, pytest)
+- Sonarqube, ESlint, prettier
+- 3D game engines and computer graphics: Bevy, Unity, WebGL, ThreeJS, A-frame, P5.js
 - PostgreSQL, MongoDB, DynamoDB, SurrealDB
 - AWS
   - S3, Lambda, CloudFront, Route53, Cognito, SQS, EC2, RDS, CodeBuild, CodePipeline
@@ -48,8 +48,7 @@ On my free time, I like to [code](/tags/dev), [build and fly FPV planes and dron
   - DevOps
 - ElasticSearch (OpenSearch), Kibana
 - nvim, git, tmux, lazygit
-- Unix, Raspberry, Arduino
-- Unity
+- Unix, Raspberry, Arduino, Beckhoff TwinCAT
 
 ## Management & New Ventures
 
@@ -67,8 +66,14 @@ On my free time, I like to [code](/tags/dev), [build and fly FPV planes and dron
 
 ## Experience
 
+- Senior Software Engineer, Automata Technologies, United Kingdom
+  - Jul 2023 - present
+  - Development of motion PLC (Beckhoff TwinCAT)
+  - Development of Python drivers for robotic instruments
+
 - Full-stack Engineer, Infrastructure Achitect, Data Science Practitioner, Accenture, Costa Rica
-  - Nov 2019 – present (>3 yrs)
+  - Nov 2019 – Jun 2023 (3 yrs 7 mos)
+  - Lead the development of a cloud solution for ML data annotation, including a 3D annotation tool for Lidar point clouds and sensor fusion between 3D data and 2D images.
   - Worked together with AI scientist and data engineers to transform experiments into real products. Designed cloud architectures, lead the development team, and created design systems.
   - Tech Architect for new ventures
   - Tech Lead for B2B Growth, winner of The Sammy 2021
@@ -90,15 +95,41 @@ On my free time, I like to [code](/tags/dev), [build and fly FPV planes and dron
 - Web Developer, at a small web design studio, Costa Rica
   - Feb 2009 – Ago 2010 (1 yr 6 mos)
 
+
+- Side projects
+  - Multimedia Asset Management Software
+    - Nov 2022 - present
+    - Multitenant cloud SaaS
+    - Private multimedia upload with automated video and image optimization for web
+    - Video annotation
+    - Video trimming and stiching in the cloud
+    - Technologies: React, Next.js, Tailwind, SurrealDB, Rust, ffmpeg
+  - Robotic Desktop Pet
+    - Jul 2023 - present
+    - Raspberry Pi W
+    - Cross- and conditional compilation to simulate hardware (i.e. LCD display simulated in application window)
+    - Using "headless" Bevy game engine as ECS framework for managing the application state, interactions, and updating the LCD display
+    - Technologies: Unix, systemd, Ansible, Rust, Bevy
+  - [Kazuki](https://github.com/martinschaer/kazuki): 3D car simulator
+    - Mar 2023 - present
+    - Technologies: Rust, Bevy, Rapier, WASM, open shading language, WebGPU
+  - [Web R/C Car Racing Game](https://www.schaerweb.com/)
+    - 2022
+    - 2D physics engine rendered in 3D
+    - Circuit 3D meshes programatically generated from configuration JSON files
+    - Technologies: Typescript, p5.js, Matter.js
+    - [Code](https://github.com/martinschaer/schaerweb2022/tree/main/assets/game)
+
+- Open Source contributions
+  - Nov 2022 - present
+  - SurrealDB adapter for [next-auth](https://github.com/nextauthjs/next-auth)
+  - Fix to [SurrealDB.js](https://github.com/surrealdb/surrealdb.js)
+  - Example for controlling an LCD display (SPI ST7789) on a Raspberry Pi Zero W using the [MIPI Display Serial Interface](https://github.com/almindor/mipidsi/tree/master/mipidsi/examples/spi-st7789-rpi-zero-w) Rust library
+
 ## Social links:
 
 - <a href="https://www.linkedin.com/in/martinschaer/" target="_blank">LinkedIn</a>
 - <a href="https://www.youtube.com/user/martinco06" target="_blank">YouTube</a>
 - <a href="https://www.instagram.com/martinschaer/" target="_blank">Instagram</a>
 - <a href="https://github.com/martinschaer/" target="_blank">GitHub</a>
-
-## Favorite tools:
-
-- Dev environment: neovim + lazygit + tmux
-- Diagraming: [Excalidraw](excalidraw.com/), mermaid and PlantUML
 
