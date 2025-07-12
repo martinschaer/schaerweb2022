@@ -1,27 +1,27 @@
-import Game from '../game/game'
+import Game from "../game/game";
 
 const style = `
 :host {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: block;
   overflow: hidden;
 }
 
 #hud {
   position: absolute;
-  top: var(--titlebar-height);
+  top: 3rem;
   right: 0;
   background-color: var(--color-accent-alpha-50);
   padding: 1rem;
   min-width: 10rem;
 }
-`
+`;
 
 // Web Component
-;(function register() {
-  const template = document.createElement('template')
+(function register() {
+  const template = document.createElement("template");
   template.innerHTML = `
     <style>${style}</style>
     <div id="hud">
@@ -34,23 +34,24 @@ const style = `
       <div>Best lap: <span id="best-lap">–</span></div>
       <div>Current: <span id="curr-lap">–</span></div>
     </div>
-`
+`;
 
   class GameComponent extends HTMLElement {
-    game: Game
+    game?: Game;
 
     constructor() {
-      super()
-      const tC = template.content
-      this.attachShadow({ mode: 'open' }).appendChild(tC.cloneNode(true))
+      super();
+      const tC = template.content;
+      this.attachShadow({ mode: "open" }).appendChild(tC.cloneNode(true));
     }
 
     connectedCallback() {
-      this.game = new Game(this.shadowRoot)
-      this.game.run()
+      if (!this.shadowRoot) return;
+      this.game = new Game(this.shadowRoot);
+      this.game.run();
     }
 
     // disconnectedCallback() {}
   }
-  customElements.define('schaerweb-game', GameComponent)
-})()
+  customElements.define("schaerweb-game", GameComponent);
+})();

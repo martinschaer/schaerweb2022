@@ -1,0 +1,33 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+    title: string;
+    description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <BaseHead title={title} description={description} />
+    </head>
+    <body>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </nav>
+        <div class="container">
+            <h1>{title}</h1>
+            <article>
+                <slot />
+                <!-- your content is injected here -->
+            </article>
+        </div>
+        <Footer />
+    </body>
+</html>
