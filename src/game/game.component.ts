@@ -11,7 +11,7 @@ const style = `
 
 #hud {
   position: absolute;
-  top: var(--titlebar-height);
+  top: 3rem;
   right: 0;
   background-color: var(--color-accent-alpha-50);
   padding: 1rem;

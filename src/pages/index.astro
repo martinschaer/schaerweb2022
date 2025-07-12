@@ -1,26 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Home from "../layouts/Home.astro";
 ---
 
-<Layout title="Martin Schaer Web" description="Martin Schaer personal website">
-    <div id="app"></div>
-</Layout>
-
-<script>
-    import "../game/game.component";
-    import decomp from "poly-decomp";
-    window.decomp = decomp;
-    const app = document.querySelector("#app");
-    if (app) app.appendChild(document.createElement("schaerweb-game"));
-</script>
-
-<style>
-    #app {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        z-index: -1;
-    }
-</style>
+<Home title="Martin Schaer Web" description="Martin Schaer personal website" />

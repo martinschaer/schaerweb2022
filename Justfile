@@ -10,5 +10,5 @@ build:
 deploy: build
     aws s3 sync dist/ s3://schaerweb
 
-invalidate-cache DIST_ID *PATHS:
-    aws cloudfront create-invalidation --distribution-id {{DIST_ID}} --paths {{PATHS}}
+invalidate-cache DIST_ID +PATHS:
+    aws cloudfront create-invalidation --distribution-id {{DIST_ID}} --paths "{{PATHS}}"
