@@ -9,6 +9,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.11.0"
+    "astro": "^5.11.0",
+    "matter-js": "^0.20.0",
+    "p5": "^2.0.3",
+    "poly-decomp": "^0.3.0"
+  },
+  "devDependencies": {
+    "@types/matter-js": "^0.19.8",
+    "@types/p5": "^1.7.6"
   }
 }

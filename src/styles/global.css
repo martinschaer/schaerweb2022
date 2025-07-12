@@ -18,3 +18,12 @@
         background-color: #fff;
     }
 }
+
+body {
+    margin: 0;
+}
+
+.container {
+    margin: 0 1em;
+    max-width: 800px;
+}

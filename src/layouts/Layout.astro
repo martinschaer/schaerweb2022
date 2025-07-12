@@ -21,11 +21,13 @@ const { title, description } = Astro.props;
             <a href="/">Home</a>
             <a href="/about">About</a>
         </nav>
-        <h1>{title}</h1>
-        <article>
-            <slot />
-            <!-- your content is injected here -->
-        </article>
+        <div class="container">
+            <h1>{title}</h1>
+            <article>
+                <slot />
+                <!-- your content is injected here -->
+            </article>
+        </div>
         <Footer />
     </body>
 </html>
