@@ -18,7 +18,7 @@ const { title, description } = Astro.props;
     </head>
     <body>
         <div id="app"></div>
-        <nav>
+        <nav class="nav">
             <a href="/">Home</a>
             <a href="/about">About</a>
         </nav>
@@ -45,5 +45,12 @@ const { title, description } = Astro.props;
         height: 100vh;
         top: 0;
         left: 0;
+    }
+    .nav {
+        position: absolute;
+        width: 100vw;
+        top: 0;
+        left: 0;
+        z-index: 100;
     }
 </style>

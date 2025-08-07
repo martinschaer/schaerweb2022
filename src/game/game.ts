@@ -288,8 +288,8 @@ export default class Game {
     this.audio = this.p5Instance?.createAudio(newRecordAudioURL) ?? null;
 
     if (this.is3D && this.p5Instance) {
-      this.p5Instance.perspective(0.6);
       this.camera = this.p5Instance.createCamera();
+      this.camera.perspective(0.66);
 
       this.camera.setPosition(
         0, // x
