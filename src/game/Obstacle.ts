@@ -48,6 +48,8 @@ export default class Obstacle {
       this.game.is3D ? HEIGHT / 2 : undefined,
     );
     this.game.p5Instance.fill(this.color);
+    this.game.p5Instance.stroke("#222");
+    this.game.p5Instance.strokeWeight(0.5);
     // this.game.p5Instance.noStroke();
     if (this.game.is3D) {
       this.game.p5Instance.rotateX(p5.prototype.PI / 2);

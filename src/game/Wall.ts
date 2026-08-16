@@ -63,6 +63,8 @@ export default class Wall implements IBound {
       this.game.is3D ? HEIGHT / 2 : undefined,
     );
     this.game.p5Instance.fill(this.color);
+    this.game.p5Instance.stroke("#222");
+    this.game.p5Instance.strokeWeight(0.5);
     // this.game.p5Instance.noStroke();
     this.game.p5Instance.rectMode(p5.prototype.CENTER);
     if (this.game.is3D) {
