@@ -13,16 +13,21 @@ const style = `
   position: absolute;
   top: 3rem;
   right: 0;
-  background-color: var(--color-accent-alpha-50);
+  /* The variable is not defined anywhere in the site, so without a fallback
+     the HUD has no background at all — fine over the flat page colour, not
+     fine over a lamp-lit ground plane. */
+  background-color: var(--color-accent-alpha-50, rgba(17, 25, 23, 0.75));
   padding: 1rem;
   min-width: 10rem;
 }
 
-#handling {
+#handling,
+#graphics {
   margin-top: 0.5rem;
 }
 
-#handling label {
+#handling label,
+#graphics label {
   display: block;
 }
 
@@ -59,6 +64,12 @@ const style = `
           <input type="number" id="acc-factor" min="0.001" max="0.008" step="0.0001">
         </label>
         <div id="presets"></div>
+      </details>
+      <details id="graphics">
+        <summary>Graphics</summary>
+        <label>
+          <input type="checkbox" id="realistic"> Realistic lighting <small>(L)</small>
+        </label>
       </details>
     </div>
 `;

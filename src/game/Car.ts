@@ -6,6 +6,7 @@ type Game = {
   is3D: boolean;
   models: { car: p5.Geometry | null };
   p5Instance?: p5;
+  showStrokes: boolean;
 };
 
 export default class Car {
@@ -49,8 +50,12 @@ export default class Car {
     game.p5Instance.translate(x, y, game.is3D ? 10 : undefined);
     game.p5Instance.rotate(a);
     game.p5Instance.rectMode(p5.prototype.CENTER);
-    game.p5Instance.stroke("#111917");
-    game.p5Instance.strokeWeight(0.2);
+    if (game.showStrokes) {
+      game.p5Instance.stroke("#111917");
+      game.p5Instance.strokeWeight(0.2);
+    } else {
+      game.p5Instance.noStroke();
+    }
     game.p5Instance.fill(color);
     if (game.is3D && game.models.car != null) {
       game.p5Instance.translate(0, 0, -10);

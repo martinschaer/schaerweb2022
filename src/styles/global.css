@@ -27,3 +27,7 @@ body {
     margin: 0 1em;
     max-width: 800px;
 }
+
+a {
+    color: #00f5e6;
+}

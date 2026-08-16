@@ -6,6 +6,7 @@ type Game = {
   is3D: boolean;
   p5Instance?: p5;
   color: string;
+  showStrokes: boolean;
 };
 
 const THICKNESS = 20;
@@ -48,9 +49,12 @@ export default class Obstacle {
       this.game.is3D ? HEIGHT / 2 : undefined,
     );
     this.game.p5Instance.fill(this.color);
-    this.game.p5Instance.stroke("#222");
-    this.game.p5Instance.strokeWeight(0.5);
-    // this.game.p5Instance.noStroke();
+    if (this.game.showStrokes) {
+      this.game.p5Instance.stroke("#222");
+      this.game.p5Instance.strokeWeight(0.5);
+    } else {
+      this.game.p5Instance.noStroke();
+    }
     if (this.game.is3D) {
       this.game.p5Instance.rotateX(p5.prototype.PI / 2);
       this.game.p5Instance.cylinder(this.d / 2, HEIGHT, CYLINDER_DETAIL_X);

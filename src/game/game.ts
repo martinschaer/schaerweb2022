@@ -16,6 +16,17 @@ import Car from "./Car";
 import Corner from "./Corner";
 import Obstacle from "./Obstacle";
 import Wall from "./Wall";
+import {
+  applyRealisticLighting,
+  drawGround,
+  drawLampPost,
+  getCircuitBounds,
+  getFogShaders,
+  getLampPositions,
+  type IBounds,
+  type ILamp,
+  type LightingMode,
+} from "./lighting";
 
 const CIRCUIT_MANIFEST: Array<{
   key: string;
@@ -91,9 +102,19 @@ export default class Game {
 
   $presets: HTMLElement | null;
 
+  $realistic: HTMLInputElement | null;
+
   presets: Array<Preset> = DEFAULT_PRESETS.map((p) => ({ ...p }));
 
   activePreset: number = 0;
+
+  lighting: LightingMode = "basic";
+
+  // Derived from circuit geometry in createElements(), since no circuit JSON
+  // declares its own extent.
+  circuitBounds: IBounds = { minX: 0, minY: 0, maxX: 0, maxY: 0 };
+
+  lamps: Array<ILamp> = [];
 
   p5Instance?: p5;
 
@@ -197,6 +218,7 @@ export default class Game {
     this.$turnFactor = this.$el.querySelector("#turn-factor");
     this.$accFactor = this.$el.querySelector("#acc-factor");
     this.$presets = this.$el.querySelector("#presets");
+    this.$realistic = this.$el.querySelector("#realistic");
 
     // create an engine
     this.engine = Matter.Engine.create();
@@ -309,6 +331,41 @@ export default class Game {
     this.syncHandlingUI();
   }
 
+  // Kept separate from loadPresets(): presets describe the car, the lighting
+  // mode describes the scene, and the two are persisted independently.
+  loadLighting() {
+    if (!this.p5Instance) return;
+    const stored = this.p5Instance.getItem("lighting");
+    if (stored === "basic" || stored === "realistic") {
+      this.lighting = stored;
+    }
+    this.syncLightingUI();
+  }
+
+  setLighting(mode: LightingMode) {
+    this.lighting = mode;
+    this.p5Instance?.storeItem("lighting", mode);
+    this.syncLightingUI();
+  }
+
+  toggleLighting() {
+    this.setLighting(this.lighting === "basic" ? "realistic" : "basic");
+  }
+
+  // Outlines belong to the flat basic look; over lit surfaces they read as a
+  // wireframe laid on top of the scene. Exposed as a plain boolean so the
+  // geometry classes stay unaware that lighting modes exist at all.
+  get showStrokes(): boolean {
+    return this.lighting === "basic";
+  }
+
+  // Keeps the checkbox truthful when the mode is toggled with the L key.
+  syncLightingUI() {
+    if (this.$realistic) {
+      this.$realistic.checked = this.lighting === "realistic";
+    }
+  }
+
   // True while any Handling control has focus, so typing a number doesn't also
   // switch presets or drive the car. $el is the ShadowRoot, which exposes
   // activeElement for its own tree.
@@ -349,6 +406,11 @@ export default class Game {
   }
 
   createElements() {
+    // Runs on init and on every circuit change, so it's where the lamp posts
+    // get repositioned to the new circuit's corners.
+    this.circuitBounds = getCircuitBounds(this.circuit, this.spacer);
+    this.lamps = getLampPositions(this.circuitBounds);
+
     this.bounds.forEach((x) => {
       x.remove();
     });
@@ -449,6 +511,10 @@ export default class Game {
   handleKeyDown = (event: KeyboardEvent) => {
     if (event.metaKey || event.ctrlKey || event.altKey) return;
     if (this.isHudFocused()) return;
+    if (event.key === "l" || event.key === "L") {
+      this.toggleLighting();
+      return;
+    }
     const slot = Number(event.key);
     if (Number.isInteger(slot) && slot >= 1 && slot <= PRESET_COUNT) {
       this.applyPreset(slot - 1);
@@ -520,6 +586,12 @@ export default class Game {
     });
 
     this.applyPreset(this.activePreset);
+
+    // graphics
+    this.loadLighting();
+    this.$realistic?.addEventListener("change", () => {
+      this.setLighting(this.$realistic?.checked ? "realistic" : "basic");
+    });
 
     document.addEventListener("keydown", this.handleKeyDown);
     document.addEventListener("visibilitychange", this.handleVisibilityChange);
@@ -613,20 +685,62 @@ export default class Game {
       }
       this.p5Instance?.translate(this.transX, this.transY);
     } else {
-      if (!this.p5Instance || !this.camera) return;
-      this.p5Instance.ambientLight(128, 128, 128);
-      this.p5Instance.pointLight(250, 250, 250, 0, 0, 100);
-      this.p5Instance.translate(
-        -this.circuit.stand.x * this.spacer,
-        -this.circuit.stand.y * this.spacer,
-        0,
-      );
+      if (!this.p5Instance || !this.camera) {
+        this.p5Instance?.pop();
+        return;
+      }
+
+      if (this.lighting === "realistic") {
+        const { camera } = this;
+        const fog = getFogShaders(this.p5Instance, () => [
+          camera.eyeX,
+          camera.eyeY,
+          camera.eyeZ,
+        ]);
+        if (fog) {
+          this.p5Instance.shader(fog.material);
+          this.p5Instance.strokeShader(fog.stroke);
+        }
+        // p5 does not put light positions through the model matrix, so this
+        // translation has to be handed to applyRealisticLighting and added
+        // onto each lamp by hand — otherwise the lights stay at raw circuit
+        // coordinates while the posts move, and the two come apart.
+        const originX = -this.circuit.stand.x * this.spacer;
+        const originY = -this.circuit.stand.y * this.spacer;
+        this.p5Instance.translate(originX, originY, 0);
+        applyRealisticLighting(
+          this.p5Instance,
+          this.circuitBounds,
+          this.lamps,
+          originX,
+          originY,
+        );
+      } else {
+        // Unchanged flat rig. Its point light sits at world (0, 0, 100)
+        // regardless of where it appears relative to the translate below,
+        // since p5 ignores the model matrix for light positions.
+        this.p5Instance.resetShader();
+        this.p5Instance.ambientLight(128, 128, 128);
+        this.p5Instance.pointLight(250, 250, 250, 0, 0, 100);
+        this.p5Instance.translate(
+          -this.circuit.stand.x * this.spacer,
+          -this.circuit.stand.y * this.spacer,
+          0,
+        );
+      }
 
       this.camera.lookAt(
         this.car.body.position.x - this.circuit.stand.x * this.spacer, // x
         this.car.body.position.y - this.circuit.stand.y * this.spacer, // y
         0, // z
       );
+    }
+
+    const p = this.p5Instance;
+    if (p && this.is3D && this.lighting === "realistic") {
+      // Opaque, and drawn first so it never overdraws the track geometry.
+      drawGround(p, this.circuitBounds);
+      this.lamps.forEach((lamp) => drawLampPost(p, lamp));
     }
 
     this.bounds.forEach((bound) => {
@@ -639,14 +753,18 @@ export default class Game {
     });
     if (this.ghost.length) {
       const ghostFrame = this.getGhostInTimestamp(this.lapTime);
-      if (!ghostFrame || !this.p5Instance) return;
-      const { x, y, a } = ghostFrame;
-      if (!this.ghostColorStr) {
-        const gColor = this.p5Instance.color(this.color);
-        gColor.setAlpha(128);
-        this.ghostColorStr = gColor.toString();
+      // Skipping the ghost must not skip the pop() below: leaving the style
+      // stack unbalanced would leak this frame's shader and material state
+      // into the next one.
+      if (ghostFrame && this.p5Instance) {
+        const { x, y, a } = ghostFrame;
+        if (!this.ghostColorStr) {
+          const gColor = this.p5Instance.color(this.color);
+          gColor.setAlpha(128);
+          this.ghostColorStr = gColor.toString();
+        }
+        Car.show(x, y, a, this.ghostColorStr, this);
       }
-      Car.show(x, y, a, this.ghostColorStr, this);
     }
     this.p5Instance?.pop();
 
