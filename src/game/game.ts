@@ -17,6 +17,11 @@ import Wall from "./Wall";
 const carModelURL = "/car.obj";
 const newRecordAudioURL = "/newrecord.m4a";
 
+// Physics runs on a fixed timestep decoupled from the render frame rate, so the
+// game plays at the same real-world speed no matter how fast the machine draws.
+const FIXED_DT = 1000 / 60; // ms per physics step (matter-js default)
+const MAX_STEPS_PER_FRAME = 5; // catch-up cap; avoids the spiral of death
+
 const formatLapTime = (ms: number) =>
   (Math.round(ms) / 1000).toLocaleString("en-US", {
     style: "decimal",
@@ -67,7 +72,9 @@ export default class Game {
 
   bestLap: number | null;
 
-  lapStart: number = 0;
+  lapStart: number | null = null;
+
+  accumulator: number = 0;
 
   is3D: boolean;
 
@@ -110,7 +117,6 @@ export default class Game {
     this.transY = 0;
     this.checks = 0;
     this.lastLap = null;
-    this.lapStart = 0;
     this.width = 1200;
     this.height = 900;
     this.spacer = 100;
@@ -148,6 +154,20 @@ export default class Game {
   //     );
   //   }
   // }
+
+  // Elapsed time of the current lap, in simulation ms. 0 until the car has
+  // crossed the finish line for the first time.
+  get lapTime(): number {
+    return this.lapStart === null
+      ? 0
+      : this.engine.timing.timestamp - this.lapStart;
+  }
+
+  resetLap(start: number | null = null) {
+    this.lapStart = start;
+    this.checks = 0;
+    this.tempGhost = [];
+  }
 
   getGhostInTimestamp(t: number) {
     const len = this.ghost.length;
@@ -209,6 +229,7 @@ export default class Game {
   onChangeCircuit() {
     this.circuit = this.circuits[this.$circuit.value];
     this.loadData();
+    this.resetLap();
     this.car.reset(
       this.circuit.car.x * this.spacer,
       this.circuit.car.y * this.spacer,
@@ -238,11 +259,8 @@ export default class Game {
         if (this.checks === 2 ** this.checkpoints.length - 1) {
           if (this.lapStart !== null) {
             this.lastLap = now - this.lapStart;
-            if (this.bestLap === null) {
-              this.bestLap = this.lastLap;
-              this.ghost = [...this.tempGhost];
-              this.p5Instance?.storeItem(`lrg-${this.circuit.key}`, this.ghost);
-            } else if (this.lastLap < this.bestLap) {
+            if (this.bestLap === null || this.lastLap < this.bestLap) {
+              const beatenRecord = this.bestLap !== null;
               this.bestLap = this.lastLap;
               this.ghost = [...this.tempGhost];
               this.p5Instance?.storeItem(`lrg-${this.circuit.key}`, this.ghost);
@@ -250,13 +268,11 @@ export default class Game {
                 `lr-${this.circuit.key}`,
                 this.bestLap,
               );
-              this.audio?.play();
+              if (beatenRecord) this.audio?.play();
             }
           }
         }
-        this.lapStart = now;
-        this.checks = 0;
-        this.tempGhost = [];
+        this.resetLap(now);
       }
     });
   }
@@ -316,8 +332,10 @@ export default class Game {
     );
   }
 
-  draw() {
-    Matter.Engine.update(this.engine);
+  // One physics step. Always advances the simulation by exactly FIXED_DT, so
+  // handling and lap times are identical on every machine.
+  step() {
+    Matter.Engine.update(this.engine, FIXED_DT);
 
     if (this.p5Instance?.keyIsDown(p5.prototype.LEFT_ARROW)) {
       this.car.turn(-1);
@@ -332,6 +350,29 @@ export default class Game {
     }
 
     // if (keyIsDown(DOWN_ARROW)) {}
+
+    // Ghost
+    this.tempGhost.push({
+      t: this.lapTime,
+      x: this.car.body.position.x,
+      y: this.car.body.position.y,
+      a: this.car.body.angle,
+    });
+  }
+
+  draw() {
+    // Run as many fixed steps as the real elapsed time calls for. The clamp
+    // covers the first frame, a tab returning from the background, and machines
+    // too slow to keep up (those degrade to slow motion instead of tunnelling
+    // the car through walls).
+    this.accumulator += Math.min(
+      this.p5Instance?.deltaTime ?? FIXED_DT,
+      FIXED_DT * MAX_STEPS_PER_FRAME,
+    );
+    while (this.accumulator >= FIXED_DT) {
+      this.accumulator -= FIXED_DT;
+      this.step();
+    }
 
     // Draw
     //
@@ -377,9 +418,7 @@ export default class Game {
       checkpoint.show();
     });
     if (this.ghost.length) {
-      const ghost = this.getGhostInTimestamp(
-        this.engine.timing.timestamp - this.lapStart,
-      );
+      const ghost = this.getGhostInTimestamp(this.lapTime);
       if (!ghost || !this.p5Instance) return;
       const { x, y, a } = ghost;
       const gColor = this.p5Instance.color(this.color);
@@ -388,23 +427,12 @@ export default class Game {
     }
     this.p5Instance?.pop();
 
-    // Ghost
-    this.tempGhost.push({
-      t: this.engine.timing.timestamp - this.lapStart,
-      x: this.car.body.position.x,
-      y: this.car.body.position.y,
-      a: this.car.body.angle,
-    });
-
     // HUD
     if (this.$lastLap && this.lastLap)
       this.$lastLap.innerText = formatLapTime(this.lastLap);
     if (this.$bestLap && this.bestLap)
       this.$bestLap.innerText = formatLapTime(this.bestLap);
-    if (this.$currLap)
-      this.$currLap.innerText = formatLapTime(
-        this.engine.timing.timestamp - this.lapStart,
-      );
+    if (this.$currLap) this.$currLap.innerText = formatLapTime(this.lapTime);
   }
 
   windowResized() {
