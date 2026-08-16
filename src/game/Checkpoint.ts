@@ -26,6 +26,8 @@ export default class Checkpoint {
 
   color: string;
 
+  private fillColor: p5.Color | null = null;
+
   constructor(game: Game, { x, y, w, a, label, c }: ICheckpoint) {
     this.game = game;
     this.color = c ?? "#00f5e6";
@@ -49,15 +51,17 @@ export default class Checkpoint {
 
   show = () => {
     if (!this.game.p5Instance) return;
-    const fillColor = this.game.p5Instance.color(this.color);
-    fillColor.setAlpha(128);
+    if (!this.fillColor) {
+      this.fillColor = this.game.p5Instance.color(this.color);
+      this.fillColor.setAlpha(128);
+    }
     this.game.p5Instance.push();
     this.game.p5Instance.translate(
       this.x,
       this.y,
       this.game.is3D ? 1 : undefined,
     );
-    this.game.p5Instance.fill(fillColor);
+    this.game.p5Instance.fill(this.fillColor);
     this.game.p5Instance.noStroke();
     this.game.p5Instance.rectMode(p5.prototype.CENTER);
     if (this.game.is3D) {
