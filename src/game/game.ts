@@ -22,6 +22,8 @@ const newRecordAudioURL = "/newrecord.m4a";
 const FIXED_DT = 1000 / 60; // ms per physics step (matter-js default)
 const MAX_STEPS_PER_FRAME = 5; // catch-up cap; avoids the spiral of death
 
+const HUD_CURR_LAP_THROTTLE_MS = 100; // current-lap display refresh rate
+
 const formatLapTime = (ms: number) =>
   (Math.round(ms) / 1000).toLocaleString("en-US", {
     style: "decimal",
@@ -96,6 +98,16 @@ export default class Game {
 
   models: { car: p5.Geometry | null };
 
+  // HUD dedup/throttle state — avoids redundant Intl formatting and DOM writes.
+  lastLapWritten: number | null = null;
+
+  bestLapWritten: number | null = null;
+
+  currLapThrottleAccum: number = 0;
+
+  // Cached ghost car color string, computed once lazily.
+  ghostColorStr: string | null = null;
+
   constructor(el: HTMLElement) {
     this.$el = el;
     const rect = document.body.getBoundingClientRect();
@@ -169,22 +181,30 @@ export default class Game {
     this.tempGhost = [];
   }
 
+  // Binary search: this.ghost is time-sorted, so we can find the closest
+  // sample in O(log n) instead of scanning the whole (per-frame-growing) array.
   getGhostInTimestamp(t: number) {
-    const len = this.ghost.length;
-    let last: IGhost | undefined;
-    let tmp: IGhost | undefined;
-    for (let i = 0; i < len; i += 1) {
-      tmp = this.ghost[i];
-      if (tmp.t < t) {
-        last = tmp;
+    const { ghost } = this;
+    const len = ghost.length;
+    if (len === 0) return null;
+
+    let lo = 0;
+    let hi = len; // exclusive upper bound
+    while (lo < hi) {
+      const mid = (lo + hi) >>> 1;
+      if (ghost[mid].t < t) {
+        lo = mid + 1;
       } else {
-        if (last && t - last.t < tmp.t - t) {
-          return last;
-        }
-        return tmp;
+        hi = mid;
       }
     }
-    return tmp ?? null;
+
+    if (lo === 0) return ghost[0];
+    if (lo === len) return ghost[len - 1];
+
+    const before = ghost[lo - 1];
+    const at = ghost[lo];
+    return t - before.t < at.t - t ? before : at;
   }
 
   loadData() {
@@ -418,21 +438,41 @@ export default class Game {
       checkpoint.show();
     });
     if (this.ghost.length) {
-      const ghost = this.getGhostInTimestamp(this.lapTime);
-      if (!ghost || !this.p5Instance) return;
-      const { x, y, a } = ghost;
-      const gColor = this.p5Instance.color(this.color);
-      gColor.setAlpha(128);
-      Car.show(x, y, a, gColor.toString(), this);
+      const ghostFrame = this.getGhostInTimestamp(this.lapTime);
+      if (!ghostFrame || !this.p5Instance) return;
+      const { x, y, a } = ghostFrame;
+      if (!this.ghostColorStr) {
+        const gColor = this.p5Instance.color(this.color);
+        gColor.setAlpha(128);
+        this.ghostColorStr = gColor.toString();
+      }
+      Car.show(x, y, a, this.ghostColorStr, this);
     }
     this.p5Instance?.pop();
 
-    // HUD
-    if (this.$lastLap && this.lastLap)
+    // HUD — skip the Intl formatting + DOM write when nothing changed, and
+    // throttle the current-lap display since sub-100ms updates aren't visible.
+    if (
+      this.$lastLap &&
+      this.lastLap !== null &&
+      this.lastLap !== this.lastLapWritten
+    ) {
       this.$lastLap.innerText = formatLapTime(this.lastLap);
-    if (this.$bestLap && this.bestLap)
+      this.lastLapWritten = this.lastLap;
+    }
+    if (
+      this.$bestLap &&
+      this.bestLap !== null &&
+      this.bestLap !== this.bestLapWritten
+    ) {
       this.$bestLap.innerText = formatLapTime(this.bestLap);
-    if (this.$currLap) this.$currLap.innerText = formatLapTime(this.lapTime);
+      this.bestLapWritten = this.bestLap;
+    }
+    this.currLapThrottleAccum += this.p5Instance?.deltaTime ?? 0;
+    if (this.$currLap && this.currLapThrottleAccum >= HUD_CURR_LAP_THROTTLE_MS) {
+      this.currLapThrottleAccum = 0;
+      this.$currLap.innerText = formatLapTime(this.lapTime);
+    }
   }
 
   windowResized() {
