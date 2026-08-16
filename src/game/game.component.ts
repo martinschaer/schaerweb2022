@@ -17,6 +17,23 @@ const style = `
   padding: 1rem;
   min-width: 10rem;
 }
+
+#handling {
+  margin-top: 0.5rem;
+}
+
+#handling label {
+  display: block;
+}
+
+#handling input[type="number"] {
+  width: 6rem;
+}
+
+#presets {
+  display: flex;
+  gap: 0.25rem;
+}
 `;
 
 // Web Component
@@ -33,6 +50,16 @@ const style = `
       <div>Last lap: <span id="last-lap">–</span></div>
       <div>Best lap: <span id="best-lap">–</span></div>
       <div>Current: <span id="curr-lap">–</span></div>
+      <details id="handling">
+        <summary>Handling</summary>
+        <label>Turn
+          <input type="number" id="turn-factor" min="0.005" max="0.05" step="0.001">
+        </label>
+        <label>Accel
+          <input type="number" id="acc-factor" min="0.001" max="0.008" step="0.0001">
+        </label>
+        <div id="presets"></div>
+      </details>
     </div>
 `;
 

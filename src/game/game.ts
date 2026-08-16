@@ -54,6 +54,19 @@ const MAX_STEPS_PER_FRAME = 5; // catch-up cap; avoids the spiral of death
 
 const HUD_CURR_LAP_THROTTLE_MS = 100; // current-lap display refresh rate
 
+// Handling presets, switchable with the 1-3 keys. Seeded with the tunings that
+// used to live as commented-out blocks in Car.ts; the player can overwrite any
+// of them with the Handling controls.
+type Preset = { turnFactor: number; accFactor: number };
+
+const PRESET_COUNT = 3;
+
+const DEFAULT_PRESETS: Array<Preset> = [
+  { turnFactor: 0.021, accFactor: 0.0033 }, // 1 Original
+  { turnFactor: 0.023, accFactor: 0.0036 }, // 2 Balanced
+  { turnFactor: 0.025, accFactor: 0.004 }, // 3 Fast
+];
+
 const formatLapTime = (ms: number) =>
   (Math.round(ms) / 1000).toLocaleString("en-US", {
     style: "decimal",
@@ -71,6 +84,16 @@ export default class Game {
   $bestLap: HTMLElement | null;
 
   $currLap: HTMLElement | null;
+
+  $turnFactor: HTMLInputElement | null;
+
+  $accFactor: HTMLInputElement | null;
+
+  $presets: HTMLElement | null;
+
+  presets: Array<Preset> = DEFAULT_PRESETS.map((p) => ({ ...p }));
+
+  activePreset: number = 0;
 
   p5Instance?: p5;
 
@@ -171,6 +194,9 @@ export default class Game {
     this.$lastLap = this.$el.querySelector("#last-lap");
     this.$bestLap = this.$el.querySelector("#best-lap");
     this.$currLap = this.$el.querySelector("#curr-lap");
+    this.$turnFactor = this.$el.querySelector("#turn-factor");
+    this.$accFactor = this.$el.querySelector("#acc-factor");
+    this.$presets = this.$el.querySelector("#presets");
 
     // create an engine
     this.engine = Matter.Engine.create();
@@ -246,6 +272,80 @@ export default class Game {
         (this.p5Instance.getItem(`lrg-${this.circuit.key}`) as Array<IGhost>) ||
         [];
     }
+  }
+
+  // Presets describe the car, not the track, so unlike loadData() this runs
+  // once at setup rather than on every circuit change.
+  loadPresets() {
+    if (!this.p5Instance) return;
+    // A stored array from an older build with a different slot count is simply
+    // ignored, falling back to DEFAULT_PRESETS.
+    const stored = this.p5Instance.getItem("presets") as Array<Preset>;
+    if (Array.isArray(stored) && stored.length === PRESET_COUNT) {
+      this.presets = stored;
+    }
+    const active = this.p5Instance.getItem("preset") as number;
+    if (typeof active === "number" && active >= 0 && active < PRESET_COUNT) {
+      this.activePreset = active;
+    }
+  }
+
+  applyPreset(index: number) {
+    if (index < 0 || index >= PRESET_COUNT) return;
+    this.activePreset = index;
+    this.car.turnFactor = this.presets[index].turnFactor;
+    this.car.accFactor = this.presets[index].accFactor;
+    this.p5Instance?.storeItem("preset", this.activePreset);
+    this.syncHandlingUI();
+  }
+
+  // Auto-save: the active preset always mirrors the live car values.
+  savePreset() {
+    this.presets[this.activePreset] = {
+      turnFactor: this.car.turnFactor,
+      accFactor: this.car.accFactor,
+    };
+    this.p5Instance?.storeItem("presets", this.presets);
+    this.syncHandlingUI();
+  }
+
+  // True while any Handling control has focus, so typing a number doesn't also
+  // switch presets or drive the car. $el is the ShadowRoot, which exposes
+  // activeElement for its own tree.
+  isHudFocused(): boolean {
+    const focused = (this.$el as unknown as ShadowRoot).activeElement;
+    return !!focused && focused.tagName !== "BODY";
+  }
+
+  // Wires a number field to a car property. Applies on every valid keystroke so
+  // the car responds live, then persists once the edit is committed (blur,
+  // Enter, or a stepper click) rather than on every keystroke.
+  bindHandlingInput(
+    input: HTMLInputElement | null,
+    apply: (value: number) => void,
+  ) {
+    if (!input) return;
+    input.addEventListener("input", () => {
+      const value = input.valueAsNumber;
+      if (!Number.isFinite(value)) return; // empty or mid-edit
+      apply(Math.min(Math.max(value, Number(input.min)), Number(input.max)));
+    });
+    input.addEventListener("change", () => this.savePreset());
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") input.blur();
+    });
+  }
+
+  syncHandlingUI() {
+    if (this.$turnFactor) this.$turnFactor.value = String(this.car.turnFactor);
+    if (this.$accFactor) this.$accFactor.value = String(this.car.accFactor);
+
+    this.presets.forEach((_, i) => {
+      const radio = this.$presets?.querySelector<HTMLInputElement>(
+        `input[value="${i}"]`,
+      );
+      if (radio) radio.checked = i === this.activePreset;
+    });
   }
 
   createElements() {
@@ -346,6 +446,15 @@ export default class Game {
 
   // Stop physics stepping and rendering entirely while the tab isn't visible,
   // instead of letting requestAnimationFrame keep ticking in the background.
+  handleKeyDown = (event: KeyboardEvent) => {
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    if (this.isHudFocused()) return;
+    const slot = Number(event.key);
+    if (Number.isInteger(slot) && slot >= 1 && slot <= PRESET_COUNT) {
+      this.applyPreset(slot - 1);
+    }
+  };
+
   handleVisibilityChange = () => {
     if (!this.p5Instance) return;
     if (document.hidden) {
@@ -385,6 +494,34 @@ export default class Game {
 
     this.audio = this.p5Instance?.createAudio(newRecordAudioURL) ?? null;
 
+    // handling presets
+    this.loadPresets();
+    for (let i = 0; i < PRESET_COUNT; i += 1) {
+      const label = document.createElement("label");
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = "preset";
+      radio.value = String(i);
+      label.appendChild(radio);
+      label.appendChild(document.createTextNode(String(i + 1)));
+      this.$presets?.appendChild(label);
+    }
+    this.$presets?.addEventListener("change", (event) => {
+      const radio = event.target as HTMLInputElement;
+      this.applyPreset(Number(radio.value));
+      radio.blur();
+    });
+
+    this.bindHandlingInput(this.$turnFactor, (value) => {
+      this.car.turnFactor = value;
+    });
+    this.bindHandlingInput(this.$accFactor, (value) => {
+      this.car.accFactor = value;
+    });
+
+    this.applyPreset(this.activePreset);
+
+    document.addEventListener("keydown", this.handleKeyDown);
     document.addEventListener("visibilitychange", this.handleVisibilityChange);
 
     if (this.is3D && this.p5Instance) {
@@ -416,15 +553,19 @@ export default class Game {
   step() {
     Matter.Engine.update(this.engine, FIXED_DT);
 
-    if (this.p5Instance?.keyIsDown(p5.prototype.LEFT_ARROW)) {
+    // keyIsDown reads global key state, so without this a focused number field
+    // would step its value and drive the car at the same time.
+    const driving = !this.isHudFocused();
+
+    if (driving && this.p5Instance?.keyIsDown(p5.prototype.LEFT_ARROW)) {
       this.car.turn(-1);
     }
 
-    if (this.p5Instance?.keyIsDown(p5.prototype.RIGHT_ARROW)) {
+    if (driving && this.p5Instance?.keyIsDown(p5.prototype.RIGHT_ARROW)) {
       this.car.turn(1);
     }
 
-    if (this.p5Instance?.keyIsDown(p5.prototype.UP_ARROW)) {
+    if (driving && this.p5Instance?.keyIsDown(p5.prototype.UP_ARROW)) {
       this.car.accelerate();
     }
 
@@ -575,6 +716,7 @@ export default class Game {
   }
 
   destroy() {
+    document.removeEventListener("keydown", this.handleKeyDown);
     document.removeEventListener(
       "visibilitychange",
       this.handleVisibilityChange,

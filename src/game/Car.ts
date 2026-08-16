@@ -26,9 +26,19 @@ export default class Car {
     this.game = game;
     this.color = c;
     this.body = Matter.Bodies.rectangle(x, y, 30, 40, { label: "car" });
+    // Handling. Physics runs at a fixed 60 steps/sec (see FIXED_DT in game.ts):
+    //   steering rate = turnFactor * PI * 60 rad/s
+    //   top speed     ∝ accFactor / frictionAir
+    // frictionAir also sets how fast the velocity vector realigns with the
+    // heading, which is what gives the car its drift.
     this.body.frictionAir = 0.08;
-    this.turnFactor = 0.025;
-    this.accFactor = 0.004;
+
+    // Starting values only — game.ts applies the active preset (see
+    // DEFAULT_PRESETS) once the car exists, and the Handling controls
+    // overwrite these live.
+    this.turnFactor = 0.023;
+    this.accFactor = 0.0036;
+
     Matter.Body.setAngle(this.body, (Math.PI / 2) * ((a + 90) / 90));
     Matter.World.add(game.engine.world, this.body);
   }
