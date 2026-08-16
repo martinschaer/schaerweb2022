@@ -1,6 +1,7 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
+import Nav from "../components/Nav.astro";
 
 interface Props {
     title: string;
@@ -18,12 +19,13 @@ const { title, description } = Astro.props;
     </head>
     <body>
         <div id="app"></div>
-        <nav class="nav">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-        </nav>
+        <Nav />
         <div class="container">
-            <h1>{title}</h1>
+            <h1>Martin Schaer</h1>
+            <p>
+                I'm a creative software engineer, working on context layers,
+                agent memory, and AI collaboration.
+            </p>
             <slot />
         </div>
         <Footer />
@@ -46,11 +48,7 @@ const { title, description } = Astro.props;
         top: 0;
         left: 0;
     }
-    .nav {
-        position: absolute;
-        width: 100vw;
-        top: 0;
-        left: 0;
-        z-index: 100;
+    .container {
+        padding-top: 3em;
     }
 </style>

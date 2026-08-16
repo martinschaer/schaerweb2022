@@ -28,7 +28,7 @@ export default class Checkpoint {
 
   constructor(game: Game, { x, y, w, a, label, c }: ICheckpoint) {
     this.game = game;
-    this.color = c ?? game.color;
+    this.color = c ?? "#00f5e6";
     this.x = x * SPACER;
     this.y = y * SPACER;
     this.w = w * SPACER;

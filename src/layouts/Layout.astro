@@ -1,13 +1,15 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
+import Nav from "../components/Nav.astro";
 
 interface Props {
-    title: string;
-    description: string;
+    frontmatter: Record<string, unknown>;
 }
 
-const { title, description } = Astro.props;
+const { frontmatter } = Astro.props;
+const title: string = frontmatter.title?.toString() ?? "Untitled";
+const description: string = frontmatter.description?.toString() ?? "";
 ---
 
 <html lang="en">
@@ -17,10 +19,7 @@ const { title, description } = Astro.props;
         <BaseHead title={title} description={description} />
     </head>
     <body>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-        </nav>
+        <Nav />
         <div class="container">
             <h1>{title}</h1>
             <article>
@@ -31,3 +30,9 @@ const { title, description } = Astro.props;
         <Footer />
     </body>
 </html>
+
+<style>
+    .container {
+        padding-top: 3em;
+    }
+</style>

@@ -82,6 +82,8 @@ export default class Corner {
       this.game.p5Instance.push();
       this.game.p5Instance.translate(this.x, this.y, 0);
       this.game.p5Instance.fill(this.color);
+      this.game.p5Instance.stroke("#111917");
+      this.game.p5Instance.strokeWeight(0.5);
       // this.game.p5Instance.noStroke();
 
       this.game.p5Instance.beginShape(p5.prototype.TRIANGLE_STRIP);

@@ -17,7 +17,12 @@ import Wall from "./Wall";
 const carModelURL = "/car.obj";
 const newRecordAudioURL = "/newrecord.m4a";
 
-const formatLapTime = (ms: number) => (Math.round(ms) / 1000).toString();
+const formatLapTime = (ms: number) =>
+  (Math.round(ms) / 1000).toLocaleString("en-US", {
+    style: "decimal",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
 export default class Game {
   $el: HTMLElement;
@@ -100,7 +105,7 @@ export default class Game {
     this.checkpoints = [];
     this.tempGhost = [];
     this.is3D = true;
-    this.circuit = seoul as ICircuit;
+    this.circuit = testCircuit as ICircuit;
     this.transX = 0;
     this.transY = 0;
     this.checks = 0;
@@ -309,25 +314,6 @@ export default class Game {
     Matter.Events.on(this.engine, "collisionStart", (event) =>
       this.onCollisionStart(event),
     );
-
-    // create renderer
-    // TODO: render matter en otro canvas
-    /*
-    if (!this.is3D) {
-      this.render = Matter.Render.create({
-        canvas: cnv.elt,
-        engine: this.engine,
-        options: {
-          width: this.winW,
-          height: this.winH,
-          showVelocity: true,
-          showPositions: true,
-          showBounds: true
-        }
-      })
-      Matter.Render.run(this.render)
-    }
-    */
   }
 
   draw() {
@@ -375,34 +361,11 @@ export default class Game {
         0,
       );
 
-      // this.camera?.camera(
-      //   0, // x
-      //   0, // y
-      //   this.spacer * 4, // z
-      //   this.car.body.position.x - this.circuit.stand.x * this.spacer, // x
-      //   this.car.body.position.y - this.circuit.stand.y * this.spacer, // y
-      //   0, // z
-      //   0,
-      //   0,
-      //   -1,
-      // );
       this.camera.lookAt(
         this.car.body.position.x - this.circuit.stand.x * this.spacer, // x
         this.car.body.position.y - this.circuit.stand.y * this.spacer, // y
         0, // z
       );
-
-      /*
-      this.camera.camera(
-        this.car.body.position.x,
-        this.car.body.position.y,
-        20,
-        this.car.body.position.x + Math.cos(this.car.body.angle + PI / 2) * 10,
-        this.car.body.position.y + Math.sin(this.car.body.angle + PI / 2) * 10,
-        20,
-        0, 0, -1
-      )
-      */
     }
 
     this.bounds.forEach((bound) => {
