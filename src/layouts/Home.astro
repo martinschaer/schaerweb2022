@@ -47,13 +47,9 @@ const { title, description } = Astro.props;
         height: 100vh;
         top: 0;
         left: 0;
-        /* The canvas is a positioned element, so without this it paints above
-           the page content. That went unnoticed while it was fully
-           transparent, but the realistic mode's ground plane is opaque and
-           would hide the text entirely. */
-        z-index: -1;
     }
     .container {
         padding-top: 3em;
+        position: relative;
     }
 </style>
