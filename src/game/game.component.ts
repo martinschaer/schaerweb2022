@@ -51,7 +51,9 @@ const style = `
       this.game.run();
     }
 
-    // disconnectedCallback() {}
+    disconnectedCallback() {
+      this.game?.destroy();
+    }
   }
   customElements.define("schaerweb-game", GameComponent);
 })();

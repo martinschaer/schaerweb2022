@@ -4,15 +4,45 @@ import p5 from "p5";
 // import carModelURL from 'url:../../assets/car.obj'
 // import newRecordAudioURL from 'url:../../assets/newrecord.m4a'
 
-import seoul from "./circuits/seoul.json";
-import page5 from "./circuits/page5.json";
-import drift from "./circuits/drift.json";
+// The default circuit is imported eagerly since the constructor needs its
+// data synchronously to place the car before any async setup runs. The rest
+// are loaded on demand via dynamic import() when selected, so users who never
+// switch circuits don't pay to parse/hold the other three in memory. Names
+// are duplicated here (must match each JSON's "name" field) so the selector
+// can be populated without importing every circuit upfront.
 import testCircuit from "./circuits/test.json";
 import Checkpoint from "./Checkpoint";
 import Car from "./Car";
 import Corner from "./Corner";
 import Obstacle from "./Obstacle";
 import Wall from "./Wall";
+
+const CIRCUIT_MANIFEST: Array<{
+  key: string;
+  name: string;
+  load: () => Promise<{ default: unknown }>;
+}> = [
+  {
+    key: "test",
+    name: (testCircuit as ICircuit).name,
+    load: () => import("./circuits/test.json"),
+  },
+  {
+    key: "seoul",
+    name: "Seoul Underground Circuit",
+    load: () => import("./circuits/seoul.json"),
+  },
+  {
+    key: "drift",
+    name: "Drift Park",
+    load: () => import("./circuits/drift.json"),
+  },
+  {
+    key: "page5",
+    name: "Circuit P5",
+    load: () => import("./circuits/page5.json"),
+  },
+];
 
 const carModelURL = "/car.obj";
 const newRecordAudioURL = "/newrecord.m4a";
@@ -113,11 +143,11 @@ export default class Game {
     const rect = document.body.getBoundingClientRect();
     this.winW = rect.width;
     this.winH = rect.height;
+    // Cache of loaded circuits, keyed by circuit key. Populated lazily by
+    // loadCircuit() as the user selects them; "test" is preloaded since it's
+    // the default.
     this.circuits = {
       test: testCircuit as ICircuit,
-      seoul: seoul as ICircuit,
-      drift: drift as ICircuit,
-      page5: page5 as ICircuit,
     };
 
     this.bounds = [];
@@ -246,8 +276,20 @@ export default class Game {
     );
   }
 
-  onChangeCircuit() {
-    this.circuit = this.circuits[this.$circuit.value];
+  // Loads and caches a circuit's data on first request; returns the cached
+  // copy on subsequent calls without re-importing.
+  async loadCircuit(key: string): Promise<ICircuit> {
+    if (!this.circuits[key]) {
+      const entry = CIRCUIT_MANIFEST.find((c) => c.key === key);
+      if (!entry) throw new Error(`Unknown circuit: ${key}`);
+      const mod = await entry.load();
+      this.circuits[key] = mod.default as ICircuit;
+    }
+    return this.circuits[key];
+  }
+
+  async onChangeCircuit() {
+    this.circuit = await this.loadCircuit(this.$circuit.value);
     this.loadData();
     this.resetLap();
     this.car.reset(
@@ -302,6 +344,20 @@ export default class Game {
     return game
   } */
 
+  // Stop physics stepping and rendering entirely while the tab isn't visible,
+  // instead of letting requestAnimationFrame keep ticking in the background.
+  handleVisibilityChange = () => {
+    if (!this.p5Instance) return;
+    if (document.hidden) {
+      this.p5Instance.noLoop();
+    } else {
+      // Drop any time that accumulated right before pausing so resuming
+      // doesn't trigger a burst of catch-up physics steps.
+      this.accumulator = 0;
+      this.p5Instance.loop();
+    }
+  };
+
   async setup() {
     if (this.p5Instance && !this.canvas) {
       this.canvas = this.p5Instance.createCanvas(
@@ -316,17 +372,20 @@ export default class Game {
 
     this.loadData();
 
-    // circuit selector
-    Object.keys(this.circuits).forEach((key) => {
+    // circuit selector — built from the manifest so unselected circuits'
+    // JSON doesn't need to be loaded just to populate the option list.
+    CIRCUIT_MANIFEST.forEach(({ key, name }) => {
       const opt = document.createElement("option");
       opt.value = key;
-      opt.innerText = this.circuits[key].name;
+      opt.innerText = name;
       opt.selected = key === this.circuit.key;
       this.$circuit.appendChild(opt);
     });
     this.$circuit.addEventListener("change", () => this.onChangeCircuit());
 
     this.audio = this.p5Instance?.createAudio(newRecordAudioURL) ?? null;
+
+    document.addEventListener("visibilitychange", this.handleVisibilityChange);
 
     if (this.is3D && this.p5Instance) {
       this.camera = this.p5Instance.createCamera();
@@ -513,5 +572,12 @@ export default class Game {
 
   run() {
     this.p5Instance = new p5(this.makeSketch());
+  }
+
+  destroy() {
+    document.removeEventListener(
+      "visibilitychange",
+      this.handleVisibilityChange,
+    );
   }
 }
