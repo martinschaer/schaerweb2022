@@ -1,13 +1,27 @@
 import Matter from "matter-js";
-import p5 from "p5";
+import * as THREE from "three";
+
+import { carMaterial, ghostMaterial } from "./materials";
 
 type Game = {
   engine: { world: any };
-  is3D: boolean;
-  models: { car: p5.Geometry | null };
-  p5Instance?: p5;
-  showStrokes: boolean;
 };
+
+// The p5 build drew the model through
+//   translate(x, y, 10) rotate(a) translate(0, 0, -10) scale(10)
+//   rotateX(PI / 2) rotateY(PI)
+// A rotation about Z leaves a Z-translation untouched, so the outer +10 and the
+// inner -10 cancel: what is left is a mesh at (x, y, 0) turned by the body's
+// angle, over a model that has been scaled and stood upright. Everything but
+// the per-frame part is baked into the geometry once at load.
+export function prepareCarGeometry(
+  geometry: THREE.BufferGeometry,
+): THREE.BufferGeometry {
+  geometry.rotateY(Math.PI);
+  geometry.rotateX(Math.PI / 2);
+  geometry.scale(10, 10, 10);
+  return geometry;
+}
 
 export default class Car {
   game: Game;
@@ -19,6 +33,11 @@ export default class Car {
   turnFactor: number;
 
   accFactor: number;
+
+  // Null until the OBJ has loaded — the car's matter body is created in Game's
+  // constructor so the circuit can be placed synchronously, long before the
+  // renderer or the model exist.
+  mesh: THREE.Mesh | null = null;
 
   constructor(
     game: Game,
@@ -44,43 +63,41 @@ export default class Car {
     Matter.World.add(game.engine.world, this.body);
   }
 
-  static show(x: number, y: number, a: number, color: string, game: Game) {
-    if (!game.p5Instance) return;
-    game.p5Instance.push();
-    game.p5Instance.translate(x, y, game.is3D ? 10 : undefined);
-    game.p5Instance.rotate(a);
-    game.p5Instance.rectMode(p5.prototype.CENTER);
-    if (game.showStrokes) {
-      game.p5Instance.stroke("#111917");
-      game.p5Instance.strokeWeight(0.2);
-    } else {
-      game.p5Instance.noStroke();
-    }
-    game.p5Instance.fill(color);
-    if (game.is3D && game.models.car != null) {
-      game.p5Instance.translate(0, 0, -10);
-      game.p5Instance.scale(10);
-      game.p5Instance.rotateX(Math.PI / 2);
-      game.p5Instance.rotateY(Math.PI);
-      game.p5Instance.model(game.models.car);
-    } else {
-      game.p5Instance.rect(0, 0, 30, 40);
-    }
-    game.p5Instance.pop();
+  attach(world: THREE.Group, geometry: THREE.BufferGeometry) {
+    this.mesh = new THREE.Mesh(geometry, carMaterial(this.color));
+    // The contact shadow under the car is what sells the scale: without it the
+    // model reads as a sprite sliding over the floor rather than as a model car
+    // sitting on it.
+    this.mesh.castShadow = true;
+    world.add(this.mesh);
+    this.sync();
   }
 
-  show = () => {
-    Car.show(
-      this.body.position.x,
-      this.body.position.y,
-      this.body.angle,
-      this.color,
-      this.game,
-    );
+  // The only per-frame render work in the game. Everything else on the circuit
+  // is a static body whose transform was set when it was built.
+  sync = () => {
+    if (!this.mesh) return;
+    const pos = this.body.position;
+    this.mesh.position.set(pos.x, pos.y, 0);
+    this.mesh.rotation.z = this.body.angle;
   };
+
+  // The recorded best lap, replayed as a hologram. Shares the car's geometry,
+  // so it costs one draw call and no memory.
+  static createGhost(
+    world: THREE.Group,
+    geometry: THREE.BufferGeometry,
+    color: string,
+  ): THREE.Mesh {
+    const mesh = new THREE.Mesh(geometry, ghostMaterial(color));
+    mesh.visible = false;
+    world.add(mesh);
+    return mesh;
+  }
 
   remove = () => {
     Matter.World.remove(this.game.engine.world, this.body);
+    this.mesh?.removeFromParent();
   };
 
   turn = (dir: number) => {

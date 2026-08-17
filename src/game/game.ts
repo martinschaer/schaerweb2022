@@ -1,8 +1,6 @@
 import Matter from "matter-js";
-import p5 from "p5";
-
-// import carModelURL from 'url:../../assets/car.obj'
-// import newRecordAudioURL from 'url:../../assets/newrecord.m4a'
+import * as THREE from "three";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 
 // The default circuit is imported eagerly since the constructor needs its
 // data synchronously to place the car before any async setup runs. The rest
@@ -12,20 +10,20 @@ import p5 from "p5";
 // can be populated without importing every circuit upfront.
 import testCircuit from "./circuits/test.json";
 import Checkpoint from "./Checkpoint";
-import Car from "./Car";
+import Car, { prepareCarGeometry } from "./Car";
 import Corner from "./Corner";
 import Obstacle from "./Obstacle";
 import Wall from "./Wall";
+import Input from "./input";
+import View from "./view";
+import { SPACER } from "./constants";
+import { PALETTE, disposeMaterials } from "./materials";
+import { getItem, storeItem } from "./storage";
 import {
-  applyRealisticLighting,
-  drawGround,
-  drawLampPost,
+  buildVenue,
   getCircuitBounds,
-  getFogShaders,
-  getLampPositions,
   type IBounds,
-  type ILamp,
-  type LightingMode,
+  type IVenue,
 } from "./lighting";
 
 const CIRCUIT_MANIFEST: Array<{
@@ -65,6 +63,9 @@ const MAX_STEPS_PER_FRAME = 5; // catch-up cap; avoids the spiral of death
 
 const HUD_CURR_LAP_THROTTLE_MS = 100; // current-lap display refresh rate
 
+// The camera hangs at a fixed height and only ever changes what it looks at.
+const CAMERA_HEIGHT = SPACER * 4;
+
 // Handling presets, switchable with the 1-3 keys. Seeded with the tunings that
 // used to live as commented-out blocks in Car.ts; the player can overwrite any
 // of them with the Handling controls.
@@ -85,8 +86,23 @@ const formatLapTime = (ms: number) =>
     maximumFractionDigits: 2,
   });
 
+// OBJLoader hands back a Group of Meshes; car.obj is a single object, so the
+// first mesh it contains is the whole car.
+async function loadCarGeometry(): Promise<THREE.BufferGeometry | null> {
+  const group = await new OBJLoader().loadAsync(carModelURL);
+  let geometry: THREE.BufferGeometry | null = null;
+  group.traverse((object) => {
+    if (!geometry && object instanceof THREE.Mesh) geometry = object.geometry;
+  });
+  return geometry;
+}
+
 export default class Game {
-  $el: HTMLElement;
+  // The web component's shadow root. Typed concretely rather than as
+  // HTMLElement so activeElement is reachable without a cast — the HUD's
+  // focus check depends on it, and the light DOM's activeElement would only
+  // ever report the host element.
+  $el: ShadowRoot;
 
   $circuit: HTMLSelectElement;
 
@@ -102,23 +118,27 @@ export default class Game {
 
   $presets: HTMLElement | null;
 
-  $realistic: HTMLInputElement | null;
-
   presets: Array<Preset> = DEFAULT_PRESETS.map((p) => ({ ...p }));
 
   activePreset: number = 0;
-
-  lighting: LightingMode = "basic";
 
   // Derived from circuit geometry in createElements(), since no circuit JSON
   // declares its own extent.
   circuitBounds: IBounds = { minX: 0, minY: 0, maxX: 0, maxY: 0 };
 
-  lamps: Array<ILamp> = [];
+  view?: View;
 
-  p5Instance?: p5;
+  // Circuit space. Created here rather than in View so the entity classes have
+  // something to attach to from the moment the Game exists.
+  world: THREE.Group;
 
-  canvas: p5.Renderer | null = null;
+  venue: IVenue | null = null;
+
+  carGeometry: THREE.BufferGeometry | null = null;
+
+  ghostMesh: THREE.Mesh | null = null;
+
+  input = new Input();
 
   color: string;
 
@@ -131,8 +151,6 @@ export default class Game {
   ghost: Array<IGhost>;
 
   tempGhost: Array<IGhost>;
-
-  camera: p5.Camera | null = null;
 
   engine: Matter.Engine;
 
@@ -152,25 +170,17 @@ export default class Game {
 
   accumulator: number = 0;
 
-  is3D: boolean;
-
-  width: number;
-
-  height: number;
-
   spacer: number;
 
   winW: number;
 
   winH: number;
 
-  transX: number;
+  audio: HTMLAudioElement | null = null;
 
-  transY: number;
+  private frameHandle: number | null = null;
 
-  audio: p5.MediaElement | null = null;
-
-  models: { car: p5.Geometry | null };
+  private lastFrameTime: number = 0;
 
   // HUD dedup/throttle state — avoids redundant Intl formatting and DOM writes.
   lastLapWritten: number | null = null;
@@ -179,10 +189,7 @@ export default class Game {
 
   currLapThrottleAccum: number = 0;
 
-  // Cached ghost car color string, computed once lazily.
-  ghostColorStr: string | null = null;
-
-  constructor(el: HTMLElement) {
+  constructor(el: ShadowRoot) {
     this.$el = el;
     const rect = document.body.getBoundingClientRect();
     this.winW = rect.width;
@@ -197,19 +204,14 @@ export default class Game {
     this.bounds = [];
     this.checkpoints = [];
     this.tempGhost = [];
-    this.is3D = true;
     this.circuit = testCircuit as ICircuit;
-    this.transX = 0;
-    this.transY = 0;
     this.checks = 0;
     this.lastLap = null;
-    this.width = 1200;
-    this.height = 900;
-    this.spacer = 100;
-    this.color = "#00ff7f";
-    this.models = { car: null };
+    this.spacer = SPACER;
+    this.color = PALETTE.green;
     this.ghost = [];
     this.bestLap = null;
+    this.world = new THREE.Group();
 
     this.$circuit = this.$el.querySelector("#circuit") as HTMLSelectElement;
     this.$lastLap = this.$el.querySelector("#last-lap");
@@ -218,7 +220,6 @@ export default class Game {
     this.$turnFactor = this.$el.querySelector("#turn-factor");
     this.$accFactor = this.$el.querySelector("#acc-factor");
     this.$presets = this.$el.querySelector("#presets");
-    this.$realistic = this.$el.querySelector("#realistic");
 
     // create an engine
     this.engine = Matter.Engine.create();
@@ -232,18 +233,6 @@ export default class Game {
       c: this.color,
     });
   }
-
-  // preload() {
-  //   if (this.p5Instance) {
-  //     console.log("Preloading car model...");
-  //     this.models.car = this.p5Instance.loadModel(
-  //       carModelURL,
-  //       undefined,
-  //       undefined,
-  //       ".obj",
-  //     );
-  //   }
-  // }
 
   // Elapsed time of the current lap, in simulation ms. 0 until the car has
   // crossed the finish line for the first time.
@@ -286,27 +275,20 @@ export default class Game {
   }
 
   loadData() {
-    if (this.p5Instance) {
-      this.bestLap = this.p5Instance.getItem(
-        `lr-${this.circuit.key}`,
-      ) as number;
-      this.ghost =
-        (this.p5Instance.getItem(`lrg-${this.circuit.key}`) as Array<IGhost>) ||
-        [];
-    }
+    this.bestLap = getItem<number>(`lr-${this.circuit.key}`);
+    this.ghost = getItem<Array<IGhost>>(`lrg-${this.circuit.key}`) || [];
   }
 
   // Presets describe the car, not the track, so unlike loadData() this runs
   // once at setup rather than on every circuit change.
   loadPresets() {
-    if (!this.p5Instance) return;
     // A stored array from an older build with a different slot count is simply
     // ignored, falling back to DEFAULT_PRESETS.
-    const stored = this.p5Instance.getItem("presets") as Array<Preset>;
+    const stored = getItem<Array<Preset>>("presets");
     if (Array.isArray(stored) && stored.length === PRESET_COUNT) {
       this.presets = stored;
     }
-    const active = this.p5Instance.getItem("preset") as number;
+    const active = getItem<number>("preset");
     if (typeof active === "number" && active >= 0 && active < PRESET_COUNT) {
       this.activePreset = active;
     }
@@ -317,7 +299,7 @@ export default class Game {
     this.activePreset = index;
     this.car.turnFactor = this.presets[index].turnFactor;
     this.car.accFactor = this.presets[index].accFactor;
-    this.p5Instance?.storeItem("preset", this.activePreset);
+    storeItem("preset", this.activePreset);
     this.syncHandlingUI();
   }
 
@@ -327,50 +309,15 @@ export default class Game {
       turnFactor: this.car.turnFactor,
       accFactor: this.car.accFactor,
     };
-    this.p5Instance?.storeItem("presets", this.presets);
+    storeItem("presets", this.presets);
     this.syncHandlingUI();
   }
 
-  // Kept separate from loadPresets(): presets describe the car, the lighting
-  // mode describes the scene, and the two are persisted independently.
-  loadLighting() {
-    if (!this.p5Instance) return;
-    const stored = this.p5Instance.getItem("lighting");
-    if (stored === "basic" || stored === "realistic") {
-      this.lighting = stored;
-    }
-    this.syncLightingUI();
-  }
-
-  setLighting(mode: LightingMode) {
-    this.lighting = mode;
-    this.p5Instance?.storeItem("lighting", mode);
-    this.syncLightingUI();
-  }
-
-  toggleLighting() {
-    this.setLighting(this.lighting === "basic" ? "realistic" : "basic");
-  }
-
-  // Outlines belong to the flat basic look; over lit surfaces they read as a
-  // wireframe laid on top of the scene. Exposed as a plain boolean so the
-  // geometry classes stay unaware that lighting modes exist at all.
-  get showStrokes(): boolean {
-    return this.lighting === "basic";
-  }
-
-  // Keeps the checkbox truthful when the mode is toggled with the L key.
-  syncLightingUI() {
-    if (this.$realistic) {
-      this.$realistic.checked = this.lighting === "realistic";
-    }
-  }
-
   // True while any Handling control has focus, so typing a number doesn't also
-  // switch presets or drive the car. $el is the ShadowRoot, which exposes
-  // activeElement for its own tree.
+  // switch presets or drive the car. A ShadowRoot reports activeElement for its
+  // own tree.
   isHudFocused(): boolean {
-    const focused = (this.$el as unknown as ShadowRoot).activeElement;
+    const focused = this.$el.activeElement;
     return !!focused && focused.tagName !== "BODY";
   }
 
@@ -406,10 +353,36 @@ export default class Game {
   }
 
   createElements() {
-    // Runs on init and on every circuit change, so it's where the lamp posts
-    // get repositioned to the new circuit's corners.
+    // Runs on init and on every circuit change, so it's where the venue gets
+    // rebuilt around the new circuit's extent.
     this.circuitBounds = getCircuitBounds(this.circuit, this.spacer);
-    this.lamps = getLampPositions(this.circuitBounds);
+    // Y is mirrored here rather than at every call site. The game authors its
+    // circuits, its matter bodies and its car handling in screen coordinates
+    // (+y down); three renders +y up, and the camera cannot compensate because
+    // its up vector has to keep height pointing up the screen (see view.ts).
+    // One negative scale on the group reconciles the two, and it also restores
+    // the steering direction: matter's angles increase clockwise in a Y-down
+    // frame, and the mirror turns them back into clockwise on screen.
+    //
+    // three flips triangle winding for a negative-determinant world matrix and
+    // derives normals from the inverse transpose, so lighting and culling are
+    // unaffected.
+    this.world.scale.set(1, -1, 1);
+    // Mirrored along with everything else: a child at local y renders at
+    // world.position.y - y, and the wanted result is -(y - stand), so this
+    // component goes in positive.
+    this.world.position.set(
+      -this.circuit.stand.x * this.spacer,
+      this.circuit.stand.y * this.spacer,
+      0,
+    );
+
+    if (this.venue) {
+      this.world.remove(this.venue.group);
+      this.venue.dispose();
+    }
+    this.venue = buildVenue(this.circuitBounds);
+    this.world.add(this.venue.group);
 
     this.bounds.forEach((x) => {
       x.remove();
@@ -487,11 +460,8 @@ export default class Game {
               const beatenRecord = this.bestLap !== null;
               this.bestLap = this.lastLap;
               this.ghost = [...this.tempGhost];
-              this.p5Instance?.storeItem(`lrg-${this.circuit.key}`, this.ghost);
-              this.p5Instance?.storeItem(
-                `lr-${this.circuit.key}`,
-                this.bestLap,
-              );
+              storeItem(`lrg-${this.circuit.key}`, this.ghost);
+              storeItem(`lr-${this.circuit.key}`, this.bestLap);
               if (beatenRecord) this.audio?.play();
             }
           }
@@ -501,49 +471,37 @@ export default class Game {
     });
   }
 
-  /* static getInstance() {
-    if (!game) game = new Game()
-    return game
-  } */
-
-  // Stop physics stepping and rendering entirely while the tab isn't visible,
-  // instead of letting requestAnimationFrame keep ticking in the background.
   handleKeyDown = (event: KeyboardEvent) => {
     if (event.metaKey || event.ctrlKey || event.altKey) return;
     if (this.isHudFocused()) return;
-    if (event.key === "l" || event.key === "L") {
-      this.toggleLighting();
-      return;
-    }
     const slot = Number(event.key);
     if (Number.isInteger(slot) && slot >= 1 && slot <= PRESET_COUNT) {
       this.applyPreset(slot - 1);
     }
   };
 
+  // Stop physics stepping and rendering entirely while the tab isn't visible,
+  // instead of letting requestAnimationFrame keep ticking in the background.
   handleVisibilityChange = () => {
-    if (!this.p5Instance) return;
     if (document.hidden) {
-      this.p5Instance.noLoop();
+      this.stopLoop();
     } else {
-      // Drop any time that accumulated right before pausing so resuming
-      // doesn't trigger a burst of catch-up physics steps.
-      this.accumulator = 0;
-      this.p5Instance.loop();
+      this.startLoop();
     }
   };
 
+  handleResize = () => {
+    const container = document.querySelector("#app");
+    if (!container || !this.view) return;
+    const rect = container.getBoundingClientRect();
+    this.winW = rect.width;
+    this.winH = rect.height;
+    this.view.resize(this.winW, this.winH);
+  };
+
   async setup() {
-    if (this.p5Instance && !this.canvas) {
-      this.canvas = this.p5Instance.createCanvas(
-        this.winW,
-        this.winH,
-        this.is3D ? p5.prototype.WEBGL : p5.prototype.P2D,
-      );
-      this.canvas.parent(this.$el);
-      const model = await this.p5Instance.loadModel(carModelURL);
-      this.models.car = model;
-    }
+    this.view = new View(this.$el, this.winW, this.winH, this.world);
+    this.view.setCameraHeight(CAMERA_HEIGHT);
 
     this.loadData();
 
@@ -558,7 +516,7 @@ export default class Game {
     });
     this.$circuit.addEventListener("change", () => this.onChangeCircuit());
 
-    this.audio = this.p5Instance?.createAudio(newRecordAudioURL) ?? null;
+    this.audio = new Audio(newRecordAudioURL);
 
     // handling presets
     this.loadPresets();
@@ -587,37 +545,35 @@ export default class Game {
 
     this.applyPreset(this.activePreset);
 
-    // graphics
-    this.loadLighting();
-    this.$realistic?.addEventListener("change", () => {
-      this.setLighting(this.$realistic?.checked ? "realistic" : "basic");
-    });
-
+    this.input.attach();
     document.addEventListener("keydown", this.handleKeyDown);
     document.addEventListener("visibilitychange", this.handleVisibilityChange);
-
-    if (this.is3D && this.p5Instance) {
-      this.camera = this.p5Instance.createCamera();
-      this.camera.perspective(0.66);
-
-      this.camera.setPosition(
-        0, // x
-        0, // y
-        this.spacer * 4, // z
-      );
-      this.camera.upX = 0;
-      this.camera.upY = 0;
-      this.camera.upZ = -1;
-
-      this.p5Instance?.setCamera(this.camera);
-    }
+    window.addEventListener("resize", this.handleResize);
 
     this.createElements();
+    this.handleResize();
 
     // events
     Matter.Events.on(this.engine, "collisionStart", (event) =>
       this.onCollisionStart(event),
     );
+
+    // Last, and deliberately not fatal: the circuit is playable without the
+    // model, and the alternative is a black canvas if /car.obj ever 404s.
+    try {
+      const geometry = await loadCarGeometry();
+      if (geometry) {
+        this.carGeometry = prepareCarGeometry(geometry);
+        this.car.attach(this.world, this.carGeometry);
+        this.ghostMesh = Car.createGhost(
+          this.world,
+          this.carGeometry,
+          this.color,
+        );
+      }
+    } catch (error) {
+      console.warn("Car model unavailable, continuing without it", error);
+    }
   }
 
   // One physics step. Always advances the simulation by exactly FIXED_DT, so
@@ -625,23 +581,21 @@ export default class Game {
   step() {
     Matter.Engine.update(this.engine, FIXED_DT);
 
-    // keyIsDown reads global key state, so without this a focused number field
-    // would step its value and drive the car at the same time.
+    // Key state is global, so without this a focused number field would step
+    // its value and drive the car at the same time.
     const driving = !this.isHudFocused();
 
-    if (driving && this.p5Instance?.keyIsDown(p5.prototype.LEFT_ARROW)) {
+    if (driving && this.input.isDown("ArrowLeft")) {
       this.car.turn(-1);
     }
 
-    if (driving && this.p5Instance?.keyIsDown(p5.prototype.RIGHT_ARROW)) {
+    if (driving && this.input.isDown("ArrowRight")) {
       this.car.turn(1);
     }
 
-    if (driving && this.p5Instance?.keyIsDown(p5.prototype.UP_ARROW)) {
+    if (driving && this.input.isDown("ArrowUp")) {
       this.car.accelerate();
     }
-
-    // if (keyIsDown(DOWN_ARROW)) {}
 
     // Ghost
     this.tempGhost.push({
@@ -652,124 +606,52 @@ export default class Game {
     });
   }
 
-  draw() {
+  draw(delta: number) {
     // Run as many fixed steps as the real elapsed time calls for. The clamp
     // covers the first frame, a tab returning from the background, and machines
     // too slow to keep up (those degrade to slow motion instead of tunnelling
     // the car through walls).
-    this.accumulator += Math.min(
-      this.p5Instance?.deltaTime ?? FIXED_DT,
-      FIXED_DT * MAX_STEPS_PER_FRAME,
-    );
+    this.accumulator += Math.min(delta, FIXED_DT * MAX_STEPS_PER_FRAME);
     while (this.accumulator >= FIXED_DT) {
       this.accumulator -= FIXED_DT;
       this.step();
     }
 
-    // Draw
-    //
-    this.p5Instance?.clear(0, 0, 0, 0);
-    this.p5Instance?.push();
-    if (!this.is3D) {
-      if (this.winW < this.width) {
-        this.transX =
-          (this.car.body.position.x / this.width) * (this.winW - this.width);
-      } else {
-        this.transX = (this.winW - this.width) / 2;
-      }
-      if (this.winH < this.height) {
-        this.transY =
-          (this.car.body.position.y / this.height) * (this.winH - this.height);
-      } else {
-        this.transY = (this.winH - this.height) / 2;
-      }
-      this.p5Instance?.translate(this.transX, this.transY);
-    } else {
-      if (!this.p5Instance || !this.camera) {
-        this.p5Instance?.pop();
-        return;
-      }
+    if (!this.view) return;
 
-      if (this.lighting === "realistic") {
-        const { camera } = this;
-        const fog = getFogShaders(this.p5Instance, () => [
-          camera.eyeX,
-          camera.eyeY,
-          camera.eyeZ,
-        ]);
-        if (fog) {
-          this.p5Instance.shader(fog.material);
-          this.p5Instance.strokeShader(fog.stroke);
-        }
-        // p5 does not put light positions through the model matrix, so this
-        // translation has to be handed to applyRealisticLighting and added
-        // onto each lamp by hand — otherwise the lights stay at raw circuit
-        // coordinates while the posts move, and the two come apart.
-        const originX = -this.circuit.stand.x * this.spacer;
-        const originY = -this.circuit.stand.y * this.spacer;
-        this.p5Instance.translate(originX, originY, 0);
-        applyRealisticLighting(
-          this.p5Instance,
-          this.circuitBounds,
-          this.lamps,
-          originX,
-          originY,
-        );
-      } else {
-        // Unchanged flat rig. Its point light sits at world (0, 0, 100)
-        // regardless of where it appears relative to the translate below,
-        // since p5 ignores the model matrix for light positions.
-        this.p5Instance.resetShader();
-        this.p5Instance.ambientLight(128, 128, 128);
-        this.p5Instance.pointLight(250, 250, 250, 0, 0, 100);
-        this.p5Instance.translate(
-          -this.circuit.stand.x * this.spacer,
-          -this.circuit.stand.y * this.spacer,
-          0,
-        );
-      }
+    // The only transforms that change between frames: everything else on the
+    // circuit is a static body positioned once when it was built.
+    this.car.sync();
+    this.syncGhost();
 
-      this.camera.lookAt(
-        this.car.body.position.x - this.circuit.stand.x * this.spacer, // x
-        this.car.body.position.y - this.circuit.stand.y * this.spacer, // y
-        0, // z
-      );
+    // The camera hangs off the scene, not off the mirrored world group, so the
+    // target has to be mirrored by hand to match.
+    this.view.lookAt(
+      this.car.body.position.x - this.circuit.stand.x * this.spacer,
+      -(this.car.body.position.y - this.circuit.stand.y * this.spacer),
+    );
+    this.view.render();
+
+    this.updateHud(delta);
+  }
+
+  private syncGhost() {
+    if (!this.ghostMesh) return;
+    const frame = this.ghost.length
+      ? this.getGhostInTimestamp(this.lapTime)
+      : null;
+    if (!frame) {
+      this.ghostMesh.visible = false;
+      return;
     }
+    this.ghostMesh.position.set(frame.x, frame.y, 0);
+    this.ghostMesh.rotation.z = frame.a;
+    this.ghostMesh.visible = true;
+  }
 
-    const p = this.p5Instance;
-    if (p && this.is3D && this.lighting === "realistic") {
-      // Opaque, and drawn first so it never overdraws the track geometry.
-      drawGround(p, this.circuitBounds);
-      this.lamps.forEach((lamp) => drawLampPost(p, lamp));
-    }
-
-    this.bounds.forEach((bound) => {
-      bound.show();
-    });
-    this.car.show();
-    if (this.finish) this.finish.show();
-    this.checkpoints.forEach((checkpoint) => {
-      checkpoint.show();
-    });
-    if (this.ghost.length) {
-      const ghostFrame = this.getGhostInTimestamp(this.lapTime);
-      // Skipping the ghost must not skip the pop() below: leaving the style
-      // stack unbalanced would leak this frame's shader and material state
-      // into the next one.
-      if (ghostFrame && this.p5Instance) {
-        const { x, y, a } = ghostFrame;
-        if (!this.ghostColorStr) {
-          const gColor = this.p5Instance.color(this.color);
-          gColor.setAlpha(128);
-          this.ghostColorStr = gColor.toString();
-        }
-        Car.show(x, y, a, this.ghostColorStr, this);
-      }
-    }
-    this.p5Instance?.pop();
-
-    // HUD — skip the Intl formatting + DOM write when nothing changed, and
-    // throttle the current-lap display since sub-100ms updates aren't visible.
+  // Skip the Intl formatting + DOM write when nothing changed, and throttle the
+  // current-lap display since sub-100ms updates aren't visible.
+  private updateHud(delta: number) {
     if (
       this.$lastLap &&
       this.lastLap !== null &&
@@ -786,58 +668,69 @@ export default class Game {
       this.$bestLap.innerText = formatLapTime(this.bestLap);
       this.bestLapWritten = this.bestLap;
     }
-    this.currLapThrottleAccum += this.p5Instance?.deltaTime ?? 0;
+    this.currLapThrottleAccum += delta;
     if (this.$currLap && this.currLapThrottleAccum >= HUD_CURR_LAP_THROTTLE_MS) {
       this.currLapThrottleAccum = 0;
       this.$currLap.innerText = formatLapTime(this.lapTime);
     }
   }
 
-  windowResized() {
-    const container = document.querySelector("#app");
-    // const container = document.body;
-    if (container && this.p5Instance) {
-      const rect = container.getBoundingClientRect();
-      this.winW = rect.width;
-      this.winH = rect.height;
-      console.log("Window resized", this.winW, this.winH);
-      this.p5Instance.resizeCanvas(this.winW, this.winH);
-    }
+  private tick = () => {
+    this.frameHandle = requestAnimationFrame(this.tick);
+    const now = performance.now();
+    const delta = now - this.lastFrameTime;
+    this.lastFrameTime = now;
+    this.draw(delta);
+  };
+
+  private startLoop() {
+    if (this.frameHandle !== null) return;
+    // Drop any time that accumulated while paused, so resuming doesn't trigger
+    // a burst of catch-up physics steps.
+    this.accumulator = 0;
+    this.lastFrameTime = performance.now();
+    this.frameHandle = requestAnimationFrame(this.tick);
   }
 
-  makeSketch() {
-    const self = this;
-    return (sketch: p5) => {
-      sketch.setup = () => {
-        self.setup();
-        self.windowResized();
-
-        // since this is inside a web component, the setup function fails
-        // while searching for the canvases in document to make them visible
-        // https://github.com/processing/p5.js/blob/5d4fd14e57a0102448dbd0231bd031a4016b137c/src/core/main.js#L348
-        if (self.canvas) {
-          self.canvas.elt.style.visibility = "";
-          delete self.canvas.elt.dataset.hidden;
-        }
-      };
-      sketch.draw = () => {
-        self.draw();
-      };
-      sketch.windowResized = () => {
-        self.windowResized();
-      };
-    };
+  private stopLoop() {
+    if (this.frameHandle === null) return;
+    cancelAnimationFrame(this.frameHandle);
+    this.frameHandle = null;
   }
 
   run() {
-    this.p5Instance = new p5(this.makeSketch());
+    this.setup().then(
+      () => this.startLoop(),
+      (error) => console.error("Game setup failed", error),
+    );
   }
 
   destroy() {
+    this.stopLoop();
     document.removeEventListener("keydown", this.handleKeyDown);
     document.removeEventListener(
       "visibilitychange",
       this.handleVisibilityChange,
     );
+    window.removeEventListener("resize", this.handleResize);
+    this.input.detach();
+
+    this.bounds.forEach((bound) => bound.remove());
+    this.bounds = [];
+    this.checkpoints.forEach((checkpoint) => checkpoint.remove());
+    this.checkpoints = [];
+    this.finish?.remove();
+    this.car.remove();
+    this.ghostMesh?.removeFromParent();
+
+    if (this.venue) {
+      this.world.remove(this.venue.group);
+      this.venue.dispose();
+      this.venue = null;
+    }
+
+    this.carGeometry?.dispose();
+    disposeMaterials();
+    this.view?.dispose();
   }
 }

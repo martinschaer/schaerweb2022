@@ -11,11 +11,11 @@
   "dependencies": {
     "astro": "7.2.2",
     "matter-js": "^0.20.0",
-    "p5": "^2.0.3",
-    "poly-decomp": "^0.3.0"
+    "poly-decomp": "^0.3.0",
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@types/matter-js": "^0.19.8",
-    "@types/p5": "^1.7.6"
+    "@types/three": "^0.185.4"
   }
 }

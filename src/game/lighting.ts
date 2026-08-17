@@ -1,11 +1,20 @@
-import p5 from "p5";
+import * as THREE from "three";
 
-// "Realistic" night lighting: dark ambient, exponential distance fog, and four
-// warm lamp posts standing at the corners of whatever circuit is loaded. The
-// basic mode (flat grey ambient + one static point light) stays in game.ts so
-// its exact call order is preserved.
+import {
+  FLOOR_CELL,
+  PALETTE,
+  bulbMaterial,
+  createFloorMaterial,
+  glowMaterial,
+  mixHex,
+  poleMaterial,
+  shadeMaterial,
+} from "./materials";
 
-export type LightingMode = "basic" | "realistic";
+// The venue: a concrete floor, four pendant lamps hanging over the circuit, and
+// the lights they carry. The room is never modelled — exp2 fog in the page's own
+// background colour (see view.ts) eats the floor's far edge, so what reads as
+// "underground" is the absence of anything beyond the light pools.
 
 export interface IBounds {
   minX: number;
@@ -19,102 +28,74 @@ export interface ILamp {
   y: number;
 }
 
-// The site's palette, and the single source of truth for every colour this
-// module introduces. `dark` is the page background (global.css), `cyan` the
-// checkpoint/link accent, `green` the track. Nothing here re-declares green:
-// it already arrives on the geometry as game.color, and the lamps are cyan so
-// the light reads as a different element from the surface it falls on.
-const PALETTE = {
-  dark: "#111917",
-  cyan: "#00f5e6",
-  green: "#00ff7f",
-} as const;
-
-type Rgb = [number, number, number];
-
-const hexToRgb = (hex: string): Rgb => [
-  parseInt(hex.slice(1, 3), 16),
-  parseInt(hex.slice(3, 5), 16),
-  parseInt(hex.slice(5, 7), 16),
-];
-
-const mixHex = (from: string, to: string, t: number): string => {
-  const a = hexToRgb(from);
-  const b = hexToRgb(to);
-  const channel = (i: number) =>
-    Math.round(a[i] + (b[i] - a[i]) * t)
-      .toString(16)
-      .padStart(2, "0");
-  return `#${channel(0)}${channel(1)}${channel(2)}`;
-};
-
-const dim = (rgb: Rgb, k: number): Rgb =>
-  rgb.map((v) => Math.round(v * k)) as Rgb;
-
 // All distances are world units, i.e. circuit grid units x SPACER (100).
-// The posts are tall on purpose: a corner lamp lighting the far side of the
-// track at a shallow angle gives a tiny N.L and the whole scene goes black, so
-// the height has to be a real fraction of the circuit's size to get the light
-// coming down onto the tarmac rather than skimming across it.
-const LAMP_HEIGHT = 260;
-const LAMP_MARGIN = 150; // pushes the posts off the racing line
-// Chunky on purpose: the posts stand at the far corners of a circuit that can
-// be 2200 units across, so anything slender is sub-pixel from the camera.
-const POLE_RADIUS = 9;
-const POLE_DETAIL = 8;
-// The pole is the page background colour, so it reads as a silhouette cut out
-// of the lit ground rather than as an object with its own material.
-const POLE_COLOR = PALETTE.dark;
-const BULB_RADIUS = 22;
+//
+// The lamps hang high enough that light comes down onto the track rather than
+// skimming across it — a lamp lighting the far side of the circuit at a shallow
+// angle gives a tiny N.L and the whole scene goes black — but strictly below
+// the camera's 400, so a pendant hanging over the far corner never swings
+// between the camera and the car.
+const LAMP_HEIGHT = 340;
+const LAMP_MARGIN = 150; // pushes the lamps off the racing line
+
+const CABLE_RADIUS = 2.5;
+// Runs from the shade up past the top of the frustum. There is no ceiling to
+// meet; the fog takes it before it ends.
+const CABLE_LENGTH = 320;
+const SHADE_RADIUS_TOP = 9;
+const SHADE_RADIUS_BOTTOM = 42;
+const SHADE_HEIGHT = 36;
+const SHADE_SEGMENTS = 16;
+const BULB_RADIUS = 15;
 const BULB_DETAIL = 12;
-const BULB_COLOR = PALETTE.cyan;
+// Stands in for a bloom pass. Sized against the shade so the glow looks like it
+// is spilling out of the fitting rather than hovering near it.
+const GLOW_SIZE = SHADE_RADIUS_BOTTOM * 5;
 
-const GROUND_Z = -0.5; // just under the walls (z 0..10) and checkpoints (z 1)
-// Deliberately far past the track: the plane has to run out beyond the point
-// where the fog has gone fully opaque, otherwise its far edge reads as a hard
-// horizon line. It costs two triangles, so there is no reason to be stingy.
-const GROUND_MARGIN = 1500;
-// The page background pulled a little way toward the accent. The mix has to be
-// far enough off `dark` that the pools have somewhere to go before they clip —
-// a steep falloff over a near-black floor just reads as black everywhere — but
-// staying on the dark-to-cyan line keeps the tarmac inside the palette.
-const GROUND_COLOR = mixHex(PALETTE.dark, PALETTE.cyan, 0.28);
+const FLOOR_Z = -0.5; // just under the barriers (z 0..10) and gates (z 1)
+// Deliberately far past the track: the floor has to run out beyond the point
+// where the fog has gone fully opaque, otherwise its edge reads as a horizon.
+// It costs two triangles.
+const FLOOR_MARGIN = 1500;
+const FLOOR_TILE = FLOOR_CELL * 4; // one texture tile spans four grid cells
 
-// Ambient is the page background at low intensity, which is both on-palette
-// and the physically sensible choice: ambient stands in for light bouncing off
-// the surroundings, and the surroundings here are exactly the fog colour.
-const AMBIENT: Rgb = dim(hexToRgb(PALETTE.dark), 0.55);
-const LAMP_COLOR: Rgb = hexToRgb(PALETTE.cyan);
+// Ambient stands in for light bouncing around the room. Kept on the palette's
+// dark-to-cyan line and very low: it exists to keep the barriers' shadowed
+// faces from going to absolute black, not to light the scene.
+const AMBIENT_COLOR = mixHex(PALETTE.dark, PALETTE.cyan, 0.12);
+const AMBIENT_INTENSITY = 1.4;
 
-// Light falloff is 1 / (constant + quadratic * d^2).
+const LAMP_COLOR = PALETTE.cyan;
+// Wide enough to reach from directly under a lamp out across the circuit.
+// Corner-mounted lamps at LAMP_HEIGHT need most of the available half-angle;
+// the penumbra keeps the cone's edge from drawing a hard ellipse on the floor.
+const LAMP_ANGLE = 1.25;
+const LAMP_PENUMBRA = 0.45;
+const LAMP_DECAY = 2;
+
+// Target combined irradiance at the circuit centre, in three's physical units.
+// Intensity is then solved per circuit from the lamp-to-centre distance, which
+// is what keeps a small circuit and a large one equally lit — the job the
+// p5 build's lightFalloff(constant, 0, k/halfDiagonal^2) used to do.
 //
-// Both numbers exist to make the light look like it has a source. Four lamps
-// spaced symmetrically around the track will always sum to something close to
-// uniform unless each one falls off hard, so the quadratic term is set steep:
-// it reaches FALLOFF_AT_CENTRE at the circuit's half-diagonal, which is also
-// what keeps a small circuit and a large one equally lit.
-//
-// Steep falloff alone would just make everything dark, so the constant is
-// dropped below 1. It caps near-field attenuation at 1/constant instead of 1,
-// which brightens the pool directly under each lamp without touching the rate
-// at which the light dies off with distance. Together they give roughly a 4x
-// range between standing under a lamp and standing mid-circuit; at 1.0/0.8 it
-// was 2x and read as flat ambient.
-const LAMP_FALLOFF_CONSTANT = 0.25;
-const FALLOFF_AT_CENTRE = 3;
+// The ceiling on this is the barriers, not the floor: track green is very
+// nearly full reflectance in its green channel, so a lit barrier reaches
+// albedo/PI * E and clips to a flat neon slab once E passes ~3. Everything
+// stays under that, and the emissive trim is what carries the brightness.
+const LAMP_TARGET_IRRADIANCE = 1.6;
 
-// exp2 fog on eye distance. Unlike the falloff above this is a constant: the
-// camera sits a fixed 400 units up (createCamera in game.ts) and only ever
-// rotates, so eye distances run roughly 400..1600 on every circuit.
-const FOG_DENSITY = 0.0007;
-// Deliberately the site's own page background. Geometry and the ground plane
-// both dissolve into exactly the colour showing through the transparent
-// canvas, so the edge of the plane is invisible by construction rather than by
-// being pushed far enough away.
-const FOG_COLOR: Rgb = hexToRgb(PALETTE.dark);
+const SHADOW_MAP_SIZE = 2048;
+// World units here run to thousands, so three's defaults (tuned for scenes a
+// few units across) leave shadow acne all over the floor.
+const SHADOW_BIAS = -0.0005;
+const SHADOW_NORMAL_BIAS = 2;
+// Widens the PCF kernel. A hard-edged shadow under a barrier reads as painted
+// on; these lamps are broad fittings a long way off, so their shadows should
+// not be crisper than the penumbra of the cone casting them.
+const SHADOW_RADIUS = 3;
 
 // Scans the circuit geometry for its extent. No circuit JSON declares one, and
-// the lamp posts need to know where the corners are.
+// the lamps need to know where the corners are.
 export function getCircuitBounds(circuit: ICircuit, spacer: number): IBounds {
   let minX = Infinity;
   let minY = Infinity;
@@ -167,188 +148,156 @@ export function getLampPositions(bounds: IBounds): Array<ILamp> {
   ];
 }
 
-interface IFogShaders {
-  material: p5.Shader;
-  stroke: p5.Shader;
+export interface IVenue {
+  group: THREE.Group;
+  dispose: () => void;
 }
 
-// Built once, lazily: baseMaterialShader() needs a live WEBGL context, so this
-// can't run before createCanvas().
-let fogShaders: IFogShaders | null = null;
-let fogShadersFailed = false;
+function buildFloor(bounds: IBounds): THREE.Mesh {
+  const width = bounds.maxX - bounds.minX + FLOOR_MARGIN * 2;
+  const height = bounds.maxY - bounds.minY + FLOOR_MARGIN * 2;
+  const centreX = (bounds.minX + bounds.maxX) / 2;
+  const centreY = (bounds.minY + bounds.maxY) / 2;
 
-// Fog distance is measured in world space against the camera's eye rather
-// than by taking length() of a camera-space position, because the obvious
-// camera-space route is unusable here: p5 2.0.3's line vertex shader invokes
-// the getCameraInputs hook as the raw identifier `hook_getCameraInputs`
-// instead of the `HOOK_getCameraInputs` macro every sibling call site uses, so
-// hooking StrokeVertex getCameraInputs fails to compile. getWorldInputs is
-// wired up correctly in both shaders, and distance-to-eye in world space is
-// identical to length-in-camera-space anyway (the view matrix is rigid).
-const worldFogHook = (vertexType: string) => `(${vertexType} inputs) {
-  vFogDist = distance(inputs.position, uCameraPos);
-  return inputs;
-}`;
+  const material = createFloorMaterial();
+  const map = material.map!;
+  map.repeat.set(width / FLOOR_TILE, height / FLOOR_TILE);
+  // Anchors the grid to the world origin instead of to the plane's own corner,
+  // so the floor markings line up with the circuit's coordinates whatever
+  // extent the circuit happens to have.
+  map.offset.set(
+    (centreX - width / 2) / FLOOR_TILE,
+    (centreY - height / 2) / FLOOR_TILE,
+  );
 
-// getFinalColor receives the fully lit, composited colour, so the haze sits on
-// top of the lighting result rather than being lit itself.
-//
-// The two shaders disagree on alpha: phongFrag premultiplies *after* the hook,
-// so its colour arrives straight, while lineFrag premultiplies *before*, so
-// the fog colour has to be premultiplied to match.
-const finalColorHook = (premultiplied: boolean) => `(vec4 color) {
-  float f = 1.0 - exp(-uFogDensity * uFogDensity * vFogDist * vFogDist);
-  vec3 fog = uFogColor${premultiplied ? " * color.a" : ""};
-  return vec4(mix(color.rgb, fog, clamp(f, 0.0, 1.0)), color.a);
-}`;
-
-// Fogging the strokes as well as the fills matters: without it the "#222"
-// outlines on every wall, corner and obstacle stay crisp at distance while
-// their fills haze, which reads as broken immediately.
-export function getFogShaders(
-  p: p5,
-  getEye: () => [number, number, number],
-): IFogShaders | null {
-  if (fogShaders || fogShadersFailed) return fogShaders;
-
-  const uniforms = {
-    "float uFogDensity": () => FOG_DENSITY,
-    "vec3 uFogColor": () => FOG_COLOR.map((c) => c / 255),
-    "vec3 uCameraPos": getEye,
-  };
-  const declarations = {
-    vertexDeclarations: "out float vFogDist;\nuniform vec3 uCameraPos;",
-    fragmentDeclarations: "in float vFogDist;",
-  };
-
-  try {
-    const material = p.baseMaterialShader().modify({
-      uniforms,
-      ...declarations,
-      "Vertex getWorldInputs": worldFogHook("Vertex"),
-      "vec4 getFinalColor": finalColorHook(false),
-    });
-    const stroke = p.baseStrokeShader().modify({
-      uniforms,
-      ...declarations,
-      "StrokeVertex getWorldInputs": worldFogHook("StrokeVertex"),
-      "vec4 getFinalColor": finalColorHook(true),
-    });
-
-    // p5 compiles lazily on first bind, which would put any GLSL error inside
-    // draw() where it kills the whole sketch. Force it here so the catch below
-    // can actually do its job.
-    material.init();
-    stroke.init();
-
-    fogShaders = { material, stroke };
-  } catch (error) {
-    // WebGL1, perPixelLighting turned off, or a GLSL compile error. Degrade to
-    // realistic lighting without fog rather than a dead draw loop.
-    console.warn("Fog shaders unavailable, continuing without fog", error);
-    fogShadersFailed = true;
-    fogShaders = null;
-  }
-
-  return fogShaders;
+  // PlaneGeometry already lies in XY, matching the game's Z-up convention.
+  // Lighting is per-fragment, so two triangles are enough for smooth pools.
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, height), material);
+  mesh.position.set(centreX, centreY, FLOOR_Z);
+  mesh.receiveShadow = true;
+  return mesh;
 }
 
-// originX/originY are the world translation already applied to the scene.
-// They have to be added back onto each lamp by hand because p5 does NOT run
-// light positions through the model matrix: pointLight() stores the raw x/y/z
-// it is given, and the shader transforms them by uViewMatrix alone. A
-// translate() before the call moves the geometry but leaves the lights behind,
-// which silently puts every lamp's light hundreds of units away from its post.
-export function applyRealisticLighting(
-  p: p5,
-  bounds: IBounds,
-  lamps: Array<ILamp>,
-  originX: number,
-  originY: number,
-) {
-  p.ambientLight(AMBIENT[0], AMBIENT[1], AMBIENT[2], 255);
+// Cable, shade, bulb and glow. Nothing here casts a shadow: every piece sits at
+// or above the light it belongs to, so it could only ever shadow itself.
+function buildPendant({ x, y }: ILamp): THREE.Group {
+  const group = new THREE.Group();
+  group.position.set(x, y, 0);
 
-  const halfDiagonal = Math.max(
-    Math.hypot(bounds.maxX - bounds.minX, bounds.maxY - bounds.minY) / 2,
-    1,
+  const cable = new THREE.Mesh(
+    new THREE.CylinderGeometry(CABLE_RADIUS, CABLE_RADIUS, CABLE_LENGTH, 6),
+    poleMaterial(),
   );
-  p.lightFalloff(
-    LAMP_FALLOFF_CONSTANT,
-    0,
-    FALLOFF_AT_CENTRE / (halfDiagonal * halfDiagonal),
-  );
+  // three's cylinders run along Y; the game is Z-up.
+  cable.rotation.x = Math.PI / 2;
+  cable.position.z = LAMP_HEIGHT + SHADE_HEIGHT + CABLE_LENGTH / 2;
+  group.add(cable);
 
-  lamps.forEach(({ x, y }) => {
-    p.pointLight(
-      LAMP_COLOR[0],
-      LAMP_COLOR[1],
-      LAMP_COLOR[2],
-      x + originX,
-      y + originY,
-      LAMP_HEIGHT,
-    );
+  const shade = new THREE.Mesh(
+    new THREE.CylinderGeometry(
+      SHADE_RADIUS_TOP,
+      SHADE_RADIUS_BOTTOM,
+      SHADE_HEIGHT,
+      SHADE_SEGMENTS,
+      1,
+      true,
+    ),
+    shadeMaterial(),
+  );
+  shade.rotation.x = Math.PI / 2;
+  shade.position.z = LAMP_HEIGHT + SHADE_HEIGHT / 2;
+  group.add(shade);
+
+  const bulb = new THREE.Mesh(
+    new THREE.SphereGeometry(BULB_RADIUS, BULB_DETAIL, BULB_DETAIL),
+    bulbMaterial(),
+  );
+  bulb.position.z = LAMP_HEIGHT;
+  group.add(bulb);
+
+  const glow = new THREE.Sprite(glowMaterial(LAMP_COLOR));
+  glow.scale.set(GLOW_SIZE, GLOW_SIZE, 1);
+  glow.position.z = LAMP_HEIGHT;
+  group.add(glow);
+
+  return group;
+}
+
+function buildSpot(
+  lamp: ILamp,
+  centreX: number,
+  centreY: number,
+  intensity: number,
+  shadowFar: number,
+): THREE.SpotLight {
+  const light = new THREE.SpotLight(
+    LAMP_COLOR,
+    intensity,
+    0, // no cutoff distance; the inverse-square decay does the work
+    LAMP_ANGLE,
+    LAMP_PENUMBRA,
+    LAMP_DECAY,
+  );
+  light.position.set(lamp.x, lamp.y, LAMP_HEIGHT);
+  light.target.position.set(centreX, centreY, 0);
+
+  light.castShadow = true;
+  light.shadow.mapSize.set(SHADOW_MAP_SIZE, SHADOW_MAP_SIZE);
+  light.shadow.camera.near = 40;
+  light.shadow.camera.far = shadowFar;
+  light.shadow.bias = SHADOW_BIAS;
+  light.shadow.normalBias = SHADOW_NORMAL_BIAS;
+  light.shadow.radius = SHADOW_RADIUS;
+
+  return light;
+}
+
+// Built once per circuit — createElements() in game.ts rebuilds it whenever the
+// bounds change, and disposes the previous one.
+export function buildVenue(bounds: IBounds): IVenue {
+  const group = new THREE.Group();
+  const centreX = (bounds.minX + bounds.maxX) / 2;
+  const centreY = (bounds.minY + bounds.maxY) / 2;
+
+  const floor = buildFloor(bounds);
+  group.add(floor);
+  group.add(new THREE.AmbientLight(AMBIENT_COLOR, AMBIENT_INTENSITY));
+
+  const lamps = getLampPositions(bounds);
+  // Symmetric rig, so one distance covers all four. Solving intensity from it
+  // (E = 4 * I * cos / d^2, with cos = LAMP_HEIGHT / d at the centre) is what
+  // makes Drift Park and the Seoul circuit come out equally lit.
+  const distance = Math.hypot(
+    lamps[0].x - centreX,
+    lamps[0].y - centreY,
+    LAMP_HEIGHT,
+  );
+  const intensity =
+    (LAMP_TARGET_IRRADIANCE * distance ** 3) / (4 * LAMP_HEIGHT);
+  const shadowFar = Math.max(distance * 2.6, 2000);
+
+  lamps.forEach((lamp) => {
+    group.add(buildPendant(lamp));
+    const light = buildSpot(lamp, centreX, centreY, intensity, shadowFar);
+    group.add(light);
+    // A SpotLight aims at its target's world position, and a target that is not
+    // in the scene never gets its matrix updated.
+    group.add(light.target);
   });
 
-  // Wet-tarmac sheen, kept deliberately weak and broad. A mirror highlight sits
-  // partway between the lamp and the camera, not under the lamp — with a light
-  // at LAMP_HEIGHT and the camera at 400, roughly 40% of the way across — and
-  // p5 multiplies specular by 2.0 internally. Turned up, that offset blob
-  // outshines the diffuse pool and the light stops looking like it belongs to
-  // the post above it. Diffuse has to stay dominant.
-  //
-  // Set outside every object's own push(), so Wall, Corner, Obstacle,
-  // Checkpoint and Car all inherit it without needing to know a lighting mode
-  // exists. It cannot leak into basic mode: draw() wraps the whole frame in
-  // push()/pop(), which restores the material and falloff state that p5's
-  // per-frame _update() leaves alone.
-  p.specularMaterial(30, 255);
-  p.shininess(16);
-}
+  const dispose = () => {
+    group.traverse((object) => {
+      if (object instanceof THREE.Mesh) object.geometry.dispose();
+      if (object instanceof THREE.SpotLight) object.shadow.dispose();
+    });
+    // The floor is the only thing here that owns its material, because its
+    // texture carries a per-circuit repeat and offset. Everything else draws
+    // from the shared cache in materials.ts and must outlive this venue.
+    const floorMaterial = floor.material as THREE.MeshStandardMaterial;
+    floorMaterial.map?.dispose();
+    floorMaterial.dispose();
+    group.clear();
+  };
 
-export function drawGround(p: p5, bounds: IBounds) {
-  const width = bounds.maxX - bounds.minX + GROUND_MARGIN * 2;
-  const height = bounds.maxY - bounds.minY + GROUND_MARGIN * 2;
-
-  p.push();
-  p.translate(
-    (bounds.minX + bounds.maxX) / 2,
-    (bounds.minY + bounds.maxY) / 2,
-    GROUND_Z,
-  );
-  p.noStroke();
-  // Overrides the sheen set in applyRealisticLighting, for this surface only
-  // (push/pop keeps it from reaching anything else). The ground is by far the
-  // largest thing on screen, so it is where an off-centre mirror highlight is
-  // visible as a bright patch sitting away from any lamp. Keeping the tarmac
-  // near-diffuse leaves the pool centred under the post where it belongs.
-  p.specularMaterial(6, 255);
-  p.shininess(8);
-  p.fill(GROUND_COLOR);
-  // plane() already lies in XY, matching the game's Z-up convention. Lighting
-  // is per-fragment, so two triangles are enough for smooth light pools, and
-  // the fog fades the far edge out before it can read as a rectangle.
-  p.plane(width, height, 1, 1);
-  p.pop();
-}
-
-export function drawLampPost(p: p5, { x, y }: ILamp) {
-  p.push();
-  p.noStroke();
-  p.fill(POLE_COLOR);
-  p.translate(x, y, LAMP_HEIGHT / 2);
-  // cylinder() runs along Y and the game is Z-up — same fixup Obstacle.show()
-  // already does.
-  p.rotateX(Math.PI / 2);
-  p.cylinder(POLE_RADIUS, LAMP_HEIGHT, POLE_DETAIL, 1, true, true);
-  p.pop();
-
-  p.push();
-  p.noStroke();
-  p.translate(x, y, LAMP_HEIGHT);
-  // Emissive so the bulb reads as the source itself rather than as a lit
-  // object, and blooms through the fog.
-  p.emissiveMaterial(BULB_COLOR);
-  p.fill(BULB_COLOR);
-  p.sphere(BULB_RADIUS, BULB_DETAIL, BULB_DETAIL);
-  p.pop();
+  return { group, dispose };
 }

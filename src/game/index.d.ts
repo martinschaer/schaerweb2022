@@ -30,8 +30,9 @@ interface ICheckpoint extends IPosition {
   label: string
 }
 
+// Barriers are retained-mode meshes now: they build themselves once and are
+// only ever torn down, so there is nothing left to call per frame.
 interface IBound {
-  show: () => void
   remove: () => void
 }
 

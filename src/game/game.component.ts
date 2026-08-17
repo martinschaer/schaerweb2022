@@ -21,13 +21,11 @@ const style = `
   min-width: 10rem;
 }
 
-#handling,
-#graphics {
+#handling {
   margin-top: 0.5rem;
 }
 
-#handling label,
-#graphics label {
+#handling label {
   display: block;
 }
 
@@ -64,12 +62,6 @@ const style = `
           <input type="number" id="acc-factor" min="0.001" max="0.008" step="0.0001">
         </label>
         <div id="presets"></div>
-      </details>
-      <details id="graphics">
-        <summary>Graphics</summary>
-        <label>
-          <input type="checkbox" id="realistic"> Realistic lighting <small>(L)</small>
-        </label>
       </details>
     </div>
 `;

@@ -1,15 +1,20 @@
 import Matter from "matter-js";
-import p5 from "p5";
+import * as THREE from "three";
 
-const SPACER = 100;
-const THICKNESS = 10;
+import { SPACER } from "./constants";
+import { PALETTE, checkpointMaterial } from "./materials";
 
 type Game = {
   engine: { world: any };
-  is3D: boolean;
-  p5Instance?: p5;
+  world: THREE.Group;
   color: string;
 };
+
+const THICKNESS = 10;
+// Set nearly flush with the floor, so a gate reads as an inlaid timing strip
+// rather than a slab lying on top of the concrete.
+const GATE_HEIGHT = 2;
+const GATE_Z = 1;
 
 export default class Checkpoint {
   game: Game;
@@ -26,15 +31,15 @@ export default class Checkpoint {
 
   color: string;
 
-  private fillColor: p5.Color | null = null;
+  mesh: THREE.Mesh;
 
   constructor(game: Game, { x, y, w, a, label, c }: ICheckpoint) {
     this.game = game;
-    this.color = c ?? "#00f5e6";
+    this.color = c ?? PALETTE.cyan;
     this.x = x * SPACER;
     this.y = y * SPACER;
     this.w = w * SPACER;
-    this.angle = (a * p5.prototype.PI) / 180;
+    this.angle = (a * Math.PI) / 180;
     this.body = Matter.Bodies.rectangle(this.x, this.y, this.w, THICKNESS, {
       isStatic: true,
       isSensor: true,
@@ -42,35 +47,20 @@ export default class Checkpoint {
     });
     Matter.Body.setAngle(this.body, this.angle);
     Matter.World.add(game.engine.world, this.body);
+
+    this.mesh = new THREE.Mesh(
+      new THREE.BoxGeometry(this.w, THICKNESS, GATE_HEIGHT),
+      checkpointMaterial(this.color),
+    );
+    this.mesh.position.set(this.x, this.y, GATE_Z);
+    this.mesh.rotation.z = this.angle;
+    game.world.add(this.mesh);
   }
 
   remove = () => {
     const { engine } = this.game;
     if (engine) Matter.World.remove(engine.world, this.body);
-  };
-
-  show = () => {
-    if (!this.game.p5Instance) return;
-    if (!this.fillColor) {
-      this.fillColor = this.game.p5Instance.color(this.color);
-      this.fillColor.setAlpha(128);
-    }
-    this.game.p5Instance.push();
-    this.game.p5Instance.translate(
-      this.x,
-      this.y,
-      this.game.is3D ? 1 : undefined,
-    );
-    this.game.p5Instance.fill(this.fillColor);
-    this.game.p5Instance.noStroke();
-    this.game.p5Instance.rectMode(p5.prototype.CENTER);
-    if (this.game.is3D) {
-      this.game.p5Instance.rotateZ(this.angle);
-      this.game.p5Instance.box(this.w, THICKNESS, 2);
-    } else {
-      this.game.p5Instance.rotate(this.angle);
-      this.game.p5Instance.rect(0, 0, this.w, THICKNESS);
-    }
-    this.game.p5Instance.pop();
+    this.game.world.remove(this.mesh);
+    this.mesh.geometry.dispose();
   };
 }

@@ -1,17 +1,20 @@
 import Matter from "matter-js";
-import p5 from "p5";
+import * as THREE from "three";
+
+import {
+  BARRIER_HEIGHT,
+  BARRIER_THICKNESS,
+  SPACER,
+  TRIM_HEIGHT,
+  TRIM_SCALE,
+} from "./constants";
+import { barrierMaterial, trimMaterial } from "./materials";
 
 type Game = {
   engine: { world: any };
-  is3D: boolean;
-  p5Instance?: p5;
+  world: THREE.Group;
   color: string;
-  showStrokes: boolean;
 };
-
-const THICKNESS = 20;
-const HEIGHT = 10;
-const SPACER = 100;
 
 export default class Wall implements IBound {
   game: Game;
@@ -28,14 +31,14 @@ export default class Wall implements IBound {
 
   body: Matter.Body;
 
+  mesh: THREE.Group;
+
   constructor(game: Game, { x1, y1, x2, y2, c }: IWall) {
     this.game = game;
     this.color = c ?? game.color;
     const a = (x2 - x1) * SPACER;
     const b = (y2 - y1) * SPACER;
     this.l = Math.sqrt(a * a + b * b);
-    // const d = Math.sqrt(b * b * hT * hT / (a * a + b * b))
-    // const c = Math.sqrt(hT * hT - d * d)
     this.cx = a / 2;
     this.cy = b / 2;
     this.angle = Math.atan(b / a);
@@ -43,41 +46,53 @@ export default class Wall implements IBound {
       x1 * SPACER + this.cx,
       y1 * SPACER + this.cy,
       this.l,
-      THICKNESS,
+      BARRIER_THICKNESS,
       { isStatic: true },
     );
     Matter.Body.setAngle(this.body, this.angle);
     Matter.World.add(game.engine.world, this.body);
+
+    this.mesh = this.build();
+    game.world.add(this.mesh);
+  }
+
+  // Static body, so the transform is set once here rather than per frame. This
+  // is the whole point of the move off p5: a wall costs nothing to draw again
+  // once it exists.
+  private build(): THREE.Group {
+    const group = new THREE.Group();
+    const pos = this.body.position;
+    group.position.set(pos.x, pos.y, 0);
+    group.rotation.z = this.angle;
+
+    const barrier = new THREE.Mesh(
+      new THREE.BoxGeometry(this.l, BARRIER_THICKNESS, BARRIER_HEIGHT),
+      barrierMaterial(this.color),
+    );
+    barrier.position.z = BARRIER_HEIGHT / 2;
+    barrier.castShadow = true;
+    barrier.receiveShadow = true;
+    group.add(barrier);
+
+    const trim = new THREE.Mesh(
+      new THREE.BoxGeometry(
+        this.l,
+        BARRIER_THICKNESS * TRIM_SCALE,
+        TRIM_HEIGHT,
+      ),
+      trimMaterial(this.color),
+    );
+    trim.position.z = BARRIER_HEIGHT + TRIM_HEIGHT / 2;
+    group.add(trim);
+
+    return group;
   }
 
   remove = () => {
     Matter.World.remove(this.game.engine.world, this.body);
-  };
-
-  show = () => {
-    if (!this.game.p5Instance) return;
-    const pos = this.body.position;
-    this.game.p5Instance.push();
-    this.game.p5Instance.translate(
-      pos.x,
-      pos.y,
-      this.game.is3D ? HEIGHT / 2 : undefined,
-    );
-    this.game.p5Instance.fill(this.color);
-    if (this.game.showStrokes) {
-      this.game.p5Instance.stroke("#222");
-      this.game.p5Instance.strokeWeight(0.5);
-    } else {
-      this.game.p5Instance.noStroke();
-    }
-    this.game.p5Instance.rectMode(p5.prototype.CENTER);
-    if (this.game.is3D) {
-      this.game.p5Instance.rotateZ(this.angle);
-      this.game.p5Instance.box(this.l, THICKNESS, HEIGHT);
-    } else {
-      this.game.p5Instance.rotate(this.angle);
-      this.game.p5Instance.rect(0, 0, this.l, THICKNESS);
-    }
-    this.game.p5Instance.pop();
+    this.game.world.remove(this.mesh);
+    this.mesh.traverse((object) => {
+      if (object instanceof THREE.Mesh) object.geometry.dispose();
+    });
   };
 }
