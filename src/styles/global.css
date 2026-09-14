@@ -4,23 +4,33 @@
     font-weight: 400;
 
     color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #111917;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    --color-dark: #111917;
+    --color-light: rgba(255, 255, 255, 0.87);
+    --color-neon-blue-green: #00f5e6;
+    --color-skobeloff: hsl(176, 100%, 24%);
+
+    --bg-color: var(--color-dark);
+    --text-color: var(--color-light);
+    --accent-color: var(--color-neon-blue-green);
 }
 @media (prefers-color-scheme: light) {
     :root {
-        color: #111917;
-        background-color: #fff;
+        --bg-color: var(--color-light);
+        --text-color: var(--color-dark);
+        --accent-color: var(--color-skobeloff);
     }
 }
 
 body {
     margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 .container {
@@ -29,5 +39,5 @@ body {
 }
 
 a {
-    color: #00f5e6;
+    color: var(--accent-color);
 }

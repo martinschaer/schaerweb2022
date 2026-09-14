@@ -13,10 +13,8 @@ const style = `
   position: absolute;
   top: 3rem;
   right: 0;
-  /* The variable is not defined anywhere in the site, so without a fallback
-     the HUD has no background at all — fine over the flat page colour, not
-     fine over a lamp-lit ground plane. */
-  background-color: var(--color-accent-alpha-50, rgba(17, 25, 23, 0.75));
+  color: var(--color-light);
+  background-color: var(--color-dark);
   padding: 1rem;
   min-width: 10rem;
 }
