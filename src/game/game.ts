@@ -19,6 +19,8 @@ import View from "./view";
 import { SPACER } from "./constants";
 import { PALETTE, disposeMaterials } from "./materials";
 import { getItem, storeItem } from "./storage";
+import { formatLapTime } from "./format";
+import LeaderboardPanel from "./leaderboard-ui";
 import {
   buildVenue,
   getCircuitBounds,
@@ -78,13 +80,6 @@ const DEFAULT_PRESETS: Array<Preset> = [
   { turnFactor: 0.023, accFactor: 0.0036 }, // 2 Balanced
   { turnFactor: 0.025, accFactor: 0.004 }, // 3 Fast
 ];
-
-const formatLapTime = (ms: number) =>
-  (Math.round(ms) / 1000).toLocaleString("en-US", {
-    style: "decimal",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
 
 // OBJLoader hands back a Group of Meshes; car.obj is a single object, so the
 // first mesh it contains is the whole car.
@@ -177,6 +172,13 @@ export default class Game {
   winH: number;
 
   audio: HTMLAudioElement | null = null;
+
+  leaderboard: LeaderboardPanel | null = null;
+
+  // Whose ghost the player is currently racing. While a leaderboard ghost is
+  // loaded, beating your own record still saves and uploads your run but does
+  // not yank the ghost car out from under you.
+  ghostIsRemote: boolean = false;
 
   private frameHandle: number | null = null;
 
@@ -277,6 +279,19 @@ export default class Game {
   loadData() {
     this.bestLap = getItem<number>(`lr-${this.circuit.key}`);
     this.ghost = getItem<Array<IGhost>>(`lrg-${this.circuit.key}`) || [];
+    this.ghostIsRemote = false;
+  }
+
+  // Swaps in a leaderboard ghost, or with null goes back to the player's own
+  // recording for the current circuit.
+  setGhost(ghost: Array<IGhost> | null) {
+    if (ghost === null) {
+      this.ghost = getItem<Array<IGhost>>(`lrg-${this.circuit.key}`) || [];
+      this.ghostIsRemote = false;
+      return;
+    }
+    this.ghost = ghost;
+    this.ghostIsRemote = true;
   }
 
   // Presets describe the car, not the track, so unlike loadData() this runs
@@ -434,6 +449,8 @@ export default class Game {
     );
     this.createElements();
     this.$circuit.blur();
+    this.leaderboard?.setGhostLabel(null);
+    void this.leaderboard?.refresh(this.circuit.key);
   }
 
   onCollisionStart(event: Matter.IEventCollision<Matter.Engine>) {
@@ -459,10 +476,18 @@ export default class Game {
             if (this.bestLap === null || this.lastLap < this.bestLap) {
               const beatenRecord = this.bestLap !== null;
               this.bestLap = this.lastLap;
-              this.ghost = [...this.tempGhost];
-              storeItem(`lrg-${this.circuit.key}`, this.ghost);
+              // resetLap() clears tempGhost a few lines below, so the run has
+              // to be copied out now whether or not it becomes the active ghost.
+              const run = [...this.tempGhost];
+              if (!this.ghostIsRemote) this.ghost = run;
+              storeItem(`lrg-${this.circuit.key}`, run);
               storeItem(`lr-${this.circuit.key}`, this.bestLap);
               if (beatenRecord) this.audio?.play();
+              this.leaderboard?.onNewRecord(
+                this.circuit.key,
+                this.lastLap,
+                run,
+              );
             }
           }
         }
@@ -517,6 +542,12 @@ export default class Game {
     this.$circuit.addEventListener("change", () => this.onChangeCircuit());
 
     this.audio = new Audio(newRecordAudioURL);
+
+    this.leaderboard = new LeaderboardPanel(this.$el, {
+      fixedStep: FIXED_DT,
+      onGhost: (ghost) => this.setGhost(ghost),
+    });
+    void this.leaderboard.refresh(this.circuit.key);
 
     // handling presets
     this.loadPresets();

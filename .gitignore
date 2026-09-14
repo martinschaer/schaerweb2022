@@ -16,9 +16,16 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+.env.root
 
 # macOS-specific files
 .DS_Store
 
 # jetbrains setting folder
 .idea/
+
+# generated from src/game/profanity.ts by `just db-gen`
+db/profanity.surql
+
+# surreal sql REPL history
+history.txt
