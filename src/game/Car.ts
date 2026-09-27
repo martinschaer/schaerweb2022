@@ -107,11 +107,15 @@ export default class Car {
     );
   };
 
-  accelerate = () => {
+  // amount is 0–1 so an analog trigger can feather the throttle.
+  accelerate = (amount = 1) => {
     Matter.Body.applyForce(
       this.body,
       this.body.position,
-      Matter.Vector.rotate({ x: 0, y: this.accFactor }, this.body.angle),
+      Matter.Vector.rotate(
+        { x: 0, y: this.accFactor * amount },
+        this.body.angle,
+      ),
     );
   };
 

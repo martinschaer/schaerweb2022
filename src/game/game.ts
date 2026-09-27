@@ -68,7 +68,8 @@ const HUD_CURR_LAP_THROTTLE_MS = 100; // current-lap display refresh rate
 // The camera hangs at a fixed height and only ever changes what it looks at.
 const CAMERA_HEIGHT = SPACER * 4;
 
-// Handling presets, switchable with the 1-3 keys. Seeded with the tunings that
+// Handling presets, switchable with the 1-3 keys or cycled with a gamepad's
+// bumpers. Seeded with the tunings that
 // used to live as commented-out blocks in Car.ts; the player can overwrite any
 // of them with the Handling controls.
 type Preset = { turnFactor: number; accFactor: number };
@@ -613,19 +614,18 @@ export default class Game {
     Matter.Engine.update(this.engine, FIXED_DT);
 
     // Key state is global, so without this a focused number field would step
-    // its value and drive the car at the same time.
-    const driving = !this.isHudFocused();
+    // its value and drive the car at the same time. A gamepad can't type into
+    // the HUD, so it keeps driving regardless.
+    const keys = !this.isHudFocused();
 
-    if (driving && this.input.isDown("ArrowLeft")) {
-      this.car.turn(-1);
+    const steer = this.input.steer(keys);
+    if (steer !== 0) {
+      this.car.turn(steer);
     }
 
-    if (driving && this.input.isDown("ArrowRight")) {
-      this.car.turn(1);
-    }
-
-    if (driving && this.input.isDown("ArrowUp")) {
-      this.car.accelerate();
+    const throttle = this.input.throttle(keys);
+    if (throttle > 0) {
+      this.car.accelerate(throttle);
     }
 
     // Ghost
@@ -643,6 +643,14 @@ export default class Game {
     // too slow to keep up (those degrade to slow motion instead of tunnelling
     // the car through walls).
     this.accumulator += Math.min(delta, FIXED_DT * MAX_STEPS_PER_FRAME);
+    this.input.poll();
+    const presetShift = this.input.takePresetShift();
+    if (presetShift !== 0) {
+      this.applyPreset(
+        (((this.activePreset + presetShift) % PRESET_COUNT) + PRESET_COUNT) %
+          PRESET_COUNT,
+      );
+    }
     while (this.accumulator >= FIXED_DT) {
       this.accumulator -= FIXED_DT;
       this.step();
