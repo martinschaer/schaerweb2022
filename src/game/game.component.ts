@@ -36,6 +36,34 @@ const style = `
   gap: 0.25rem;
 }
 
+#ramps {
+  margin-top: 0.5rem;
+  border-top: 1px solid currentColor;
+  padding-top: 0.25rem;
+}
+
+.ramp {
+  border: 1px solid currentColor;
+  margin: 0.25rem 0 0;
+  padding: 0.25rem;
+}
+
+#handling .ramp-exp {
+  width: 3.5rem;
+}
+
+.ramp-exp:disabled {
+  opacity: 0.5;
+}
+
+.ramp-graph {
+  display: block;
+  width: 8rem;
+  height: 5rem;
+  margin-top: 0.25rem;
+  color: inherit;
+}
+
 #leaderboard {
   margin-top: 0.5rem;
   border-top: 1px solid currentColor;
@@ -144,6 +172,26 @@ const style = `
           <input type="number" id="acc-factor" min="0.001" max="0.008" step="0.0001">
         </label>
         <div id="presets"></div>
+        <div id="ramps">
+          <fieldset class="ramp" id="steer-ramp">
+            <legend>Steer curve</legend>
+            <select class="ramp-mode">
+              <option value="linear">Linear</option>
+              <option value="exponential">Exponential</option>
+            </select>
+            <input type="number" class="ramp-exp" min="1" max="4" step="0.1" title="Exponent">
+            <canvas class="ramp-graph"></canvas>
+          </fieldset>
+          <fieldset class="ramp" id="throttle-ramp">
+            <legend>Throttle curve</legend>
+            <select class="ramp-mode">
+              <option value="linear">Linear</option>
+              <option value="exponential">Exponential</option>
+            </select>
+            <input type="number" class="ramp-exp" min="1" max="4" step="0.1" title="Exponent">
+            <canvas class="ramp-graph"></canvas>
+          </fieldset>
+        </div>
       </details>
       <div id="leaderboard" hidden>
         <div>Leaderboard <button type="button" id="board-refresh" title="Refresh">&#8635;</button></div>

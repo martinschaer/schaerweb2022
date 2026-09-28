@@ -21,6 +21,8 @@ import { PALETTE, disposeMaterials } from "./materials";
 import { getItem, storeItem } from "./storage";
 import { formatLapTime } from "./format";
 import LeaderboardPanel from "./leaderboard-ui";
+import { applyRamp, parseRamp, type Ramp, type RampMode } from "./ramp";
+import RampGraph from "./ramp-graph";
 import {
   buildVenue,
   getCircuitBounds,
@@ -117,6 +119,24 @@ export default class Game {
   presets: Array<Preset> = DEFAULT_PRESETS.map((p) => ({ ...p }));
 
   activePreset: number = 0;
+
+  $handling: HTMLDetailsElement | null;
+
+  // Response curves for the analog inputs. Global rather than per preset:
+  // they describe how the player's controller should feel, not the car.
+  steerRamp: Ramp = parseRamp(null);
+
+  throttleRamp: Ramp = parseRamp(null);
+
+  // Raw input from the latest physics step, before its curve is applied. Kept
+  // only so the Handling graphs can plot where the stick is.
+  steerInput: number = 0;
+
+  throttleInput: number = 0;
+
+  steerGraph: RampGraph | null = null;
+
+  throttleGraph: RampGraph | null = null;
 
   // Derived from circuit geometry in createElements(), since no circuit JSON
   // declares its own extent.
@@ -223,6 +243,7 @@ export default class Game {
     this.$turnFactor = this.$el.querySelector("#turn-factor");
     this.$accFactor = this.$el.querySelector("#acc-factor");
     this.$presets = this.$el.querySelector("#presets");
+    this.$handling = this.$el.querySelector("#handling");
 
     // create an engine
     this.engine = Matter.Engine.create();
@@ -329,6 +350,48 @@ export default class Game {
     this.syncHandlingUI();
   }
 
+  loadRamps() {
+    const stored = getItem<{ steer?: unknown; throttle?: unknown }>("ramps");
+    this.steerRamp = parseRamp(stored?.steer);
+    this.throttleRamp = parseRamp(stored?.throttle);
+  }
+
+  saveRamps() {
+    storeItem("ramps", { steer: this.steerRamp, throttle: this.throttleRamp });
+  }
+
+  // Wires one curve's fieldset (mode select, exponent field, graph) to the
+  // given ramp. The ramp objects are mutated in place and never replaced after
+  // loadRamps(), so the listeners keep pointing at the live ones.
+  bindRamp(id: string, ramp: Ramp, symmetric: boolean): RampGraph | null {
+    const fieldset = this.$el.querySelector(`#${id}`);
+    const mode = fieldset?.querySelector<HTMLSelectElement>(".ramp-mode");
+    const exponent = fieldset?.querySelector<HTMLInputElement>(".ramp-exp");
+    const canvas = fieldset?.querySelector<HTMLCanvasElement>(".ramp-graph");
+    if (!mode || !exponent || !canvas) return null;
+
+    mode.value = ramp.mode;
+    exponent.value = String(ramp.exponent);
+    exponent.disabled = ramp.mode === "linear";
+
+    mode.addEventListener("change", () => {
+      ramp.mode = mode.value as RampMode;
+      exponent.disabled = ramp.mode === "linear";
+      this.saveRamps();
+      // Hands the arrow keys back to the car (see isHudFocused()).
+      mode.blur();
+    });
+    this.bindHandlingInput(
+      exponent,
+      (value) => {
+        ramp.exponent = value;
+      },
+      () => this.saveRamps(),
+    );
+
+    return new RampGraph(canvas, { symmetric });
+  }
+
   // True while any Handling control has focus, so typing a number doesn't also
   // switch presets or drive the car. A ShadowRoot reports activeElement for its
   // own tree.
@@ -343,6 +406,7 @@ export default class Game {
   bindHandlingInput(
     input: HTMLInputElement | null,
     apply: (value: number) => void,
+    commit: () => void = () => this.savePreset(),
   ) {
     if (!input) return;
     input.addEventListener("input", () => {
@@ -350,7 +414,7 @@ export default class Game {
       if (!Number.isFinite(value)) return; // empty or mid-edit
       apply(Math.min(Math.max(value, Number(input.min)), Number(input.max)));
     });
-    input.addEventListener("change", () => this.savePreset());
+    input.addEventListener("change", commit);
     input.addEventListener("keydown", (event) => {
       if (event.key === "Enter") input.blur();
     });
@@ -577,6 +641,10 @@ export default class Game {
 
     this.applyPreset(this.activePreset);
 
+    this.loadRamps();
+    this.steerGraph = this.bindRamp("steer-ramp", this.steerRamp, true);
+    this.throttleGraph = this.bindRamp("throttle-ramp", this.throttleRamp, false);
+
     this.input.attach();
     document.addEventListener("keydown", this.handleKeyDown);
     document.addEventListener("visibilitychange", this.handleVisibilityChange);
@@ -619,13 +687,15 @@ export default class Game {
     const keys = !this.isHudFocused();
 
     const steer = this.input.steer(keys);
+    this.steerInput = steer;
     if (steer !== 0) {
-      this.car.turn(steer);
+      this.car.turn(applyRamp(steer, this.steerRamp));
     }
 
     const throttle = this.input.throttle(keys);
+    this.throttleInput = throttle;
     if (throttle > 0) {
-      this.car.accelerate(throttle);
+      this.car.accelerate(applyRamp(throttle, this.throttleRamp));
     }
 
     // Ghost
@@ -672,6 +742,12 @@ export default class Game {
     this.view.render();
 
     this.updateHud(delta);
+
+    // Nothing to plot while the panel is collapsed.
+    if (this.$handling?.open) {
+      this.steerGraph?.draw(this.steerRamp, this.steerInput);
+      this.throttleGraph?.draw(this.throttleRamp, this.throttleInput);
+    }
   }
 
   private syncGhost() {
